@@ -1,0 +1,109 @@
+.profile .body-content {
+	margin-top: 50px;
+}
+.profile .body-content ul li {
+	list-style: none;
+}
+.profile .nav-pills li {
+    float:none;
+    display:inline-block;
+    zoom:1;
+}
+.profile .body-content .nav-pills.social-nav {
+    text-align:center;
+}
+.profile .body-content .nav-pills.social-nav li a{
+    color: #BB2838;
+}
+.profile .body-content .nav-pills.social-nav li a:hover{
+    color: #1BBC9C;
+}
+.profile .languages {
+	float: right;
+}
+.profile .body-content .section-intro {
+	margin-top: 50px;
+}
+.profile .body-content .section-intro .verified-user i {
+	font-size: 150px;
+	color: green;
+}
+.profile .body-content .section-intro .verified-user span {
+	margin-left:15px;
+	font-size: 30px;
+	color: #1BBC9C;
+}
+.profile .body-content .section-intro .intro-text h1 {
+	margin-bottom: 0;
+}
+.profile .body-content .section-intro .intro-image img {
+	width: 200px;
+	object-fit: fill;
+}
+.profile .body-content .about-candidate li {
+	text-align: center;
+}
+.profile .body-content .about-candidate li i {
+	font-size: 25px;
+	color: #1BBC9C;
+}
+.profile .body-content .about-candidate li a {
+	font-size: 15px;
+}
+.profile .body-content .services i {
+	font-size: 20px;
+	color: #1BBC9C;
+}
+.profile .body-content .about-candidate .col-sm-6.col-md-3 {
+	padding-left:  0 !important;
+}
+.profile .body-content .section-resume {
+	margin-top: 30px;
+}
+
+.profile .body-content .section-resume .asymetric {
+	margin-top: 30px;
+	border-bottom: 1px inset;
+}
+.profile .body-content .section-resume .row {
+	margin-left: 0;
+}
+
+.profile .body-content .section-resume .skill-selection-container {
+	margin-top: 35px;
+}
+.profile .body-content .portfolio .nav-pills li a{
+    color: #1BBC9C;
+}
+.profile .body-content .portfolio .nav-pills li a:hover{
+    color: #BB2838
+}
+.profile .body-content .portfolio .nav-pills>li.active>a {
+	background-color: rgba(0,0,0,.125);
+}
+.profile .body-content .portfolio .tab-content {
+	margin-top: 20px; 
+}
+.profile .body-content .portfolio .tab-content h4{
+	margin-bottom: 10px; 
+}
+.profile .body-content .contact-us li {
+	text-align: center;
+}
+.profile .body-content .contact-us li i {
+	font-size: 25px;
+	color: #1BBC9C;
+}
+.profile .body-content .contact-us li a {
+	font-size: 15px;
+}
+.profile .body-content .contact-us .col-sm-6.col-md-3 {
+	padding-left:  0 !important;
+}
+.profile .fa-exclamation-circle {
+	color: #990000;
+}
+.profile .contact-us button {
+	background-color: #1BBC9C;
+	color: #fff;
+}

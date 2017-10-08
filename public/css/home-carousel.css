@@ -1,0 +1,133 @@
+@import url(//fonts.googleapis.com/css?family=Muli:300,400,700);
+
+/* ==========================================
+Carousel
+========================================== */
+.create-profile-carousel .col-item {
+	border: 1px solid #d6d6d6;
+	background: #ffffff;
+}
+
+.create-profile-carousel .col-item .photo img {
+	margin: 0 auto;
+	width: 100%;
+	max-height: 50px;
+}
+
+.create-profile-carousel .col-item .info {
+	padding: 10px;
+	margin-top: 1px;
+}
+
+.create-profile-carousel .col-item .info h4 {
+	color: #54b6bf;
+	font-weight: 400;
+	margin-top: 0;
+	font-size: 16px;
+	min-height: 35px;
+	max-height: 35px;
+	border-bottom: 0;
+	padding-bottom: 0;
+}
+.create-profile-carousel .col-item .info h4 a { color: #6cb5bc; }
+	.col-item .info h4 a:hover { color: #303030; }
+
+.create-profile-carousel .col-item .info .intents {
+	float: right;
+	right: 10px;
+	font-size: 12px;
+	color: #ffffff;
+	line-height: 20px;
+}
+.create-profile-carousel .col-item .info .intents [class*="fa-"] {
+	font-size: 10px;
+	color: #777777;
+}
+.create-profile-carousel .col-item .info .intents .count {
+	line-height: 14px;
+	display: inline-block;
+	margin: 0 5px;
+	color: #777777;
+}
+.create-profile-carousel .col-item .info p.desc {
+	min-height: 50px;
+	max-height: 50px;
+	padding-top: 4px;
+}
+
+.create-profile-carousel .col-item .info p {
+	color: #777777;
+	font-size: 14px;
+}
+
+.create-profile-carousel .col-item .separator { border-top: 1px solid #d6d6d6; }
+.create-profile-carousel .clear-left { clear: left; }
+
+.create-profile-carousel .col-item .separator p {
+	line-height: 20px;
+	margin-bottom: 0;
+	margin-top: 10px;
+	text-align: center;
+}
+.create-profile-carousel .col-item .separator p i { margin-right: 4px; }
+
+.create-profile-carousel .col-item .btn-type {
+	width: 30%;
+	float: left;
+	border-right: 1px solid #d6d6d6;
+}
+.create-profile-carousel .col-item .btn-views {
+	width: 20%;
+	float: left;
+	border-right: 1px solid #d6d6d6;
+}
+.create-profile-carousel .col-item .btn-likes {
+	width: 20%;
+	float: left;
+	border-right: 1px solid #d6d6d6;
+}
+.create-profile-carousel .col-item .btn-details {
+	width: 30%;
+	float: left;
+	padding-left: 10px;
+	display: inline;
+}
+.create-profile-carousel .col-item .btn-type a,
+.create-profile-carousel .col-item p.btn-views,
+.create-profile-carousel .col-item p.btn-likes,
+.create-profile-carousel .col-item .btn-details a {
+	font-size: 12px;
+	color: #777777;
+}
+
+.create-profile-carousel .col-item .btn-type a:hover,
+.create-profile-carousel .col-item .btn-details a:hover {
+	color: #444444;
+}
+
+.create-profile-carousel .col-item .btn-likes [class*="fa-"] {
+	font-size: 11px;
+	color: #61bdc5;
+}
+.create-profile-carousel .col-item .btn-views [class*="fa-"] {
+	font-size: 12px;
+	color: #61bdc5;
+}
+
+.create-profile-carousel .col-item .btn-delete {
+	width: 30%;
+	float: left;
+	border-right: 1px solid #d6d6d6;
+	color: #db9191;
+}
+.create-profile-carousel .col-item .btn-delete a {
+	background: #db9191;
+	color: #ffffff;
+	font-size: 12px;
+	font-weight: 400;
+	padding: 1px 5px;
+}
+.create-profile-carousel .col-item .btn-delete a:hover { background: #bd3831; }
+
+.create-profile-carousel .controls { margin: 10px 0 20px; }
+.create-profile-carousel [data-slide="prev"] { margin-right: 10px; }

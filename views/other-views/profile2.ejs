@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="CSSLoss.com">
+    <link rel="icon" href="/images/favicon.img">
+    <title>CeedBase</title>
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic"
+          rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+  	<script src="js/jquery/dist/jquery.min.js"></script>
+  	<script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="css/dark.css" type="text/css"/>
+    <link rel="stylesheet" href="css/font-icons.css" type="text/css"/>
+    <link rel="stylesheet" href="css/animate.css" type="text/css"/>
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css"/>
+    <link rel="stylesheet" href="css/responsive.css" type="text/css"/>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/revolution-slider.css">
+    <script src="plugins/select2/dist/js/select2.min.js"></script>
+  	<link rel="stylesheet" href="plugins/select2/dist/css/select2.min.css">
+
+    <!-- SLIDER REVOLUTION 5.x CSS SETTINGS -->
+    <link rel="stylesheet" type="text/css" href="css/rs-plugin/settings.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="css/rs-plugin/layers.css">
+    <link rel="stylesheet" type="text/css" href="css/rs-plugin/navigation.css">
+    <link rel="stylesheet" type="text/css" href="css/profile_version_2.css">
+</head>
+
+<body class="profile">
+<% include partials/header_profile %>
+<div class="languages">
+    <nav class="">
+        <ul class="nav nav-pills">
+            <li><a href="#" class="active">eng</a></li>
+            <li><a href="#">рус</a></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="container body-content">
+	<!-- LOADER -->
+	<div class="loader-wrapper">
+	    <div class="loader"></div>
+	</div>
+	<!-- LANGUAGE -->
+
+	<!-- DOWNLOAD CV -->
+	<div class="text-center">
+	    <ul>
+	        <li>
+	        	<a href="">
+	        		<h2>Download 
+	        			<span class="active">My CV</span>
+	        		</h2>
+	        	</a>
+	        </li>
+	    </ul>
+	    <ul class="nav nav-pills social-nav">
+		  	<li><a href="#"><i class="icon icon-twitter"></i></a></li>
+	        <li><a href="#"><i class="icon icon-facebook"></i></a></li>
+	        <li><a href="#"><i class="icon icon-linkedin"></i></a></li>
+		</ul>
+	</div>
+	
+
+		
+	<!-- INTRO SECTION -->
+	<div id="intro" class="section-intro">
+	    <!-- RESUME CLOSE -->
+	    <div class="resume-close"></div>
+
+	    
+	    <div class="container">
+	        <div class="row intro-row">
+	            <div class="col-md-3 intro-image container">
+	                <!-- YOUR AVATAR -->
+	                <img src='<%= user.image %>' alt="avatar" >
+
+	            </div>
+	            <div class="col-md-6 intro-text">
+	                <h1>I'm <span class="typed"><%= user.displayName %></span></h1>
+                	<ul >
+					  	<li>a Designer</li>
+				        <li>a Developer</li>
+				        <li>a geek</li>
+					</ul>
+	                <p>A Web Developer From Earth</p>
+	            </div>
+	            <div class="col-md-3 verified-user">
+	            	<i class="fa fa-check-circle" aria-hidden="true"></i>
+	            	<br>
+	            	<span >verified </span>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<!-- /END INTRO SECTION -->
+
+	<!-- RESUME SECTION -->
+	<div id="resume" class="section-resume">
+	    <div class="container-fluid">
+
+	        <!-- ABOUT -->
+	        <div class="row asymetric about-candidate">
+	            <div class="col-lg-3">
+	                <div class="section-header">
+	                    <h2>About</h2>
+	                    <p>What I'm all about.</p>
+	                </div>
+	            </div>
+	            <div class="col-lg-9">
+	                <div>
+	                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+	                    <ul class="info-list list-unstyled row p-t-30">
+	                        <li class="col-sm-6 col-md-3">
+	                        	<strong>
+	                        		<i class="fa fa-user" aria-hidden="true"></i>
+	                        	</strong>
+	                        	<br>
+	                        	<span><%= user.displayName %></span>
+	                        </li>
+	                        <li class="col-sm-6 col-md-3">
+	                        	<strong>
+	                        		<i class="fa fa-birthday-cake" aria-hidden="true"></i>
+	                        	</strong>
+	                        	<br>
+	                        	<span>August 1, 1991</span>
+	                        </li>
+	                        <li class="col-sm-6 col-md-3">
+	                        	<strong>
+	                        		<i class="fa fa-home" aria-hidden="true"></i>
+	                        	</strong>
+	                        	<br>
+	                        	<span>United States</span>
+	                        </li>
+	                        <li class="col-sm-6 col-md-3">
+	                        	<strong>
+	                        		<i class="fa fa-envelope" aria-hidden="true"></i>
+	                        	</strong>
+	                        	<br>
+	                        	<span id="userEmailValue"><%= user.email %></span>
+	                        </li>
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	        <!-- /END ABOUT -->
+	        <!-- SKILLS -->
+	        <div class="row asymetric">
+	            <div class="col-lg-3">
+	                <div class="section-header">
+	                    <h2>Skills</h2>
+	                    <p>Progress bars?</p>
+	                </div>
+	            </div>
+
+	            <!-- PROGRESS BARS -->
+	            <div class="col-lg-9 skill-selection-container">
+                	<select id="skill-selection" multiple="multiple" style="width:100%">
+						<option value="Hiking">Html/CSS</option>
+						<option value="Trekking">Javascript</option>
+						<option value="Cycling">PHP/MYSQL</option>
+						<option value="Camping">WordPress</option>
+						<option value="Hiking">Photoshop</option>
+						<option value="Trekking">Illustrator</option>
+						<option value="Cycling">InDesign</option>
+						<option value="Camping">After Effect</option>
+					</select>
+	            </div>
+	        </div>
+	        <!-- /END SKILLS -->
+
+	        <!-- SERVICES -->
+	        <div class="row asymetric services">
+	            <div class="col-lg-3">
+	                <div class="section-header">
+	                    <h2>Services</h2>
+	                    <p>What I can do.</p>
+	                </div>
+	            </div>
+	            <div class="col-lg-9">
+	                <div>
+	                    <div class="row">
+	                        <div class="col-md-6">
+	                            <div class="box-content">
+	                                <h4>
+	                                	<i class="fa fa-globe" aria-hidden="true"></i>&nbsp;Web Design
+	                                </h4>
+	                                <p>Ei constituam theophrastus per, sea dolorum disputationi in, vel menandri suavitate similique in. Vide assum conceptam eum.</p>
+	                            </div>
+	                        </div>
+	                        <div class="col-md-6">
+	                            <div class="box-content">
+	                                <h4>
+	                                	<i class="fa fa-print" aria-hidden="true"></i>&nbsp;Print &amp; Branding
+	                                </h4>
+	                                <p>Ei constituam theophrastus per, sea dolorum disputationi in, vel menandri suavitate similique in. Vide assum conceptam eum.</p>
+	                            </div>
+	                        </div>
+	                        <div class="col-md-6">
+	                            <div class="box-content">
+	                                <h4>
+	                                	<i class="fa fa-list" aria-hidden="true"></i>&nbsp;Illustrations
+	                                </h4>
+	                                <p>Ei constituam theophrastus per, sea dolorum disputationi in, vel menandri suavitate similique in. Vide assum conceptam eum.</p>
+	                            </div>
+	                        </div>
+	                        <div class="col-md-6">
+	                            <div class="box-content">
+	                                <h4>
+	                                	<i class="fa fa-mobile" aria-hidden="true"></i>&nbsp;Mobile App
+	                                </h4>
+	                                <p>Ei constituam theophrastus per, sea dolorum disputationi in, vel menandri suavitate similique in. Vide assum conceptam eum.</p>
+	                            </div>
+	                        </div>
+	                        <div class="col-md-6">
+	                            <div class="box-content">
+	                                <h4>
+	                                	<i class="fa fa-bullseye" aria-hidden="true"></i>&nbsp;SEO Services
+	                                </h4>
+	                                <p>Ei constituam theophrastus per, sea dolorum disputationi in, vel menandri suavitate similique in. Vide assum conceptam eum.</p>
+	                            </div>
+	                        </div>
+	                        <div class="col-md-6">
+	                            <div class="box-content">
+	                                <h4>
+	                                	<i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Speed Support
+	                                </h4>
+	                                <p>Ei constituam theophrastus per, sea dolorum disputationi in, vel menandri suavitate similique in. Vide assum conceptam eum.</p>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <!-- /END SERVICES -->
+
+	        <!-- PORTFOLIO -->
+	        <div class="row asymetric">
+	            <div class="col-lg-3">
+	                <div class="section-header">
+	                    <h2>Portfolio</h2>
+	                    <p>My amazing works.</p>
+	                </div>
+	            </div>
+	            <div class="col-lg-9 portfolio">
+	                <div>
+                        <ul class="nav nav-pills">
+                            <li class="active">
+                                <a data-toggle="pill" href="#portfolioAll" >All</a>
+                            </li>
+                            <li>
+                                <a data-toggle="pill" href="#portfolioWeb">Web design</a>
+                            </li>
+                            <li>
+                                <a data-toggle="pill" href="#portfolioAudio">Audio</a>
+                            </li>
+                            <li>
+                                <a data-toggle="pill" href="#portfolioVideo">Video</a>
+                            </li>
+                        </ul>
+	                    
+	                    <div class="tab-content">
+						  	<div id="portfolioAll" class="tab-pane fade in active">
+						    	<h4>All</h4>
+						    	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.</p>
+						  	</div>
+						  	<div id="portfolioWeb" class="tab-pane fade">
+						    	<h4>Web design</h4>
+						    	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.</p>
+						  	</div>
+						  	<div id="portfolioAudio" class="tab-pane fade">
+						   		<h4>Audio</h4>
+						    	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.</p>
+						  	</div>
+						  	<div id="portfolioVideo" class="tab-pane fade">
+						   		<h4>Video</h4>
+						    	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.</p>
+						  	</div>
+						</div>
+	                    <!-- <div class="row gallery">
+	                        <div class="col-sm-6 gallery-item audio">
+	                            <a class="popup-image" href="/images/portfolio/1_full.jpg">
+	                                <img src="/images/portfolio/1_thumb.jpg" alt="">
+	                                <div class="gallery-caption">
+	                                    <div>
+	                                        <h4>Print Design</h4>
+	                                        <h5>Branding</h5>
+	                                    </div>
+	                                </div>
+	                            </a>
+	                        </div>
+	                        <div class="col-sm-6 gallery-item web">
+	                            <a class="popup-image" href="/images/portfolio/2_full.jpg">
+	                                <img src="/images/portfolio/2_thumb.jpg" alt="">
+	                                <div class="gallery-caption">
+	                                    <div>
+	                                        <h4>Photography</h4>
+	                                        <h5>Photography</h5>
+	                                    </div>
+	                                </div>
+	                            </a>
+	                        </div>
+	                        <div class="col-sm-6 gallery-item web">
+	                            <a class="popup-image" href="/images/portfolio/3_full.jpg">
+	                                <img src="/images/portfolio/3_thumb.jpg" alt="">
+	                                <div class="gallery-caption">
+	                                    <div>
+	                                        <h4>Logo Design</h4>
+	                                        <h5>Branding</h5>
+	                                    </div>
+	                                </div>
+	                            </a>
+	                        </div>
+	                        <div class="col-sm-6 gallery-item audio">
+	                            <a class="popup-video" href="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/237603952&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true">
+	                                <img src="/images/portfolio/4_thumb.jpg" alt="">
+	                                <div class="gallery-caption">
+	                                    <div>
+	                                        <h4>Audio Project</h4>
+	                                        <h5>Audio</h5>
+	                                    </div>
+	                                </div>
+	                            </a>
+	                        </div>
+	                        <div class="col-sm-6 gallery-item video">
+	                            <a class="popup-video" href="https://www.youtube.com/watch?v=fZdkJKFwDE0">
+	                                <img src="/images/portfolio/5_thumb.jpg" alt="">
+	                                <div class="gallery-caption">
+	                                    <div>
+	                                        <h4>Video Project</h4>
+	                                        <h5>Video</h5>
+	                                    </div>
+	                                </div>
+	                            </a>
+	                        </div>
+	                        <div class="col-sm-6 gallery-item web">
+	                            <a class="popup-image" href="/images/portfolio/6_full.jpg">
+	                                <img src="/images/portfolio/6_thumb.jpg" alt="">
+	                                <div class="gallery-caption">
+	                                    <div>
+	                                        <h4>Vector Logo</h4>
+	                                        <h5>Vector</h5>
+	                                    </div>
+	                                </div>
+	                            </a>
+	                        </div>
+	                    </div> -->
+	                </div>
+	            </div>
+	        </div>
+	        <!-- /END PORTFOLIO -->
+
+	        <!-- EXPERIENCE -->
+	        <div class="row asymetric">
+	            <div class="col-lg-3">
+	                <div class="section-header">
+	                    <h2>Experience</h2>
+	                    <p>Yes. I've been around.</p>
+	                </div>
+	            </div>
+	            <div class="col-lg-9">
+	                <div>
+
+	                    <!-- EXPERIENCE TIMELINE -->
+	                    <ul class="timeline">
+	                        <li>
+	                            <h2 class="title">Facelook</h2>
+	                            <span class="time">2015 - Present</span>
+	                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.</p>
+	                        </li>
+	                        <li>
+	                            <h2 class="title">Twiller</h2>
+	                            <span class="time">2013 - 2015</span>
+	                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.</p>
+	                        </li>
+	                        <li>
+	                            <h2 class="title">Dridddle</h2>
+	                            <span class="time">2010 - 2013</span>
+	                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.</p>
+	                        </li>
+	                    </ul>
+	                    <!-- /END EXPERIENCE TIMELINE -->
+
+	                </div>
+	            </div>
+	        </div>
+	        <!-- /END EXPERIENCE -->
+
+	        <!-- EDUCATION -->
+	        <div class="row asymetric">
+	            <div class="col-lg-3">
+	                <div class="section-header">
+	                    <h2>Education</h2>
+	                    <p>I'm not lazy.</p>
+	                </div>
+	            </div>
+	            <div class="col-lg-9">
+	                <div>
+
+	                    <!-- EDUCATION TIMELINE -->
+	                    <ul class="timeline">
+	                        <li>
+	                            <h2 class="title">MIIT</h2>
+	                            <span class="time">2008 - 2010</span>
+	                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.</p>
+	                        </li>
+	                        <li>
+	                            <h2 class="title">Harward University</h2>
+	                            <span class="time">2003 - 2008</span>
+	                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.</p>
+	                        </li>
+	                        <li>
+	                            <h2 class="title">Academy of Arts</h2>
+	                            <span class="time">2000 - 2003</span>
+	                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.</p>
+	                        </li>
+	                    </ul>
+	                    <!-- /END EDUCATION TIMELINE -->
+
+	                </div>
+	            </div>
+	        </div>
+	        <!-- /END EDUCATION -->
+
+	        <!-- CLIENTS -->
+	        <!-- <div class="row asymetric">
+	            <div class="col-lg-3">
+	                <div class="section-header">
+	                    <h2>Clients</h2>
+	                    <p>Happy Customers.</p>
+	                </div>
+	            </div>
+	            <div class="col-lg-9">
+	                <div>
+	                    <ul class="client-list list-unstyled">
+	                        <li>
+	                            <a href="#"><img src="/images/partners/collabspace.jpg" alt=""></a>
+	                        </li>
+	                        <li>
+	                            <a href="#"><img src="/images/partners/hopefund.png" alt=""></a>
+	                        </li>
+	                        <li>
+	                            <a href="#"><img src="/images/partners/smallbusinessassociation.png" alt=""></a>
+	                        </li>
+	                        <li>
+	                            <a href="#"><img src="/images/partners/collabspace.jpg" alt=""></a>
+	                        </li>
+	                        <li>
+	                            <a href="#"><img src="/images/partners/ictc.png" alt=""></a>
+	                        </li>
+	                        <li>
+	                            <a href="#"><img src="/images/partners/startupottawa.png" alt=""></a>
+	                        </li>
+	                        <li>
+	                            <a href="#"><img src="/images/partners/hopefund.png" alt=""></a>
+	                        </li>
+	                        <li>
+	                            <a href="#"><img src="/images/partners/ictc.png" alt=""></a>
+	                        </li>
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	        <!-- /END CLIENTS --> -->
+
+	        <!-- CONTACT -->
+	        <div class="row asymetric contact-us">
+	            <div class="col-lg-3">
+	                <div class="section-header">
+	                    <h2>Contact</h2>
+	                    <p>Get in touch.</p>
+	                </div>
+	            </div>
+	            <div class="col-lg-9">
+	                <div>
+	                    <ul class="row">
+	                        <li class="col-sm-6 col-md-3">
+	                        	<strong>
+	                        		<i class="fa fa-map-marker" aria-hidden="true"></i>
+	                        	</strong>
+	                        	<br>
+	                        	<span>United States</span>
+	                        </li>
+	                        <li class="col-sm-6 col-md-3">
+	                        	<strong>
+	                        		<i class="fa fa-mobile" aria-hidden="true"></i>
+	                        	</strong>
+	                        	<br>
+	                        	<span>+522 234 56789</span>
+	                        </li>
+	                        <li class="col-sm-6 col-md-3">
+	                        	<strong>
+	                        		<i class="fa fa-mobile" aria-hidden="true"></i>
+	                        	</strong>
+	                        	<br>
+	                        	<a href="http://www.cssloss.com" style="color:#555">
+	                        		<span>cssloss.com</span>
+	                        	</a>
+	                        </li>
+	                        <li class="col-sm-6 col-md-3">
+	                        	<strong>
+	                        		<i class="fa fa-envelope" aria-hidden="true"></i>
+	                        	</strong>
+	                        	<br>
+	                        	<span>yourmail@mail.com</span>
+	                        </li>
+	                    </ul>
+
+	                    <!-- CONTACT FORM -->
+	                    <form class="contact-form p-y-40" id="contact-us-form-elements" method="">
+	                        <p class="send-status error">
+	                        	<i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+	                        	E-mail id must be valid and message must be longer than 1 character.
+	                        </p>
+	                        <input class="form-control" id="fromName" type="text" name="fromName" placeholder="name">
+	                        <input class="form-control" id="toEmail" type="email" name="toEmail" placeholder="email">
+	                        <input class="form-control" id="subject" type="text" name="subject" placeholder="subject">
+	                        <textarea class="form-control" id="message" rows="6" placeholder="message"></textarea>
+	                    </form>
+	                    <button type="button" class="btn text-uppercase m-t-40" id="contact-us-form-submit">
+                        	<span>send</span>
+                       	</button>
+	                </div>
+	            </div>
+	        </div>
+	        <!-- /END CONTACT -->
+
+	    </div>
+	</div>
+	<!-- /END RESUME SECTION -->
+</div>
+<script src="client/controllers/profile.js">
+</script>
+<script>
+	$("#skill-selection").select2({
+      	tags: true,
+      	placeholder: 'Type and Enter'
+    });
+</script>
+</body>
+

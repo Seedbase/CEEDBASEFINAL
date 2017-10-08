@@ -1,0 +1,145 @@
+.profile .intro-image img {
+	object-fit: cover;
+	margin-top: 100px;
+	border-radius: 50%;
+	width: 100%;
+    height: auto;
+    display: block; 
+}
+
+.profile .intro-image {
+	height: 150px;
+	width: 150px;
+	margin-left: 45%;
+}
+
+.profile .intro-image-new-margin img {
+	object-fit: cover;
+	margin-top: 30px;
+	border-radius: 50%;
+	width: 100%;
+    height: auto;
+    display: block; 
+}
+
+.profile .intro-image-new-margin {
+	height: 150px;
+	width: 150px;
+	margin-left: 6%;
+	z-index: 9999;
+}
+.profile. .intro-text-new-margin {
+	margin-left: -70px;
+}
+.intro-image-z-index-hide {
+	z-index: -1 !important;
+}
+.section-resume .addPassion {
+	color: #333;
+}
+.profile .fa {
+	color: rgba(0, 0, 0, .8);
+}
+.profile .fa.fa-pencil, .profile .fa.fa-floppy-o, .profile .fa.fa-plus-square {
+	cursor: pointer;
+	display: inline-block;
+}
+.profile .fa.fa-floppy-o {
+	display: none;
+}
+.profile .fa-floppy-o#save-passion, .profile .fa-floppy-o#save-freind-reference {
+	padding-bottom: 5px;
+}
+.passion-input-area, .display-name-input-area,
+.birthday-input-area, .residence-input-area,
+.email-input-area, .skill-name-input-area,
+.skill-rating-input-area, #skill-save-button,
+.service-name-input-area, .service-description-input-area, 
+#service-save-button, .add-experience-container,
+.add-education-container, .freind-reference-input-area {
+	display: none;
+}
+.profile .skill-name-input-area {
+	margin-right: 20px;
+}
+.profile #serviceLeft, .profile #serviceRight {
+	margin-top: 10px;
+}
+#display-name, #birthday, #residence, #email {
+	word-wrap: break-word;
+}
+.profile .box-content {
+	text-overflow: break-word;
+	overflow-wrap: break-all;
+}
+.ui-datepicker .ui-datepicker-title select {
+    color: #000;
+}
+.datepicker td span, .datepicker-switch {
+	color: #333 !important;
+}
+.datepicker {
+	width: 20% !important;
+}
+.experience-div, .education-div {
+	margin-top: 10px;
+	padding-left: 20px;
+}
+a {
+	color: #337ab7 !important;
+}
+textarea {
+	resize: vertical;
+}
+.verifiedTagImage {
+	width: 21.813px !important;
+	height: 26.094px !important
+}
+.verifiedTagImageExternalLinks {
+	margin-left: -4px;
+}
+.authenticatedByOrg {
+	margin-top: -27px;
+    margin-left: 6.5px;
+    color:#1BBC9C !important;
+}
+.authenticatedByOrgExternalLinks {
+	margin-top: -27px;
+    margin-left: 2.5px;
+    color:#1BBC9C !important;
+}
+.verifiedTagExternalLinks {
+	color: #3e963e;
+    margin-left: -16px;
+    margin-top: -8px;
+    display: block;
+ }
+.verifiedTag {
+	color: #3e963e;
+    margin-left: -12px;
+    margin-top: -8px;
+    display: block;
+ }
+ /* Tooltip container */
+.showAuthenticatorOnHover {
+    display: inline-block;
+}
+
+/* Tooltip text */
+.showAuthenticatorOnHover .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.showAuthenticatorOnHover:hover .tooltiptext {
+    visibility: visible;
+}

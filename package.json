@@ -1,0 +1,39 @@
+{
+  "name": "ceedbase",
+  "version": "1.0.0",
+  "description": "delta phase",
+  "scripts": {
+    "start": "nodemon server2.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.8.4",
+    "cookie-parser": "^1.3.5",
+    "cookie-session": "^1.3.0",
+    "debug": "^2.6.8",
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
+    "express-session": "^1.15.4",
+    "fine-uploader": "^5.15.0",
+    "jquery-toast-plugin": "^1.3.1",
+    "mongoose": "^4.1.9",
+    "morgan": "^1.3.2",
+    "multer": "^1.3.0",
+    "nodemailer": "^4.1.0",
+    "nodemailer-mailgun-transport": "^1.3.5",
+    "nodemon": "^1.11.0",
+    "oauth": "^0.9.15",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-google": "^0.3.0",
+    "passport-google-oauth": "^1.0.0",
+    "passport-google-oauth2": "^0.1.6",
+    "passport-linkedin": "^1.0.0",
+    "passport-linkedin-oauth2": "^1.5.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.1.0",
+    "passport-oauth": "^1.0.0",
+    "passport-twitter": "^1.0.4",
+    "serve-favicon": "^2.1.7",
+    "xoauth2": "^1.2.0"
+  }
+}

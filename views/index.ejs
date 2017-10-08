@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link rel="shortcut icon" href="img/ceedbase.png">
+
+    <!-- Stylesheets
+	============================================= -->
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic"
+          rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="css/dark.css" type="text/css"/>
+    <link rel="stylesheet" href="css/font-icons.css" type="text/css"/>
+    <link rel="stylesheet" href="css/animate.css" type="text/css"/>
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css"/>
+    <link rel="stylesheet" href="css/responsive.css" type="text/css"/>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/revolution-slider.css">
+    <link rel="stylesheet" href="css/home-carousel.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!-- SLIDER REVOLUTION 5.x CSS SETTINGS -->
+    <link rel="stylesheet" type="text/css" href="css/rs-plugin/settings.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="css/rs-plugin/layers.css">
+    <link rel="stylesheet" type="text/css" href="css/rs-plugin/navigation.css">
+
+    <!-- Document Title
+    ============================================= -->
+    <title>CEEDBASE</title>
+
+</head>
+
+<body class="stretched">
+<p style="display: none;" id="all-creatives-profile"><%= JSON.stringify(users) %></p>
+<p style="display: none;" id="clicked-creative-profile"></p>
+
+<!-- Document Wrapper
+============================================= -->
+<div id="wrapper" class="clearfix">
+
+
+    <!-- Header
+    ============================================= -->
+    <% include partials/header_home %>
+
+    <!-- Slider
+    ============================================= -->
+    <% include partials/slider %>
+
+    <div class="clear"></div>
+
+    <!-- Content
+    ============================================= -->
+    <!-- popup login -->
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" align="center">
+                        <img class="img-circle" id="img_logo" src="images/ceedbaseLogo/ceedbase.png">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <!-- Begin # DIV Form -->
+                    <div id="div-forms">
+                        <!-- Begin # Login Form -->
+                        <form id="login-form">
+                            <div class="modal-footer">
+                                <p style="text-align: center">Get Creative</p>
+                                <div>
+                                    <a href= "/auth/google" type="submit" class="btn btn-danger btn-lg btn-block"><i class="fa fa-google-plus-official fa-1x" aria-hidden="true"></i>&nbsp &nbsp Join with Google</a>
+                                    <a href= "/auth/facebook" type="submit" class="btn btn-primary btn-lg btn-block"><i class= "fa fa-facebook fa-1x"></i>&nbsp &nbsp Join with Facebook</a>
+                                    <a href= "/auth/twitter" type="submit" class="btn btn-success btn-lg btn-block"><i class= "fa fa-twitter fa-1x"></i>&nbsp &nbsp Join with Twitter</a>
+                                    <a href="/auth/linkedIn" type="submit" class="btn btn-info btn-lg btn-block"><i class="fa fa-linkedin" aria-hidden="true"></i>&nbsp &nbsp Join with LinkedIn</a>
+                                </div>
+                                <br><br>
+                                <a href=""style="text-align: center">Sign in or sign up with email</a>
+                                <br><br>
+                                <a href="terms-of-use" style="text-align: center">Terms of Service</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <section id="section-work" class="page-section topmargin-lg">
+
+        <div class="heading-block center">
+            <h2>Community</h2>
+            <span>Portfolios of qualified creatives and driving businesses </span>
+        </div>
+
+        <div class="container clearfix center">
+
+            <!-- Portfolio Items
+            ============================================= -->
+            <h2>Creatives</h2>
+            <%if (users) { %>
+                <div class="container">
+                    <div id="code-carousel" class="carousel slide hidden-xs create-profile-carousel" data-ride="carousel">
+                        <div class="carousel-inner" id="creative-profile-slider">
+                            <div class="item active">
+                                <div class="row">
+                                    <%if (users[0]) { %>
+                                        <div class="col-sm-3" data-toggle="modal" data-target="#show-user-profile" id="creative-profile-card-0">
+                                            <div class="col-item">
+                                                <div class="info" style="background-image: url('<%= users[0].image %>'); background-repeat: no-repeat; background-size: cover;">
+                                                    <h4><a href=""></a></h4>
+                                                    <p class="desc"></p>
+                                                    <div class="clearfix"></div>    
+                                                </div>
+                                            </div>
+                                            <span class="text-uppercase">
+                                                <%= users[0].displayName %> <br>
+                                                <%= users[0].profile.residence %>
+                                            </span>
+                                        </div>
+                                    <% } %>
+                                    <%if (users[1]) { %>
+                                        <div class="col-sm-3"  data-toggle="modal" data-target="#show-user-profile" id="creative-profile-card-1">
+                                            <div class="col-item">
+                                                <div class="info" style="background-image: url('<%= users[0].image %>'); background-repeat: no-repeat; background-size: cover;">
+                                                    <h4><a href=""></a></h4>
+                                                    <p class="desc"></p>
+                                                    <div class="clearfix"></div>    
+                                                </div>
+                                            </div>
+                                            <span class="text-uppercase">
+                                                <%= users[1].displayName %> <br>
+                                                <%= users[1].profile.residence %>
+                                            </span>
+                                        </div>
+                                    <% } %>
+                                    <%if (users[2]) { %>
+                                        <div class="col-sm-3"  data-toggle="modal" data-target="#show-user-profile" id="creative-profile-card-2">
+                                            <div class="col-item">
+                                                <div class="info" style="background-image: url('<%= users[0].image %>'); background-repeat: no-repeat; background-size: cover;">
+                                                    <h4><a href=""></a></h4>
+                                                    <p class="desc"></p>
+                                                    <div class="clearfix"></div>    
+                                                </div>
+                                            </div>
+                                            <span class="text-uppercase">
+                                                <%= users[2].displayName %> <br>
+                                                <%= users[2].profile.residence %>
+                                            </span>
+                                        </div>
+                                    <% } %>
+                                    <%if (users[3]) { %>
+                                        <div class="col-sm-3"  data-toggle="modal" data-target="#show-user-profile" id="creative-profile-card-3">
+                                            <div class="col-item">
+                                                <div class="info" style="background-image: url('<%= users[0].image %>'); background-repeat: no-repeat; background-size: cover;">
+                                                    <h4><a href=""></a></h4>
+                                                    <p class="desc"></p>
+                                                    <div class="clearfix"></div>    
+                                                </div>
+                                            </div>
+                                            <span class="text-uppercase">
+                                                <%= users[3].displayName %> <br>
+                                                <%= users[3].profile.residence %>
+                                            </span>
+                                        </div>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <% for(var i=4; i < users.length; i=i+4) { %>
+                                <div class="item">
+                                    <div class="row">
+                                        <%if (users[i]) { %>
+                                            <div class="col-sm-3"  data-toggle="modal" data-target="#show-user-profile" id="creative-profile-card-<%= i %>">
+                                                <div class="col-item">
+                                                    <div class="info" style="background-image: url('<%= users[i].image %>'); background-repeat: no-repeat; background-size: cover;">
+                                                        <h4><a href=""></a></h4>
+                                                        <p class="desc"></p>
+                                                        <div class="clearfix"></div>    
+                                                    </div>
+                                                </div>
+                                                <span class="text-uppercase"  data-toggle="modal" data-target="#show-user-profile">
+                                                    <%= users[i].displayName %> <br>
+                                                    <%= users[i].profile.residence %>
+                                                </span>
+                                            </div>
+                                        <% } %>
+                                        <%if (users[i+1]) { %>
+                                            <div class="col-sm-3"  data-toggle="modal" data-target="#show-user-profile" id="creative-profile-card-<%= i + 1 %>">
+                                                <div class="col-item">
+                                                    <div class="info" style="background-image: url('<%= users[i+1].image %>'); background-repeat: no-repeat; background-size: cover;">
+                                                        <h4><a href=""></a></h4>
+                                                        <p class="desc"></p>
+                                                        <div class="clearfix"></div>    
+                                                    </div>
+                                                </div>
+                                                <span class="text-uppercase">
+                                                    <%= users[i+1].displayName %> <br>
+                                                    <%= users[i+1].profile.residence %>
+                                                </span>
+                                            </div>
+                                        <% } %>
+                                        <%if (users[i+2]) { %>
+                                            <div class="col-sm-3"  data-toggle="modal" data-target="#show-user-profile" id="creative-profile-card-<%= i + 2%>">
+                                                <div class="col-item">
+                                                    <div class="info" style="background-image: url('<%= users[i+2].image %>'); background-repeat: no-repeat; background-size: cover;">
+                                                        <h4><a href=""></a></h4>
+                                                        <p class="desc"></p>
+                                                        <div class="clearfix"></div>    
+                                                    </div>
+                                                </div>
+                                                <span class="text-uppercase">
+                                                    <%= users[i+2].displayName %> <br>
+                                                    <%= users[i+2].profile.residence %>
+                                                </span>
+                                            </div>
+                                        <% } %>
+                                        <%if (users[i+3]) { %>
+                                            <div class="col-sm-3"  data-toggle="modal" data-target="#show-user-profile" id="creative-profile-card-<%= i + 2 %>">
+                                                <div class="col-item">
+                                                    <div class="info" style="background-image: url('<%= users[i+3].image %>'); background-repeat: no-repeat; background-size: cover;">
+                                                        <h4><a href=""></a></h4>
+                                                        <p class="desc"></p>
+                                                        <div class="clearfix"></div>    
+                                                    </div>
+                                                </div>
+                                                <span class="text-uppercase">
+                                                    <%= users[i+3].displayName %> <br>
+                                                    <%= users[i+3].profile.residence %>
+                                                </span>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            <% } %>
+                        </div>
+
+                <!--<h2>Business</h2>-->
+                <!--<div id="portfolio" class="portfolio grid-container portfolio-nomargin clearfix">-->
+
+                    <!--<article class="portfolio-item pf-uielements pf-media">-->
+                        <!--<div class="portfolio-image">-->
+                            <!--<a href="html/portfolio-single.html">-->
+                                <!--<img src="images/portfolio/4/5.jpg" alt="Console Activity">-->
+                            <!--</a>-->
+                            <!--<div class="portfolio-overlay">-->
+                                <!--<a href="html/portfolio-single.html"><i class="fa fa-american-sign-language-interpreting"-->
+                                                                        <!--aria-hidden="true"></i></a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="portfolio-desc">-->
+                            <!--<h3><a href="html/portfolio-single.html">Console Activity</a></h3>-->
+                            <!--<span><a href="#">UI Elements</a>, <a href="#">Media</a></span>-->
+                        <!--</div>-->
+                    <!--</article>-->
+
+                    <!--<article class="portfolio-item pf-graphics pf-illustrations">-->
+                        <!--<div class="portfolio-image">-->
+                            <!--<a href="#">-->
+                                <!--<img src="images/portfolio/4/6.jpg" alt="Mac Sunglasses">-->
+                            <!--</a>-->
+                            <!--<div class="portfolio-overlay" data-lightbox="gallery">-->
+                                <!--<a href="html/portfolio-single-gallery.html"><i-->
+                                            <!--class="fa fa-american-sign-language-interpreting" aria-hidden="true"></i></a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="portfolio-desc">-->
+                            <!--<h3><a href="html/portfolio-single-gallery.html">Shake It!</a></h3>-->
+                            <!--<span><a href="#">Illustrations</a>, <a href="#">Graphics</a></span>-->
+                        <!--</div>-->
+                    <!--</article>-->
+
+                    <!--<article class="portfolio-item pf-uielements pf-icons">-->
+                        <!--<div class="portfolio-image">-->
+                            <!--<a href="html/portfolio-single-video.html">-->
+                                <!--<img src="images/portfolio/4/7.jpg" alt="Backpack Contents">-->
+                            <!--</a>-->
+                            <!--<div class="portfolio-overlay">-->
+                                <!--<a href="html/portfolio-single-video.html"><i-->
+                                            <!--class="fa fa-american-sign-language-interpreting"-->
+                                            <!--aria-hidden="true"></i></a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="portfolio-desc">-->
+                            <!--<h3><a href="html/portfolio-single-video.html">Backpack Contents</a></h3>-->
+                            <!--<span><a href="#">UI Elements</a>, <a href="#">Icons</a></span>-->
+                        <!--</div>-->
+                    <!--</article>-->
+
+                    <!--<article class="portfolio-item pf-graphics">-->
+                        <!--<div class="portfolio-image">-->
+                            <!--<a href="html/portfolio-single.html">-->
+                                <!--<img src="images/portfolio/4/8.jpg" alt="Sunset Bulb Glow">-->
+                            <!--</a>-->
+                            <!--<div class="portfolio-overlay">-->
+                                <!--<a href="html/portfolio-single.html"><i class="fa fa-american-sign-language-interpreting"-->
+                                                                        <!--aria-hidden="true"></i></a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="portfolio-desc">-->
+                            <!--<h3><a href="html/portfolio-single.html">Sunset Bulb Glow</a></h3>-->
+                            <!--<span><a href="#">Graphics</a></span>-->
+                        <!--</div>-->
+                    <!--</article>-->
+                <!--</div>-->
+
+                    </div>
+                </div>
+            <% } %>
+        </div><!-- #portfolio end -->
+        <div id="show-user-profile" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: #fff">
+                    <div class="modal-header">
+                        <div class="col-lg-12">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Profile</h4>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-lg-12">
+                            <h1 style="display: none;" id="intro-Text">I'm <span class="typed" id="typedDomElement"></span></h1>
+                            
+                            <div class="typed-strings" style="display: none">
+                                <p id="intro-Text-1"></p>
+                                <p id="intro-Text-2"></p>
+                                <p id="intro-Text-3"></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-12" style="margin-top: -20px;">
+                            <p id="passion-content-display"></p>
+                            <ul class="info-list list-unstyled row p-t-30">
+                                <li class="col-sm-6 col-md-3">
+                                    <strong>Full Name</strong> <br>                                     
+                                    <span id="display-name"></span>
+                                </li>
+                                <li class="col-sm-6 col-md-3">
+                                    <strong>Birthday</strong>  <br>                                   
+                                    <span id="birthday"></span>
+                                </li>
+                                <li class="col-sm-6 col-md-3">
+                                    <strong>Residence</strong> <br>                                     
+                                    <span id="residence"></span>
+                                </li>
+                                <li class="col-sm-6 col-md-3">
+                                    <strong>Email</strong>  <br>                                 
+                                    <span id="email"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col-lg-12">
+                            <a class="btn btn-link pull-left" id="redirect-to-creative-profile" style="color:#555; text-decoration: underline !important;">Click to visit full profile</a>
+                            <a data-dismiss="modal" class="btn btn-default btn-sm margin-bottom pull-right">Close</a> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="section-team" class="page-section topmargin-lg">
+
+        <section id="section-services" class="page-section topmargin-lg">
+
+            <div class="heading-block center bottommargin-lg">
+                <h2>Services</h2>
+                <span>List of some features included in CeedBase.</span>
+            </div>
+
+            <div class="container clearfix">
+
+                <div class="col_one_third">
+                    <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
+                        <div class="fbox-icon">
+                            <a href="#"><i class="icon-phone2"></i></a>
+                        </div>
+                        <h3>Agile Network</h3>
+                        <p>Streamlined process that saves you cost and time to finding a creative fit</p>
+                    </div>
+                </div>
+
+                <div class="col_one_third">
+                    <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn"
+                         data-delay="200">
+                        <div class="fbox-icon">
+                            <a href="#"><i class="icon-eye"></i></a>
+                        </div>
+                        <h3>Quality Connections</h3>
+                        <p>Promote trustworthiness and/or maximum utilization of talent</p>
+                    </div>
+                </div>
+
+                <div class="col_one_third col_last">
+                    <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn"
+                         data-delay="400">
+                        <div class="fbox-icon">
+                            <a href="#"><i class="icon-star2"></i></a>
+                        </div>
+                        <h3>Intuitive platform</h3>
+                        <p>Delivers on performance</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section>
+            <div class="container clearfix">
+
+                <div class="row">
+
+                    <div class="col-md-12 bottommargin">
+
+                        <div class="section topmargin-sm footer-stick">
+
+                            <div class="accordion accordion-border clearfix nobottommargin">
+
+                                <div class="acctitle"><i class="acc-closed icon-ok-circle"></i><i
+                                            class="acc-open icon-remove-circle"></i>Our Company's Values
+                                </div>
+                                <div class="acc_content clearfix">We believe quality connections is what builds an innovative community.
+                                    We believe an innovative community is what builds business success.
+                                </div>
+
+                                <div class="acctitle"><i class="acc-closed icon-ok-circle"></i><i
+                                            class="acc-open icon-remove-circle"></i>Our mission
+                                </div>
+                                <div class="acc_content clearfix">To facilitate trustworthy connections that maximizes
+                                    the use and retention of creative resources
+                                </div>
+
+                                <div class="acctitle"><i class="acc-closed icon-ok-circle"></i><i
+                                            class="acc-open icon-remove-circle"></i>Where can you find us?
+                                </div>
+                                <div class="acc_content clearfix">Drop an inquiry at info@ceedbase.com or fill out our
+                                    client's request form
+                                </div>
+
+                                <div class="acctitle"><i class="acc-closed icon-ok-circle"></i><i
+                                            class="acc-open icon-remove-circle"></i>Why you choose our Company?
+                                </div>
+                                <div class="acc_content clearfix">We focus on a community of young creatives who are innovative and imaginative
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!-- #Testimonial-->
+                        <h4 class="uppercase center">What <span>Clients</span> say?</h4>
+
+                        <div class="col-centre">
+                            <div class="fslider testimonial testimonial-full" data-animation="fade" data-arrows="false">
+                                <div class="flexslider">
+                                    <div class="slider-wrap">
+                                        <div class="slide">
+                                            <div class="testi-content">
+                                                <p>CeedBase connected me to the creative who developed my prototype
+                                                    when I didn't know where to go.</p>
+                                                <div class="testi-meta">
+                                                    <span>Code Girls Canada</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slide">
+                                            <div class="testi-content">
+                                                <p>Simple and effective.</p>
+                                                <div class="testi-meta">
+                                                    <span>Techwire.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slide">
+                                            <div class="testi-content">
+                                                <p>I was relieved to find affordable local and specific creative talent when I
+                                                    needed it.</p>
+                                                <div class="testi-meta">
+                                                    <span>Linnstec.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- #TestimonialEnd-->
+        <section id="section-contact" class="page-section">
+
+            <div class="heading-block title-center">
+                <h2>You're Creative</h2>
+                <span>Join our community</span>
+            </div>
+        </section>
+            <!--<div class="container clearfix">-->
+
+                <!--&lt;!&ndash; Social Platform-->
+                <!--============================================= &ndash;&gt;-->
+                <!--&lt;!&ndash;//first footer//&ndash;&gt;-->
+                <!--<div class="footer-widgets col-md-12">-->
+                    <!--<div class="col-md-3">-->
+                        <!--<img class="foot-logo" src="images/ceedbaseLogo/ceedbase_2.png"></img>-->
+                        <!--<p> Our community rely on us for Trustworthy, Opportunities & Connections </p>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-3">-->
+
+                        <!--<iframe src="http://www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fenvato&amp;width&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=false&amp;show_border=true"-->
+                                <!--scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:290px;width:100%;"-->
+                                <!--allowTransparency="true"></iframe>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-3">-->
+                        <!--<a class="twitter-timeline" href="https://twitter.com/shameerurdu" data-widget-id="570924634996867072">Tweets-->
+                            <!--by-->
+                            <!--@shameerurdu</a>-->
+                        <!--<script>!function (d, s, id) {-->
+                                <!--var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';-->
+                                <!--if (!d.getElementById(id)) {-->
+                                    <!--js = d.createElement(s);-->
+                                    <!--js.id = id;-->
+                                    <!--js.src = p + "://platform.twitter.com/widgets.js";-->
+                                    <!--fjs.parentNode.insertBefore(js, fjs);-->
+                                <!--}-->
+                            <!--}(document, "script", "twitter-wjs");</script>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-3">-->
+                        <!--<div class="social">-->
+                            <!--<a href="https://www.facebook.com/mySeedBase/" class="icon-twitter"></a>-->
+                            <!--<a href="https://twitter.com/mySeedBase" class="icon-facebook"></a>-->
+                            <!--<a href="https://www.instagram.com/myseedbase/" class="icon-instagram"></a>-->
+                            <!--<a href="https://www.linkedin.com/company-beta/10939386/admin/updates/" class="icon-linkedin"></a>-->
+                            <!--<a href="https://www.youtube.com/channel/UCC2L_CxfT9XrqgkmU8SRLRQ" class="icon-youtube"></a>-->
+                            <!--<a href="info@ceedbase.com" class="icon-envelope"></a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+
+        <!--<section>-->
+            <!--<div id="oc-clients"-->
+                 <!--class="section nobgcolor notopmargin owl-carousel owl-carousel-full image-carousel footer-stick carousel-widget"-->
+                 <!--data-margin="80" data-loop="true" data-nav="false" data-autoplay="5000" data-pagi="false"-->
+                 <!--data-items-xxs="2" data-items-xs="3" data-items-sm="4" data-items-md="5" data-items-lg="6">-->
+
+                <!--<div class="oc-item"><a href="#"><img src="images/partners/ictc.png" alt="Clients"></a></div>-->
+                <!--<div class="oc-item"><a href="#"><img src="images/partners/collabspace.jpg" alt="Clients"></a></div>-->
+                <!--<div class="oc-item"><a href="#"><img src="images/partners/smallbusinessassociation.png" alt="Clients"></a>-->
+                <!--</div>-->
+                <!--<div class="oc-item"><a href="#"><img src="images/partners/startupottawa.png" alt="Clients"></a></div>-->
+
+            <!--</div>-->
+
+        <!--</section>-->
+        <!-- #content end -->
+
+        <!-- footer
+        ============================================= -->
+        <% include partials/footer2 %>
+
+        <!-- Go To Top ============================================= -->
+        <div id="gotoTop">
+            <i class="fa fa-angle-up" aria-hidden="true"></i>
+        </div>
+    </section>
+</div>
+
+<!-- External JavaScripts
+============================================= -->
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/plugins.js"></script>
+
+
+<!-- Footer Scripts
+============================================= -->
+<script type="text/javascript" src="js/functions.js"></script>
+<script type="text/javascript"
+        src="https://maps.google.com/maps/api/js?key=AIzaSyDMxJ92oBkSnVNHFX3R8XhtYQPEgk1_IiI"></script>
+<script type="text/javascript" src="js/jquery.gmap.js"></script>
+<script src="/js/vendor/plugins.js"></script>
+<script src="js/index-main.js"></script>
+<script type="text/javascript">
+    jQuery('#google-map').gMap({
+
+        address: "Ottawa Ontario",
+        maptype: 'ROADMAP',
+        zoom: 14,
+        markers: [
+            {
+                address: "Ottawa Ontario",
+                html: '<div style="width: 300px;"><h4 style="margin-bottom: 8px;">Hi, we are < span > CeedBase < / span > < / h4 > < p class = "nobottommargin" > Our mission is to connect to < local talents and skills and to < small businesses and companies seeking resources.We operate a < strong > marketplace < / strong > of local < strong > creative skills and talents < / strong >, and thousands of companies seeking to connect on < strong > project and work < / strong >. < / p > < / div > ',
+                icon: {
+                    image: "images/icons/map-icon-red.png",
+                    iconsize: [32, 39],
+                    iconanchor: [32, 39]
+                }
+            }
+        ],
+        doubleclickzoom: false,
+        controls: {
+            panControl: true,
+            zoomControl: true,
+            mapTypeControl: true,
+            scaleControl: false,
+            streetViewControl: false,
+            overviewMapControl: false
+        }
+
+    });
+</script>
+
+
+<!-- SLIDER REVOLUTION 5.x SCRIPTS  -->
+<script type="text/javascript" src="js/rs-plugin/jquery.themepunch.tools.min.js"></script>
+<script type="text/javascript" src="js/rs-plugin/jquery.themepunch.revolution.min.js"></script>
+
+<script type="text/javascript" src="js/rs-plugin/revolution.extension.video.min.js"></script>
+<script type="text/javascript" src="js/rs-plugin/revolution.extension.slideanims.min.js"></script>
+<script type="text/javascript" src="js/rs-plugin/revolution.extension.actions.min.js"></script>
+<script type="text/javascript" src="js/rs-plugin/revolution.extension.layeranimation.min.js"></script>
+<script type="text/javascript" src="js/rs-plugin/revolution.extension.kenburn.min.js"></script>
+<script type="text/javascript" src="js/rs-plugin/revolution.extension.navigation.min.js"></script>
+<script type="text/javascript" src="js/rs-plugin/revolution.extension.migration.min.js"></script>
+<script type="text/javascript" src="js/rs-plugin/revolution.extension.parallax.min.js"></script>
+
+<script type="text/javascript">
+
+    var tpj = jQuery;
+    tpj.noConflict();
+
+    tpj(document).ready(function () {
+
+        var apiRevoSlider = tpj('.tp-banner').show().revolution(
+            {
+                sliderType: "standard",
+                jsFileLocation: "include/rs-plugin/js/",
+                sliderLayout: "fullscreen",
+                dottedOverlay: "none",
+                delay: 9000,
+                responsiveLevels: [1200, 992, 768, 480, 320],
+                startwidth: 1140,
+                startheight: 600,
+                hideThumbs: 200,
+
+                thumbWidth: 100,
+                thumbHeight: 50,
+                thumbAmount: 3,
+
+                navigation: {
+                    keyboardNavigation: "off",
+                    keyboard_direction: "horizontal",
+                    mouseScrollNavigation: "off",
+                    onHoverStop: "off",
+                    touch: {
+                        touchenabled: "on",
+                        swipe_threshold: 75,
+                        swipe_min_touches: 1,
+                        swipe_direction: "horizontal",
+                        drag_block_vertical: false
+                    },
+                    arrows: {
+                        style: "hermes",
+                        enable: true,
+                        hide_onmobile: false,
+                        hide_onleave: false,
+                        tmp: '<div class="tp-arr-allwrapper"></div>',
+                        left: {
+                            h_align: "left",
+                            v_align: "center",
+                            h_offset: 10,
+                            v_offset: 0
+                        },
+                        right: {
+                            h_align: "right",
+                            v_align: "center",
+                            h_offset: 10,
+                            v_offset: 0
+                        }
+                    }
+                },
+
+                touchenabled: "on",
+                onHoverStop: "on",
+
+                swipe_velocity: 0.7,
+                swipe_min_touches: 1,
+                swipe_max_touches: 1,
+                drag_block_vertical: false,
+
+
+                parallax: "mouse",
+                parallaxBgFreeze: "on",
+                parallaxLevels: [8, 7, 6, 5, 4, 3, 2, 1],
+                parallaxDisableOnMobile: "on",
+
+                keyboardNavigation: "on",
+
+                shadow: 0,
+                fullWidth: "off",
+                fullScreen: "on",
+
+                spinner: "spinner0",
+
+                stopLoop: "off",
+                stopAfterLoops: -1,
+                stopAtSlide: -1,
+
+                shuffle: "off",
+
+
+                forceFullWidth: "off",
+                fullScreenAlignForce: "off",
+                minFullScreenHeight: "400",
+
+                hideThumbsOnMobile: "off",
+                hideNavDelayOnMobile: 1500,
+                hideBulletsOnMobile: "off",
+                hideArrowsOnMobile: "off",
+                hideThumbsUnderResolution: 0,
+
+                hideSliderAtLimit: 0,
+                hideCaptionAtLimit: 0,
+                hideAllCaptionAtLilmit: 0,
+                startWithSlide: 0,
+                fullScreenOffset: "0px"
+            });
+
+        apiRevoSlider.bind("revolution.slide.onloaded", function (e) {
+            setTimeout(function () {
+                SEMICOLON.slider.sliderParallaxDimensions();
+            }, 200);
+        });
+
+        apiRevoSlider.bind("revolution.slide.onchange", function (e, data) {
+            SEMICOLON.slider.revolutionSliderMenu();
+        });
+
+    }); //END REVOLUTION SLIDER
+
+</script>
+</body>
+</html>
