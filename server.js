@@ -506,7 +506,15 @@ app.post('/client/verification/resendemail', function (req, res) {
 		  	});
 		});
 	});
-})
+});
+
+app.get('/terms-of-use', function(req, res) {
+	res.render('termsOfUse');
+});
+
+app.get('/privacy-policy', function(req, res) {
+    res.render('privacyPolicy');
+});
 
 app.listen(3000, function () {
     console.log('App listening on port 3000!')

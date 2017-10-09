@@ -1,0 +1,41 @@
+/*
+Temporary Custom CSS
+ */
+
+/* For owl slider in index.ejs */
+
+.owl-carousel .owl-dots.disabled, .owl-carousel .owl-nav.disabled {
+    display: none;
+}
+
+/* For footer logo */
+.custom-footer-logo {
+    min-height: 120px;
+    max-height: 120px;
+}
+
+/* For buttons on slider */
+
+.button .slider-button {
+    padding: 0 26px!important;
+    font-size: 16px!important;
+    min-height: 46px!important;
+    max-height: 46px!important;
+    line-height: 46px!important;
+}
+
+/* For pricing */
+
+.pricing-title span.pricing-desc {
+    text-transform: none!important;
+}
+
+/* For terms of use */
+.terms-container ol,
+.terms-container ul {
+    margin-left: 30px!important;
+}
+
+.terms-menu .sidebar {
+    width: auto;
+}
