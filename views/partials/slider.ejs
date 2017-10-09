@@ -10,22 +10,31 @@
                 <ul>    <!-- SLIDE  -->
                     <li class="dark" data-transition="fade" data-slotamount="1" data-masterspeed="1000" data-thumb="images/videos/s1-thumb.jpg"  data-saveperformance="off"  data-title="Welcome to Canvas">
                         <!-- MAIN IMAGE -->
-                        <img src="images/videos/explore.jpg"  alt=""  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
                         <!-- LAYERS -->
 
                         <!-- LAYER NR. 1 -->
-                        <div class="tp-fade fadeout fullscreenvideo rs-background-video-layer"
-                             data-forcerewind="on"
-                             data-volume="mute"
-                             data-videowidth="100%"
-                             data-videoheight="100%"
-                             data-videomp4="images/videos/explore.mp4"
-                             data-videopreload="auto"
-                             data-videoloop="none"
-                             data-forceCover="1"
-                             data- server.jsaspectratio="16:9"
+                        <div class="tp-fade fadeout fullscreenvideo tp-videolayer"
+                             data-x="0"
+                             data-y="0"
+                             data-speed="0"
+                             data-start="0"
+                             data-easing="easeOutExpo"
+                             data-server.jsaspectratio="16:9"
                              data-autoplay="true"
-                             data-nextslideatend="true">
+                             data-videocontrols="none"
+                             data-nextslideatend="true"
+                             data-videopreload="auto"
+                             data-forcerewind="on">
+                            <video id="slider-1-background" class="video-js vjs-default-skin" preload="true" autoplay loop muted controls="false">
+                                <source src="images/videos/explore.webm"  type='video/webm'/>
+                                <source src="images/videos/explore.mp4"  type='video/mp4'/>
+                            </video>
+                            <script>
+                                //Hack to start video in Chrome
+                                setTimeout(function() {
+                                    jQuery("#slider-1-background").get(0).play();
+                                }, 100);
+                            </script>
                         </div>
 
                         <!-- LAYER NR. 2 -->
@@ -103,12 +112,12 @@
                              data-endelementdelay="0.1"
                              data-endspeed="1000"
                              data-textAlign="['center', 'center', 'center', 'center', 'center']"
-                             data-endeasing="Power4.easeIn" style="z-index: 3; white-space: normal; max-height: 46px; height: 46px; display: table-cell; vertical-align: middle;">or</div>
+                             data-endeasing="Power4.easeIn" style="z-index: 3; white-space: normal; position:relative; top:50%; transfomr: translateY(-50%);">or</div>
 
                         <div class="tp-caption customin ltl tp-resizeme"
                              data-x="center"
                              data-y="center"
-                             data-hoffset="['200', '200', '180', '20', '0']"
+                             data-hoffset="['215', '215', '180', '20', '0']"
                              data-voffset="['150', '150', '200', '200', '0']"
                              data-fontsize="46"
                              data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;s:800;e:Power4.easeOutQuad;"
