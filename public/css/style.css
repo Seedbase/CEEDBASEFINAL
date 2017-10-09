@@ -6904,7 +6904,7 @@ body:not(.device-touch) .button.button-full strong {
 
 .button-teal { background-color: #1BBC9C; }
 .button-3d.button-teal:hover,
-.button-reveal.button-teal:hover { background-color: #53777A !important; }
+.button-reveal.button-teal:hover { background-color: #1BBC9C !important; }
 
 .button-yellow { background-color: #ECD078; }
 .button-3d.button-yellow:hover,
