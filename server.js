@@ -68,6 +68,9 @@ app.get('/login', function (req, res) {
     res.render('login');
 });
 
+app.get('/community', function (req, res) {
+    res.render('community');
+});
 
 var User = mongoose.model('User');
 app.get('/profile', function (req, res) {
@@ -506,6 +509,74 @@ app.post('/client/verification/resendemail', function (req, res) {
 		  	});
 		});
 	});
+});
+
+app.post('/api/admin/blog/image/upload', function (req, res) {
+    var upload = multer(config.uploads.blogUpload).array('blogImage');
+    var newUUID = '';
+    var size = '';
+    var name = '';
+    var blogImageUrl = '';
+    var user = req.user;
+    uploadImage()
+        .then(onUploadSuccess)
+        .catch(function (err) {
+            res.json(err);
+        });
+
+    function uploadImage () {
+        return new Promise(function (resolve, reject) {
+            upload(req, res, function (uploadError) {
+                if (uploadError) {
+                    // Send error code as we are customising the error messages.
+                    // reject(errorHandler.getErrorMessage(uploadError));
+                    reject(uploadError.code);
+                } else {
+                    newUUID = req.files[0].filename;
+                    size = req.files[0].size;
+                    name = req.files[0].originalname;
+                    blogImageUrl = req.files[0].path;
+                    resolve();
+                }
+            });
+        });
+    }
+
+    function onUploadSuccess () {
+        res.json({success: true, newUuid: newUUID, size: size, name: name, url: blogImageUrl});
+        return true;
+    }
+});
+
+app.get('/admin/blog/create', function (req, res) {
+    res.render('create-blog-post');
+});
+
+var BlogModel = require('./models/blogModel');
+app.post('/api/admin/blog/create', function (req, res) {
+    var adminSecret = req.body.adminSecret;
+    if (adminSecret == config.adminSecret.secret) {
+        console.log(JSON.stringify(req.body.blog));
+        var blog = new BlogModel(req.body.blog);
+        blog.save(function (err) {
+            if (err)
+                res.render('common-error', {error: 'Something went wrong'});
+            else
+                res.json('success');
+        })
+    } else {
+        res.render('common-error', {error: 'you are not authorized to perform this action'});
+    }
+});
+
+app.get('/api/admin/blog/fetch', function (req, res) {
+    BlogModel.find().sort('-created').exec(function (err, blogs) {
+        if (err){
+            res.render('common-error', {error: 'Something went wrong'});
+        } else {
+            res.json(blogs);
+        }
+    });
 });
 
 app.get('/terms-of-use', function(req, res) {

@@ -28,6 +28,9 @@ var UserSchema = Schema({
   linkedIn: {
     type: Object
   },
+  linkedInProfile: {
+      type: String
+  },
   isUserProfileActive: {
     type: Boolean,
     default: false

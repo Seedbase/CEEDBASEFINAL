@@ -10,7 +10,7 @@ module.exports = function(){
         consumerKey: 'Qb50kQTJyJX8cAd9pMSs0KX1i',
         consumerSecret: 'CkY1dBzOJeXMRI1RrTl28VI53f0UzmtNg2HU56tokw2D0Is7dm',
         callbackURL: '/auth/twitter/callback',
-        passReqToCallback: true,
+        passReqToCallback: true
         },
 
         function(req, accessToken, refreshToken, profile, done){

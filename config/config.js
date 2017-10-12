@@ -11,7 +11,13 @@ module.exports = {
   		},
       clienJobDescUpload: {
         dest: './public/client-side/client-job/files/uploads'
-      }
-  	}
+      },
+        blogUpload: {
+            dest: './public/images/admin/blog/uploads'
+        }
+  	},
+    adminSecret: {
+        secret: 'thisisadminsecret'
+    }
 
 }
