@@ -39,3 +39,7 @@ Temporary Custom CSS
 .terms-menu .sidebar {
     width: auto;
 }
+
+.custom-section-padding {
+    padding: 40px;
+}
