@@ -131,3 +131,12 @@
     }); //END REVOLUTION SLIDER
 
 </script>
+
+<script>
+    //Hack to start video in Chrome
+    var video = jQuery("#slider-1-background").get(0);
+    video.pause();
+    setTimeout(function() {
+        video.play();
+    }, 100);
+</script>

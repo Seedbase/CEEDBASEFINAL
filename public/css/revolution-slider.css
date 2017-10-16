@@ -30,3 +30,63 @@
 .tp-caption {
     white-space: nowrap;
 }
+
+/* Buttons on slider - are not responsive with tp-resizeme
+ (CSS gets overridden)
+ This is a temporary fix */
+
+@media only screen and (min-width: 991px) and (min-height: 600px)  {
+    .rev_slider_wrapper a.slider-button span {
+        /* Same CSS style for .button .button-large */
+        font-size: 16px;
+        height: 46px;
+        line-height: 46px;
+        padding: 0 26px;
+    }
+
+    .rev_slider_wrapper a.slider-button i {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (min-width: 991px) and (max-height: 599px)  {
+    .rev_slider_wrapper a.slider-button span {
+        /* Same CSS style for .button .button-small */
+        font-size: 12px;
+        height: 34px;
+        line-height: 34px;
+        padding: 0 17px;
+    }
+
+    .rev_slider_wrapper a.slider-button i {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 992px) and (min-width: 481px) {
+    .rev_slider_wrapper a.slider-button span {
+        /* Same CSS style for .button .button-small */
+        padding: 0 17px;
+        font-size: 12px;
+        height: 34px;
+        line-height: 34px;
+    }
+
+    .rev_slider_wrapper a.slider-button i {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .rev_slider_wrapper a.slider-button span {
+        /* Same CSS style for .button .button-mini */
+        padding: 0 14px;
+        font-size: 11px;
+        height: 28px;
+        line-height: 28px;
+    }
+
+    .rev_slider_wrapper a.slider-button i {
+        font-size: 11px;
+    }
+}
