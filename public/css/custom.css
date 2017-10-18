@@ -43,3 +43,9 @@ Temporary Custom CSS
 .custom-section-padding {
     padding: 40px;
 }
+
+/* For footer testimonials */
+.footer-fslider,
+.footer-fslider .slide {
+    height: 90px;
+}
