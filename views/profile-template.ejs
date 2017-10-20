@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+    <html lang="en">
+
+        <head>
+            <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+            <link rel="stylesheet" href="css/style-updated.css" type="text/css" />
+            <link rel="stylesheet" href="css/dark.css" type="text/css" />
+            <link rel="stylesheet" href="css/font-icons.css" type="text/css" />
+            <link rel="stylesheet" href="css/animate.css" type="text/css" />
+            <link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+
+            <link rel="stylesheet" href="css/responsive.css" type="text/css" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+            <style>
+                .side-panel-trigger-left {
+                    float: left !important;
+                }
+
+                #panel-trigger { display: none; }
+
+                .side-panel-left #panel-trigger {
+                    display: block;
+                    position: fixed;
+                    cursor: pointer;
+                    top: 20px;
+                    left: 20px;
+                    z-index: 399;
+                    font-size: 16px;
+                    width: 32px;
+                    height: 32px;
+                    line-height: 32px;
+                    background-color: #FFF;
+                    text-align: center;
+                    border-radius: 2px;
+                }
+
+                .side-panel-open #panel-trigger { left: 320px; }
+
+                .side-panel-left #panel-trigger i:nth-child(1),
+                .side-panel-left.side-panel-open #panel-trigger i:nth-child(2) { display: block; }
+
+                .side-panel-left.side-panel-open #panel-trigger i:nth-child(1),
+                .side-panel-left #panel-trigger i:nth-child(2) { display: none; }
+
+                .side-panel-open #panel-trigger {
+                    -webkit-transition: left .4s ease;
+                    -o-transition: left .4s ease;
+                    transition: left .4s ease;
+                }
+
+                .side-panel-open #wrapper.docked {
+                    left: 300px;
+                    overflow-x: visible;
+                }
+
+                .primary-menu-left {
+                    float: left!important;
+                }
+            </style>
+        </head>
+
+        <body class="stretched side-panel-left">
+
+            <div class="body-overlay"></div>
+
+            <div id="side-panel">
+
+                <div id="side-panel-trigger-close" class="side-panel-trigger"><a href="#"><i class="icon-line-cross"></i></a></div>
+
+                <div class="side-panel-wrap">
+                    <div>Sidebar</div>
+                </div>
+            </div>
+
+            <div id="wrapper" class="clearfix" data-spy="scroll" data-target=".scrollspy">
+
+                <!--<div id="panel-trigger" class="side-panel-trigger"><i class="icon-line-menu"></i><i class="icon-line-cross"></i></div>-->
+
+                <header id="header" class="full-header" data-sticky-class="not-dark">
+                    <div id="header-wrap">
+                        <div class="container clearfix">
+                            <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+                            <div id="logo"></div>
+
+                            <nav id="primary-menu" class="dark primary-menu-left">
+                                <ul>
+                                    <li><a href="#about"><div>About</div></a></li>
+                                    <li><a href="#skills"><div>Skills</div></a></li>
+                                    <li><a href="#video"><div>Video</div></a></li>
+                                    <li><a href="#portfolio"><div>Portfolio</div></a></li>
+                                    <li><a href="#experience"><div>Experience</div></a></li>
+                                    <li><a href="#education"><div>Education</div></a></li>
+                                    <li><a href="#references"><div>References</div></a></li>
+                                    <li><a href="#contact"><div>Contact</div></a></li>
+                                </ul>
+                            </nav>
+                            <div id="side-panel-trigger" class="side-panel-trigger"><a href="#"><i class="icon-user"></i></a></div>
+                        </div>
+                    </div>
+                </header>
+
+                <div id="content">
+                    <div class="content-wrap">
+                        <div class="container clearfix">
+                            <!--<div class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                    60%
+                                </div>
+                            </div>-->
+                            <!--<a href="#" class="button button-small button-rounded side-panel-trigger bottommargin">Open Side Panel</a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript" src="js/jquery.js"></script>
+            <script type="text/javascript" src="js/plugins.js"></script>
+            <script type="text/javascript" src="js/functions.js"></script>
+
+            <script>
+                function affixScroll() {
+                    jQuery('.affix-div').each(function() {
+                        var el = jQuery(this);
+                        var pos = el.position().top - jQuery(window).scrollTop();
+
+                        if (pos <= 0) {
+
+                        } else {
+
+                        }
+                    });
+                }
+
+            </script>
+        </body>
+
+    </html>

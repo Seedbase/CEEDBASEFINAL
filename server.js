@@ -587,6 +587,10 @@ app.get('/privacy-policy', function(req, res) {
     res.render('privacyPolicy');
 });
 
+app.get('/profile-template', function(req, res) {
+    res.render('profile-template');
+});
+
 app.listen(3000, function () {
     console.log('App listening on port 3000!')
 });
