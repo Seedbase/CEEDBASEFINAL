@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="CSSLoss.com">
+    <link rel="icon" href="img/favicon.ico">
+    <title>CeedBase</title>
+
+    <!-- BOOTSTRAP CORE CSS -->
+    <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+
+    <!-- PLUGIN STYLES FOR THIS TEMPLATE -->
+    <link rel="stylesheet" href="css/vendor/magnific-popup.css">
+    <link rel="stylesheet" href="css/vendor/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="plugins/datepicker/css/datepicker.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.theme.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css">
+    <link href="plugins/fine-uploader/fine-uploader/fine-uploader-gallery.min.css" rel="stylesheet">
+    <link href="plugins/fine-uploader/fine-uploader/fine-uploader.min.css" rel="stylesheet">
+    <link href="plugins/select2/dist/css/select2.min.css" rel="stylesheet">
+    <!-- MAIN STYLE FOR THIS TEMPLATE -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/profile.css">
+</head>
+
+<body class="layout-1 profile">
+<!-- LOADER -->
+<div class="loader-wrapper">
+    <div class="loader"></div>
+</div>
+
+
+
+<!-- NAV SOCIAL -->
+<div class="nav-social">
+    <ul>
+        <li><a href="#"><i class="icon icon-twitter"></i></a></li>
+        <li><a href="#"><i class="icon icon-facebook"></i></a></li>
+        <li><a href="#"><i class="icon icon-linkedin"></i></a></li>
+    </ul>
+</div>
+
+<!-- BACKGROUND IMAGE -->
+<div class="main-bg bg-image overlay" data-image="img/single-bg.jpg"></div>
+<!-- INTRO SECTION -->
+<div class="col-md-12 intro-image">
+    <!-- YOUR AVATAR -->
+    <div class="text-right" style="margin-right: -70px; margin-top: 20px;">
+        <a href="#" id="notificationLink">
+            <i class="fa fa-bell fa-2x" aria-hidden="true" style="color: #fff"></i>
+            <span class="label bell-icon-notifications" id="messageCounter">10</span>
+        </a>
+    </div>
+    <div class="text-center">
+        <img src='<%= user.image %>' alt="avatar"> <br>
+        <span class="text-uppercase"><%= user.displayName %></span>
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <div style="margin-left: -70px;">
+        <p> Introduce yourself like I'm</p>
+        <%if (user.profile && user.profile.introText) { %>
+        <input class="form-control" type="text" name="intro-content-one" id="intro-content-one" style="width: 100%;" placeholder="John Reno" value="<%= user.profile.introText[0] %>">
+        <input class="form-control" type="text" name="intro-content-two" id="intro-content-two" style="width: 100%;" placeholder="Designer" value="<%= user.profile.introText[1] %>">
+        <input class="form-control" type="text" name="intro-content-three" id="intro-content-three" style="width: 100%;" placeholder="Developer" value="<%= user.profile.introText[2] %>">
+        <% }  else { %>
+        <input class="form-control" type="text" name="intro-content-one" id="intro-content-one" style="width: 100%;" placeholder="John Reno">
+        <input class="form-control" type="text" name="intro-content-two" id="intro-content-two" style="width: 100%;" placeholder="Designer">
+        <input class="form-control" type="text" name="intro-content-three" id="intro-content-three" style="width: 100%;" placeholder="Developer">
+        <% } %>
+    </div>
+</div>
+<div style="display: none">
+    <%if (user.provider == 'google') { %>
+    <input id="providerId" type="text" value="<%= user.google.id %>">
+    <% } %>
+    <%if (user.provider == 'facebook') { %>
+    <input id="providerId" type="text" value="<%= user.facebook.id %>">
+    <% } %>
+    <%if (user.provider == 'linkedin') { %>
+    <input id="providerId" type="text" value="<%= user.linkedIn.id %>">
+    <% } %>
+    <%if (user.provider == 'twitter') { %>
+    <input id="providerId" type="text" value="<%= user.twitter.id %>">
+    <% } %>
+
+    <p id="videoResume"></p>
+
+    <p id="userProfileObject"> <%= JSON.stringify(user) %> </p>
+</div>
+
+<!-- /END INTRO SECTION -->
+<!-- RESUME SECTION -->
+<div id="resume" class="section-resume">
+    <div class="container-fluid">
+        <!-- ABOUT -->
+        <%if (user.isUserProfileAuthenticated) { %>
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="text-center showAuthenticatorOnHover">
+                                <span>
+                                <img src="/images/partners/verify-shield.png" class="wholeProfileVerifiedTagImage">
+                                </span>
+                    <p class="wholeProfileAuthenticatedByOrg text-uppercase"> <%= user.userProfileAuthenticatedBy[0] %></p>
+                    <span class="wholeProfileverifiedTag"> Profile Verified</span>
+                    <span class="tooltiptext">
+                                    <%= user.userProfileAuthenticatedBy %>
+                                </span>
+                </div>
+            </div>
+        </div>
+        <% } %>
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Passion</h2>
+                    <p>What I'm all about</p>
+
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div>
+                    <i class="fa fa-pencil" aria-hidden="true" id="add-passion"></i>
+                    <i class="fa fa-floppy-o" aria-hidden="true" id="save-passion">&nbsp;save</i>
+                    <textarea class="passion-input-area form-control" rows="5" cols="50" id="passion-content" maxlength="200"></textarea>
+                    <p id="passion-content-display"><%- user.profile ? user.profile.passion : '' %></p>
+                    <ul class="info-list list-unstyled row p-t-30">
+                        <li class="col-sm-6 col-md-6">
+                            <strong>Full Name <i class="fa fa-pencil" aria-hidden="true" id="edit-displayName"></i></strong>
+                            <span id="display-name"><%= user.displayName %></span>
+                            <input class="display-name-input-area form-control" type="text" name="display-name-content" id="display-name-content" style="width: 80%;">
+                            <i class="fa fa-floppy-o" aria-hidden="true" id="save-displayName"></i>
+                        </li>
+                        <li class="col-sm-6 col-md-6">
+                            <strong>Birthday <i class="fa fa-pencil" aria-hidden="true" id="edit-birthday"></i></strong>
+                            <span id="birthday"><%= user.profile ? user.profile.birthday : '' %></span>
+                            <input class="birthday-input-area form-control" type="text" name="birthday-content" id="birthday-content" style="width: 80%;" placeholder="mm/yyyy">
+                            <i class="fa fa-floppy-o" aria-hidden="true" id="save-birthday"></i>
+                        </li>
+                        <li class="col-sm-6 col-md-6">
+                            <strong>Region</strong>
+                            <span id="residence"></span>
+                            <select id="creativeRegion" multiple>
+                            </select>
+                        </li>
+                        <li class="col-sm-6 col-md-6">
+                            <strong>Email <i class="fa fa-pencil" aria-hidden="true" id="edit-email"></i></strong><span id="email"><%= user.email %></span>
+                            <input class="email-input-area form-control" type="text" name="email-content" id="email-content" style="width: 80%;">
+                            <i class="fa fa-floppy-o" aria-hidden="true" id="save-email"></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SKILLS -->
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Skills</h2>
+                    <p>My skills</p>
+                </div>
+            </div>
+
+            <!-- PROGRESS BARS -->
+            <div class="col-lg-9 progress-bars">
+                <div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <i class="fa fa-plus-square fa-2x" aria-hidden="true" id="add-skills"></i>
+                        </div>
+                        <div class="col-md-6">
+                            <input class="skill-name-input-area form-control" type="text" name="skill-name-content" id="skill-name-content" placeholder="skill name">
+                        </div>
+                        <div class="col-md-6">
+                            <input class="skill-rating-input-area form-control" type="number" name="skill-rating-content" id="skill-rating-content" placeholder="Rate yourself out of 100" max="100">
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn text-uppercase m-t-20" id="skill-save-button" style="padding: 8px 15px;">ADD</button>
+                        </div>
+                        <!-- LEFT -->
+                        <%if (user.profile && user.profile.skills) { %>
+                        <% for(var i=0; i < user.profile.skills.length; i=i+2) { %>
+                        <%if (user.profile.skills[i]) { %>
+                        <div class="col-md-1 showAuthenticatorOnHover" style="padding-top: 10px">
+                            <%if (user.profile.skills[i].isAuthenticated) { %>
+                            <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
+                            <p class="authenticatedByOrg text-uppercase">
+                                <%= user.profile.skills[i].authenticatedBy[0] %>
+                            </p>
+                            <span class="verifiedTag">Verified</span>
+                            <span class="tooltiptext">
+                                                        <%= user.profile.skills[i].authenticatedBy %>
+                                                    </span>
+                            <% } %>
+                        </div>
+                        <div class="col-md-5" id="skillLeft">
+                            <div class="progress">
+                                <div class="progress-info"><%= user.profile.skills[i].skill %></div>
+                                <div class="progress-bar" data-percent="<%= user.profile.skills[i].rating %>">
+                                    <span class="value"><%= user.profile.skills[i].rating %></span>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                        <%if (user.profile.skills[i+1]) { %>
+                        <div class="col-md-1 showAuthenticatorOnHover" style="padding-top: 10px">
+                            <%if (user.profile.skills[i+1].isAuthenticated) { %>
+                            <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
+                            <p class="authenticatedByOrg text-uppercase"> <%= user.profile.skills[i+1].authenticatedBy[0] %></p>
+                            <span class="verifiedTag">Verified</span>
+                            <span class="tooltiptext">
+                                                        <%= user.profile.skills[i + 1].authenticatedBy%>
+                                                    </span>
+                            <% } %>
+                        </div>
+                        <div class="col-md-5 pull-right" id="skillRight">
+                            <div class="progress">
+                                <div class="progress-info"><%= user.profile.skills[i+1].skill %></div>
+                                <div class="progress-bar" data-percent="<%= user.profile.skills[i+1].rating %>">
+                                    <span class="value"><%= user.profile.skills[i+1].rating %></span>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                        <% } %>
+                        <% } %>
+                        <div class="col-md-5" id="skillLeft">
+                        </div>
+                        <div class="col-md-5 pull-right" id="skillRight">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /END SKILLS -->
+
+
+        <!-- Externam links -->
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Certifications</h2>
+                    <p>My learning and development profile</p>
+                </div>
+            </div>
+
+            <!-- PROGRESS BARS -->
+            <div class="col-lg-9 progress-bars">
+                <div id="external-links-container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <i class="fa fa-plus-square fa-2x" aria-hidden="true" id="add-external-links"></i>
+                        </div>
+                        <div class="col-md-12">
+                            <input class="external-links-input-area form-control" type="text" name="external-links-content" id="external-links-content" placeholder="external profile link">
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn text-uppercase m-t-20" id="external-links-save-button" style="padding: 8px 15px;">ADD</button>
+                        </div>
+                        <%if (user.profile && user.profile.externalLinks) { %>
+                        <% for(var i=0; i < user.profile.externalLinks.length; i++) { %>
+                        <div class="col-md-1 showAuthenticatorOnHover" style="margin-top: 2px;">
+                            <%if (user.profile.externalLinks[i].isAuthenticated) { %>
+                            <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
+                            <p class="authenticatedByOrg text-uppercase"> <%= user.profile.externalLinks[i].authenticatedBy[0] %></p>
+                            <span class="verifiedTag">Verified</span>
+                            <span class="tooltiptext">
+                                                    <%= user.profile.externalLinks[i].authenticatedBy %>
+                                                </span>
+                            <% } %>
+
+                        </div>
+                        <div class="col-md-11">
+                            <p><%=  user.profile.externalLinks[i].link %></p>
+                        </div>
+                        <% } %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /END external links -->
+
+        <!-- Video -->
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Video</h2>
+                    <p>My 30 second video resume</p>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="profile-video-uploader"></div>
+                            <p> Best video resumes includes name, location, passion, expertise, notable activities/projects, skillset, opportunity seek etc.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /END Video -->
+
+
+        <!-- PORTFOLIO -->
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Portfolio</h2>
+                    <p>My amazing works</p>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-md-12">
+                        <i class="fa fa-plus-square fa-2x colorTheme" aria-hidden="true" id="add-portfolio"></i>
+                    </div>
+                    <div class="col-lg-12 add-portfolio-container" id="add-portfolio-container">
+                        <div class="col-md-12">
+                            <input class="portfolio-title-input-area form-control" type="text" name="portfolio-name-content" id="portfolio-title-content" placeholder="Project title">
+                        </div>
+                        <div class="col-md-6">
+                            <input id="portfolio-from-year-content" type="text" class="form-control portfolio-from-year-input-area" placeholder="From Year" >
+                        </div>
+                        <div class="col-md-6">
+                            <input id="portfolio-to-year-content" type="text" class="form-control portfolio-to-year-input-area" placeholder="To Year" >
+                        </div>
+                        <div class="col-md-12">
+                            <textarea class="portfolio-description-input-area form-control" name="portfolio-description-content" id="portfolio-description-content" placeholder="Description" rows="5" cols="50"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <input id="portfolio-link" type="text" class="form-control portfolio-link-input-area" placeholder="link" >
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn text-uppercase m-t-20" id="portfolio-save-button" style="padding: 8px 15px;">ADD</button>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 portfolio-div">
+                        <ul class="timeline" id="portfolio-timeline" style="margin-left: 6px;">
+                            <%if (user.profile && user.profile.portfolios) { %>
+                            <% for(var i=0; i < user.profile.portfolios.length; i++) { %>
+                            <%if (user.profile.portfolios[i].isAuthenticated) { %>
+                            <div class="col-md-1 showAuthenticatorOnHover" style="margin-left: -20px; margin-top: 0;">
+                                <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
+                                <p class="authenticatedByOrg text-uppercase"> <%= user.profile.portfolios[i].authenticatedBy[0] %></p>
+                                <span class="verifiedTag">Verified</span>
+                                <span class="tooltiptext">
+                                                        <%= user.profile.portfolios[i].authenticatedBy%>
+                                                    </span>
+                            </div>
+                            <% } %>
+
+                            <li style="margin-left: 40px;">
+                                <h2 class="title"><%= user.profile.portfolios[i].title %></h2>
+                                <span class="time"><%= user.profile.portfolios[i].from %> - <%= user.profile.portfolios[i].to %></span>
+                                <p><%- user.profile.portfolios[i].description %></p>
+                                <p><%= user.profile.portfolios[i].link %></p>
+                            </li>
+                            <% } %>
+                            <% } %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /END PORTFOLIO -->
+
+        <!-- EXPERIENCE -->
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Experience</h2>
+                    <p>Yes. I've been around</p>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-md-12">
+                        <i class="fa fa-plus-square fa-2x" aria-hidden="true" id="add-experience"></i>
+                    </div>
+                    <div class="col-lg-12 add-experience-container" id="add-experience-container">
+                        <div class="col-md-12">
+                            <input class="experience-name-input-area form-control" type="text" name="experience-name-content" id="experience-name-content" placeholder="Company name">
+                        </div>
+                        <div class="col-md-6">
+                            <input id="experience-from-year-content" type="text" class="form-control experience-from-year-input-area" placeholder="From Year" >
+                        </div>
+                        <div class="col-md-6">
+                            <input id="experience-to-year-content" type="text" class="form-control experience-to-year-input-area" placeholder="To Year" >
+                        </div>
+                        <div class="col-md-12">
+                            <textarea class="experience-description-input-area form-control" name="experience-description-content" id="experience-description-content" placeholder="Description" rows="5" cols="50"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn text-uppercase m-t-20" id="experience-save-button" style="padding: 8px 15px;">ADD</button>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 experience-div">
+                        <ul class="timeline" id="experience-timeline" style="margin-left: 1px;">
+                            <%if (user.profile && user.profile.experiences) { %>
+                            <% for(var i=0; i < user.profile.experiences.length; i++) { %>
+                            <%if (user.profile.experiences[i].isAuthenticated) { %>
+                            <div class="col-md-1 showAuthenticatorOnHover" style="margin-left: -20px; margin-top: 0;">
+                                <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
+                                <p class="authenticatedByOrg text-uppercase"> <%= user.profile.experiences[i].authenticatedBy[0] %></p>
+                                <span class="verifiedTag">Verified</span>
+                                <span class="tooltiptext">
+                                                        <%= user.profile.experiences[i].authenticatedBy%>
+                                                    </span>
+                            </div>
+                            <% } %>
+
+
+                            <li style="margin-left: 40px;">
+                                <h2 class="title"><%= user.profile.experiences[i].company %></h2>
+                                <span class="time"><%= user.profile.experiences[i].from %> - <%= user.profile.experiences[i].to %></span>
+                                <p><%= user.profile.experiences[i].description %></p>
+                            </li>
+                            <% } %>
+                            <% } %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /END EXPERIENCE -->
+
+        <!-- EDUCATION -->
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Education</h2>
+                    <p>My highest two degrees</p>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-md-12">
+                        <i class="fa fa-plus-square fa-2x" aria-hidden="true" id="add-education"></i>
+                    </div>
+                    <div class="col-lg-12 add-education-container" id="add-education-container">
+                        <div class="col-md-12">
+                            <input class="education-name-input-area form-control" type="text" name="education-name-content" id="education-name-content" placeholder="Institution name">
+                        </div>
+                        <div class="col-md-6">
+                            <input id="education-from-year-content" type="text" class="form-control education-from-year-input-area" placeholder="From Year" >
+                        </div>
+                        <div class="col-md-6">
+                            <input id="education-to-year-content" type="text" class="form-control education-to-year-input-area" placeholder="To Year" >
+                        </div>
+                        <div class="col-md-12">
+                            <textarea class="education-description-input-area form-control" name="education-description-content" id="education-description-content" placeholder="Degree" rows="5" cols="50"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn text-uppercase m-t-20" id="education-save-button" style="padding: 8px 15px;">ADD</button>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 education-div">
+                        <!-- EXPERIENCE TIMELINE -->
+                        <ul class="timeline" id="education-timeline" style="margin-left: 1px">
+                            <%if (user.profile && user.profile.educations) { %>
+                            <% for(var i=0; i < user.profile.educations.length; i++) { %>
+                            <li>
+                                <h2 class="title"><%= user.profile.educations[i].institute %></h2>
+                                <span class="time"><%= user.profile.educations[i].from %> - <%= user.profile.educations[i].to %></span>
+                                <p><%- user.profile.educations[i].description %></p>
+                            </li>
+                            <% } %>
+                            <% } %>
+                        </ul>
+                        <!-- /END EXPERIENCE TIMELINE -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /END EDUCATION -->
+
+        <!-- Friend -->
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Reference</h2>
+                    <p>How my friends describe me</p>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div style="margin-left: 4px;">
+
+                    <i class="fa fa-pencil" aria-hidden="true" id="add-freind-reference"></i>
+                    <i class="fa fa-floppy-o" aria-hidden="true" id="save-freind-reference">&nbsp;save</i>
+                    <textarea class="freind-reference-input-area form-control" rows="5" cols="50" id="freind-reference-content" maxlength="100"></textarea>
+                    <p id="freind-reference-content-display"><%- user.profile ? user.profile.friendReference : '' %></p>
+
+                </div>
+            </div>
+        </div>
+        <!-- /END Friend Reference -->
+
+        <!-- Friend -->
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Opportunities</h2>
+                    <p>I'm seeking</p>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="row" style="margin-left: 4px;">
+                    <div class="col-md-6">
+                        <input type="radio" id="unPaidInternship" name="opportunityOption" value="unPaidInternship"> Unpaid Internship
+                    </div>
+                    <div class="col-md-6">
+                        <input type="radio" id="paidInternship" name="opportunityOption" value="paidInternship"> Paid internship
+                    </div>
+                    <div class="col-md-6" >
+                        <input type="radio" id="tempContract" name="opportunityOption" value="tempContract"> Temporary Contract
+                    </div>
+                    <div class="col-md-6">
+                        <input type="radio" id="fullTimeHire" name="opportunityOption" value="fullTimeHire"> Full Time Hire
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /END Friend Reference -->
+
+        <!-- SERVICES -->
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Services</h2>
+                    <p>What I can do</p>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div>
+                    <div class="row" id="service-container">
+                        <div class="col-md-12">
+                            <i class="fa fa-plus-square fa-2x" aria-hidden="true" id="add-service"></i>
+                        </div>
+                        <div class="col-md-12">
+                            <input class="service-name-input-area form-control" type="text" name="service-name-content" id="service-name-content" placeholder="Title">
+                        </div>
+                        <div class="col-md-12">
+                            <textarea class="service-description-input-area form-control" name="service-description-content" id="service-description-content" placeholder="Description" rows="5" cols="50"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn text-uppercase m-t-20" id="service-save-button" style="padding: 8px 15px;">ADD</button>
+                        </div>
+                        <div class="col-md-12" style="margin-top: 20px;">
+                            <%if (user.profile && user.profile.services) { %>
+                            <% for(var i=0; i < user.profile.services.length; i++) { %>
+                            <div class="col-md-1 showAuthenticatorOnHover" style="padding-top: 21px">
+                                <%if (user.profile.services[i].isAuthenticated) { %>
+                                <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
+                                <p class="authenticatedByOrg text-uppercase"> <%= user.profile.services[i].authenticatedBy[0] %></p>
+                                <span class="verifiedTag">Verified</span>
+                                <span class="tooltiptext">
+                                                        <%= user.profile.services[i].authenticatedBy%>
+                                                    </span>
+                                <% } %>
+
+                            </div>
+                            <div class="icon-box col-md-5">
+                                <div class="box-icon">
+                                    <i class="icon fa fa-shield"></i>
+                                </div>
+                                <div class="box-content">
+                                    <h4><%= user.profile.services[i].service %></h4>
+                                    <p><%= user.profile.services[i].description %></p>
+                                </div>
+                            </div>
+                            <% } %>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /END SERVICES -->
+
+        <!-- CLIENTS
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Clients</h2>
+                    <p>Happy Customers.</p>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div>
+                    <ul class="client-list list-unstyled">
+                        <li>
+                            <a href="#"><img src="img/clients/1.png" alt=""></a>
+                        </li>
+                        <li>
+                            <a href="#"><img src="img/clients/2.png" alt=""></a>
+                        </li>
+                        <li>
+                            <a href="#"><img src="img/clients/3.png" alt=""></a>
+                        </li>
+                        <li>
+                            <a href="#"><img src="img/clients/4.png" alt=""></a>
+                        </li>
+                        <li>
+                            <a href="#"><img src="img/clients/5.png" alt=""></a>
+                        </li>
+                        <li>
+                            <a href="#"><img src="img/clients/6.png" alt=""></a>
+                        </li>
+                        <li>
+                            <a href="#"><img src="img/clients/7.png" alt=""></a>
+                        </li>
+                        <li>
+                            <a href="#"><img src="img/clients/8.png" alt=""></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+         /END CLIENTS -->
+
+        <!-- CONTACT -->
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>CONTACT CEEDER</h2>
+                    <p>Get in touch with your qualifier</p>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div>
+                    <!--
+                    <ul class="info-list list-unstyled row">
+                        <li class="col-sm-6 col-md-3"><strong>Location</strong><span>United States</span></li>
+                        <li class="col-sm-6 col-md-3"><strong>Phone</strong><span>+522 234 56789</span></li>
+                        <li class="col-sm-6 col-md-3"><strong>Website</strong><a href="http://www.cssloss.com"><span>cssloss.com</span></a></li>
+                        <li class="col-sm-6 col-md-3"><strong>Email</strong><span>yourmail@mail.com</span></li>
+                    </ul>
+                    -->
+                    <!-- CONTACT FORM -->
+                    <form class="contact-form p-y-40">
+                        <input class="form-control" id="authenticatorName" type="text" name="name" placeholder="name *">
+                        <input class="form-control" id="authenticatorEmail" type="email" name="email" placeholder="email *">
+                        <input class="form-control" id="authenticatorSubject" type="text" name="subject" placeholder="subject *">
+                        <textarea class="form-control" id="authenticatorMessage" rows="6" placeholder="message *"></textarea>
+                        <p> Fields marked * are compulsory </p>
+                        <button class="btn text-uppercase m-t-40" type="submit" id="submitTheVerificationRequest" name="submit"><span>SEND PROFILE FOR QUALIFICATION</span></button>
+
+                        <!-- <button class="btn text-uppercase m-t-40" id="saveMyProfile"><span>Save Profile</span></button> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /END CONTACT -->
+
+    </div>
+</div>
+<!-- /END RESUME SECTION -->
+
+<!-- AUDIO -->
+<audio id="audio-player" loop>
+    <source src="audio/audio.mp3" type="audio/mpeg">
+</audio>
+<!-- /END AUDIO -->
+
+<!-- jQuery -->
+<script src="js/vendor/jquery-1.11.3.min.js"></script>
+
+<!-- BOOTSTRAP CORE JAVASCRIPT -->
+<script src="js/vendor/bootstrap.min.js"></script>
+<script src="plugins/fine-uploader/fine-uploader/fine-uploader.min.js"></script>
+<script src="plugins/select2/dist/js/select2.min.js"></script>
+<!-- PLUGIN SCRIPTS FOR THIS TEMPLATE -->
+<script src="js/vendor/plugins.js"></script>
+<script src="js/vendor/audio.js"></script>
+<script src="plugins/datepicker/js/datepicker.js"></script>
+<!-- MAIN SCRIPT FOR THIS TEMPLATE -->
+<script src="js/main.js"></script>
+
+<script>
+    $('#creativeRegion').select2({
+        tags: true,
+        data: ['Barrie', 'Bay of Quinte', 'Bow Valley', 'Calgary', 'Charlottetown', 'Comox Valley',
+            'Durham Region', 'Edmonton', 'Fredericton', 'Halifax', 'Hamilton', 'Kamloops', 'Kingston', 'Montreal',
+            'Nanaimo', 'Nelson', 'Niagara Falls', 'Ottawa', 'Ottawa Valley', 'Peel Region', 'Peterborough',
+            'Prince George', 'Revelstoke', 'Sarnia Lambton', 'Saskatoon', 'Sault Ste Marie', 'Smithers', 'Toronto',
+            'Vancouver', 'Waterloo', 'Whitehorse', 'Windsor', 'Winnipeg',  'York Region'],
+        width: "85%",
+        maximumSelectionLength: 1,
+        placeholder: "Select from list or type and enter"
+    });
+</script>
+
+<script type="text/template" id="qq-template">
+    <div class="qq-uploader-selector qq-uploader qq-gallery" qq-drop-area-text="Drop files here" style="width: 100% !important">
+        <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
+            <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
+        </div>
+        <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
+            <span class="qq-upload-drop-area-text-selector"></span>
+        </div>
+        <div class="qq-upload-button-selector qq-upload-button btn-default" style="background-color: rgba(0, 0, 0, 0.04) !important; border:1px solid rgba(0, 0, 0, 0.04) !important" ng-click="initializeImageUploadErrorContent(false)">
+            <div style="color:#666">Upload</div>
+        </div>
+        <span class="qq-drop-processing-selector qq-drop-processing">
+                    <span>Processing dropped files...</span>
+                    <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+                </span>
+        <ul class="qq-upload-list-selector qq-upload-list" role="region" aria-live="polite" aria-relevant="additions removals">
+            <li style="max-width: 255px !important;">
+                <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                <div class="qq-progress-bar-container-selector qq-progress-bar-container">
+                    <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
+                </div>
+                <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                <div class="qq-thumbnail-wrapper" style="width: 255px;">
+                    <img class="qq-thumbnail-selector" qq-max-size="255" qq-server-scale>
+                </div>
+                <button type="button" class="qq-upload-cancel-selector qq-upload-cancel">X</button>
+                <button type="button" class="qq-upload-retry-selector qq-upload-retry">
+                    <span class="qq-btn qq-retry-icon" aria-label="Retry"></span>
+                    Retry
+                </button>
+
+                <div class="qq-file-info">
+                    <div class="qq-file-name" style="color: #929292">
+                        <span class="qq-upload-file-selector qq-upload-file"></span>
+                        <span class="qq-edit-filename-icon-selector qq-btn qq-edit-filename-icon" aria-label="Edit filename"></span>
+                    </div>
+                    <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+                    <span class="qq-upload-size-selector qq-upload-size"></span>
+                    <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">
+                        <span class="qq-btn qq-delete-icon" aria-label="Delete"></span>
+                    </button>
+                    <button type="button" class="qq-btn qq-upload-pause-selector qq-upload-pause">
+                        <span class="qq-btn qq-pause-icon" aria-label="Pause"></span>
+                    </button>
+                    <button type="button" class="qq-btn qq-upload-continue-selector qq-upload-continue">
+                        <span class="qq-btn qq-continue-icon" aria-label="Continue"></span>
+                    </button>
+                </div>
+            </li>
+        </ul>
+
+        <dialog class="qq-alert-dialog-selector">
+            <div class="qq-dialog-message-selector"></div>
+            <div class="qq-dialog-buttons">
+                <button type="button" class="qq-cancel-button-selector">Close</button>
+            </div>
+        </dialog>
+
+        <dialog class="qq-confirm-dialog-selector">
+            <div class="qq-dialog-message-selector"></div>
+            <div class="qq-dialog-buttons">
+                <button type="button" class="qq-cancel-button-selector">No</button>
+                <button type="button" class="qq-ok-button-selector">Yes</button>
+            </div>
+        </dialog>
+
+        <dialog class="qq-prompt-dialog-selector">
+            <div class="qq-dialog-message-selector"></div>
+            <input type="text">
+            <div class="qq-dialog-buttons">
+                <button type="button" class="qq-cancel-button-selector">Cancel</button>
+                <button type="button" class="qq-ok-button-selector">Ok</button>
+            </div>
+        </dialog>
+    </div>
+</script>
+<script>
+    var user = JSON.parse($('#userProfileObject').text());
+    var userId = user._id;
+    $(document).ready(function() {
+        var videoUploader = new qq.FineUploader({
+            element: document.getElementById("profile-video-uploader"),
+            template: 'qq-template',
+            debug: false,
+            multiple: false,
+            session: {
+                endpoint: '/api/profile/video/upload/fetch/' + userId
+            },
+            request: {
+                customHeaders: {},
+                endpoint: "/api/profile/video/upload",
+                filenameParam: "qqfilename",
+                filenameParamName: 'video',
+                forceMultipart: true,
+                inputName: "profileVideo",
+                method: "POST",
+                params: {},
+                paramsInBody: true,
+                totalFileSizeName: "qqtotalfilesize",
+                uuidName: "qquuid"
+            },
+            thumbnails: {
+                placeholders: {
+                    notAvailablePath: "images/fineuploader/default-thumb.jpg"
+                }
+            },
+            validation: {
+                allowedExtensions: ['webm', 'mkv', 'flv', 'mp3', 'mp4', 'vob', 'ogv', 'ogg', 'drc', 'gif',
+                    'gifv', 'mng', 'avi', 'mov', 'qt', 'wmv', 'yuv', 'rm', 'rmvb', 'asf',
+                    'amv', 'm4p', 'm4v', 'mpg', 'mp2', 'mpeg', 'mpe', 'mpv', 'mpg', 'mpeg',
+                    'm2v', 'm4v', 'svi', '3gp', '3g2', 'mxf', 'roq', 'nsv', 'nsv', 'f4v',
+                    'f4p', 'f4a', 'f4b'],
+                minSizeLimit: 0,
+                stopOnFirstInvalidFile: false
+            },
+            callbacks: {
+                onComplete: function(id, name, responseJSON, maybeXhr) {
+                    var fileObject = {uuid: responseJSON.newUuid, size: responseJSON.size, name: responseJSON.name, url: responseJSON.url};
+                    $('#videoResume').text(JSON.stringify(fileObject));
+
+                },
+                onError: function (id, name, reason, maybeXhrOrXdr) {
+                    /*angular.element('#product-photo-uploader').scope().showImageUploadErrors(reason);*/
+                },
+                onSessionRequestComplete: function(response, success, xhrOrXdr) {
+
+                }
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

@@ -588,7 +588,15 @@ app.get('/privacy-policy', function(req, res) {
 });
 
 app.get('/profile-template', function(req, res) {
-    res.render('profile-template');
+    res.render('profile-templates/profile-template');
+});
+
+app.get('/profile-template2', function(req, res) {
+    res.render('profile-templates/profile-template2');
+});
+
+app.get('/profile-template3', function(req, res) {
+    res.render('profile-templates/profile-template3');
 });
 
 app.listen(3000, function () {

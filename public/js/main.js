@@ -126,7 +126,7 @@ Version: 1.0
         $('body').toggleClass('menu-open');
         /** Navigation */
         // disable navigation of resume menu in case of profile.ejs
-        
+
         /* $(".nav-toggle, .resume-close").on('click', function(e) {
             e.preventDefault();
             $('body').toggleClass('menu-open');
@@ -178,7 +178,7 @@ Version: 1.0
             }
         });
 
-        var profile;    
+        var profile;
         var userObj = JSON.parse($('#userProfileObject').text());
         if (userObj.profile)
             profile = userObj.profile;
@@ -189,14 +189,14 @@ Version: 1.0
             $('#'+profile.opportunitySeeking).attr('checked', 'checked');
 
         $('#saveMyProfile').on('click', function () {
-    
+
             var providerId = $('#providerId').val();
             introText.push($('#intro-content-one').val());
             introText.push($('#intro-content-two').val());
             introText.push($('#intro-content-three').val());
             profile['introText'] = introText;
             if ($('#videoResume').text())
-                profile['videoResume'] = JSON.parse($('#videoResume').text()); 
+                profile['videoResume'] = JSON.parse($('#videoResume').text());
             if ($('#unPaidInternship').is(':checked'))
                 profile['opportunitySeeking'] = 'unPaidInternship';
             else if ($('#paidInternship').is(':checked'))
@@ -258,7 +258,7 @@ Version: 1.0
                 return false;
             } else if (!$("#creativeRegion").select2({
                     tags: true,
-                    data: ['Barrie', 'Bay of Quinte', 'Bow Valley', 'Calgary', 'Charlottetown', 'Comox Valley', 
+                    data: ['Barrie', 'Bay of Quinte', 'Bow Valley', 'Calgary', 'Charlottetown', 'Comox Valley',
                     'Durham Region', 'Edmonton', 'Fredericton', 'Halifax', 'Hamilton', 'Kamloops', 'Kingston', 'Montreal',
                     'Nanaimo', 'Nelson', 'Niagara Falls', 'Ottawa', 'Ottawa Valley', 'Peel Region', 'Peterborough',
                     'Prince George', 'Revelstoke', 'Sarnia Lambton', 'Saskatoon', 'Sault Ste Marie', 'Smithers', 'Toronto',
@@ -272,7 +272,7 @@ Version: 1.0
                 error = true;
                 return false;
             }
-            
+
             var birthday = $('#birthday-content').val().split('/')[0] + '-01-' + $('#birthday-content').val().split('/')[1];
             birthday = new Date(birthday);
             var currentDate = new Date();
@@ -283,7 +283,7 @@ Version: 1.0
                 e.preventDefault();
                 error = true;
                 return false;
-            } 
+            }
             if (!error) {
                 var providerId = $('#providerId').val();
                 e.preventDefault();
@@ -300,7 +300,7 @@ Version: 1.0
                 introText.push($('#intro-content-three').val());
                 profile['introText'] = introText;
                 if ($('#videoResume').text())
-                    profile['videoResume'] = JSON.parse($('#videoResume').text());           
+                    profile['videoResume'] = JSON.parse($('#videoResume').text());
                 if ($('#unPaidInternship').is(':checked'))
                     profile['opportunitySeeking'] = 'unPaidInternship';
                 else if ($('#paidInternship').is(':checked'))
@@ -318,7 +318,7 @@ Version: 1.0
                 };
 
 
-                //isValidEmail(email) && 
+                //isValidEmail(email) &&
                 if (isValidEmail(emailData.toEmail) && (emailData.message.length > 10) && (emailData.fromName.length > 1)) {
                     $.ajax({
                         type: 'POST',
@@ -347,101 +347,101 @@ Version: 1.0
 
         // Editing profile starts here
 
-        $('#add-passion').on('click', function() {
-            $('#passion-content').css('display', 'block');
-            var value = $('#passion-content-display').html();
-            value = value.replace(/<br\s*[\/]?>/gi, "\n")
-            $('textarea#passion-content').html(value);  
-            $('#passion-content-display').css('display', 'none');
-            $('#save-passion').css('display', 'block');
-            $('#add-passion').css('display', 'none');
-        });
+        // $('#add-passion').on('click', function() {
+        //     $('#passion-content').css('display', 'block');
+        //     var value = $('#passion-content-display').html();
+        //     value = value.replace(/<br\s*[\/]?>/gi, "\n")
+        //     $('textarea#passion-content').html(value);
+        //     $('#passion-content-display').css('display', 'none');
+        //     $('#save-passion').css('display', 'block');
+        //     $('#add-passion').css('display', 'none');
+        // });
 
         $('#save-passion').on('click', function () {
-            $('#passion-content').css('display', 'none');
-            $('#passion-content-display').css('display', 'block');
-            $('#save-passion').css('display', 'none');
-            $('#add-passion').css('display', 'block');
+            // $('#passion-content').css('display', 'none');
+            // $('#passion-content-display').css('display', 'block');
+            // $('#save-passion').css('display', 'none');
+            // $('#add-passion').css('display', 'block');
             var value = $('textarea#passion-content').val();
             var contentAttr = $('textarea#passion-content').attr('name');
             profile['passion'] = value.replace(/\r?\n/g,'<br/>');
             console.log(profile);
-            $('#passion-content-display').html(value.replace(/\r?\n/g,'<br/>'));
+            // $('#passion-content-display').html(value.replace(/\r?\n/g,'<br/>'));
         });
 
-        $('#edit-displayName').on('click', function () {
-            $('#display-name').css('display', 'none');
-            $('#display-name-content').css('display', 'inline-block');
-            $('#display-name-content').val($('#display-name').text());
-            $('#edit-displayName').css('display', 'none');
-            $('#save-displayName').css('display', 'inline-block');
-        });
+        // $('#edit-displayName').on('click', function () {
+        //     $('#display-name').css('display', 'none');
+        //     $('#display-name-content').css('display', 'inline-block');
+        //     $('#display-name-content').val($('#display-name').text());
+        //     $('#edit-displayName').css('display', 'none');
+        //     $('#save-displayName').css('display', 'inline-block');
+        // });
 
         $('#save-displayName').on('click', function () {
-            $('#display-name').css('display', 'inline-block');
-            $('#display-name').text($('#display-name-content').val());
-            $('#display-name-content').css('display', 'none');
-            $('#edit-displayName').css('display', 'inline-block');
-            $('#save-displayName').css('display', 'none');
+            // $('#display-name').css('display', 'inline-block');
+            // $('#display-name').text($('#display-name-content').val());
+            // $('#display-name-content').css('display', 'none');
+            // $('#edit-displayName').css('display', 'inline-block');
+            // $('#save-displayName').css('display', 'none');
             profile['displayName'] = $('#display-name-content').val();
         });
 
-        $('#edit-birthday').on('click', function () {
-            $('#birthday').css('display', 'none');
-            $('#birthday-content').css('display', 'inline-block');
-            $('#birthday-content').val($('#birthday').text());
-            $('#edit-birthday').css('display', 'none');
-            $('#save-birthday').css('display', 'inline-block');
-        });
+        // $('#edit-birthday').on('click', function () {
+        //     $('#birthday').css('display', 'none');
+        //     $('#birthday-content').css('display', 'inline-block');
+        //     $('#birthday-content').val($('#birthday').text());
+        //     $('#edit-birthday').css('display', 'none');
+        //     $('#save-birthday').css('display', 'inline-block');
+        // });
 
         $('#save-birthday').on('click', function () {
-            $('#birthday').css('display', 'inline-block');
-            $('#birthday').text($('#birthday-content').val());
-            $('#birthday-content').css('display', 'none');
-            $('#edit-birthday').css('display', 'inline-block');
-            $('#save-birthday').css('display', 'none');
+            // $('#birthday').css('display', 'inline-block');
+            // $('#birthday').text($('#birthday-content').val());
+            // $('#birthday-content').css('display', 'none');
+            // $('#edit-birthday').css('display', 'inline-block');
+            // $('#save-birthday').css('display', 'none');
             profile['birthday'] = $('#birthday-content').val();
         });
 
-        $('#edit-residence').on('click', function () {
-            $('#residence').css('display', 'none');
-            $('#residence-content').css('display', 'inline-block');
-            $('#residence-content').val($('#residence').text());
-            $('#edit-residence').css('display', 'none');
-            $('#save-residence').css('display', 'inline-block');
-        });
+        // $('#edit-residence').on('click', function () {
+        //     $('#residence').css('display', 'none');
+        //     $('#residence-content').css('display', 'inline-block');
+        //     $('#residence-content').val($('#residence').text());
+        //     $('#edit-residence').css('display', 'none');
+        //     $('#save-residence').css('display', 'inline-block');
+        // });
+				//
+        // $('#save-residence').on('click', function () {
+        //     $('#residence').css('display', 'inline-block');
+        //     $('#residence').text($('#residence-content').val());
+        //     $('#residence-content').css('display', 'none');
+        //     $('#edit-residence').css('display', 'inline-block');
+        //     $('#save-residence').css('display', 'none');
+        //     profile['residence'] = $('#residence-content').val();
+        // });
 
-        $('#save-residence').on('click', function () {
-            $('#residence').css('display', 'inline-block');
-            $('#residence').text($('#residence-content').val());
-            $('#residence-content').css('display', 'none');
-            $('#edit-residence').css('display', 'inline-block');
-            $('#save-residence').css('display', 'none');
-            profile['residence'] = $('#residence-content').val();
-        });
-
-        $('#edit-email').on('click', function () {
-            $('#email').css('display', 'none');
-            $('#email-content').css('display', 'inline-block');
-            $('#email-content').val($('#email').text());
-            $('#edit-email').css('display', 'none');
-            $('#save-email').css('display', 'inline-block');
-        });
+        // $('#edit-email').on('click', function () {
+        //     $('#email').css('display', 'none');
+        //     $('#email-content').css('display', 'inline-block');
+        //     $('#email-content').val($('#email').text());
+        //     $('#edit-email').css('display', 'none');
+        //     $('#save-email').css('display', 'inline-block');
+        // });
 
         $('#save-email').on('click', function () {
-            $('#email').css('display', 'inline-block');
-            $('#email').text($('#email-content').val());
-            $('#email-content').css('display', 'none');
-            $('#edit-email').css('display', 'inline-block');
-            $('#save-email').css('display', 'none');
+            // $('#email').css('display', 'inline-block');
+            // $('#email').text($('#email-content').val());
+            // $('#email-content').css('display', 'none');
+            // $('#edit-email').css('display', 'inline-block');
+            // $('#save-email').css('display', 'none');
             profile['email'] = $('#email-content').val();
         });
 
         $('#add-skills').on('click', function () {
             $('#add-skills').css('display', 'none');
-            $('#skill-name-content').css('display', 'inline-block');
-            $('#skill-rating-content').css('display', 'inline-block');
-            $('#skill-save-button').css('display', 'block');            
+            //$('#skill-rating-content').css('display', 'inline-block');
+						$('#add-a-skill').css('display', 'block');
+            $('#skill-save-button').css('display', 'block');
         });
 
         var skillSideCounter = 0;
@@ -449,43 +449,68 @@ Version: 1.0
         /*if (user && user.profile && user.profile.skills);
             skillSideCounter = user.profile.skills.length % 2;*/
         $('#skill-save-button').on('click', function () {
-            if ($('#skill-rating-content').val() > 100) {
-                alert('skill rating cannot be greater than 100%');
-                return;
-            }
+            // if ($('#skill-rating-content').val() > 100) {
+            //     alert('skill rating cannot be greater than 100%');
+            //     return;
+            // }
 
-            var divOne = document.createElement('div');
-            $(divOne).attr('class', 'progress');
-            var divTwo = document.createElement('div');
-            $(divTwo).attr('class', 'progress-info');
-            var divThree = document.createElement('div');
-            $(divThree).attr('class', 'progress-bar');
-            var spanOne = document.createElement('span');
-            $(spanOne).attr('class', 'value');
-            $(divTwo).appendTo(divOne);
-            $(divThree).appendTo(divOne);
-            $(spanOne).appendTo(divThree);  
+						var ratingValue = parseInt($('#skill-rating-content').val());
+
+						//Create progress bar element
+
+						var rowDiv = document.createElement('div');
+						$(rowDiv).attr('class', 'row');
+						var colDiv = document.createElement('div');
+						$(colDiv).attr('class', 'col-sm-8 col-sm-offset-1');
+						var progressDiv = document.createElement('div');
+						$(progressDiv).attr('class', 'progress');
+						var progressInfoDiv = document.createElement('div');
+						$(progressInfoDiv).attr('progress-info');
+						var progressBarDiv = document.createElement('div');
+            $(progressBarDiv).attr('class', 'progress-bar');
+            var span = document.createElement('span')
+						$(span).attr('class', 'value');
+
+						$(colDiv).appendTo(rowDiv);
+						$(progressDiv).appendTo(colDiv);
+						$(progressInfoDiv).appendTo(progressDiv);
+						$(progressBarDiv).appendTo(progressDiv);
+						$(span).appendTo(progressBarDiv);
+
+            // var divOne = document.createElement('div');
+            // $(divOne).attr('class', 'progress');
+            // var divTwo = document.createElement('div');
+            // $(divTwo).attr('class', 'progress-info');
+            // var divThree = document.createElement('div');
+            // $(divThree).attr('class', 'progress-bar');
+            // var spanOne = document.createElement('span');
+            // $(spanOne).attr('class', 'value');
+            // $(divTwo).appendTo(divOne);
+            // $(divThree).appendTo(divOne);
+            // $(spanOne).appendTo(divThree);
 
 
-            $(divTwo).html($('#skill-name-content').val());
-            $(divThree).attr('data-percent', $('#skill-rating-content').val());
-            $(divThree).css('width', $('#skill-rating-content').val() + '%')
-            $(spanOne).text($('#skill-rating-content').val() + '%');
-            
-            if (skillSideCounter % 2 == 0) {
-                $('#skillLeft').append(divOne);
-                skillSideCounter = 1;
-            } else {
-                $('#skillRight').append(divOne);
-                skillSideCounter = 0;
-            }
+            $(progressInfoDiv).html($('#skill-name-content').val());
+            $(progressBarDiv).attr('data-percent', ratingValue);
+            $(progressBarDiv).css('width', ratingValue + '%')
+            $(span).text(ratingValue + '%');
+
+            // if (skillSideCounter % 2 == 0) {
+            //     $('#skillLeft').append(divOne);
+            //     skillSideCounter = 1;
+            // } else {
+            //     $('#skillRight').append(divOne);
+            //     skillSideCounter = 0;
+            // }
+
+						$('#skills-progress-bars').append(rowDiv);
 
             $('#add-skills').css('display', 'inline-block');
-            $('#skill-name-content').css('display', 'none');
-            $('#skill-rating-content').css('display', 'none');
+            //$('#skill-name-content').css('display', 'none');
+            //$('#skill-rating-content').css('display', 'none');
             $('#skill-save-button').css('display', 'none');
-            console.log($('#skill-name-content').val());
-            var skillSet = {skill: $('#skill-name-content').val(), rating: $('#skill-rating-content').val()}
+            //console.log($('#skill-name-content').val());
+            var skillSet = {skill: $('#skill-name-content').val(), rating: ratingValue}
             if (profile.skills)
                 profile.skills.push(skillSet)
             else {
@@ -497,42 +522,94 @@ Version: 1.0
 
 
             $('#skill-name-content').val('');
-            $('#skill-rating-content').val('');
+            //$('#skill-rating-content').val('');
+						$("#skill-rating-content").data("ionRangeSlider").update({from: 0});
+						$('#add-a-skill').css('display', 'none');
         });
 
         $('#add-external-links').on('click', function () {
             $('#add-external-links').css('display', 'none');
             $('#external-links-content').css('display', 'inline-block');
-            $('#external-links-save-button').css('display', 'block');            
+            $('#external-links-save-button').css('display', 'block');
         });
 
         $('#external-links-save-button').on('click', function () {
-            var divOne = document.createElement('div');
-            $(divOne).addClass('row');
-            var divTwo = document.createElement('div');
-            $(divTwo).addClass('col-md-1');
-            var divThree = document.createElement('div');
-            $(divThree).addClass('col-md-11');
-            var anchor = document.createElement('a');
-            $(anchor).html($('#external-links-content').val());
-            var linkVal = $('#external-links-content').val();
-            var linkProtocol = linkVal.substring(0,4);
-            if (linkProtocol == 'http')
-                $(anchor).attr("href", $('#external-links-content').val());
-            else {
-                var link = 'http://' + $('#external-links-content').val();
-                $(anchor).attr("href", link);
-            }
 
-            
-            $(anchor).appendTo(divThree);
-            $(divTwo).appendTo(divOne);
-            $(divThree).appendTo(divOne);
-            $('#external-links-container').append(divOne);
+					var certificationDiv = $('#certification-links');
+
+					var rowDiv = document.createElement('div');
+					$(rowDiv).attr('class', 'row');
+					var colDiv = document.createElement('div');
+					$(colDiv).attr('class', 'col-sm-8 col-sm-offset-1');
+					var p = document.createElement('p');
+					var anchor = document.createElement('a');
+					$(anchor).html($('#external-links-content').val());
+					var linkVal = $('#external-links-content').val();
+					var linkProtocol = linkVal.substring(0,4);
+					if (linkProtocol == 'http')
+							$(anchor).attr("href", $('#external-links-content').val());
+					else {
+							var link = 'http://' + $('#external-links-content').val();
+							$(anchor).attr("href", link);
+					}
+
+					$(anchor).appendTo(p);
+					$(p).appendTo(colDiv);
+					$(colDiv).appendTo(rowDiv);
+					$(certificationDiv).append(rowDiv);
+
+					// var tr = document.createElement('tr');
+					// var tdVerified = document.createElement('td');
+					// $(tdVerified).addClass('col-xs-1');
+					// var tdLink = document.createElement('td');
+					// $(tdLink).addClass('col-xs-10');
+					// var tdRemove = document.createElement('td');
+					// $(tdRemove).addClass('col-xs-1');
+					// $(tdRemove).html('<i class="icon-remove"></i>');
+					// var anchor = document.createElement('a');
+					// $(anchor).html($('#external-links-content').val());
+					// var linkVal = $('#external-links-content').val();
+					// var linkProtocol = linkVal.substring(0,4);
+					// if (linkProtocol == 'http')
+					// 		$(anchor).attr("href", $('#external-links-content').val());
+					// else {
+					// 		var link = 'http://' + $('#external-links-content').val();
+					// 		$(anchor).attr("href", link);
+					// }
+					//
+					// $(anchor).appendTo(tdLink);
+					// $(tdVerified).appendTo(tr);
+					// $(tdLink).appendTo(tr);
+					// $(tdRemove).appendTo(tr);
+					// $(table).append(tr);
+
+
+            // var divOne = document.createElement('div');
+            // $(divOne).addClass('row');
+            // var divTwo = document.createElement('div');
+            // $(divTwo).addClass('col-md-1');
+            // var divThree = document.createElement('div');
+            // $(divThree).addClass('col-md-11');
+            // var anchor = document.createElement('a');
+            // $(anchor).html($('#external-links-content').val());
+            // var linkVal = $('#external-links-content').val();
+            // var linkProtocol = linkVal.substring(0,4);
+            // if (linkProtocol == 'http')
+            //     $(anchor).attr("href", $('#external-links-content').val());
+            // else {
+            //     var link = 'http://' + $('#external-links-content').val();
+            //     $(anchor).attr("href", link);
+            // }
+						//
+						//
+            // $(anchor).appendTo(divThree);
+            // $(divTwo).appendTo(divOne);
+            // $(divThree).appendTo(divOne);
+            // $('#external-links-container').append(divOne);
             $('#add-external-links').css('display', 'inline-block');
             $('#external-links-content').css('display', 'none');
             $('#external-links-save-button').css('display', 'none');
-            
+
             var externalLinkSet = {link: $('#external-links-content').val()}
             if (profile.externalLinks) {
                 profile.externalLinks.push(externalLinkSet);
@@ -544,7 +621,7 @@ Version: 1.0
             }
             $('#external-links-content').val('');
         });
-        
+
         $('#add-service').on('click', function () {
             $('#add-service').css('display', 'none');
             $('#service-name-content').css('display', 'block');
@@ -564,7 +641,7 @@ Version: 1.0
             $(divThree).attr('class', 'box-content');
             var heading = document.createElement('h4');
             var para = document.createElement('p');
-            
+
             $(icon).appendTo(divTwo);
             $(heading).appendTo(divThree);
             $(para).appendTo(divThree);
@@ -578,7 +655,7 @@ Version: 1.0
                 serviceSideCounter = 1;
             } else {
                 $('#service-container').append(divOne);
-                
+
                 serviceSideCounter = 0;
             }
 
@@ -611,11 +688,11 @@ Version: 1.0
             autoclose: true,
             minViewMode: 1,
             format: 'mm/yyyy'
-        }).on('changeDate', function(selected){            
+        }).on('changeDate', function(selected){
             var from = selected['date'].toString();
             from = from.split(' ')
             fromDateExperienceStr = from[1] + ' ' + from[3];
-        }); 
+        });
 
         var toDateExperienceStr;
         $('#experience-to-year-content').datepicker({
@@ -683,11 +760,11 @@ Version: 1.0
             autoclose: true,
             minViewMode: 1,
             format: 'mm/yyyy'
-        }).on('changeDate', function(selected){            
+        }).on('changeDate', function(selected){
             var from = selected['date'].toString();
             from = from.split(' ')
             fromDateEducationStr = from[1] + ' ' + from[3];
-        }); 
+        });
 
         var toDateEducationStr;
         $('#education-to-year-content').datepicker({
@@ -753,11 +830,11 @@ Version: 1.0
             autoclose: true,
             minViewMode: 1,
             format: 'mm/yyyy'
-        }).on('changeDate', function(selected){            
+        }).on('changeDate', function(selected){
             var from = selected['date'].toString();
             from = from.split(' ')
             fromDatePortfolioStr = from[1] + ' ' + from[3];
-        }); 
+        });
 
         var toDatePortfolioStr;
         $('#portfolio-to-year-content').datepicker({
@@ -822,7 +899,7 @@ Version: 1.0
             $('#freind-reference-content').css('display', 'block');
             var value = $('#freind-reference-content-display').html();
             value = value.replace(/<br\s*[\/]?>/gi, "\n")
-            
+
             $('textarea#freind-reference-content').html(value);
             $('#freind-reference-content-display').css('display', 'none');
             $('#save-freind-reference').css('display', 'block');

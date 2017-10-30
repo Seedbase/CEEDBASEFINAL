@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+        <link rel="stylesheet" href="css/style-updated.css" type="text/css" />
+        <link rel="stylesheet" href="css/dark.css" type="text/css" />
+        <link rel="stylesheet" href="css/font-icons.css" type="text/css" />
+        <link rel="stylesheet" href="css/animate.css" type="text/css" />
+        <link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="css/profile-custom.css">
+
+        <link rel="stylesheet" href="css/responsive.css" type="text/css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    </head>
+
+    <body class="stretched">
+        <div id="wrapper" class="clearfix">
+            <!--<section id="intro" class="clearfix section notopborder nomargin">
+                <div class="container">
+                    <div class="row">
+                        <div id="intro-img" class="col-sm-4 center">
+                            <img src="images/profile/avatar.jpg" class="img-circle" alt="Avatar" style="max-width: 140px;">
+                        </div>
+                        <div id="intro-profile" class="col-sm-8">
+                            <div class="heading-block noborder topmargin-sm">
+                                <h2>Name</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>-->
+						<section id="intro" class="clearfix section notopborder nomargin">
+                <div class="container">
+                    <div class="row">
+                        <div id="intro-img" class="col-sm-4 center">
+                            <img src="images/profile/avatar.jpg" class="img-circle" alt="Avatar" style="max-width: 140px;">
+                        </div>
+                        <div id="intro-profile" class="col-sm-8">
+                            <div class="row">
+                                <div class="form-group col-sm-12">
+                                    <label class="uppercase" for="display-name">Full Name <i class="fa fa-pencil edit-control" aria-hidden="true"></i></label>
+                                    <h2 id="display-name" class="edit-display">Name</h2>
+                                    <div class="form-inline edit-content" style="display: none;">
+                                        <input class="form-control" type="text" name="display-content" id="display-content"/>
+                                        <i class="fa fa-floppy-o edit-save" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div id="content">
+                <div id="content-wrap">
+                    <div class="container clearfix" style="margin: 40px auto; padding: 0 20px;">
+                        <div class="card-grid">
+                            <div class="card-block">
+                                <div class="fancy-title">
+                                    <h3>Passion</h3>
+                                    <span class="card-subtitle">What I am all about</span>
+                                </div>
+                                <div class="card-body">
+                                    <i class="fa fa-pencil" aria-hidden="true" id="add-passion"></i>
+                                    <i class="fa fa-floppy-o" aria-hidden="true" id="save-passion">&nbsp;save</i>
+                                    <textarea class="passion-input-area form-control" rows="5" cols="50" id="passion-content" maxlength="200"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="divider"></div>
+
+                            <div class="card-block">
+                                <div class="fancy-title">
+                                    <h3>This is <span>heading</span> h4</h3>
+                                    <span class="card-subtitle">A short sub-text to define the heading</span>
+                                </div>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+
+                            <div class="divider"></div>
+
+                            <div class="card-block">
+                                <div class="fancy-title">
+                                    <h3>This is <span>heading</span> h4</h3>
+                                    <span class="card-subtitle">A short sub-text to define the heading</span>
+                                </div>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/plugins.js"></script>
+        <script type="text/javascript" src="js/functions.js"></script>
+
+				<script>
+
+
+						//On pencil icon click
+						$('.edit-control').on('click', function() {
+							var parent = $(this).parent();
+							var contentDiv = $(parent).siblings('.edit-content');
+							var displayDiv = $(parent).siblings('.edit-display');
+							var allInputs = $(contentDiv).find(':input');
+
+							$(allInputs).each(function() {
+								if ($(this).is("input")) {
+									$(this).val($(displayDiv).text());
+								}
+							});
+
+							$(displayDiv).css('display', 'none');
+							$(contentDiv).css('display', 'block');
+							$(this).css('display', 'none');
+
+						});
+
+						$('.edit-save').on('click', function() {
+							var contentDiv = $(this).parent();
+							var displayDiv = $(contentDiv).siblings('.edit-display');
+							var label = $(contentDiv).siblings('label');
+							var allInputs = $(contentDiv).find(':input');
+
+							$(allInputs).each(function() {
+								if ($(this).is("input")) {
+									$(displayDiv).text($(this).val());
+								}
+							});
+
+							$(label).find('.edit-control').css('display', 'inline-block');
+							$(contentDiv).css('display', 'none');
+							$(displayDiv).css('display', 'block');
+
+						});
+
+						// $('.edit-control').on('click', function() {
+						// 	var content = $(this).parent().siblings('.edit-content');
+						// 	var display = $(this).parent().siblings('.edit-display');
+						// 	$(display).css('display', 'none');
+						//
+						// 	$(content).children().each(function() {
+						// 		if ($(this).is("input")) {
+						// 			$(this).val($(display).text());
+						// 		}
+						// 	});
+						//
+						// 	$(content).css('display', 'block');
+						// 	$(this).css('display', 'none');
+						// });
+						//
+						// $('.edit-save').on('click', function() {
+						// 	var content = $(this).parent().siblings('.edit-content');
+						// 	var display = $(this).parent().siblings('.edit-display');
+						//
+						// 	$(display).text($('#display-name-content').val());
+						// 	$(display).css('display', 'block');
+						// 	$(content).css('display', 'none');
+						// 	$(this).parent().siblings('label').find(i).css('display', 'block');
+						// });
+				</script>
+
+    </body>
+</html>

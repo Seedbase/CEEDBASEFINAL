@@ -4,7 +4,7 @@
 	border-radius: 50%;
 	width: 100%;
     height: auto;
-    display: block; 
+    display: block;
 }
 
 .profile .intro-image {
@@ -29,17 +29,18 @@
 	cursor: pointer;
 	display: inline-block;
 }
+
 .profile .fa.fa-floppy-o {
 	display: none;
 }
+
 .profile .fa-floppy-o#save-passion, .profile .fa-floppy-o#save-passion {
 	padding-bottom: 5px;
 }
 .passion-input-area, .display-name-input-area,
 .birthday-input-area, .residence-input-area,
-.email-input-area, .skill-name-input-area,
-.skill-rating-input-area, #skill-save-button,
-.service-name-input-area, .service-description-input-area, 
+.email-input-area,
+.service-name-input-area, .service-description-input-area,
 #service-save-button, .add-experience-container,
 .add-education-container, .freind-reference-input-area,
 .external-links-input-area, #external-links-save-button,
@@ -99,8 +100,8 @@
 }
 .verifiedTag {
 	color: #3e963e;
-    margin-left: -12px;
-    margin-top: -8px;
+    /*margin-left: -12px;
+    margin-top: -8px;*/
     display: block;
  }
  .wholeProfileverifiedTag {
@@ -120,17 +121,17 @@
 input::-webkit-input-placeholder {
 color: #333 !important;
 }
- 
+
 input::-moz-placeholder { /* Firefox 18- */
-color: #333 !important;  
+color: #333 !important;
 }
- 
+
 input::-moz-placeholder {  /* Firefox 19+ */
-color: #333 !important;  
+color: #333 !important;
 }
- 
-input::-ms-input-placeholder {  
-color: #333 !important;  
+
+input::-ms-input-placeholder {
+color: #333 !important;
 }
 a {
 	color: #337ab7 !important;

@@ -26,655 +26,544 @@
         <link href="plugins/select2/dist/css/select2.min.css" rel="stylesheet">
         <!-- MAIN STYLE FOR THIS TEMPLATE -->
         <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/profile.css">        
+        <link rel="stylesheet" href="css/profile.css">
+
+        <!-- Styles for Canvas Template -->
+        <link rel="stylesheet" href="css/style-updated.css" type="text/css" />
+        <link rel="stylesheet" href="css/dark.css" type="text/css" />
+        <link rel="stylesheet" href="css/font-icons.css" type="text/css" />
+        <link rel="stylesheet" href="css/animate.css" type="text/css" />
+        <link rel="stylesheet" href="css/responsive.css" type="text/css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+				<!-- Canvas Components CSS -->
+        <link rel="stylesheet" href="css/canvas-components/datepicker.css" type="text/css" />
+				<link rel="stylesheet" href="css/canvas-components/radio-checkbox.css" type="text/css" />
+				<link rel="stylesheet" href="css/canvas-components/ion.rangeslider.css" type="text/css" />
+				<link rel="stylesheet" href="css/canvas-components/bs-filestyle.css" type="text/css" />
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="css/profile-custom.css" />
+
     </head>
 
-    <body class="layout-1 profile">
+    <body class="stretched">
         <!-- LOADER -->
         <div class="loader-wrapper">
             <div class="loader"></div>
         </div>
 
-
-
-        <!-- NAV SOCIAL -->
-        <div class="nav-social">
-            <ul>
-                <li><a href="#"><i class="icon icon-twitter"></i></a></li>
-                <li><a href="#"><i class="icon icon-facebook"></i></a></li>
-                <li><a href="#"><i class="icon icon-linkedin"></i></a></li>
-            </ul>
-        </div>
-
-        <!-- BACKGROUND IMAGE -->
-        <div class="main-bg bg-image overlay" data-image="img/single-bg.jpg"></div>
-        <!-- INTRO SECTION -->
-        <div class="col-md-12 intro-image">
-            <!-- YOUR AVATAR -->
-            <div class="text-right" style="margin-right: -70px; margin-top: 20px;">
-                <a href="#" id="notificationLink">
-                    <i class="fa fa-bell fa-2x" aria-hidden="true" style="color: #fff"></i>
-                    <span class="label bell-icon-notifications" id="messageCounter">10</span>
-                </a>
-            </div>
-            <div class="text-center">
-                <img src='<%= user.image %>' alt="avatar"> <br>
-                <span class="text-uppercase"><%= user.displayName %></span>
-            </div>
-            <br>
-            <br>
-            <br>
-            
-            <div style="margin-left: -70px;">
-                <p> Introduce yourself like I'm</p>
-                <%if (user.profile && user.profile.introText) { %>
-                    <input class="form-control" type="text" name="intro-content-one" id="intro-content-one" style="width: 100%;" placeholder="John Reno" value="<%= user.profile.introText[0] %>">
-                    <input class="form-control" type="text" name="intro-content-two" id="intro-content-two" style="width: 100%;" placeholder="Designer" value="<%= user.profile.introText[1] %>">
-                    <input class="form-control" type="text" name="intro-content-three" id="intro-content-three" style="width: 100%;" placeholder="Developer" value="<%= user.profile.introText[2] %>">
-                <% }  else { %>
-                    <input class="form-control" type="text" name="intro-content-one" id="intro-content-one" style="width: 100%;" placeholder="John Reno">
-                    <input class="form-control" type="text" name="intro-content-two" id="intro-content-two" style="width: 100%;" placeholder="Designer">
-                    <input class="form-control" type="text" name="intro-content-three" id="intro-content-three" style="width: 100%;" placeholder="Developer">
-                <% } %>
-            </div>
-        </div>
         <div style="display: none">
             <%if (user.provider == 'google') { %>
-                <input id="providerId" type="text" value="<%= user.google.id %>">
+            <input id="providerId" type="text" value="<%= user.google.id %>">
             <% } %>
             <%if (user.provider == 'facebook') { %>
-                <input id="providerId" type="text" value="<%= user.facebook.id %>">
+            <input id="providerId" type="text" value="<%= user.facebook.id %>">
             <% } %>
             <%if (user.provider == 'linkedin') { %>
-                <input id="providerId" type="text" value="<%= user.linkedIn.id %>">
+            <input id="providerId" type="text" value="<%= user.linkedIn.id %>">
             <% } %>
             <%if (user.provider == 'twitter') { %>
-                <input id="providerId" type="text" value="<%= user.twitter.id %>">
+            <input id="providerId" type="text" value="<%= user.twitter.id %>">
             <% } %>
 
             <p id="videoResume"></p>
 
             <p id="userProfileObject"> <%= JSON.stringify(user) %> </p>
         </div>
-       
-        <!-- /END INTRO SECTION -->
-        <!-- RESUME SECTION -->
-        <div id="resume" class="section-resume">
-            <div class="container-fluid">
-                <!-- ABOUT -->
-                <%if (user.isUserProfileAuthenticated) { %>
-                    <div class="row asymetric">
-                        <div class="col-lg-3">                        
-                            <div class="section-header">
 
+        <div id="wrapper" class="clearfix">
+            <section id="intro" class="clearfix section notopborder nomargin edit">
+                <div class="container input-date-group">
+                    <div class="row">
+                        <div id="intro-img" class="col-md-3 col-sm-4">
+                            <img src="images/profile/avatar.jpg" class="img-circle" alt="Avatar" style="max-width: 140px;">
+                        </div>
+                        <div id="intro-profile" class="col-md-9 col-sm-8">
+                            <div class="row">
+                                <div class="form-group col-sm-12">
+                                    <label class="uppercase" for="display-name">Full Name <i class="fa fa-pencil edit-control" aria-hidden="true"></i></label>
+                                    <p id="display-name" class="edit-display h2-bold nomargin"><%= user.displayName %></p>
+                                    <div class="form-inline edit-content" style="display: none;">
+                                        <div class="form-group">
+                                            <input class="form-control h2-bold" type="text" name="display-name-content" id="display-name-content"/>
+                                            <i class="fa fa-floppy-o edit-save" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-9"> 
-                            <div class="text-center showAuthenticatorOnHover">
-                                <span>
-                                <img src="/images/partners/verify-shield.png" class="wholeProfileVerifiedTagImage">
-                                </span>
-                                <p class="wholeProfileAuthenticatedByOrg text-uppercase"> <%= user.userProfileAuthenticatedBy[0] %></p>
-                                <span class="wholeProfileverifiedTag"> Profile Verified</span>
-                                <span class="tooltiptext">
-                                    <%= user.userProfileAuthenticatedBy %>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                <% } %>
-                <div class="row asymetric">
-                    <div class="col-lg-3">                        
-                        <div class="section-header">
-                            <h2>Passion</h2>
-                            <p>What I'm all about</p>
-
-                        </div>
-                    </div>
-                    <div class="col-lg-9">                   
-                        <div>
-                            <i class="fa fa-pencil" aria-hidden="true" id="add-passion"></i>
-                            <i class="fa fa-floppy-o" aria-hidden="true" id="save-passion">&nbsp;save</i>
-                            <textarea class="passion-input-area form-control" rows="5" cols="50" id="passion-content" maxlength="200"></textarea>     
-                            <p id="passion-content-display"><%- user.profile ? user.profile.passion : '' %></p>
-                            <ul class="info-list list-unstyled row p-t-30">
-                                <li class="col-sm-6 col-md-6">
-                                    <strong>Full Name <i class="fa fa-pencil" aria-hidden="true" id="edit-displayName"></i></strong>                                      
-                                    <span id="display-name"><%= user.displayName %></span>
-                                    <input class="display-name-input-area form-control" type="text" name="display-name-content" id="display-name-content" style="width: 80%;">
-                                    <i class="fa fa-floppy-o" aria-hidden="true" id="save-displayName"></i>
-                                </li>
-                                <li class="col-sm-6 col-md-6">
-                                    <strong>Birthday <i class="fa fa-pencil" aria-hidden="true" id="edit-birthday"></i></strong>                                      
-                                    <span id="birthday"><%= user.profile ? user.profile.birthday : '' %></span>
-                                    <input class="birthday-input-area form-control" type="text" name="birthday-content" id="birthday-content" style="width: 80%;" placeholder="mm/yyyy">
-                                    <i class="fa fa-floppy-o" aria-hidden="true" id="save-birthday"></i>
-                                </li>
-                                <li class="col-sm-6 col-md-6">
-                                    <strong>Region</strong>                                      
-                                    <span id="residence"></span>
-                                    <select id="creativeRegion" multiple>
+                            <div class="row">
+                                <div class="form-group col-sm-4">
+                                    <label class="uppercase" for="birthday">Birthday <i class="fa fa-pencil edit-control" aria-hidden="true"></i></label>
+                                    <p id="birthday" class="edit-display nomargin"><%= user.profile ? user.profile.birthday : '' %></p>
+                                    <div class="form-inline edit-content" style="display: none;">
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" name="birthday-input-area" id="birthday-input-area" placeholder="mm/yyyy"/>
+                                            <i class="fa fa-floppy-o edit-save" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <!--<input name="birthday" id="birthday" type="text" value="" class="form-control tleft mnth" placeholder="MM/YYYY">-->
+                                </div>
+                                    <div class="form-group col-sm-5">
+                                    <label class="uppercase" for="creativeRegion">Region</label>
+                                    <select id="creativeRegion" class="form-control select2-element" data-placeholder="Select a region">
                                     </select>
-                                </li>
-                                <li class="col-sm-6 col-md-6">
-                                    <strong>Email <i class="fa fa-pencil" aria-hidden="true" id="edit-email"></i></strong><span id="email"><%= user.email %></span>
-                                    <input class="email-input-area form-control" type="text" name="email-content" id="email-content" style="width: 80%;">
-                                    <i class="fa fa-floppy-o" aria-hidden="true" id="save-email"></i>
-                                </li>
-                            </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-12">
+                                    <label class="uppercase" for="email">Email <i class="fa fa-pencil edit-control" aria-hidden="true"></i></label>
+                                    <p id="email" class="edit-display nomargin"><%= user.email %></p>
+                                    <div class="form-inline edit-content" style="display: none;">
+                                        <div class="form-group">
+                                        	<input class="form-control" type="text" name="email-content" id="email-content"/>
+                                        	<i class="fa fa-floppy-o edit-save" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>Opportunities I&#39;m seeking</label>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                                <input id="unPaidInternship" class="radio-style" name="opportunityOption" type="radio" value="unPaidInternship">
+                                                <label for="unPaidInternship" class="radio-style-3-label radio-small">Unpaid Internship</label>
+                                        </div>
+                                        <div class="col-sm-12">
+                                                <input id="paidInternship" class="radio-style" name="opportunityOption" type="radio" value="paidInternship">
+                                                <label for="paidInternship" class="radio-style-3-label radio-small">Paid internship</label>
+                                        </div>
+                                        <div class="col-sm-12">
+                                                <input id="tempContract" class="radio-style" name="opportunityOption" type="radio" value="tempContract">
+                                                <label for="tempContract" class="radio-style-3-label radio-small">Temporary Contract</label>
+                                        </div>
+                                        <div class="col-sm-12">
+                                                <input id="fullTimeHire" class="radio-style" name="opportunityOption" type="radio" value="fullTimeHire">
+                                                <label for="fullTimeHire" class="radio-style-3-label radio-small">Full Time Hire</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>3 things about me</label>
+                                    <%if (user.profile && user.profile.introText) { %>
+                                        <div class="form-group">
+                                                <input class="form-control" type="text" name="intro-content-one" id="intro-content-one" style="width: 100%;" placeholder="John Reno" value="<%= user.profile.introText[0] %>">
+                                        </div>
+                                        <div class="form-group">
+                                                <input class="form-control" type="text" name="intro-content-two" id="intro-content-two" style="width: 100%;" placeholder="Designer" value="<%= user.profile.introText[1] %>">
+                                        </div>
+                                        <div class="form-group">
+                                                <input class="form-control" type="text" name="intro-content-three" id="intro-content-three" style="width: 100%;" placeholder="Developer" value="<%= user.profile.introText[2] %>">
+                                        </div>
+                                    <% }  else { %>
+                                        <div class="form-group">
+                                                <input class="form-control" type="text" name="intro-content-one" id="intro-content-one" style="width: 100%;" placeholder="John Reno">
+                                        </div>
+                                        <div class="form-group">
+                                                <input class="form-control" type="text" name="intro-content-tw" id="intro-content-one" style="width: 100%;" placeholder="Designer">
+                                        </div>
+                                        <div class="form-group">
+                                                <input class="form-control" type="text" name="intro-content-three" id="intro-content-one" style="width: 100%;" placeholder="Developer">
+                                        </div>
+                                    <% } %>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <!-- SKILLS -->
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>Skills</h2>
-                            <p>My skills</p>
+            <div id="content">
+                <div id="content-wrap">
+                    <div class="container clearfix" style="margin: 40px auto; padding: 0 20px;">
+						<div class="card-grid" data-column="2">
+							<div class="card-block card-block-add-divider" id="passion">
+								<div class="fancy-title">
+									<h3>Passion</h3>
+									<span class="card-subtitle">What I am all about</span>
+								</div>
+								<div class="card-body">
+									<div class="row topmargin-sm">
+										<div class="col-sm-12">
+											<label class="uppercase" for="passion-content">Describe your passion <i class="fa fa-pencil edit-control" aria-hidden="true"></i></label>
+											<p class="edit-display" id="passion-content"><%= user.profile ? user.profile.passion : '' %></p>
+											<div class="form-inline edit-content" style="display: none;">
+												<textarea class="form-control" rows="5" cols="50" id="passion-content-display" maxlength="200"></textarea>
+												<i class="fa fa-floppy-o edit-save" aria-hidden="true"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="card-block" id="passion">
+								<div class="fancy-title">
+									<h3>Video</h3>
+									<span class="card-subtitle">What I am all about</span>
+								</div>
+								<div class="card-body">
+                                    <div class="row topmargin-sm">
+                                        <div class="form-group col-sm-12">
+                                            <div id="profile-video-uploader"></div>
+                                            <p> Best video resumes includes name, location, passion, expertise, notable activities/projects, skillset, opportunity seek etc.</p>															</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- PROGRESS BARS -->
-                    <div class="col-lg-9 progress-bars">
-                        <div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <i class="fa fa-plus-square fa-2x" aria-hidden="true" id="add-skills"></i>
+                        <div class="card-grid" data-column="1">
+
+                            <div class="card-block" id="skills">
+                                <div class="fancy-title">
+                                    <h3>Skills</h3>
+                                    <span class="card-subtitle">My skills</span>
                                 </div>
-                                <div class="col-md-6">
-                                    <input class="skill-name-input-area form-control" type="text" name="skill-name-content" id="skill-name-content" placeholder="skill name">
-                                </div>
-                                <div class="col-md-6">
-                                    <input class="skill-rating-input-area form-control" type="number" name="skill-rating-content" id="skill-rating-content" placeholder="Rate yourself out of 100" max="100">
-                                </div>
-                                <div class="col-md-12">
-                                    <button class="btn text-uppercase m-t-20" id="skill-save-button" style="padding: 8px 15px;">ADD</button>
-                                </div>
-                                <!-- LEFT -->
-                                <%if (user.profile && user.profile.skills) { %>
-                                    <% for(var i=0; i < user.profile.skills.length; i=i+2) { %>
-                                        <%if (user.profile.skills[i]) { %>
-                                            <div class="col-md-1 showAuthenticatorOnHover" style="padding-top: 10px">
-                                                <%if (user.profile.skills[i].isAuthenticated) { %>
-                                                    <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
-                                                    <p class="authenticatedByOrg text-uppercase">
-                                                        <%= user.profile.skills[i].authenticatedBy[0] %>                                                        
-                                                    </p>
-                                                    <span class="verifiedTag">Verified</span>
-                                                    <span class="tooltiptext">
-                                                        <%= user.profile.skills[i].authenticatedBy %>
-                                                    </span>
-                                                <% } %>
-                                            </div>
-                                            <div class="col-md-5" id="skillLeft">
-                                                <div class="progress">
-                                                    <div class="progress-info"><%= user.profile.skills[i].skill %></div>
-                                                    <div class="progress-bar" data-percent="<%= user.profile.skills[i].rating %>">
-                                                        <span class="value"><%= user.profile.skills[i].rating %></span>
+                                <div class="card-body">
+									<!-- Display Existing Skills -->
+									<%if (user.profile && user.profile.skills) { %>
+									<% for(var i=0; i < user.profile.skills.length; i=i+2) { %>
+										<%if (user.profile.skills[i]) { %>
+										<div class="row">
+											<div class="col-md-1 showAuthenticatorOnHover">
+											<%if (user.profile.skills[i].isAuthenticated) { %>
+												<img src="/images/partners/verify-shield.png" class="verifiedTagImage">
+												<p class="authenticatedByOrg text-uppercase">
+													<%= user.profile.skills[i].authenticatedBy[0] %>
+												</p>
+												<span class="verifiedTag">Verified</span>
+												<span class="tooltiptext">
+													<%= user.profile.skills[i].authenticatedBy %>
+												</span>
+											<% } %>
+											</div>
+											<div class="col-md-5">
+												<div class="progress">
+														<div class="progress-info"><%= user.profile.skills[i].skill %></div>
+														<div class="progress-bar" data-percent="<%= user.profile.skills[i].rating %>">
+																<span class="value"><%= user.profile.skills[i].rating %></span>
+														</div>
+												</div>
+											</div>
+										</div>
+										<% } %>
+									<% } %>
+									<% } %>
+
+									<!-- Use as a template -->
+									<div class="row" id="existing-skills-progress-bars">
+										<div class="col-sm-1 showAuthenticatorOnHover">
+											<img src="/images/partners/verify-shield.png" class="verifiedTagImage center-element">
+											<i class="icon-ok center-element"></i>
+											<span class="verifiedTag center-bottom">Verified</span>
+										</div>
+										<div class="col-sm-8 edit-remove-hover">
+											<div class="edit-overlay" style="">
+												<ul>
+													<li>
+														<i class="i-plain icon-pencil" aria-hidden="true"></i>
+													</li>
+													<li>
+														<i class="i-plain icon-remove"></i>
+													</li>
+												</ul>
+											</div>
+											<div class="progress">
+													<div class="progress-info">Skill</div>
+													<div class="progress-bar" data-percent="59">
+															<span class="value">59%</span>
+													</div>
+											</div>
+										</div>
+
+									</div>
+
+                                    <div class="row">
+                                        <div class="col-md-15 col-sm-4 center">
+                                            <div class="edit-component">
+                                                <div class="edit-remove">
+                                                    <div class="inner">
+                                                        <a href="#"><i class="i-plain icon-pencil" aria-hidden="true"></i></a>
+                                                        <a href="#"><i class="i-plain icon-pencil" aria-hidden="true"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="edit-component-content">
+                                                    <div class="rounded-skill nobottommargin" data-color="#3F729B" data-size="125" data-percent="85" data-width="3" data-speed="6500">
+                                                        <div class="counter counter-inherit"><span data-from="1" data-to="85" data-refresh-interval="50" data-speed="6000"></span>%</div>
+                                                    </div>
+                                                    <div class="pie-chart-desc">
+                                                        <h3>Skill</h3>
                                                     </div>
                                                 </div>
                                             </div>
-                                        <% } %>
-                                        <%if (user.profile.skills[i+1]) { %>
-                                            <div class="col-md-1 showAuthenticatorOnHover" style="padding-top: 10px">
-                                                <%if (user.profile.skills[i+1].isAuthenticated) { %>
-                                                    <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
-                                                    <p class="authenticatedByOrg text-uppercase"> <%= user.profile.skills[i+1].authenticatedBy[0] %></p>
-                                                     <span class="verifiedTag">Verified</span>
-                                                     <span class="tooltiptext">
-                                                        <%= user.profile.skills[i + 1].authenticatedBy%>
-                                                    </span>
-                                                <% } %>
+                                        </div>
+                                        <div class="col-md-15 col-sm-4 center">
+                                            <div class="rounded-skill nobottommargin" data-color="#3F729B" data-size="125" data-percent="85" data-width="3" data-speed="6500">
+                                                <div class="counter counter-inherit"><span data-from="1" data-to="85" data-refresh-interval="50" data-speed="6000"></span>%</div>
                                             </div>
-                                            <div class="col-md-5 pull-right" id="skillRight">
-                                                <div class="progress">
-                                                    <div class="progress-info"><%= user.profile.skills[i+1].skill %></div>
-                                                    <div class="progress-bar" data-percent="<%= user.profile.skills[i+1].rating %>">
-                                                        <span class="value"><%= user.profile.skills[i+1].rating %></span>
+                                            <div class="pie-chart-desc">
+                                                <h3>Skill</h3>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-15 col-sm-4 center">
+                                            <div class="rounded-skill nobottommargin" data-color="#3F729B" data-size="125" data-percent="85" data-width="3" data-speed="6500">
+                                                <div class="counter counter-inherit"><span data-from="1" data-to="85" data-refresh-interval="50" data-speed="6000"></span>%</div>
+                                            </div>
+                                            <div class="pie-chart-desc">
+                                                <h3>Skill</h3>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-15 col-md-offset-0 col-sm-4 col-sm-offset-2 center">
+                                            <div class="rounded-skill nobottommargin" data-color="#3F729B" data-size="125" data-percent="85" data-width="3" data-speed="6500">
+                                                <div class="counter counter-inherit"><span data-from="1" data-to="85" data-refresh-interval="50" data-speed="6000"></span>%</div>
+                                            </div>
+                                            <div class="pie-chart-desc">
+                                                <h3>Skill</h3>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-15 col-sm-4 center">
+                                            <div class="rounded-skill nobottommargin" data-color="#3F729B" data-size="125" data-percent="85" data-width="3" data-speed="6500">
+                                                <div class="counter counter-inherit"><span data-from="1" data-to="85" data-refresh-interval="50" data-speed="6000"></span>%</div>
+                                            </div>
+                                            <div class="pie-chart-desc">
+                                                <h3>Skill</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+
+									<!-- Display New Skills -->
+									<div id="skills-progress-bars"></div>
+
+									<!-- Create Skill -->
+									<div id="add-a-skill" style="display: none;">
+										<div class="row">
+											<div class="col-sm-6">
+												<input class="skill-name-input-area form-control" type="text" name="skill-name-content" id="skill-name-content" placeholder="skill name">
+											</div>
+											<div id="toggle-slider" class="col-sm-4">
+												<input id="skill-rating-content" name="skill-rating-content" class="range_01" />
+											</div>
+											<div class="col-sm-2">
+												<button class="btn text-uppercase m-t-20" id="skill-save-button" style="padding: 8px 15px;">ADD</button>
+											</div>
+										</div>
+									</div>
+
+									<!-- Add Skill -->
+									<div class="row" style="margin-bottom: 10px;">
+										<div class="col-sm-1">
+											<i class="fa fa-plus-square-o fa-2x center-element" aria-hidden="true" id="add-skills"></i>
+										</div>
+										</div>
+									</div>
+                            </div>
+
+                            <div class="card-block" id="certifications">
+                                <div class="fancy-title">
+                                    <h3>Certifications</h3>
+                                    <span class="card-subtitle">My learning and development profile</span>
+                                </div>
+                                <div class="card-body">
+                                    <!-- Use as a template -->
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <img src="/images/partners/verify-shield.png" class="verifiedTagImage center-element">
+                                            <i class="icon-ok center-element"></i>
+                                            <span class="verifiedTag center-bottom">Verified</span>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <p>
+                                                <a href="">Link</a>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Display new certification links -->
+                                    <div id="certification-links">
+                                    </div>
+
+                                    <!--<div class="table-responsive">
+                                        <table class="table" id="certification-links">
+                                            <tr>
+                                                <td class="col-xs-1">
+                                                    <img src="/images/partners/verify-shield.png" class="verifiedTagImage center-element">
+                                                    <span class="verifiedTag">Verified</span>
+                                                </td>
+                                                <td class="col-xs-10">
+                                                    <a href="">Link</a>
+                                                </td>
+                                                <td class="col-xs-1">
+                                                    <i class="icon-remove"></i>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>-->
+
+                                    <!-- Add a create -->
+                                    <div id="add-a-link">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <input class="external-links-input-area form-control" type="text" name="external-links-content" id="external-links-content" placeholder="external profile link">
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="btn text-uppercase m-t-20" id="external-links-save-button" style="padding: 8px 15px;">ADD</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Add a link -->
+                                    <div class="row" style="margin-bottom: 10px;">
+                                        <div class="col-sm-1">
+                                            <i class="fa fa-plus-square-o fa-2x center-element" aria-hidden="true" id="add-external-links"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="card-block" id="profile-portfolio">
+                                <div class="fancy-title">
+                                    <h3>Portfolio</h3>
+                                    <span class="card-subtitle">Projects that I have worked on</span>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="card-grid" data-column="2">
+                            <div class="card-block" id="experience">
+                                <div class="fancy-title">
+                                    <h3>Experience</h3>
+                                    <span class="card-subtitle">Yes. I've been around.</span>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12 col-lg-612">
+                                            <div class="block">
+                                                <div class="timeline">
+                                                    <!-- Education 1 -->
+                                                    <div class="timeline-item">
+                                                        <h4 class="item-title">Specialization Course</h4>
+                                                        <span class="item-period">2010</span>
+                                                        <span class="item-small">Apple Inc.</span>
+                                                        <p class="item-description">Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed tortor.</p>
                                                     </div>
+                                                    <!-- / Education 1 -->
+
+                                                    <!-- Education 2 -->
+                                                    <div class="timeline-item">
+                                                        <h4 class="item-title">Specialization Course</h4>
+                                                        <span class="item-period">2010</span>
+                                                        <span class="item-small">Apple Inc.</span>
+                                                        <p class="item-description">Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed tortor.</p>
+                                                    </div>
+                                                    <!-- / Education 2 -->
+
+                                                    <!-- Education 3 -->
+                                                    <div class="timeline-item">
+                                                        <h4 class="item-title">Specialization Course</h4>
+                                                        <span class="item-period">2010</span>
+                                                        <span class="item-small">Apple Inc.</span>
+                                                        <p class="item-description">Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed tortor.</p>
+                                                    </div>
+                                                    <!-- / Education 3 -->
                                                 </div>
                                             </div>
-                                        <% } %>
-                                    <% } %>
-                                <% } %>
-                                <div class="col-md-5" id="skillLeft">
-                                </div>
-                                <div class="col-md-5 pull-right" id="skillRight">
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /END SKILLS -->
-
-
-                <!-- Externam links -->
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>Certifications</h2>
-                            <p>My learning and development profile</p>
-                        </div>
-                    </div>
-
-                    <!-- PROGRESS BARS -->
-                    <div class="col-lg-9 progress-bars">
-                        <div id="external-links-container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <i class="fa fa-plus-square fa-2x" aria-hidden="true" id="add-external-links"></i>
-                                </div>
-                                <div class="col-md-12">
-                                    <input class="external-links-input-area form-control" type="text" name="external-links-content" id="external-links-content" placeholder="external profile link">
-                                </div>
-                                <div class="col-md-12">
-                                    <button class="btn text-uppercase m-t-20" id="external-links-save-button" style="padding: 8px 15px;">ADD</button>
-                                </div>
-                                <%if (user.profile && user.profile.externalLinks) { %>
-                                    <% for(var i=0; i < user.profile.externalLinks.length; i++) { %>
-                                        <div class="col-md-1 showAuthenticatorOnHover" style="margin-top: 2px;">
-                                            <%if (user.profile.externalLinks[i].isAuthenticated) { %>
-                                                <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
-                                                <p class="authenticatedByOrg text-uppercase"> <%= user.profile.externalLinks[i].authenticatedBy[0] %></p>
-                                                <span class="verifiedTag">Verified</span>
-                                                <span class="tooltiptext">
-                                                    <%= user.profile.externalLinks[i].authenticatedBy %>
-                                                </span>
-                                            <% } %>
-                                            
                                         </div>
-                                        <div class="col-md-11">
-                                            <p><%=  user.profile.externalLinks[i].link %></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-block" id="education">
+                                <div class="fancy-title">
+                                    <h3>Education</h3>
+                                    <span class="card-subtitle">My two highest levels of educations</span>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12 col-lg-612">
+                                            <div class="block">
+                                                <div class="timeline">
+                                                    <!-- Education 1 -->
+                                                    <div class="timeline-item">
+                                                        <h4 class="item-title">Specialization Course</h4>
+                                                        <span class="item-period">2010</span>
+                                                        <span class="item-small">Apple Inc.</span>
+                                                        <p class="item-description">Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed tortor.</p>
+                                                    </div>
+                                                    <!-- / Education 1 -->
+
+                                                    <!-- Education 2 -->
+                                                    <div class="timeline-item">
+                                                        <h4 class="item-title">Specialization Course</h4>
+                                                        <span class="item-period">2010</span>
+                                                        <span class="item-small">Apple Inc.</span>
+                                                        <p class="item-description">Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed tortor.</p>
+                                                    </div>
+                                                    <!-- / Education 2 -->
+
+                                                    <!-- Education 3 -->
+                                                    <div class="timeline-item">
+                                                        <h4 class="item-title">Specialization Course</h4>
+                                                        <span class="item-period">2010</span>
+                                                        <span class="item-small">Apple Inc.</span>
+                                                        <p class="item-description">Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed tortor.</p>
+                                                    </div>
+                                                    <!-- / Education 3 -->
+                                                </div>
+                                            </div>
                                         </div>
-                                    <% } %>
-                                <% } %>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        <div class="card-grid" data-column="1">
+                            <div class="card-block" id="reference">
+                                <div class="fancy-title">
+                                    <h3>Reference</h3>
+                                    <span class="card-subtitle">How my colleagues describe me</span>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-block" id="service">
+                                <div class="fancy-title">
+                                    <h3>Services</h3>
+                                    <span class="card-subtitle">What I can do</span>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-                <!-- /END external links -->
-
-                <!-- Video -->
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>Video</h2>
-                            <p>My 30 second video resume</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div id="profile-video-uploader"></div>
-                                    <p> Best video resumes includes name, location, passion, expertise, notable activities/projects, skillset, opportunity seek etc.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /END Video -->
-
-                
-                <!-- PORTFOLIO -->
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>Portfolio</h2>
-                            <p>My amazing works</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <i class="fa fa-plus-square fa-2x colorTheme" aria-hidden="true" id="add-portfolio"></i>
-                            </div>
-                            <div class="col-lg-12 add-portfolio-container" id="add-portfolio-container">
-                                <div class="col-md-12">
-                                    <input class="portfolio-title-input-area form-control" type="text" name="portfolio-name-content" id="portfolio-title-content" placeholder="Project title">
-                                </div>
-                                <div class="col-md-6">
-                                    <input id="portfolio-from-year-content" type="text" class="form-control portfolio-from-year-input-area" placeholder="From Year" >
-                                </div>
-                                <div class="col-md-6">
-                                    <input id="portfolio-to-year-content" type="text" class="form-control portfolio-to-year-input-area" placeholder="To Year" >
-                                </div>
-                                <div class="col-md-12">
-                                    <textarea class="portfolio-description-input-area form-control" name="portfolio-description-content" id="portfolio-description-content" placeholder="Description" rows="5" cols="50"></textarea>
-                                </div>
-                                <div class="col-md-12">
-                                    <input id="portfolio-link" type="text" class="form-control portfolio-link-input-area" placeholder="link" >
-                                </div>
-                                <div class="col-md-12">
-                                    <button class="btn text-uppercase m-t-20" id="portfolio-save-button" style="padding: 8px 15px;">ADD</button>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12 portfolio-div">
-                                <ul class="timeline" id="portfolio-timeline" style="margin-left: 6px;">
-                                    <%if (user.profile && user.profile.portfolios) { %>
-                                        <% for(var i=0; i < user.profile.portfolios.length; i++) { %>
-                                            <%if (user.profile.portfolios[i].isAuthenticated) { %>
-                                                <div class="col-md-1 showAuthenticatorOnHover" style="margin-left: -20px; margin-top: 0;">
-                                                    <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
-                                                    <p class="authenticatedByOrg text-uppercase"> <%= user.profile.portfolios[i].authenticatedBy[0] %></p>
-                                                    <span class="verifiedTag">Verified</span>
-                                                    <span class="tooltiptext">
-                                                        <%= user.profile.portfolios[i].authenticatedBy%>
-                                                    </span>
-                                                </div>
-                                            <% } %>
-                                                
-                                                <li style="margin-left: 40px;">
-                                                    <h2 class="title"><%= user.profile.portfolios[i].title %></h2>
-                                                    <span class="time"><%= user.profile.portfolios[i].from %> - <%= user.profile.portfolios[i].to %></span>
-                                                    <p><%- user.profile.portfolios[i].description %></p>
-                                                    <p><%= user.profile.portfolios[i].link %></p>
-                                                </li>
-                                        <% } %>
-                                    <% } %> 
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /END PORTFOLIO -->
-
-                <!-- EXPERIENCE -->
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>Experience</h2>
-                            <p>Yes. I've been around</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <i class="fa fa-plus-square fa-2x" aria-hidden="true" id="add-experience"></i>
-                            </div>
-                            <div class="col-lg-12 add-experience-container" id="add-experience-container">
-                                <div class="col-md-12">
-                                    <input class="experience-name-input-area form-control" type="text" name="experience-name-content" id="experience-name-content" placeholder="Company name">
-                                </div>
-                                <div class="col-md-6">
-                                    <input id="experience-from-year-content" type="text" class="form-control experience-from-year-input-area" placeholder="From Year" >
-                                </div>
-                                <div class="col-md-6">
-                                    <input id="experience-to-year-content" type="text" class="form-control experience-to-year-input-area" placeholder="To Year" >
-                                </div>
-                                <div class="col-md-12">
-                                    <textarea class="experience-description-input-area form-control" name="experience-description-content" id="experience-description-content" placeholder="Description" rows="5" cols="50"></textarea>
-                                </div>
-                                <div class="col-md-12">
-                                    <button class="btn text-uppercase m-t-20" id="experience-save-button" style="padding: 8px 15px;">ADD</button>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12 experience-div">
-                                <ul class="timeline" id="experience-timeline" style="margin-left: 1px;">
-                                    <%if (user.profile && user.profile.experiences) { %>
-                                        <% for(var i=0; i < user.profile.experiences.length; i++) { %>
-                                            <%if (user.profile.experiences[i].isAuthenticated) { %>
-                                                <div class="col-md-1 showAuthenticatorOnHover" style="margin-left: -20px; margin-top: 0;">
-                                                    <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
-                                                    <p class="authenticatedByOrg text-uppercase"> <%= user.profile.experiences[i].authenticatedBy[0] %></p>
-                                                    <span class="verifiedTag">Verified</span>
-                                                    <span class="tooltiptext">
-                                                        <%= user.profile.experiences[i].authenticatedBy%>
-                                                    </span>
-                                                </div>
-                                            <% } %>
-                                                
-                                            
-                                            <li style="margin-left: 40px;">
-                                                <h2 class="title"><%= user.profile.experiences[i].company %></h2>
-                                                <span class="time"><%= user.profile.experiences[i].from %> - <%= user.profile.experiences[i].to %></span>
-                                                <p><%= user.profile.experiences[i].description %></p>
-                                            </li>
-                                        <% } %>
-                                    <% } %>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /END EXPERIENCE -->
-
-                <!-- EDUCATION -->
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>Education</h2>
-                            <p>My highest two degrees</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <i class="fa fa-plus-square fa-2x" aria-hidden="true" id="add-education"></i>
-                            </div>
-                            <div class="col-lg-12 add-education-container" id="add-education-container">
-                                <div class="col-md-12">
-                                    <input class="education-name-input-area form-control" type="text" name="education-name-content" id="education-name-content" placeholder="Institution name">
-                                </div>
-                                <div class="col-md-6">
-                                    <input id="education-from-year-content" type="text" class="form-control education-from-year-input-area" placeholder="From Year" >
-                                </div>
-                                <div class="col-md-6">
-                                    <input id="education-to-year-content" type="text" class="form-control education-to-year-input-area" placeholder="To Year" >
-                                </div>
-                                <div class="col-md-12">
-                                    <textarea class="education-description-input-area form-control" name="education-description-content" id="education-description-content" placeholder="Degree" rows="5" cols="50"></textarea>
-                                </div>
-                                <div class="col-md-12">
-                                    <button class="btn text-uppercase m-t-20" id="education-save-button" style="padding: 8px 15px;">ADD</button>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12 education-div">
-                                <!-- EXPERIENCE TIMELINE -->
-                                <ul class="timeline" id="education-timeline" style="margin-left: 1px">
-                                    <%if (user.profile && user.profile.educations) { %>
-                                        <% for(var i=0; i < user.profile.educations.length; i++) { %>
-                                            <li>
-                                                <h2 class="title"><%= user.profile.educations[i].institute %></h2>
-                                                <span class="time"><%= user.profile.educations[i].from %> - <%= user.profile.educations[i].to %></span>
-                                                <p><%- user.profile.educations[i].description %></p>
-                                            </li>
-                                        <% } %> 
-                                    <% } %>                           
-                                </ul>
-                                <!-- /END EXPERIENCE TIMELINE -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /END EDUCATION -->
-
-                <!-- Friend -->
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>Reference</h2>
-                            <p>How my friends describe me</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div style="margin-left: 4px;">
-                            
-                            <i class="fa fa-pencil" aria-hidden="true" id="add-freind-reference"></i>
-                            <i class="fa fa-floppy-o" aria-hidden="true" id="save-freind-reference">&nbsp;save</i>
-                            <textarea class="freind-reference-input-area form-control" rows="5" cols="50" id="freind-reference-content" maxlength="100"></textarea>     
-                            <p id="freind-reference-content-display"><%- user.profile ? user.profile.friendReference : '' %></p>
-                                
-                        </div>
-                    </div>
-                </div>
-                <!-- /END Friend Reference -->
-
-                <!-- Friend -->
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>Opportunities</h2>
-                            <p>I'm seeking</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div class="row" style="margin-left: 4px;">
-                            <div class="col-md-6">
-                                <input type="radio" id="unPaidInternship" name="opportunityOption" value="unPaidInternship"> Unpaid Internship
-                            </div>
-                            <div class="col-md-6">
-                                <input type="radio" id="paidInternship" name="opportunityOption" value="paidInternship"> Paid internship
-                            </div>
-                            <div class="col-md-6" >
-                                <input type="radio" id="tempContract" name="opportunityOption" value="tempContract"> Temporary Contract
-                            </div>
-                            <div class="col-md-6">
-                                <input type="radio" id="fullTimeHire" name="opportunityOption" value="fullTimeHire"> Full Time Hire
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /END Friend Reference -->
-
-                <!-- SERVICES -->
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>Services</h2>
-                            <p>What I can do</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div>
-                            <div class="row" id="service-container">
-                                <div class="col-md-12">
-                                    <i class="fa fa-plus-square fa-2x" aria-hidden="true" id="add-service"></i>
-                                </div>
-                                <div class="col-md-12">
-                                    <input class="service-name-input-area form-control" type="text" name="service-name-content" id="service-name-content" placeholder="Title">
-                                </div>
-                                <div class="col-md-12">
-                                    <textarea class="service-description-input-area form-control" name="service-description-content" id="service-description-content" placeholder="Description" rows="5" cols="50"></textarea>
-                                </div>
-                                <div class="col-md-12">
-                                    <button class="btn text-uppercase m-t-20" id="service-save-button" style="padding: 8px 15px;">ADD</button>
-                                </div>
-                                <div class="col-md-12" style="margin-top: 20px;">
-                                    <%if (user.profile && user.profile.services) { %>
-                                        <% for(var i=0; i < user.profile.services.length; i++) { %>
-                                            <div class="col-md-1 showAuthenticatorOnHover" style="padding-top: 21px">
-                                                <%if (user.profile.services[i].isAuthenticated) { %>
-                                                    <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
-                                                    <p class="authenticatedByOrg text-uppercase"> <%= user.profile.services[i].authenticatedBy[0] %></p>
-                                                    <span class="verifiedTag">Verified</span>
-                                                    <span class="tooltiptext">
-                                                        <%= user.profile.services[i].authenticatedBy%>
-                                                    </span>
-                                                <% } %>
-                                                
-                                            </div>
-                                            <div class="icon-box col-md-5">
-                                                <div class="box-icon">
-                                                    <i class="icon fa fa-shield"></i>
-                                                </div>
-                                                <div class="box-content">
-                                                    <h4><%= user.profile.services[i].service %></h4>
-                                                    <p><%= user.profile.services[i].description %></p>
-                                                </div>
-                                            </div>
-                                        <% } %>
-                                    <% } %>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /END SERVICES -->
-
-                <!-- CLIENTS 
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>Clients</h2>
-                            <p>Happy Customers.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div>
-                            <ul class="client-list list-unstyled">
-                                <li>
-                                    <a href="#"><img src="img/clients/1.png" alt=""></a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="img/clients/2.png" alt=""></a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="img/clients/3.png" alt=""></a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="img/clients/4.png" alt=""></a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="img/clients/5.png" alt=""></a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="img/clients/6.png" alt=""></a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="img/clients/7.png" alt=""></a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="img/clients/8.png" alt=""></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                 /END CLIENTS -->
-
-                <!-- CONTACT -->
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>CONTACT CEEDER</h2>
-                            <p>Get in touch with your qualifier</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div>
-                            <!--
-                            <ul class="info-list list-unstyled row">
-                                <li class="col-sm-6 col-md-3"><strong>Location</strong><span>United States</span></li>
-                                <li class="col-sm-6 col-md-3"><strong>Phone</strong><span>+522 234 56789</span></li>
-                                <li class="col-sm-6 col-md-3"><strong>Website</strong><a href="http://www.cssloss.com"><span>cssloss.com</span></a></li>
-                                <li class="col-sm-6 col-md-3"><strong>Email</strong><span>yourmail@mail.com</span></li>
-                            </ul>
-                            -->
-                            <!-- CONTACT FORM -->
-                            <form class="contact-form p-y-40">
-                                <input class="form-control" id="authenticatorName" type="text" name="name" placeholder="name *">
-                                <input class="form-control" id="authenticatorEmail" type="email" name="email" placeholder="email *">
-                                <input class="form-control" id="authenticatorSubject" type="text" name="subject" placeholder="subject *">
-                                <textarea class="form-control" id="authenticatorMessage" rows="6" placeholder="message *"></textarea>
-                                <p> Fields marked * are compulsory </p>
-                                <button class="btn text-uppercase m-t-40" type="submit" id="submitTheVerificationRequest" name="submit"><span>SEND PROFILE FOR QUALIFICATION</span></button>
-
-                                <!-- <button class="btn text-uppercase m-t-40" id="saveMyProfile"><span>Save Profile</span></button> -->
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!-- /END CONTACT -->
-
             </div>
+
+            <section id="contact" class="clearfix section notopborder nomargin">
+                <div class="container">
+                    <div class="row">
+                    </div>
+                </div>
+            </section>
+
         </div>
-        <!-- /END RESUME SECTION -->
 
         <!-- AUDIO -->
         <audio id="audio-player" loop>
@@ -696,10 +585,20 @@
         <!-- MAIN SCRIPT FOR THIS TEMPLATE -->
         <script src="js/main.js"></script>
 
-        <script>
+        <!-- Scripts for Canvas Template -->
+        <script type="text/javascript" src="js/plugins.js"></script>
+        <script type="text/javascript" src="js/functions.js"></script>
+
+				<!-- Canvas Components JS -->
+        <script type="text/javascript" src="js/canvas-components/datepicker.js"></script>
+				<script type="text/javascript" src="js/canvas-components/moment.js"></script>
+				<script type="text/javascript" src="js/canvas-components/rangeslider.min.js"></script>
+				<script type="text/javascript" src="js/canvas-components/bs-filestyle.js"></script>
+
+        <!--<script>
             $('#creativeRegion').select2({
                 tags: true,
-                data: ['Barrie', 'Bay of Quinte', 'Bow Valley', 'Calgary', 'Charlottetown', 'Comox Valley', 
+                data: ['Barrie', 'Bay of Quinte', 'Bow Valley', 'Calgary', 'Charlottetown', 'Comox Valley',
                 'Durham Region', 'Edmonton', 'Fredericton', 'Halifax', 'Hamilton', 'Kamloops', 'Kingston', 'Montreal',
                 'Nanaimo', 'Nelson', 'Niagara Falls', 'Ottawa', 'Ottawa Valley', 'Peel Region', 'Peterborough',
                 'Prince George', 'Revelstoke', 'Sarnia Lambton', 'Saskatoon', 'Sault Ste Marie', 'Smithers', 'Toronto',
@@ -708,6 +607,71 @@
                 maximumSelectionLength: 1,
                 placeholder: "Select from list or type and enter"
             });
+        </script>-->
+
+        <script>
+						// In your Javascript (external .js resource or <script> tag)
+						$(document).ready(function() {
+							$('#creativeRegion').select2({
+								data: ['', 'Barrie', 'Bay of Quinte', 'Bow Valley', 'Calgary', 'Charlottetown', 'Comox Valley',
+                'Durham Region', 'Edmonton', 'Fredericton', 'Halifax', 'Hamilton', 'Kamloops', 'Kingston', 'Montreal',
+                'Nanaimo', 'Nelson', 'Niagara Falls', 'Ottawa', 'Ottawa Valley', 'Peel Region', 'Peterborough',
+                'Prince George', 'Revelstoke', 'Sarnia Lambton', 'Saskatoon', 'Sault Ste Marie', 'Smithers', 'Toronto',
+                'Vancouver', 'Waterloo', 'Whitehorse', 'Windsor', 'Winnipeg',  'York Region'],
+						    placeholder: function(){
+						        $(this).data('placeholder');
+						    }
+							});
+
+							$(".range_01").ionRangeSlider({
+								min: 10,
+								max: 100
+							});
+						});
+
+						jQuery('.input-date-group .mnth').datepicker({
+								autoclose: true,
+								minViewMode: 1,
+								format: "mm/yyyy"
+						});
+
+            //On pencil icon click
+						$('.edit-control').on('click', function() {
+							var parent = $(this).parent();
+							var contentDiv = $(parent).siblings('.edit-content');
+							var displayDiv = $(parent).siblings('.edit-display');
+							var allInputs = $(contentDiv).find(':input');
+
+							$(allInputs).each(function() {
+								if ($(this).is("input, textarea")) {
+									$(this).val($(displayDiv).text());
+								}
+							});
+
+							$(displayDiv).css('display', 'none');
+							$(contentDiv).css('display', 'block');
+							$(this).css('display', 'none');
+
+						});
+
+						$('.edit-save').on('click', function() {
+							var contentDiv = $(this).parents('.edit-content');
+							var displayDiv = $(contentDiv).siblings('.edit-display');
+							var label = $(contentDiv).siblings('label');
+							var allInputs = $(contentDiv).find(':input');
+
+							$(allInputs).each(function() {
+								if ($(this).is("input, textarea")) {
+									$(displayDiv).text($(this).val());
+								}
+							});
+
+							$(label).find('.edit-control').css('display', 'inline-block');
+							$(contentDiv).css('display', 'none');
+							$(displayDiv).css('display', 'block');
+
+						});
+
         </script>
 
         <script type="text/template" id="qq-template">
@@ -829,13 +793,13 @@
                         onComplete: function(id, name, responseJSON, maybeXhr) {
                             var fileObject = {uuid: responseJSON.newUuid, size: responseJSON.size, name: responseJSON.name, url: responseJSON.url};
                             $('#videoResume').text(JSON.stringify(fileObject));
-                            
+
                         },
                         onError: function (id, name, reason, maybeXhrOrXdr) {
                             /*angular.element('#product-photo-uploader').scope().showImageUploadErrors(reason);*/
                         },
                         onSessionRequestComplete: function(response, success, xhrOrXdr) {
-                            
+
                         }
                     }
                 });
