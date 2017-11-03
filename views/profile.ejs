@@ -25,8 +25,8 @@
         <link href="plugins/fine-uploader/fine-uploader/fine-uploader.min.css" rel="stylesheet">
         <link href="plugins/select2/dist/css/select2.min.css" rel="stylesheet">
         <!-- MAIN STYLE FOR THIS TEMPLATE -->
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/profile.css">
+        <!--<link rel="stylesheet" href="css/main.css">-->
+        <!--<link rel="stylesheet" href="css/profile.css">-->
 
         <!-- Styles for Canvas Template -->
         <link rel="stylesheet" href="css/style-updated.css" type="text/css" />
@@ -38,12 +38,15 @@
 
 				<!-- Canvas Components CSS -->
         <link rel="stylesheet" href="css/canvas-components/datepicker.css" type="text/css" />
-				<link rel="stylesheet" href="css/canvas-components/radio-checkbox.css" type="text/css" />
-				<link rel="stylesheet" href="css/canvas-components/ion.rangeslider.css" type="text/css" />
-				<link rel="stylesheet" href="css/canvas-components/bs-filestyle.css" type="text/css" />
+        <link rel="stylesheet" href="css/canvas-components/radio-checkbox.css" type="text/css" />
+        <link rel="stylesheet" href="css/canvas-components/ion.rangeslider.css" type="text/css" />
+        <link rel="stylesheet" href="css/canvas-components/bs-filestyle.css" type="text/css" />
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="css/profile-custom.css" />
+
+        <link rel="stylesheet" href="css/mdl/material.min.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     </head>
 
@@ -90,6 +93,37 @@
                                             <i class="fa fa-floppy-o edit-save" aria-hidden="true"></i>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-12">
+                                    <label class="uppercase">3 things about me</label>
+                                    <div>
+                                        <span class="mdl-chip mdl-chip--deletable">
+                                        <span class="mdl-chip__text">Deletable Chip</span>
+                                        <button type="button" class="mdl-chip__action"><i class="material-icons">cancel</i></button>
+                                    </span>
+                                        <span class="mdl-chip mdl-chip--deletable">
+                                        <span class="mdl-chip__text">Deletable Chip</span>
+                                        <button type="button" class="mdl-chip__action"><i class="material-icons">cancel</i></button>
+                                    </span>
+                                        <span class="mdl-chip mdl-chip--deletable">
+                                        <span class="mdl-chip__text">Deletable Chip</span>
+                                        <button type="button" class="mdl-chip__action"><i class="material-icons">cancel</i></button>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <!-- Simple Textfield -->
+                                    <form action="#">
+                                        <div class="mdl-textfield mdl-js-textfield">
+                                            <input class="mdl-textfield__input" type="text" id="sample1">
+                                            <label class="mdl-textfield__label" for="sample1">Text...</label>
+                                        </div>
+                                    </form>
+
                                 </div>
                             </div>
                             <div class="row">
@@ -144,7 +178,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <!--<div class="col-sm-6">
                                     <label>3 things about me</label>
                                     <%if (user.profile && user.profile.introText) { %>
                                         <div class="form-group">
@@ -167,7 +201,7 @@
                                                 <input class="form-control" type="text" name="intro-content-three" id="intro-content-one" style="width: 100%;" placeholder="Developer">
                                         </div>
                                     <% } %>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -177,345 +211,475 @@
             <div id="content">
                 <div id="content-wrap">
                     <div class="container clearfix" style="margin: 40px auto; padding: 0 20px;">
-						<div class="card-grid" data-column="2">
-							<div class="card-block card-block-add-divider" id="passion">
-								<div class="fancy-title">
-									<h3>Passion</h3>
-									<span class="card-subtitle">What I am all about</span>
-								</div>
-								<div class="card-body">
-									<div class="row topmargin-sm">
-										<div class="col-sm-12">
-											<label class="uppercase" for="passion-content">Describe your passion <i class="fa fa-pencil edit-control" aria-hidden="true"></i></label>
-											<p class="edit-display" id="passion-content"><%= user.profile ? user.profile.passion : '' %></p>
-											<div class="form-inline edit-content" style="display: none;">
-												<textarea class="form-control" rows="5" cols="50" id="passion-content-display" maxlength="200"></textarea>
-												<i class="fa fa-floppy-o edit-save" aria-hidden="true"></i>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
 
-							<div class="card-block" id="passion">
-								<div class="fancy-title">
-									<h3>Video</h3>
-									<span class="card-subtitle">What I am all about</span>
-								</div>
-								<div class="card-body">
-                                    <div class="row topmargin-sm">
-                                        <div class="form-group col-sm-12">
-                                            <div id="profile-video-uploader"></div>
-                                            <p> Best video resumes includes name, location, passion, expertise, notable activities/projects, skillset, opportunity seek etc.</p>															</div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card-block">
+                                    <div class="fancy-title">
+                                        <h3>Passion</h3>
+                                        <span class="card-subtitle">What I am all about</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row topmargin-sm">
+                                            <div class="col-sm-12">
+                                                <label class="uppercase" for="passion-content">Describe your passion <i class="fa fa-pencil edit-control" aria-hidden="true"></i></label>
+                                                <p class="edit-display" id="passion-content"><%= user.profile ? user.profile.passion : '' %></p>
+                                                <div class="form-inline edit-content" style="display: none;">
+                                                    <textarea class="form-control" rows="5" cols="50" id="passion-content-display" maxlength="200"></textarea>
+                                                    <i class="fa fa-floppy-o edit-save" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" id="passion">
+                                <div class="card-block">
+                                    <div class="fancy-title">
+                                        <h3>Video</h3>
+                                        <span class="card-subtitle">What I am all about</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row topmargin-sm">
+                                            <div class="form-group col-sm-12">
+                                                <div id="profile-video-uploader"></div>
+                                                <p> Best video resumes includes name, location, passion, expertise, notable activities/projects, skillset, opportunity seek etc.</p>															</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="card-grid" data-column="1">
-
-                            <div class="card-block" id="skills">
-                                <div class="fancy-title">
-                                    <h3>Skills</h3>
-                                    <span class="card-subtitle">My skills</span>
-                                </div>
-                                <div class="card-body">
-									<!-- Display Existing Skills -->
-									<%if (user.profile && user.profile.skills) { %>
-									<% for(var i=0; i < user.profile.skills.length; i=i+2) { %>
-										<%if (user.profile.skills[i]) { %>
-										<div class="row">
-											<div class="col-md-1 showAuthenticatorOnHover">
-											<%if (user.profile.skills[i].isAuthenticated) { %>
-												<img src="/images/partners/verify-shield.png" class="verifiedTagImage">
-												<p class="authenticatedByOrg text-uppercase">
-													<%= user.profile.skills[i].authenticatedBy[0] %>
-												</p>
-												<span class="verifiedTag">Verified</span>
-												<span class="tooltiptext">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="card-block" id="skills">
+                                    <div class="fancy-title">
+                                        <h3>Skills</h3>
+                                        <span class="card-subtitle">My skills</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Display Existing Skills -->
+                                        <%if (user.profile && user.profile.skills) { %>
+                                        <% for(var i=0; i < user.profile.skills.length; i=i+2) { %>
+                                        <%if (user.profile.skills[i]) { %>
+                                        <div class="row">
+                                            <div class="col-md-1 showAuthenticatorOnHover">
+                                                <%if (user.profile.skills[i].isAuthenticated) { %>
+                                                <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
+                                                <p class="authenticatedByOrg text-uppercase">
+                                                    <%= user.profile.skills[i].authenticatedBy[0] %>
+                                                </p>
+                                                <span class="verifiedTag">Verified</span>
+                                                <span class="tooltiptext">
 													<%= user.profile.skills[i].authenticatedBy %>
 												</span>
-											<% } %>
-											</div>
-											<div class="col-md-5">
-												<div class="progress">
-														<div class="progress-info"><%= user.profile.skills[i].skill %></div>
-														<div class="progress-bar" data-percent="<%= user.profile.skills[i].rating %>">
-																<span class="value"><%= user.profile.skills[i].rating %></span>
-														</div>
-												</div>
-											</div>
-										</div>
-										<% } %>
-									<% } %>
-									<% } %>
+                                                <% } %>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="progress">
+                                                    <div class="progress-info"><%= user.profile.skills[i].skill %></div>
+                                                    <div class="progress-bar" data-percent="<%= user.profile.skills[i].rating %>">
+                                                        <span class="value"><%= user.profile.skills[i].rating %></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% } %>
+                                        <% } %>
+                                        <% } %>
 
-									<!-- Use as a template -->
-									<div class="row" id="existing-skills-progress-bars">
-										<div class="col-sm-1 showAuthenticatorOnHover">
-											<img src="/images/partners/verify-shield.png" class="verifiedTagImage center-element">
-											<i class="icon-ok center-element"></i>
-											<span class="verifiedTag center-bottom">Verified</span>
-										</div>
-										<div class="col-sm-8 edit-remove-hover">
-											<div class="edit-overlay" style="">
-												<ul>
-													<li>
-														<i class="i-plain icon-pencil" aria-hidden="true"></i>
-													</li>
-													<li>
-														<i class="i-plain icon-remove"></i>
-													</li>
-												</ul>
-											</div>
-											<div class="progress">
-													<div class="progress-info">Skill</div>
-													<div class="progress-bar" data-percent="59">
-															<span class="value">59%</span>
-													</div>
-											</div>
-										</div>
+                                        <!-- Use as a template -->
+                                        <div class="row" id="existing-skills-progress-bars">
+                                            <!--<div class="col-sm-1 showAuthenticatorOnHover">
+                                                <img src="/images/partners/verify-shield.png" class="verifiedTagImage center-element">
+                                                <i class="icon-ok center-element"></i>
+                                                <span class="verifiedTag center-bottom">Verified</span>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="edit-overlay" style="">
+                                                    <ul>
+                                                        <li>
+                                                            <i class="i-plain icon-pencil" aria-hidden="true"></i>
+                                                        </li>
+                                                        <li>
+                                                            <i class="i-plain icon-remove"></i>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="progress">
+                                                    <div class="progress-info">Skill</div>
+                                                    <div class="progress-bar" data-percent="59">
+                                                            <span class="value">59%</span>
+                                                    </div>
+                                                </div>
+                                            </div>-->
 
-									</div>
-
-                                    <div class="row">
-                                        <div class="col-md-15 col-sm-4 center">
-                                            <div class="edit-component">
+                                            <div class="edit-component col-sm-12">
                                                 <div class="edit-remove">
                                                     <div class="inner">
                                                         <a href="#"><i class="i-plain icon-pencil" aria-hidden="true"></i></a>
-                                                        <a href="#"><i class="i-plain icon-pencil" aria-hidden="true"></i></a>
+                                                        <a href="#"><i class="i-plain icon-remove" aria-hidden="true"></i></a>
                                                     </div>
                                                 </div>
                                                 <div class="edit-component-content">
-                                                    <div class="rounded-skill nobottommargin" data-color="#3F729B" data-size="125" data-percent="85" data-width="3" data-speed="6500">
-                                                        <div class="counter counter-inherit"><span data-from="1" data-to="85" data-refresh-interval="50" data-speed="6000"></span>%</div>
-                                                    </div>
-                                                    <div class="pie-chart-desc">
-                                                        <h3>Skill</h3>
+                                                    <div class="row">
+                                                        <div class="col-sm-1 showAuthenticatorOnHover">
+                                                            <img src="/images/partners/verify-shield.png" class="verifiedTagImage center-element">
+                                                            <i class="icon-ok center-element"></i>
+                                                            <span class="verifiedTag center-bottom">Verified</span>
+                                                        </div>
+                                                        <div class="col-sm-8">
+                                                            <div class="progress">
+                                                                <div class="progress-info">Skill</div>
+                                                                <div class="progress-bar" data-percent="59">
+                                                                    <span class="value">59%</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-15 col-sm-4 center">
-                                            <div class="rounded-skill nobottommargin" data-color="#3F729B" data-size="125" data-percent="85" data-width="3" data-speed="6500">
-                                                <div class="counter counter-inherit"><span data-from="1" data-to="85" data-refresh-interval="50" data-speed="6000"></span>%</div>
-                                            </div>
-                                            <div class="pie-chart-desc">
-                                                <h3>Skill</h3>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-15 col-sm-4 center">
-                                            <div class="rounded-skill nobottommargin" data-color="#3F729B" data-size="125" data-percent="85" data-width="3" data-speed="6500">
-                                                <div class="counter counter-inherit"><span data-from="1" data-to="85" data-refresh-interval="50" data-speed="6000"></span>%</div>
-                                            </div>
-                                            <div class="pie-chart-desc">
-                                                <h3>Skill</h3>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-15 col-md-offset-0 col-sm-4 col-sm-offset-2 center">
-                                            <div class="rounded-skill nobottommargin" data-color="#3F729B" data-size="125" data-percent="85" data-width="3" data-speed="6500">
-                                                <div class="counter counter-inherit"><span data-from="1" data-to="85" data-refresh-interval="50" data-speed="6000"></span>%</div>
-                                            </div>
-                                            <div class="pie-chart-desc">
-                                                <h3>Skill</h3>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-15 col-sm-4 center">
-                                            <div class="rounded-skill nobottommargin" data-color="#3F729B" data-size="125" data-percent="85" data-width="3" data-speed="6500">
-                                                <div class="counter counter-inherit"><span data-from="1" data-to="85" data-refresh-interval="50" data-speed="6000"></span>%</div>
-                                            </div>
-                                            <div class="pie-chart-desc">
-                                                <h3>Skill</h3>
-                                            </div>
-                                        </div>
-                                    </div>
 
-									<!-- Display New Skills -->
-									<div id="skills-progress-bars"></div>
-
-									<!-- Create Skill -->
-									<div id="add-a-skill" style="display: none;">
-										<div class="row">
-											<div class="col-sm-6">
-												<input class="skill-name-input-area form-control" type="text" name="skill-name-content" id="skill-name-content" placeholder="skill name">
-											</div>
-											<div id="toggle-slider" class="col-sm-4">
-												<input id="skill-rating-content" name="skill-rating-content" class="range_01" />
-											</div>
-											<div class="col-sm-2">
-												<button class="btn text-uppercase m-t-20" id="skill-save-button" style="padding: 8px 15px;">ADD</button>
-											</div>
-										</div>
-									</div>
-
-									<!-- Add Skill -->
-									<div class="row" style="margin-bottom: 10px;">
-										<div class="col-sm-1">
-											<i class="fa fa-plus-square-o fa-2x center-element" aria-hidden="true" id="add-skills"></i>
-										</div>
-										</div>
-									</div>
-                            </div>
-
-                            <div class="card-block" id="certifications">
-                                <div class="fancy-title">
-                                    <h3>Certifications</h3>
-                                    <span class="card-subtitle">My learning and development profile</span>
-                                </div>
-                                <div class="card-body">
-                                    <!-- Use as a template -->
-                                    <div class="row">
-                                        <div class="col-sm-1">
-                                            <img src="/images/partners/verify-shield.png" class="verifiedTagImage center-element">
-                                            <i class="icon-ok center-element"></i>
-                                            <span class="verifiedTag center-bottom">Verified</span>
                                         </div>
-                                        <div class="col-sm-8">
-                                            <p>
-                                                <a href="">Link</a>
-                                            </p>
-                                        </div>
-                                    </div>
 
-                                    <!-- Display new certification links -->
-                                    <div id="certification-links">
-                                    </div>
-
-                                    <!--<div class="table-responsive">
-                                        <table class="table" id="certification-links">
-                                            <tr>
-                                                <td class="col-xs-1">
-                                                    <img src="/images/partners/verify-shield.png" class="verifiedTagImage center-element">
-                                                    <span class="verifiedTag">Verified</span>
-                                                </td>
-                                                <td class="col-xs-10">
-                                                    <a href="">Link</a>
-                                                </td>
-                                                <td class="col-xs-1">
-                                                    <i class="icon-remove"></i>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>-->
-
-                                    <!-- Add a create -->
-                                    <div id="add-a-link">
                                         <div class="row">
-                                            <div class="col-sm-6">
-                                                <input class="external-links-input-area form-control" type="text" name="external-links-content" id="external-links-content" placeholder="external profile link">
+                                            <div class="col-sm-2 showAuthenticatorOnHover">
+                                                <img src="/images/partners/verify-shield.png" class="verifiedTagImage center-element">
+                                                <i class="icon-ok center-element"></i>
+                                                <span class="verifiedTag center-bottom">Verified</span>
                                             </div>
-                                            <div class="col-sm-2">
-                                                <button class="btn text-uppercase m-t-20" id="external-links-save-button" style="padding: 8px 15px;">ADD</button>
+                                            <div class="col-sm-8">
+                                                <ul class="skills">
+                                                    <li data-percent="80">
+                                                        <span>Wordpress</span>
+                                                        <div class="progress nopadding">
+                                                            <div class="progress-percent"><div class="counter counter-inherit counter-instant"><span data-from="0" data-to="80" data-refresh-interval="30" data-speed="1100"></span>%</div></div>
+                                                        </div>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                            <div class="col-sm-2 edit-remove-component">
+                                                <a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                <a href="#"><i class="fa fa-remove" aria-hidden="true"></i></a>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <!-- Add a link -->
-                                    <div class="row" style="margin-bottom: 10px;">
-                                        <div class="col-sm-1">
-                                            <i class="fa fa-plus-square-o fa-2x center-element" aria-hidden="true" id="add-external-links"></i>
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-md-15 col-sm-4">-->
+                                                <!--<div class="edit-component center">-->
+                                                    <!--<div class="edit-remove">-->
+                                                        <!--<div class="inner">-->
+                                                            <!--<a href="#"><i class="i-plain icon-pencil" aria-hidden="true"></i></a>-->
+                                                            <!--<a href="#"><i class="i-plain icon-remove" aria-hidden="true"></i></a>-->
+                                                        <!--</div>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="edit-component-content">-->
+                                                        <!--<div class="rounded-skill nobottommargin" data-color="#3F729B" data-size="125" data-percent="85" data-width="3" data-speed="6500">-->
+                                                            <!--<div class="counter counter-inherit"><span data-from="1" data-to="85" data-refresh-interval="50" data-speed="6000"></span>%</div>-->
+                                                        <!--</div>-->
+                                                        <!--<div class="pie-chart-desc">-->
+                                                            <!--<h3>Skill</h3>-->
+                                                        <!--</div>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-15 col-sm-4 center">-->
+                                                <!--<div class="rounded-skill nobottommargin" data-color="#3F729B" data-size="125" data-percent="85" data-width="3" data-speed="6500">-->
+                                                    <!--<div class="counter counter-inherit"><span data-from="1" data-to="85" data-refresh-interval="50" data-speed="6000"></span>%</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="pie-chart-desc">-->
+                                                    <!--<h3>Skill</h3>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-15 col-sm-4 center">-->
+                                                <!--<div class="rounded-skill nobottommargin" data-color="#3F729B" data-size="125" data-percent="85" data-width="3" data-speed="6500">-->
+                                                    <!--<div class="counter counter-inherit"><span data-from="1" data-to="85" data-refresh-interval="50" data-speed="6000"></span>%</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="pie-chart-desc">-->
+                                                    <!--<h3>Skill</h3>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-15 col-md-offset-0 col-sm-4 col-sm-offset-2 center">-->
+                                                <!--<div class="rounded-skill nobottommargin" data-color="#3F729B" data-size="125" data-percent="85" data-width="3" data-speed="6500">-->
+                                                    <!--<div class="counter counter-inherit"><span data-from="1" data-to="85" data-refresh-interval="50" data-speed="6000"></span>%</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="pie-chart-desc">-->
+                                                    <!--<h3>Skill</h3>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-15 col-sm-4 center">-->
+                                                <!--<div class="rounded-skill nobottommargin" data-color="#3F729B" data-size="125" data-percent="85" data-width="3" data-speed="6500">-->
+                                                    <!--<div class="counter counter-inherit"><span data-from="1" data-to="85" data-refresh-interval="50" data-speed="6000"></span>%</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="pie-chart-desc">-->
+                                                    <!--<h3>Skill</h3>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+                                        <!-- Display New Skills -->
+                                        <div id="skills-progress-bars"></div>
+
+                                        <!-- Create Skill -->
+                                        <div id="add-a-skill" style="display: none;">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <input class="skill-name-input-area form-control" type="text" name="skill-name-content" id="skill-name-content" placeholder="skill name">
+                                                </div>
+                                                <div id="toggle-slider" class="col-sm-4">
+                                                    <input id="skill-rating-content" name="skill-rating-content" class="range_01" />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button class="btn text-uppercase m-t-20" id="skill-save-button" style="padding: 8px 15px;">ADD</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Add Skill -->
+                                        <div class="row" style="margin-bottom: 10px;">
+                                            <div class="col-sm-1">
+                                                <i class="fa fa-plus-square-o fa-2x center-element" aria-hidden="true" id="add-skills"></i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-sm-6">
+                                <div class="card-block" id="certifications">
+                                    <div class="fancy-title">
+                                        <h3>Certifications</h3>
+                                        <span class="card-subtitle">My learning and development profile</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Use as a template -->
+                                        <div class="row">
+                                            <div class="col-sm-1">
+                                                <img src="/images/partners/verify-shield.png" class="verifiedTagImage center-element">
+                                                <i class="icon-ok center-element"></i>
+                                                <span class="verifiedTag center-bottom">Verified</span>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <p>
+                                                    <a href="">Link</a>
+                                                </p>
+                                            </div>
+                                        </div>
 
+                                        <!-- Display new certification links -->
+                                        <div id="certification-links">
+                                        </div>
 
-                            <div class="card-block" id="profile-portfolio">
-                                <div class="fancy-title">
-                                    <h3>Portfolio</h3>
-                                    <span class="card-subtitle">Projects that I have worked on</span>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-sm-12">
+                                        <!--<div class="table-responsive">
+                                            <table class="table" id="certification-links">
+                                                <tr>
+                                                    <td class="col-xs-1">
+                                                        <img src="/images/partners/verify-shield.png" class="verifiedTagImage center-element">
+                                                        <span class="verifiedTag">Verified</span>
+                                                    </td>
+                                                    <td class="col-xs-10">
+                                                        <a href="">Link</a>
+                                                    </td>
+                                                    <td class="col-xs-1">
+                                                        <i class="icon-remove"></i>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>-->
+
+                                        <!-- Add a create -->
+                                        <div id="add-a-link">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <input class="external-links-input-area form-control" type="text" name="external-links-content" id="external-links-content" placeholder="external profile link">
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button class="btn text-uppercase m-t-20" id="external-links-save-button" style="padding: 8px 15px;">ADD</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Add a link -->
+                                        <div class="row" style="margin-bottom: 10px;">
+                                            <div class="col-sm-1">
+                                                <i class="fa fa-plus-square-o fa-2x center-element" aria-hidden="true" id="add-external-links"></i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
-                        <div class="card-grid" data-column="2">
-                            <div class="card-block" id="experience">
-                                <div class="fancy-title">
-                                    <h3>Experience</h3>
-                                    <span class="card-subtitle">Yes. I've been around.</span>
+                        <!--<div class="row">-->
+                            <!--<div class="col-sm-12">-->
+                                <!--<div class="card-block" id="certifications">-->
+                                    <!--<div class="fancy-title">-->
+                                        <!--<h3>Certifications</h3>-->
+                                        <!--<span class="card-subtitle">My learning and development profile</span>-->
+                                    <!--</div>-->
+                                    <!--<div class="card-body">-->
+                                        <!--&lt;!&ndash; Use as a template &ndash;&gt;-->
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-sm-1">-->
+                                                <!--<img src="/images/partners/verify-shield.png" class="verifiedTagImage center-element">-->
+                                                <!--<i class="icon-ok center-element"></i>-->
+                                                <!--<span class="verifiedTag center-bottom">Verified</span>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-sm-8">-->
+                                                <!--<p>-->
+                                                    <!--<a href="">Link</a>-->
+                                                <!--</p>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+                                        <!--&lt;!&ndash; Display new certification links &ndash;&gt;-->
+                                        <!--<div id="certification-links">-->
+                                        <!--</div>-->
+
+                                        <!--&lt;!&ndash;<div class="table-responsive">-->
+                                            <!--<table class="table" id="certification-links">-->
+                                                <!--<tr>-->
+                                                    <!--<td class="col-xs-1">-->
+                                                        <!--<img src="/images/partners/verify-shield.png" class="verifiedTagImage center-element">-->
+                                                        <!--<span class="verifiedTag">Verified</span>-->
+                                                    <!--</td>-->
+                                                    <!--<td class="col-xs-10">-->
+                                                        <!--<a href="">Link</a>-->
+                                                    <!--</td>-->
+                                                    <!--<td class="col-xs-1">-->
+                                                        <!--<i class="icon-remove"></i>-->
+                                                    <!--</td>-->
+                                                <!--</tr>-->
+                                            <!--</table>-->
+                                        <!--</div>&ndash;&gt;-->
+
+                                        <!--&lt;!&ndash; Add a create &ndash;&gt;-->
+                                        <!--<div id="add-a-link">-->
+                                            <!--<div class="row">-->
+                                                <!--<div class="col-sm-6">-->
+                                                    <!--<input class="external-links-input-area form-control" type="text" name="external-links-content" id="external-links-content" placeholder="external profile link">-->
+                                                <!--</div>-->
+                                                <!--<div class="col-sm-2">-->
+                                                    <!--<button class="btn text-uppercase m-t-20" id="external-links-save-button" style="padding: 8px 15px;">ADD</button>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+                                        <!--&lt;!&ndash; Add a link &ndash;&gt;-->
+                                        <!--<div class="row" style="margin-bottom: 10px;">-->
+                                            <!--<div class="col-sm-1">-->
+                                                <!--<i class="fa fa-plus-square-o fa-2x center-element" aria-hidden="true" id="add-external-links"></i>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card-block" id="profile-portfolio">
+                                    <div class="fancy-title">
+                                        <h3>Portfolio</h3>
+                                        <span class="card-subtitle">Projects that I have worked on</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-12 col-lg-612">
-                                            <div class="block">
-                                                <div class="timeline">
-                                                    <!-- Education 1 -->
-                                                    <div class="timeline-item">
-                                                        <h4 class="item-title">Specialization Course</h4>
-                                                        <span class="item-period">2010</span>
-                                                        <span class="item-small">Apple Inc.</span>
-                                                        <p class="item-description">Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed tortor.</p>
-                                                    </div>
-                                                    <!-- / Education 1 -->
+                            </div>
+                        </div>
 
-                                                    <!-- Education 2 -->
-                                                    <div class="timeline-item">
-                                                        <h4 class="item-title">Specialization Course</h4>
-                                                        <span class="item-period">2010</span>
-                                                        <span class="item-small">Apple Inc.</span>
-                                                        <p class="item-description">Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed tortor.</p>
-                                                    </div>
-                                                    <!-- / Education 2 -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card-block" id="experience">
+                                    <div class="fancy-title">
+                                        <h3>Experience</h3>
+                                        <span class="card-subtitle">Yes. I've been around.</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <div class="block">
+                                                    <div class="timeline">
+                                                        <!-- Education 1 -->
+                                                        <div class="timeline-item">
+                                                            <h4 class="item-title">Specialization Course</h4>
+                                                            <div class="item-edit">
+                                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                                <i class="fa fa-remove" aria-hidden="true"></i>
+                                                            </div>
+                                                            <span class="item-period">2010</span>
+                                                            <span class="item-small">Apple Inc.</span>
+                                                            <p class="item-description">Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed tortor.</p>
+                                                        </div>
+                                                        <!-- / Education 1 -->
 
-                                                    <!-- Education 3 -->
-                                                    <div class="timeline-item">
-                                                        <h4 class="item-title">Specialization Course</h4>
-                                                        <span class="item-period">2010</span>
-                                                        <span class="item-small">Apple Inc.</span>
-                                                        <p class="item-description">Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed tortor.</p>
+                                                        <!-- Education 2 -->
+                                                        <div class="timeline-item">
+                                                            <h4 class="item-title">Specialization Course</h4>
+                                                            <span class="item-period">2010</span>
+                                                            <span class="item-small">Apple Inc.</span>
+                                                            <p class="item-description">Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed tortor.</p>
+                                                        </div>
+                                                        <!-- / Education 2 -->
+
+                                                        <!-- Education 3 -->
+                                                        <div class="timeline-item">
+                                                            <h4 class="item-title">Specialization Course</h4>
+                                                            <span class="item-period">2010</span>
+                                                            <span class="item-small">Apple Inc.</span>
+                                                            <p class="item-description">Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed tortor.</p>
+                                                        </div>
+                                                        <!-- / Education 3 -->
                                                     </div>
-                                                    <!-- / Education 3 -->
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="card-block" id="education">
+                                    <div class="fancy-title">
+                                        <h3>Education</h3>
+                                        <span class="card-subtitle">My two highest levels of educations</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 col-lg-612">
+                                                <div class="block">
+                                                    <div class="timeline">
+                                                        <!-- Education 1 -->
+                                                        <div class="timeline-item">
+                                                            <h4 class="item-title">Specialization Course</h4>
+                                                            <span class="item-period">2010</span>
+                                                            <span class="item-small">Apple Inc.</span>
+                                                            <p class="item-description">Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed tortor.</p>
+                                                        </div>
+                                                        <!-- / Education 1 -->
 
-                            <div class="card-block" id="education">
-                                <div class="fancy-title">
-                                    <h3>Education</h3>
-                                    <span class="card-subtitle">My two highest levels of educations</span>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-12 col-lg-612">
-                                            <div class="block">
-                                                <div class="timeline">
-                                                    <!-- Education 1 -->
-                                                    <div class="timeline-item">
-                                                        <h4 class="item-title">Specialization Course</h4>
-                                                        <span class="item-period">2010</span>
-                                                        <span class="item-small">Apple Inc.</span>
-                                                        <p class="item-description">Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed tortor.</p>
-                                                    </div>
-                                                    <!-- / Education 1 -->
+                                                        <!-- Education 2 -->
+                                                        <div class="timeline-item">
+                                                            <h4 class="item-title">Specialization Course</h4>
+                                                            <span class="item-period">2010</span>
+                                                            <span class="item-small">Apple Inc.</span>
+                                                            <p class="item-description">Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed tortor.</p>
+                                                        </div>
+                                                        <!-- / Education 2 -->
 
-                                                    <!-- Education 2 -->
-                                                    <div class="timeline-item">
-                                                        <h4 class="item-title">Specialization Course</h4>
-                                                        <span class="item-period">2010</span>
-                                                        <span class="item-small">Apple Inc.</span>
-                                                        <p class="item-description">Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed tortor.</p>
+                                                        <!-- Education 3 -->
+                                                        <div class="timeline-item">
+                                                            <h4 class="item-title">Specialization Course</h4>
+                                                            <span class="item-period">2010</span>
+                                                            <span class="item-small">Apple Inc.</span>
+                                                            <p class="item-description">Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed tortor.</p>
+                                                        </div>
+                                                        <!-- / Education 3 -->
                                                     </div>
-                                                    <!-- / Education 2 -->
-
-                                                    <!-- Education 3 -->
-                                                    <div class="timeline-item">
-                                                        <h4 class="item-title">Specialization Course</h4>
-                                                        <span class="item-period">2010</span>
-                                                        <span class="item-small">Apple Inc.</span>
-                                                        <p class="item-description">Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed tortor.</p>
-                                                    </div>
-                                                    <!-- / Education 3 -->
                                                 </div>
                                             </div>
                                         </div>
@@ -524,28 +688,34 @@
                             </div>
                         </div>
 
-                        <div class="card-grid" data-column="1">
-                            <div class="card-block" id="reference">
-                                <div class="fancy-title">
-                                    <h3>Reference</h3>
-                                    <span class="card-subtitle">How my colleagues describe me</span>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card-block" id="service">
+                                    <div class="fancy-title">
+                                        <h3>Services</h3>
+                                        <span class="card-subtitle">What I can do</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="card-block" id="service">
-                                <div class="fancy-title">
-                                    <h3>Services</h3>
-                                    <span class="card-subtitle">What I can do</span>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card-block" id="reference">
+                                    <div class="fancy-title">
+                                        <h3>Reference</h3>
+                                        <span class="card-subtitle">How my colleagues describe me</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -595,6 +765,7 @@
 				<script type="text/javascript" src="js/canvas-components/rangeslider.min.js"></script>
 				<script type="text/javascript" src="js/canvas-components/bs-filestyle.js"></script>
 
+        <script type="text/javascript" src="js/mdl/material.min.js"></script>
         <!--<script>
             $('#creativeRegion').select2({
                 tags: true,

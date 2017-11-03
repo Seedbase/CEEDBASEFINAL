@@ -58,31 +58,31 @@
     /*margin: 8px 0;*/
 /*}*/
 
-.card-grid[data-column="1"] .card-block {
-    width: 100%;
-    max-width: 100%;
-    min-width: 100%;
-    -ms-flex-preferred-size: 100%;
-    flex-basis: 100%;
-}
+/*.card-grid[data-column="1"] .card-block {*/
+    /*width: 100%;*/
+    /*max-width: 100%;*/
+    /*min-width: 100%;*/
+    /*-ms-flex-preferred-size: 100%;*/
+    /*flex-basis: 100%;*/
+/*}*/
 
-.card-grid[data-column="2"] .card-block {
-    width: 48.5%;
-    max-width: 48.5%;
-    min-width: 48.5%;
-    -ms-flex-preferred-size: 48.5%;
-    flex-basis: 48.5%;
-}
+/*.card-grid[data-column="2"] .card-block {*/
+    /*width: 48.5%;*/
+    /*max-width: 48.5%;*/
+    /*min-width: 48.5%;*/
+    /*-ms-flex-preferred-size: 48.5%;*/
+    /*flex-basis: 48.5%;*/
+/*}*/
 
-@media (max-width: 992px) {
-    .card-block {
-        width: 100% !important;
-        max-width: 100% !important;
-        min-width: 100% !important;
-        -ms-flex-preferred-size: 100% !important;
-        flex-basis: 100% !important;
-    }
-}
+/*@media (max-width: 992px) {*/
+    /*.card-block {*/
+        /*width: 100% !important;*/
+        /*max-width: 100% !important;*/
+        /*min-width: 100% !important;*/
+        /*-ms-flex-preferred-size: 100% !important;*/
+        /*flex-basis: 100% !important;*/
+    /*}*/
+/*}*/
 
 .card-block {
     z-index: 0;
@@ -90,8 +90,9 @@
     background: #FFF;
     box-shadow: 0 0 0 1px #E2E9ED;
     padding: 25px;
-    margin: 8px;
+    /*margin: 8px;*/
     box-sizing: border-box;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
     -webkit-transition: box-shadow 0.2s ease, z-index 0s 0.2s ease, -webkit-transform 0.2s ease;
     transition: box-shadow 0.2s ease, z-index 0s 0.2s ease, -webkit-transform 0.2s ease;
     transition: box-shadow 0.2s ease, transform 0.2s ease, z-index 0s 0.2s ease;
@@ -101,24 +102,33 @@
     content: "";
     display: block;
 }
-.card-block:hover {
-    z-index: 1;
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
-    -webkit-transform: scale(1.02);
-    transform: scale(1.02);
-    -webkit-transition: box-shadow 0.2s ease, z-index 0s 0s ease, -webkit-transform 0.2s ease;
-    transition: box-shadow 0.2s ease, z-index 0s 0s ease, -webkit-transform 0.2s ease;
-    transition: box-shadow 0.2s ease, transform 0.2s ease, z-index 0s 0s ease;
-    transition: box-shadow 0.2s ease, transform 0.2s ease, z-index 0s 0s ease, -webkit-transform 0.2s ease;
+/*.card-block:hover {*/
+    /*z-index: 1;*/
+    /*box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);*/
+    /*-webkit-transform: scale(1.02);*/
+    /*transform: scale(1.02);*/
+    /*-webkit-transition: box-shadow 0.2s ease, z-index 0s 0s ease, -webkit-transform 0.2s ease;*/
+    /*transition: box-shadow 0.2s ease, z-index 0s 0s ease, -webkit-transform 0.2s ease;*/
+    /*transition: box-shadow 0.2s ease, transform 0.2s ease, z-index 0s 0s ease;*/
+    /*transition: box-shadow 0.2s ease, transform 0.2s ease, z-index 0s 0s ease, -webkit-transform 0.2s ease;*/
+/*}*/
+
+#content [class*=col] {
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .edit .fa-pencil,
-.card-block .fa-pencil {
+.edit .fa-remove,
+.card-block .fa-pencil,
+.card-block .fa-remove {
 	display: none;
 }
 
-.edit:hover .fa-pencil,
-.card-block:hover .fa-pencil {
+.edit .fa-pencil,
+.edit .fa-remove,
+.card-block:hover .fa-pencil,
+.card-block:hover .fa-remove {
 	display: inline-block;
 }
 
@@ -232,7 +242,7 @@
   margin-left: 20px;
   margin-bottom: 20px;
   background-color: #fff;
-  border-left: 2px solid #2eca7f;
+  border-left: 2px solid #1BBC9C;
   box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.2);
 }
 
@@ -248,13 +258,13 @@
   content: '';
   display: inline-block;
   position: absolute;
-  background-color: #fff;
+  background-color: #1BBC9C;
   border-radius: 10px;
   width: 12px;
   height: 12px;
   top: 20px;
   left: -29px;
-  border: 2px solid #2eca7f;
+  border: 2px solid #1BBC9C;
   z-index: 2;
 }
 
@@ -262,7 +272,7 @@
   content: '';
   display: inline-block;
   position: absolute;
-  background-color: #2eca7f;
+  background-color: #1BBC9C;
   border-radius: 10px;
   width: 29px;
   height: 2px;
@@ -276,6 +286,13 @@
   margin: 0;
   font-size: 16px;
   line-height: 1.2em;
+}
+
+/** Added **/
+.timeline-item .item-edit {
+    top: 15px;
+    right: 20px;
+    position: absolute;
 }
 
 .timeline-item .item-period {
@@ -364,12 +381,15 @@
     margin: auto;
 }
 
+.edit-component {
+    position: relative;
+}
+
 .edit-component:hover .edit-remove {
     opacity: 1;
 }
 
 .edit-component:hover .edit-component-content {
     opacity: 0.3;
-    border: 1px solid black;
     border-radius: 10px;
 }
