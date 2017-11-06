@@ -1,0 +1,395 @@
+/* CSS Styles for Profile pages */
+
+/** --- Additional Bootstrap 3 1/5 grid --- */
+
+.col-xs-15,
+.col-sm-15,
+.col-md-15,
+.col-lg-15 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.col-xs-15 {
+    width: 20%;
+    float: left;
+}
+
+@media (min-width: 768px) {
+    .col-sm-15 {
+        width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-md-15 {
+        width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-lg-15 {
+        width: 20%;
+        float: left;
+    }
+}
+
+/* --- Card Grid --- */
+
+.card-grid, .card-row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    background: #FFF;
+    /*border: 1px solid #E2E9ED;*/
+}
+
+/*.card-grid .divider {*/
+    /*margin: 8px 0;*/
+/*}*/
+
+/*.card-grid[data-column="1"] .card-block {*/
+    /*width: 100%;*/
+    /*max-width: 100%;*/
+    /*min-width: 100%;*/
+    /*-ms-flex-preferred-size: 100%;*/
+    /*flex-basis: 100%;*/
+/*}*/
+
+/*.card-grid[data-column="2"] .card-block {*/
+    /*width: 48.5%;*/
+    /*max-width: 48.5%;*/
+    /*min-width: 48.5%;*/
+    /*-ms-flex-preferred-size: 48.5%;*/
+    /*flex-basis: 48.5%;*/
+/*}*/
+
+/*@media (max-width: 992px) {*/
+    /*.card-block {*/
+        /*width: 100% !important;*/
+        /*max-width: 100% !important;*/
+        /*min-width: 100% !important;*/
+        /*-ms-flex-preferred-size: 100% !important;*/
+        /*flex-basis: 100% !important;*/
+    /*}*/
+/*}*/
+
+.card-block {
+    z-index: 0;
+    position: relative;
+    background: #FFF;
+    box-shadow: 0 0 0 1px #E2E9ED;
+    padding: 25px;
+    /*margin: 8px;*/
+    box-sizing: border-box;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    -webkit-transition: box-shadow 0.2s ease, z-index 0s 0.2s ease, -webkit-transform 0.2s ease;
+    transition: box-shadow 0.2s ease, z-index 0s 0.2s ease, -webkit-transform 0.2s ease;
+    transition: box-shadow 0.2s ease, transform 0.2s ease, z-index 0s 0.2s ease;
+    transition: box-shadow 0.2s ease, transform 0.2s ease, z-index 0s 0.2s ease, -webkit-transform 0.2s ease;
+}
+.card-block:before {
+    content: "";
+    display: block;
+}
+/*.card-block:hover {*/
+    /*z-index: 1;*/
+    /*box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);*/
+    /*-webkit-transform: scale(1.02);*/
+    /*transform: scale(1.02);*/
+    /*-webkit-transition: box-shadow 0.2s ease, z-index 0s 0s ease, -webkit-transform 0.2s ease;*/
+    /*transition: box-shadow 0.2s ease, z-index 0s 0s ease, -webkit-transform 0.2s ease;*/
+    /*transition: box-shadow 0.2s ease, transform 0.2s ease, z-index 0s 0s ease;*/
+    /*transition: box-shadow 0.2s ease, transform 0.2s ease, z-index 0s 0s ease, -webkit-transform 0.2s ease;*/
+/*}*/
+
+#content [class*=col] {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.edit .fa-pencil,
+.edit .fa-remove,
+.card-block .fa-pencil,
+.card-block .fa-remove {
+	display: none;
+}
+
+.edit .fa-pencil,
+.edit .fa-remove,
+.card-block:hover .fa-pencil,
+.card-block:hover .fa-remove {
+	display: inline-block;
+}
+
+.card-block > .fancy-title > span {
+    display: block;
+    margin-top: 4px;
+    color: #555;
+    font-weight: 300;
+}
+
+.card-block > .fancy-title > h3+span {
+    font-size: 13px;
+}
+
+.card-block > .fancy-title > span.card-subtitle {
+    display: block;
+    background: transparent;
+    padding: 0 0 10px;
+    border-bottom: 2px solid #1BBC9C;
+}
+
+/* --- Font Styles --- */
+
+.h2-bold {
+	font-size: 30px;
+	font-weight: 600;
+}
+
+.rightmargin-sm {
+	margin-right: 10px;
+}
+
+/* --- Other Styles --- */
+
+.center-element {
+	position: absolute;
+	left: 50%;
+	top: 20%;
+	margin-right: -50%;
+	text-align: center;
+	-ms-transform: translate(-50%, -20%);
+	-webkit-transform: translate(-50%, -20%);
+	transform: translate(-50%, -20%);
+}
+
+/*#existing-skills-progress-bars > [class*="col-"] {
+	display: inline-block;
+	float: none;
+	vertical-align: top;
+}*/
+
+.center-bottom {
+	position: absolute;
+	text-align: center;
+	left: 50%;
+	bottom: 0px;
+	margin-right: -50%;
+	-ms-transform: translate(-50%, 0);
+	-webkit-transform: translate(-50%, 0);
+	transform: translate(-50%, 0);
+}
+
+.align-horizontal-center {
+	margin-left: auto;
+  margin-right: auto;
+}
+
+.edit-save-content:hover {
+	opacity: 0.5;
+}
+
+.edit-overlay {
+	visibility: hidden;
+	display: none;
+  opacity:0;
+}
+
+.edit-remove-hover:hover .edit-overlay {
+	position: absolute;
+	opacity: 1;
+	visibility: visible;
+	display: block;
+	text-align: center;
+}
+
+.edit-remove-hover:hover .progress {
+	opacity: 0.3;
+}
+
+.edit-overlay ul {
+	margin: auto;
+	top: 0; left: 0; bottom: 0; right: 0;
+	width: 100%;
+}
+
+.edit-overlay ul li {
+	display: inline;
+}
+
+
+/* --- Timeline --- */
+
+.timeline {
+  border-left: 2px solid #e0e0e0;
+  padding: 15px 0;
+}
+
+.timeline-item {
+  position: relative;
+  padding: 15px 20px 10px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-left: 2px solid #1BBC9C;
+  box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.2);
+}
+
+.timeline-item:hover {
+  box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-item:before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  background-color: #1BBC9C;
+  border-radius: 10px;
+  width: 12px;
+  height: 12px;
+  top: 20px;
+  left: -29px;
+  border: 2px solid #1BBC9C;
+  z-index: 2;
+}
+
+.timeline-item:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  background-color: #1BBC9C;
+  border-radius: 10px;
+  width: 29px;
+  height: 2px;
+  top: 25px;
+  left: -29px;
+  z-index: 1;
+}
+
+.timeline-item .item-title {
+  display: block;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.2em;
+}
+
+/** Added **/
+.timeline-item .item-edit {
+    top: 15px;
+    right: 20px;
+    position: absolute;
+}
+
+.timeline-item .item-period {
+  display: inline-block;
+  font-size: 12px;
+  line-height: 1.2em;
+  color: #2eca7f;
+  margin-bottom: 8px;
+}
+
+.timeline-item .item-small {
+  display: inline-block;
+  font-size: 12px;
+  line-height: 1.2em;
+  color: #9e9e9e;
+  margin-left: 5px;
+  margin-bottom: 8px;
+  padding-left: 8px;
+  border-left: 1px solid #e0e0e0;
+}
+
+/* --- Addition CSS for Semicolon Canvas Pie Charts --- */
+
+.rounded-skill canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.counter.counter-inherit {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+.counter {
+    font-size: 42px;
+    font-weight: 600;
+}
+
+.counter, label {
+    font-family: Raleway,sans-serif;
+}
+
+.rounded-skill {
+    position: relative;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #333;
+}
+
+.pie-chart-desc {
+    margin-top: 15px;
+}
+
+
+/** Edit Remove Hover Component **/
+
+.edit-remove {
+    position: absolute;
+    display: table;
+    margin: auto;
+    width: 100px;
+    height: 100px;
+    vertical-align: middle;
+    text-align: center;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.edit-remove .inner {
+    display:table-cell;
+    vertical-align:middle;
+    width: 72px;
+    height: 72px;
+}
+
+.edit-remove .inner a {
+    display: inline-block;
+}
+
+.edit-remove .inner a i {
+    margin: auto;
+}
+
+.edit-component {
+    position: relative;
+}
+
+.edit-component:hover .edit-remove {
+    opacity: 1;
+}
+
+.edit-component:hover .edit-component-content {
+    opacity: 0.3;
+    border-radius: 10px;
+}

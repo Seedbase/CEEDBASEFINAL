@@ -29,7 +29,7 @@
 
 
     <!-- Document Title
-    ============================================= 
+    =============================================
     -->
     <title>CeedBase</title>
 
@@ -40,53 +40,46 @@
 
     <% include partials/header_home %>
 
-    <% include partials/slider %>
-
     <div class="clear"></div>
 
     <% include partials/popup_login %>
 
-<!-- <section id="page-title">
+<section id="page-title">
 
     <div class="container clearfix">
-        <h1>Community Blogs</h1>
+        <h1>Blog</h1>
         <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
             <li><a href="/community">Blog</a></li>
-            <li class="active">How to be more creative</li>
+						<li class="active">Blog Single</li>
         </ol>
     </div>
 
-</section> -->
+</section>
 <section id="content">
-    <div class="content-wrap" style="padding-top: 0">
+    <div class="content-wrap">
         <div class="container clearfix">
             <div class="postcontent nobottommargin clearfix">
 
                 <div class="single-post nobottommargin">
 
                     <div class="entry clearfix">
-                        <div class="entry-title text-center">
+                        <!-- Entry Title -->
+                        <div class="entry-title">
                             <h2 id="blogTitleHeading"></h2>
                         </div>
-                        <ul class="entry-meta clearfix" style="margin-left: 23%;">
-                            <div class="text-center" style="margin-left: 20%;">
-                                <li id="blogDateData">
-                                    <i class="icon-calendar3"></i>
-                                </li>
-                                <li id="blogCreatorData">
-                                    <a href="#">
-                                        <i class="icon-user"></i>
-                                    </a>
-                                </li>
-                            </div>
+                        <!-- Entry Meta -->
+                        <ul class="entry-meta clearfix">
+                            <li id="blogDateData"><i class="icon-calendar3"></i></li>
+                            <li id="blogCreatorData"><a href="#"><i class="icon-user"></i></a></li>
                         </ul>
-                        <div class="entry-content notopmargin">
-                            <div class="entry-image alignleft">
+                        <!-- Entry Image -->
+                        <div class="entry-image alignleft">
                                 <a href="#"><img src="" style="height: 190px !important; object-fit: cover" alt="Blog Image" id="blogImageData"></a>
-                            </div>
-                            <div id="blogContentData">
-                            </div>
+                        </div>
+                        <!-- Entry Content -->
+                        <div class="entry-content notopmargin">
+                            <div id="blogContentData"></div>
                             <!-- <div class="tagcloud clearfix bottommargin">
                                 <a href="#">general</a>
                                 <a href="#">information</a>
@@ -115,18 +108,6 @@
                                         <i class="icon-linkedin"></i>
                                         <i class="icon-linkedin"></i>
                                     </a>
-                                    <!-- <a href="#" class="social-icon si-borderless si-pinterest">
-                                        <i class="icon-pinterest"></i>
-                                        <i class="icon-pinterest"></i>
-                                    </a>
-                                    <a href="#" class="social-icon si-borderless si-gplus">
-                                        <i class="icon-gplus"></i>
-                                        <i class="icon-gplus"></i>
-                                    </a>
-                                    <a href="#" class="social-icon si-borderless si-rss">
-                                        <i class="icon-rss"></i>
-                                        <i class="icon-rss"></i>
-                                    </a> -->
                                     <a href="mailto:" class="social-icon si-borderless si-email3">
                                         <i class="icon-email3"></i>
                                         <i class="icon-email3"></i>
@@ -150,11 +131,6 @@
                         </div>
 
                     </div><!-- .post-navigation end -->
-
-                    <div class="line"></div>
-
-
-                    <div class="line"></div>
 
                     <!-- <h4>Related Posts:</h4>
 
@@ -255,30 +231,29 @@
             <div class="sidebar nobottommargin col_last clearfix">
                 <div class="sidebar-widgets-wrap">
 
-                    <!-- <div class="widget widget-twitter-feed clearfix">
+                    <div class="widget widget-twitter-feed clearfix">
 
                         <h4>Twitter Feed</h4>
-                        <ul class="iconlist twitter-feed" data-username="envato" data-count="2">
+                        <ul class="iconlist twitter-feed" data-username="ceedbase" data-count="2">
                             <li></li>
                         </ul>
 
                         <a href="#" class="btn btn-default btn-sm fright">Follow Us on Twitter</a>
 
                     </div>
- -->
                     <div class="widget clearfix">
 
                         <div class="tabs nobottommargin clearfix" id="sidebar-tabs">
 
                             <ul class="tab-nav clearfix">
-                               <!--  <li><a href="#tabs-1">Popular</a></li> -->
+                               <!-- <li><a href="#tabs-1">Popular</a></li> -->
                                 <li><a href="#tabs-2">Recent</a></li>
                                 <!-- <li><a href="#tabs-3"><i class="icon-comments-alt norightmargin"></i></a></li> -->
                             </ul>
 
                             <div class="tab-container">
 
-                                <!-- div class="tab-content clearfix" id="tabs-1">
+                                <!--<div class="tab-content clearfix" id="tabs-1">
                                     <div id="popular-post-list-sidebar">
 
                                         <div class="spost clearfix">
@@ -324,15 +299,11 @@
                                         </div>
 
                                     </div>
-                                </div> -->
+                                </div>-->
                                 <div class="tab-content clearfix" id="tabs-2">
                                     <div id="recent-post-list-sidebar">
-                                    </div>
-                                </div>
-                               <!--  <div class="tab-content clearfix" id="tabs-3">
-                                    <div id="recent-post-list-sidebar">
 
-                                        <div class="spost clearfix">
+                                        <!--<div class="spost clearfix">
                                             <div class="entry-image">
                                                 <a href="#" class="nobg"><img class="img-circle" src="images/icons/avatar.jpg" alt=""></a>
                                             </div>
@@ -357,10 +328,10 @@
                                             <div class="entry-c">
                                                 <strong>Site Admin:</strong> Deleniti magni labore laboriosam odio...
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                     </div>
-                                </div> -->
+                                </div>
 
                             </div>
 
