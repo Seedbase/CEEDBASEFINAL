@@ -37,6 +37,10 @@
 
         <!-- Custom CSS -->
         <style>
+            .reduce-padding .mdl-textfield {
+                margin: -20px 0;
+            }
+
             .mdl-card__supporting-text {
                 width: 100%;
             }
@@ -79,11 +83,27 @@
             h4.custom-heading {
                 font-size: 30px;
                 text-align: left;
-                margin-bottom: 0;
+            }
+
+            .radio-button-label {
+                text-transform: none;
+                font-weight: normal;
             }
 
             .full-width {
                 width: 100%;
+            }
+
+            /* --- Skills --- */
+
+            .skills li {
+                margin-top: 38px;
+            }
+
+            @media (min-width: 768px) {
+                .skills li {
+                    margin-top: 0px;
+                }
             }
 
             .card-block {
@@ -93,6 +113,11 @@
             .edit-content,
             .remove-content {
                 display: none;
+            }
+
+            .main-content:hover .edit-content,
+            .main-content:hover .remove-content {
+                display: inline;
             }
 
             .mdl-card:hover .edit-remove-component {
@@ -233,13 +258,13 @@
 
         <div id="wrapper" class="clearfix">
 
-            <section id="intro" class="clearfix section notopborder nomargin edit">
+            <section id="intro" class="clearfix section notopborder nomargin">
                 <div class="container">
                     <div class="row">
                         <div id="intro-img" class="col-md-3">
                             <img src="images/profile/avatar.jpg" class="center-content" alt="Avatar" style="">
                         </div>
-                        <div id="intro-profile" class="col-md-9">
+                        <div id="intro-profile" class="col-md-9 reduce-padding">
                             <div class="row form-horizontal">
                                 <div class="col-sm-6"><h4 class="custom-heading">Hello, I'm</h4></div>
                                 <div class="col-sm-12">
@@ -250,23 +275,23 @@
                                 </div>
                             </div>
 
-                            <div class="row form-inline">
-                                <div class="col-sm-1">
-                                    <label class="uppercase">I'm</label>
-                                </div>
-                                <div class="col-sm-3 profile-3-things-col">
+                            <div class="row">
+                                <!--<div class="col-sm-1">-->
+                                    <!--<label class="uppercase">I'm</label>-->
+                                <!--</div>-->
+                                <div class="col-sm-4">
                                     <div class="mdl-textfield mdl-js-textfield full-width">
                                         <input class="mdl-textfield__input" type="text" id="sample1">
                                         <label class="mdl-textfield__label" for="sample1">John Reno</label>
                                     </div>
                                 </div>
-                                <div class="col-sm-3 profile-3-things-col">
+                                <div class="col-sm-4">
                                     <div class="mdl-textfield mdl-js-textfield">
                                         <input class="mdl-textfield__input full-width" type="text" id="sample1">
                                         <label class="mdl-textfield__label" for="sample1">a Developer</label>
                                     </div>
                                 </div>
-                                <div class="col-sm-3 profile-3-things-col">
+                                <div class="col-sm-4">
                                     <div class="mdl-textfield mdl-js-textfield">
                                         <input class="mdl-textfield__input full-width" type="text" id="sample1">
                                         <label class="mdl-textfield__label" for="sample1">a Designer</label>
@@ -274,27 +299,25 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row topmargin-sm">
                                 <div class="col-sm-12">
                                     <label>Opportunities I&#39;m seeking</label>
                                     <div class="row">
-                                        <div class="col-sm-4">
+                                        <div class="col-lg-3 col-md-6 col-sm-6">
                                             <input id="unPaidInternship" class="radio-style" name="opportunityOption" type="radio" value="unPaidInternship">
-                                            <label for="unPaidInternship" class="radio-style-3-label radio-small">Unpaid Internship</label>
+                                            <label for="unPaidInternship" class="radio-style-3-label radio-small radio-button-label">Unpaid Internship</label>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-lg-3 col-md-6 col-sm-6">
                                             <input id="paidInternship" class="radio-style" name="opportunityOption" type="radio" value="paidInternship">
-                                            <label for="paidInternship" class="radio-style-3-label radio-small">Paid internship</label>
+                                            <label for="paidInternship" class="radio-style-3-label radio-small radio-button-label">Paid internship</label>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-4">
+                                        <div class="col-lg-3 col-md-6 col-sm-6">
                                             <input id="tempContract" class="radio-style" name="opportunityOption" type="radio" value="tempContract">
-                                            <label for="tempContract" class="radio-style-3-label radio-small">Temporary Contract</label>
+                                            <label for="tempContract" class="radio-style-3-label radio-small radio-button-label">Temporary Contract</label>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-lg-3 col-md-6 col-sm-6">
                                             <input id="fullTimeHire" class="radio-style" name="opportunityOption" type="radio" value="fullTimeHire">
-                                            <label for="fullTimeHire" class="radio-style-3-label radio-small">Full Time Hire</label>
+                                            <label for="fullTimeHire" class="radio-style-3-label radio-small radio-button-label">Full Time Hire</label>
                                         </div>
                                     </div>
                                 </div>
@@ -305,7 +328,7 @@
                 </div>
             </section>
 
-            <div id="content">
+            <div id="content" style="background-color: #F9F9F9;">
                 <div id="content-wrap">
                     <div class="container clearfix" style="margin: 40px auto; padding: 0 20px;">
 
@@ -360,156 +383,39 @@
                             <div class="col-sm-12">
                                 <div class="mdl-card mdl-shadow--2dp">
                                     <div class="mdl-card__title">
-                                        <h2 class="mdl-card__title-text">Services</h2>
-                                    </div>
-                                    <div class="mdl-card__supporting-text">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <div class="main-content">
-                                                    <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
-                                                        <div class="service-edit">
-                                                            <a class="edit-content"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
-                                                            <a class="remove-content"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
-                                                        </div>
-                                                        <div class="fbox-icon">
-                                                            <a href="#"><i class="fa fa-camera-retro"></i></a>
-                                                        </div>
-                                                        <h3>Responsive Layout</h3>
-                                                        <p>Powerful Layout with Responsive functionality that can be adapted to any screen size.</p>
-                                                    </div>
-                                                </div>
-                                                <div class="editable-content hide-content center">
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-                                                                <input class="mdl-textfield__input" type="text" id="sample3">
-                                                                <label class="mdl-textfield__label" for="sample3">Service name</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <div class="input-group">
-                                                                <input class="form-control icp icp-auto" value="fa-archive" type="text" />
-                                                                <span class="input-group-addon"></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-                                                                <textarea class="mdl-textfield__input" type="text" rows= "3" id="sample5" maxlength="100" ></textarea>
-                                                                <label class="mdl-textfield__label" for="sample5">Description</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <button id="" class="mdl-button mdl-js-button mdl-button--raised save-content" style="margin-right: 8px;">
-                                                                Save
-                                                            </button>
-                                                            <button id="" class="mdl-button mdl-js-button mdl-button--raised cancel-content">
-                                                                Cancel
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
-                                                    <div class="fbox-icon">
-                                                        <a href="#"><i class="fa fa-camera-retro"></i></a>
-                                                    </div>
-                                                    <h3>Responsive Layout</h3>
-                                                    <p>Powerful Layout with Responsive functionality that can be adapted to any screen size.</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
-                                                    <div class="fbox-icon">
-                                                        <a href="#"><i class="fa fa-camera-retro"></i></a>
-                                                    </div>
-                                                    <h3>Responsive Layout</h3>
-                                                    <p>Powerful Layout with Responsive functionality that can be adapted to any screen size.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
-                                                    <div class="fbox-icon">
-                                                        <a href="#"><i class="fa fa-camera-retro"></i></a>
-                                                    </div>
-                                                    <h3>Responsive Layout</h3>
-                                                    <p>Powerful Layout with Responsive functionality that can be adapted to any screen size.</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
-                                                    <div class="fbox-icon">
-                                                        <a href="#"><i class="fa fa-camera-retro"></i></a>
-                                                    </div>
-                                                    <h3>Responsive Layout</h3>
-                                                    <p>Powerful Layout with Responsive functionality that can be adapted to any screen size.</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
-                                                    <div class="fbox-icon">
-                                                        <a href="#"><i class="fa fa-camera-retro"></i></a>
-                                                    </div>
-                                                    <h3>Responsive Layout</h3>
-                                                    <p>Powerful Layout with Responsive functionality that can be adapted to any screen size.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row card-block">
-                            <div class="col-sm-12">
-                                <div class="mdl-card mdl-shadow--2dp">
-                                    <div class="mdl-card__title">
                                         <h2 class="mdl-card__title-text">Skills</h2>
                                     </div>
                                     <div class="mdl-card__supporting-text input-date-group">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <ul class="skills">
-                                                    <li data-percent="80">
-                                                        <span>Wordpress</span>
-                                                        <div class="progress nopadding">
-                                                            <div class="progress-percent">
-                                                                <div class="counter counter-inherit counter-instant">
-                                                                    <span data-from="0" data-to="80" data-refresh-interval="30" data-speed="1100"></span>%
-                                                                </div>
-                                                            </div>
+                                        <ul class="skills row">
+                                            <li class="col-sm-5" data-percent="80">
+                                                <span>Wordpress</span>
+                                                <div class="progress nopadding">
+                                                    <div class="progress-percent">
+                                                        <div class="counter counter-inherit counter-instant">
+                                                            <span data-from="0" data-to="80" data-refresh-interval="30" data-speed="1100"></span>%
                                                         </div>
-                                                        <div class="edit-remove-component">
-                                                            <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
-                                                            <i class="fa fa-remove fa-lg" aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="edit-remove-component">
+                                                    <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                                                    <i class="fa fa-remove fa-lg" aria-hidden="true"></i>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-5 col-sm-offset-1" data-percent="65">
+                                                <span>Microsoft Office</span>
+                                                <div class="progress nopadding">
+                                                    <div class="progress-percent">
+                                                        <div class="counter counter-inherit counter-instant">
+                                                            <span data-from="0" data-to="65" data-refresh-interval="30" data-speed="1100"></span>%
                                                         </div>
-                                                    </li>
-                                                    <li data-percent="65">
-                                                        <span>Microsoft Office</span>
-                                                        <div class="progress nopadding">
-                                                            <div class="progress-percent">
-                                                                <div class="counter counter-inherit counter-instant">
-                                                                    <span data-from="0" data-to="65" data-refresh-interval="30" data-speed="1100"></span>%
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="edit-remove-component">
-                                                            <a href="#"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
-                                                            <a href="#"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="edit-remove-component">
+                                                    <a href="#"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                                                    <a href="#"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
+                                                </div>
+                                            </li>
+                                        </ul>
                                         <div class="row topmargin-sm show-content-button">
                                             <div class="col-sm-2">
                                                 <button id="add-a-new-skill-button" class="mdl-button mdl-js-button mdl-button--raised add-button">
@@ -695,9 +601,182 @@
                             <div class="col-sm-12">
                                 <div class="mdl-card mdl-shadow--2dp">
                                     <div class="mdl-card__title">
+                                        <h2 class="mdl-card__title-text">Services</h2>
+                                    </div>
+                                    <div class="mdl-card__supporting-text">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="main-content">
+                                                    <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
+                                                        <div class="service-edit">
+                                                            <a class="edit-content"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                                                            <a class="remove-content"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
+                                                        </div>
+                                                        <div class="fbox-icon">
+                                                            <a href="#"><i class="fa fa-camera-retro"></i></a>
+                                                        </div>
+                                                        <h3>Responsive Layout</h3>
+                                                        <p>Powerful Layout with Responsive functionality that can be adapted to any screen size.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="editable-content hide-content center">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                                <input class="mdl-textfield__input" type="text" id="sample3">
+                                                                <label class="mdl-textfield__label" for="sample3">Service name</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="input-group">
+                                                                <input class="form-control icp icp-auto" value="fa-archive" type="text" />
+                                                                <span class="input-group-addon"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
+                                                                <textarea class="mdl-textfield__input" type="text" rows= "3" id="sample5" maxlength="100" ></textarea>
+                                                                <label class="mdl-textfield__label" for="sample5">Description</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <button id="" class="mdl-button mdl-js-button mdl-button--raised save-content" style="margin-right: 8px;">
+                                                                Save
+                                                            </button>
+                                                            <button id="" class="mdl-button mdl-js-button mdl-button--raised cancel-content">
+                                                                Cancel
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
+                                                    <div class="fbox-icon">
+                                                        <a href="#"><i class="fa fa-camera-retro"></i></a>
+                                                    </div>
+                                                    <h3>Responsive Layout</h3>
+                                                    <p>Powerful Layout with Responsive functionality that can be adapted to any screen size.</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
+                                                    <div class="fbox-icon">
+                                                        <a href="#"><i class="fa fa-camera-retro"></i></a>
+                                                    </div>
+                                                    <h3>Responsive Layout</h3>
+                                                    <p>Powerful Layout with Responsive functionality that can be adapted to any screen size.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
+                                                    <div class="fbox-icon">
+                                                        <a href="#"><i class="fa fa-camera-retro"></i></a>
+                                                    </div>
+                                                    <h3>Responsive Layout</h3>
+                                                    <p>Powerful Layout with Responsive functionality that can be adapted to any screen size.</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
+                                                    <div class="fbox-icon">
+                                                        <a href="#"><i class="fa fa-camera-retro"></i></a>
+                                                    </div>
+                                                    <h3>Responsive Layout</h3>
+                                                    <p>Powerful Layout with Responsive functionality that can be adapted to any screen size.</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
+                                                    <div class="fbox-icon">
+                                                        <a href="#"><i class="fa fa-camera-retro"></i></a>
+                                                    </div>
+                                                    <h3>Responsive Layout</h3>
+                                                    <p>Powerful Layout with Responsive functionality that can be adapted to any screen size.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row card-block">
+                            <div class="col-sm-12">
+                                <div class="mdl-card mdl-shadow--2dp">
+                                    <div class="mdl-card__title">
                                         <h2 class="mdl-card__title-text">Portfolio</h2>
                                     </div>
-                                    <div class="mdl-card__supporting-text"></div>
+                                    <div class="mdl-card__supporting-text">
+                                        <div class="portfolio-container">
+                                            <div id="portfolio">
+                                                <div class="col-md-4 bottommargin portfolio-element">
+                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
+                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                                        <h4>Responsive &amp; Retina</h4>
+                                                        <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
+                                                    </div>
+
+                                                    <p>Employment respond committed meaningful fight against oppression social challenges rural legal aid governance. Meaningful work, implementation, process cooperation, campaign inspire.</p>
+                                                </div>
+
+                                                <div class="col-md-4 bottommargin portfolio-element">
+                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
+                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                                        <h4>Powerful Performance</h4>
+                                                        <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
+                                                    </div>
+                                                    <p>Medecins du Monde Jane Addams reduce child mortality challenges Ford Foundation. Diversification shifting landscape advocate pathway to a better life rights international. Assessment.</p>
+                                                </div>
+
+                                                <div class="col-md-4 bottommargin portfolio-element">
+                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
+                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                                        <h4>Truly Multipurpose</h4>
+                                                        <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
+                                                    </div>
+                                                    <p>Democracy inspire breakthroughs, Rosa Parks; inspiration raise awareness natural resources. Governance impact; transformative donation philanthropy, respect reproductive.</p>
+                                                </div>
+                                                <div class="col-md-4 bottommargin portfolio-element">
+                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
+                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                                        <h4>Responsive &amp; Retina 2</h4>
+                                                    </div>
+                                                    <p>Employment respond committed meaningful fight against oppression social challenges rural legal aid governance. Meaningful work, implementation, process cooperation, campaign inspire.</p>
+                                                </div>
+
+                                                <div class="col-md-4 bottommargin portfolio-element">
+                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
+                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                                        <h4>Powerful Performance 2</h4>
+                                                        <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
+                                                    </div>
+                                                    <p>Medecins du Monde Jane Addams reduce child mortality challenges Ford Foundation. Diversification shifting landscape advocate pathway to a better life rights international. Assessment.</p>
+                                                </div>
+
+                                                <div class="col-md-4 bottommargin portfolio-element">
+                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
+                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                                        <h4>Truly Multipurpose 2</h4>
+                                                        <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
+                                                    </div>
+                                                    <p>Democracy inspire breakthroughs, Rosa Parks; inspiration raise awareness natural resources. Governance impact; transformative donation philanthropy, respect reproductive.</p>
+                                                </div>
+                                            </div>
+                                            <div class="pagination-container topmargin nobottommargin">
+                                                <ul class="pagination nomargin"></ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -719,9 +798,54 @@
                 </div>
             </div>
 
-            <section id="contact" class="clearfix section notopborder nomargin">
+            <section id="contact" class="clearfix section notopborder nomargin bottompadding-md">
                 <div class="container">
                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="heading-block">
+                                <h4>Contact CEEDER</h4>
+                            </div>
+                            <form action="#">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
+                                            <input class="mdl-textfield__input" type="text" id="sample3">
+                                            <label class="mdl-textfield__label" for="sample3">Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
+                                            <input class="mdl-textfield__input" type="email" id="sample3">
+                                            <label class="mdl-textfield__label" for="sample3">Email</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
+                                            <input class="mdl-textfield__input" type="text" id="sample3">
+                                            <label class="mdl-textfield__label" for="sample3">Subject</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 90%;">
+                                            <textarea class="mdl-textfield__input" type="text" rows="4" id="sample5" maxlength="200" style="overflow: hidden; max-width:100%;"></textarea>
+                                            <label class="mdl-textfield__label" for="sample5">Message</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <button class="mdl-button mdl-js-button mdl-button--raised" type="submit" name="submit">
+                                            Send
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -774,6 +898,14 @@
                 $('.icp-auto').iconpicker({
                     placement:'bottomLeft'
                 });
+
+                $('.portfolio-container').pajinate({
+                    items_per_page : 3,
+                    item_container_id : '#portfolio',
+                    nav_panel_id : '.pagination-container ul',
+                    show_first_last: false
+                });
+
             });
 
             $('.add-button').on('click', function() {

@@ -587,22 +587,6 @@ app.get('/privacy-policy', function(req, res) {
     res.render('privacyPolicy');
 });
 
-app.get('/profile-template', function(req, res) {
-    res.render('profile-templates/profile-template');
-});
-
-app.get('/profile-template2', function(req, res) {
-    res.render('profile-templates/profile-template2');
-});
-
-app.get('/profile-template3', function(req, res) {
-    res.render('profile-templates/profile-template3');
-});
-
-app.get('/profile-template4', function(req, res) {
-    res.render('profile-templates/profile-template4');
-});
-
 app.listen(3000, function () {
     console.log('App listening on port 3000!')
 });
