@@ -1,177 +1,468 @@
-.profile .intro-image img {
-	object-fit: cover;
-	margin-top: 30px;
-	border-radius: 50%;
-	width: 100%;
+/** CSS for profile.ejs **/
+
+/* Loader
+============================================= */
+
+.loader-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 9999;
+}
+
+.loader {
+    height: 2px;
+    background-color: #fff;
+    position: absolute;
+    z-index: 9999;
+}
+
+/* --- Custom CSS for MDL Lite --- */
+
+.reduce-padding .mdl-textfield {
+    margin: -20px 0;
+}
+
+.mdl-card__supporting-text {
+    width: 100%;
+}
+.mdl-textfield__input {
+    margin-bottom: 10px;
+}
+
+.custom-mdl-textfield__label {
+    color: #3f51b5;
+    font-size: 12px;
+    top: 4px;
+    visibility: visible;
+    margin-bottom: 5px;
+}
+
+/* --- Profile Header --- */
+
+.profile-name .mdl-textfield__input {
+    margin-bottom: 20px;
+}
+
+.profile-name {
+    padding: 10px 0;
+}
+
+.mdl-card {
+    width: 100%;
+}
+
+.profile-name input,
+.profile-name label {
+    font-size: 46px;
+    line-height: 46px;
+}
+
+h4.custom-heading {
+    font-size: 30px;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.radio-button-label {
+    text-transform: none;
+    font-weight: normal;
+}
+
+.img-container {
+    min-width: 250px;
+    max-width: 250px;
+}
+
+.img-container img {
+    object-fit: cover;
+    width: 100%;
     height: auto;
-    display: block;
 }
 
-.profile .intro-image {
-	height: 150px;
-	width: 150px;
-	margin-left: 6%;
-}
-.intro-image-z-index {
-	z-index: 9999;
-}
-.section-resume .addPassion {
-	color: #333;
-}
-.profile .fa-shield {
-	font-size: 20px;
-	color: #333;
-}
-.profile .fa-plus-square, .profile .fa-pencil {
-	color: #333 !important;
-}
-.profile .fa.fa-pencil, .profile .fa.fa-floppy-o, .profile .fa.fa-plus-square {
-	cursor: pointer;
-	display: inline-block;
+/* --- Skills --- */
+
+.skills li {
+    margin-top: 38px;
 }
 
-.profile .fa.fa-floppy-o {
-	display: none;
+@media (min-width: 768px) {
+    .skills li {
+        margin-top: 28px;
+    }
 }
 
-.profile .fa-floppy-o#save-passion, .profile .fa-floppy-o#save-passion {
-	padding-bottom: 5px;
-}
-.passion-input-area, .display-name-input-area,
-.birthday-input-area, .residence-input-area,
-.email-input-area,
-.service-name-input-area, .service-description-input-area,
-#service-save-button, .add-experience-container,
-.add-education-container, .freind-reference-input-area,
-.external-links-input-area, #external-links-save-button,
-.add-portfolio-container {
-	display: none;
-}
-.profile .skill-name-input-area {
-	margin-right: 20px;
-}
-.profile #serviceLeft, .profile #serviceRight {
-	margin-top: 10px;
-}
-#display-name, #birthday, #residence, #email {
-	word-wrap: break-word;
-}
-.profile .box-content {
-	text-overflow: break-word;
-	overflow-wrap: break-all;
-}
-.ui-datepicker .ui-datepicker-title select {
-    color: #000;
-}
-.datepicker td span, .datepicker-switch {
-	color: #333 !important;
-}
-.datepicker {
-	width: 20% !important;
-}
-.experience-div, .education-div {
-	margin-top: 10px;
-	padding-left: 20px;
-}
-.colorTheme {
-	color: #694905 !important;
-}
-.colorThemeBackground {
-	background-color: #694905 !important;
-}
-.verifiedTagImage {
-	width: 21.813px !important;
-	height: 26.094px !important;
-}
-.wholeProfileVerifiedTagImage {
-	width: 101.813px !important;
-	margin-left: 41.3%;
-}
-.authenticatedByOrg {
-	margin-top: -27px;
-    margin-left: 6.5px;
-    color:#1BBC9C !important;
-}
-.wholeProfileAuthenticatedByOrg{
-	margin-top: -125px;
-    margin-left: 2px;
-	font-size: 70px;
-	color:#1BBC9C !important;
-}
-.verifiedTag {
-	color: #3e963e;
-    /*margin-left: -12px;
-    margin-top: -8px;*/
-    display: block;
- }
- .wholeProfileverifiedTag {
- 	color: #3e963e;
- 	font-size: 20px;
- }
-.select2-results__options li {
-	color: black;
-	overflow-wrap: break-word;
-}
-.select2-selection.select2-selection--multiple {
-	height: 39px !important;
-}
-.select2-search.select2-search--inline {
-	padding-top: 0 !important;
-}
-input::-webkit-input-placeholder {
-color: #333 !important;
+.skills .main-content {
+    padding: 15px 0;
 }
 
-input::-moz-placeholder { /* Firefox 18- */
-color: #333 !important;
+.skills span.skill-title {
+    position: relative;
+    z-index: 1;
+    left: 0;
+    line-height: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #222;
 }
 
-input::-moz-placeholder {  /* Firefox 19+ */
-color: #333 !important;
+/* --- Editable Content --- */
+
+.edit-content,
+.remove-content {
+    display: none;
 }
 
-input::-ms-input-placeholder {
-color: #333 !important;
-}
-a {
-	color: #337ab7 !important;
-}
-textarea {
-	resize: vertical;
+/*.main-content:hover {*/
+    /*box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);*/
+/*}*/
+
+.main-content:hover .edit-content,
+.main-content:hover .remove-content {
+    display: inline;
 }
 
-/* Tooltip container */
-.showAuthenticatorOnHover {
+.mdl-card:hover .edit-remove-component {
+    opacity: 1;
+}
+
+.edit-remove-component {
+    position: absolute;
+    top: -12px;
+    right: -50px;
+    opacity: 0;
+}
+
+/* -- Experiment from Bootstrap using flex -- */
+.row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.hide-content {
+    display: none;
+}
+
+/* --- Timeline --- */
+
+.timeline {
+    border-left: 2px solid #e0e0e0;
+    padding: 15px 0;
+}
+
+.timeline-item {
+    position: relative;
+    padding: 15px 20px 10px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-left: 2px solid #1BBC9C;
+    /*box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.2);*/
+}
+
+.timeline-item:hover {
+    /*box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);*/
+}
+
+.timeline-item:hover .edit-content,
+.timeline-item:hover .remove-content {
     display: inline-block;
 }
 
-/* Tooltip text */
-.showAuthenticatorOnHover .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 6px;
-    /* Position the tooltip text - see examples below! */
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-item:before {
+    content: '';
+    display: inline-block;
     position: absolute;
+    background-color: #1BBC9C;
+    border-radius: 10px;
+    width: 12px;
+    height: 12px;
+    top: 20px;
+    left: -29px;
+    border: 2px solid #1BBC9C;
+    z-index: 2;
+}
+
+.timeline-item:after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    background-color: #1BBC9C;
+    border-radius: 10px;
+    width: 29px;
+    height: 2px;
+    top: 25px;
+    left: -29px;
     z-index: 1;
 }
 
-/* Show the tooltip text when you mouse over the tooltip container */
-.showAuthenticatorOnHover:hover .tooltiptext {
-    visibility: visible;
+.timeline-item .item-title {
+    display: block;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.2em;
 }
 
-.bell-icon-notifications {
-	background-color: #1BBC9C !important;
-	border-radius: 100%;
-	position: absolute;
-	margin-left: -13px;
-	margin-top: -8px;
-	padding: 0;
-	width:18px;
-	height: 18px;
-	line-height: 165%;
+/** Added **/
+.timeline-item .item-edit {
+    top: 15px;
+    right: 20px;
+    position: absolute;
 }
+
+.timeline-item .item-period {
+    display: inline-block;
+    font-size: 12px;
+    line-height: 1.2em;
+    color: #2eca7f;
+    margin-bottom: 8px;
+}
+
+.timeline-item .item-small {
+    display: inline-block;
+    font-size: 12px;
+    line-height: 1.2em;
+    color: #9e9e9e;
+    margin-left: 5px;
+    margin-bottom: 8px;
+    padding-left: 8px;
+    border-left: 1px solid #e0e0e0;
+}
+
+/* --- Services --- */
+
+.feature-box.fbox-center {
+    padding: 20px;
+}
+
+.service-edit {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+/* --- Other CSS --- */
+
+/*.hover-component {*/
+    /*box-shadow: none;*/
+/*}*/
+
+/*.hover-component:hover {*/
+    /*box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);*/
+/*}*/
+
+.add-box-shadow {
+    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
+}
+
+.full-width {
+    width: 100%;
+}
+
+.padding-15 {
+    padding: 15px;
+}
+
+.card-block {
+    padding: 20px 0;
+}
+
+.col-sm-5-custom {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+@media (min-width: 768px) {
+    .col-sm-5-custom {
+        width: 45.83333333%;
+        float: left;
+    }
+}
+
+/*.profile .intro-image img {*/
+	/*object-fit: cover;*/
+	/*margin-top: 30px;*/
+	/*border-radius: 50%;*/
+	/*width: 100%;*/
+    /*height: auto;*/
+    /*display: block;*/
+/*}*/
+
+/*.profile .intro-image {*/
+	/*height: 150px;*/
+	/*width: 150px;*/
+	/*margin-left: 6%;*/
+/*}*/
+/*.intro-image-z-index {*/
+	/*z-index: 9999;*/
+/*}*/
+/*.section-resume .addPassion {*/
+	/*color: #333;*/
+/*}*/
+/*.profile .fa-shield {*/
+	/*font-size: 20px;*/
+	/*color: #333;*/
+/*}*/
+/*.profile .fa-plus-square, .profile .fa-pencil {*/
+	/*color: #333 !important;*/
+/*}*/
+/*.profile .fa.fa-pencil, .profile .fa.fa-floppy-o, .profile .fa.fa-plus-square {*/
+	/*cursor: pointer;*/
+	/*display: inline-block;*/
+/*}*/
+
+/*.profile .fa.fa-floppy-o {*/
+	/*display: none;*/
+/*}*/
+
+/*.profile .fa-floppy-o#save-passion, .profile .fa-floppy-o#save-passion {*/
+	/*padding-bottom: 5px;*/
+/*}*/
+/*.passion-input-area, .display-name-input-area,*/
+/*.birthday-input-area, .residence-input-area,*/
+/*.email-input-area,*/
+/*.service-name-input-area, .service-description-input-area,*/
+/*#service-save-button, .add-experience-container,*/
+/*.add-education-container, .freind-reference-input-area,*/
+/*.external-links-input-area, #external-links-save-button,*/
+/*.add-portfolio-container {*/
+	/*display: none;*/
+/*}*/
+/*.profile .skill-name-input-area {*/
+	/*margin-right: 20px;*/
+/*}*/
+/*.profile #serviceLeft, .profile #serviceRight {*/
+	/*margin-top: 10px;*/
+/*}*/
+/*#display-name, #birthday, #residence, #email {*/
+	/*word-wrap: break-word;*/
+/*}*/
+/*.profile .box-content {*/
+	/*text-overflow: break-word;*/
+	/*overflow-wrap: break-all;*/
+/*}*/
+/*.ui-datepicker .ui-datepicker-title select {*/
+    /*color: #000;*/
+/*}*/
+/*.datepicker td span, .datepicker-switch {*/
+	/*color: #333 !important;*/
+/*}*/
+/*.datepicker {*/
+	/*width: 20% !important;*/
+/*}*/
+/*.experience-div, .education-div {*/
+	/*margin-top: 10px;*/
+	/*padding-left: 20px;*/
+/*}*/
+/*.colorTheme {*/
+	/*color: #694905 !important;*/
+/*}*/
+/*.colorThemeBackground {*/
+	/*background-color: #694905 !important;*/
+/*}*/
+/*.verifiedTagImage {*/
+	/*width: 21.813px !important;*/
+	/*height: 26.094px !important;*/
+/*}*/
+/*.wholeProfileVerifiedTagImage {*/
+	/*width: 101.813px !important;*/
+	/*margin-left: 41.3%;*/
+/*}*/
+/*.authenticatedByOrg {*/
+	/*margin-top: -27px;*/
+    /*margin-left: 6.5px;*/
+    /*color:#1BBC9C !important;*/
+/*}*/
+/*.wholeProfileAuthenticatedByOrg{*/
+	/*margin-top: -125px;*/
+    /*margin-left: 2px;*/
+	/*font-size: 70px;*/
+	/*color:#1BBC9C !important;*/
+/*}*/
+/*.verifiedTag {*/
+	/*color: #3e963e;*/
+    /*!*margin-left: -12px;*/
+    /*margin-top: -8px;*!*/
+    /*display: block;*/
+ /*}*/
+ /*.wholeProfileverifiedTag {*/
+ 	/*color: #3e963e;*/
+ 	/*font-size: 20px;*/
+ /*}*/
+/*.select2-results__options li {*/
+	/*color: black;*/
+	/*overflow-wrap: break-word;*/
+/*}*/
+/*.select2-selection.select2-selection--multiple {*/
+	/*height: 39px !important;*/
+/*}*/
+/*.select2-search.select2-search--inline {*/
+	/*padding-top: 0 !important;*/
+/*}*/
+/*input::-webkit-input-placeholder {*/
+/*color: #333 !important;*/
+/*}*/
+
+/*input::-moz-placeholder { !* Firefox 18- *!*/
+/*color: #333 !important;*/
+/*}*/
+
+/*input::-moz-placeholder {  !* Firefox 19+ *!*/
+/*color: #333 !important;*/
+/*}*/
+
+/*input::-ms-input-placeholder {*/
+/*color: #333 !important;*/
+/*}*/
+/*a {*/
+	/*color: #337ab7 !important;*/
+/*}*/
+/*textarea {*/
+	/*resize: vertical;*/
+/*}*/
+
+/*!* Tooltip container *!*/
+/*.showAuthenticatorOnHover {*/
+    /*display: inline-block;*/
+/*}*/
+
+/*!* Tooltip text *!*/
+/*.showAuthenticatorOnHover .tooltiptext {*/
+    /*visibility: hidden;*/
+    /*width: 120px;*/
+    /*background-color: black;*/
+    /*color: #fff;*/
+    /*text-align: center;*/
+    /*padding: 5px 0;*/
+    /*border-radius: 6px;*/
+    /*!* Position the tooltip text - see examples below! *!*/
+    /*position: absolute;*/
+    /*z-index: 1;*/
+/*}*/
+
+/*!* Show the tooltip text when you mouse over the tooltip container *!*/
+/*.showAuthenticatorOnHover:hover .tooltiptext {*/
+    /*visibility: visible;*/
+/*}*/
+
+/*.bell-icon-notifications {*/
+	/*background-color: #1BBC9C !important;*/
+	/*border-radius: 100%;*/
+	/*position: absolute;*/
+	/*margin-left: -13px;*/
+	/*margin-top: -8px;*/
+	/*padding: 0;*/
+	/*width:18px;*/
+	/*height: 18px;*/
+	/*line-height: 165%;*/
+/*}*/
