@@ -18,6 +18,13 @@
     z-index: 9999;
 }
 
+/* --- Iconpicker popover --- */
+
+.iconpicker-popover.popover {
+    max-width: 100%;
+    width: 100%;
+}
+
 /* --- Custom CSS for MDL Lite --- */
 
 .reduce-padding .mdl-textfield {
@@ -219,7 +226,7 @@ h4.custom-heading {
 }
 
 .timeline-item .item-period {
-    display: inline-block;
+    display: block;
     font-size: 12px;
     line-height: 1.2em;
     color: #2eca7f;
@@ -247,6 +254,14 @@ h4.custom-heading {
     position: absolute;
     top: 20px;
     right: 20px;
+}
+
+/* --- Portfolio --- */
+
+.portfolio-edit {
+	position: absolute;
+	top: 15px;
+	right: 15px;
 }
 
 /* --- Other CSS --- */

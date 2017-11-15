@@ -100,7 +100,7 @@ Version: 1.0
 
         /** Navigation */
         // disable navigation of resume menu in case of profile.ejs
-        
+
         $(".nav-toggle, .resume-close").on('click', function(e) {
             e.preventDefault();
             $('body').toggleClass('menu-open');
@@ -150,7 +150,7 @@ Version: 1.0
                 srcAction: 'iframe_src',
             }
         });
-            
+
 
         $("#authenticateTheProfile").on('click', function(e) {
             console.log($('#authenticatorOrganisationName').val());
@@ -158,13 +158,14 @@ Version: 1.0
                 alert('Please enter all required details');
                 return false;
             }
-            var profile;    
+            var profile;
             var userObj = JSON.parse($('#userProfileObject').text());
             e.preventDefault();
             if (userObj.profile) {
                 if (userObj.profile.skills) {
                     for (var index = 0; index < userObj.profile.skills.length; index++) {
-                        if ($('#skill'+index).is(":checked")) {
+                        if ($('#skill'+index).hasClass('verified'))) {
+						//if ($('#skill'+index).is(":checked")) {
                              userObj.profile.skills[index].isAuthenticated = true;
                             userObj.profile.skills[index].authenticatedBy = $('#authenticatorOrganisationName').val();
                             userObj.isUserSkillsAuthenticated = true;
@@ -184,7 +185,8 @@ Version: 1.0
 
                 if (userObj.profile.services) {
                     for (var index = 0; index < userObj.profile.services.length; index++) {
-                        if ($('#service'+index).is(":checked")) {
+                        if ($('#service'+index).hasClass('verified')) {
+						//if ($('#service'+index).is(":checked")) {
                             userObj.profile.services[index].isAuthenticated = true;
                             userObj.profile.services[index].authenticatedBy = $('#authenticatorOrganisationName').val();
                             userObj.isUserServicesAuthenticated = true;
@@ -204,7 +206,8 @@ Version: 1.0
 
                 if (userObj.profile.experiences) {
                     for (var index = 0; index < userObj.profile.experiences.length; index++) {
-                        if ($('#experience'+index).is(":checked")) {
+                        //if ($('#experience'+index).is(":checked")) {
+						if ($('#experience'+index).hasClass('verified')) {
                             userObj.profile.experiences[index].isAuthenticated = true;
                             userObj.profile.experiences[index].authenticatedBy = $('#authenticatorOrganisationName').val();
                             userObj.isUserExperiencesAuthenticated = true;
@@ -249,7 +252,7 @@ Version: 1.0
                 user: userObj,
                 authenticator: authenticatorObj
             };
-            
+
             console.log(requestData);
             $.ajax({
                 type: 'POST',
@@ -270,7 +273,7 @@ Version: 1.0
         $('#passion-content-display').html($('#passion-content-display').html());
         $('#freind-reference-content-display').html($('#freind-reference-content-display').html());
 
-        
+
         $('#flipToProfile').on('click', function () {
             if($('#image-section').hasClass('intro-image')) {
                 setTimeout(function() {
@@ -279,7 +282,7 @@ Version: 1.0
                     $('#intro-text-new').css('display', 'block');
                     $('#intro-text-section').css('display', 'none');
                 }, 400);
-                
+
             } else {
                 setTimeout(function() {
                     $('#image-section').addClass('intro-image');

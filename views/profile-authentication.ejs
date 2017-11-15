@@ -11,24 +11,42 @@
         <title>CeedBase</title>
 
         <!-- BOOTSTRAP CORE CSS -->
-        <link rel="stylesheet" href="/css/vendor/bootstrap.min.css">
+        <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
 
-        <!-- PLUGIN STYLES FOR THIS TEMPLATE -->
-        <link rel="stylesheet" href="/css/vendor/magnific-popup.css">
-        <link rel="stylesheet" href="/css/vendor/jquery.mCustomScrollbar.min.css">
-        <link rel="stylesheet" href="/css/font-awesome.min.css">
-        <link rel="stylesheet" href="/plugins/datepicker/css/datepicker.css">
+        <!-- Styles for Canvas Template -->
+        <link rel="stylesheet" href="css/style-updated.css" type="text/css" />
+        <link rel="stylesheet" href="css/dark.css" type="text/css" />
+        <link rel="stylesheet" href="css/swiper.css" type="text/css" />
+        <link rel="stylesheet" href="css/font-icons.css" type="text/css" />
+        <link rel="stylesheet" href="css/animate.css" type="text/css" />
+        <link rel="stylesheet" href="css/responsive.css" type="text/css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!-- Canvas Components CSS -->
+        <link rel="stylesheet" href="css/canvas-components/datepicker.css" type="text/css" />
+        <link rel="stylesheet" href="css/canvas-components/radio-checkbox.css" type="text/css" />
+        <link rel="stylesheet" href="css/canvas-components/ion.rangeslider.css" type="text/css" />
+        <link rel="stylesheet" href="css/canvas-components/bs-filestyle.css" type="text/css" />
+
+        <!-- Google Material Design Lite CSS -->
+        <link rel="stylesheet" href="css/mdl/material.min.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+        <link href="plugins/select2/dist/css/select2.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="css/fontawesome-iconpicker.min.css"/>
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.theme.min.css">
-            <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css">
+        <link href="plugins/fine-uploader/fine-uploader/fine-uploader-gallery.min.css" rel="stylesheet">
+        <link href="plugins/fine-uploader/fine-uploader/fine-uploader.min.css" rel="stylesheet">
 
-        <link href="/plugins/fine-uploader/fine-uploader/fine-uploader-gallery.min.css" rel="stylesheet">
-        <link href="/plugins/fine-uploader/fine-uploader/fine-uploader.min.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="css/profile.css" />
 
-        <!-- MAIN STYLE FOR THIS TEMPLATE -->
-        <link rel="stylesheet" href="/css/main.css">
-        <link rel="stylesheet" href="/css/profile-authentication.css">
     </head>
+
     <div id="authenticate-whole-user-profile" class="modal fade" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content" style="background-color: #fff">
@@ -45,80 +63,21 @@
                                 <input class="form-control" id="wholeProfileAuthenticatorOrganisationName" type="text" name="organisation" placeholder="company or organisation name">
                                 <button class="btn text-uppercase m-t-40" id="authenticateWholeProfile"><span>Authenticate</span></button>
                             </div>
-                            
+
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
-    <body class="layout-1 profile">
+
+    <body class="stretched">
 
         <!-- LOADER -->
         <div class="loader-wrapper">
             <div class="loader"></div>
         </div>
 
-        <!-- NAV SOCIAL -->
-        <div class="nav-social">
-            <ul>
-                <li><a href="#"><i class="icon icon-twitter"></i></a></li>
-                <li><a href="#"><i class="icon icon-facebook"></i></a></li>
-                <li><a href="#"><i class="icon icon-linkedin"></i></a></li>
-            </ul>
-        </div>
-
-        <!-- BACKGROUND IMAGE -->
-        <div class="main-bg bg-image overlay" data-image="/img/single-bg.jpg"></div>
-        <!-- INTRO SECTION -->
-        <div class="col-md-3 intro-image" id="image-section">
-            <br>
-            <br>
-            <div style="margin-left: -70px;" style="display: none;" id="intro-text-new">
-                <%if (user.profile && user.profile.introText) { %>
-                    <%if (user.profile && user.profile.introText[0]) { %>
-                        <p>I'm <%= user.profile.introText[0] %> </p>
-                    <% } %>
-                    <%if (user.profile && user.profile.introText[1]) { %>
-                        <p>I'm <%= user.profile.introText[1] %> </p>
-                    <% } %>
-                    <%if (user.profile && user.profile.introText[2]) { %>
-                        <p>I'm <%= user.profile.introText[2] %> </p>
-                    <% } %>
-                <% } %>
-            </div>            
-            <br>
-            <!-- YOUR AVATAR -->
-            <div id="avatarProfilePic" class="text-center">
-                <img src='<%= user.image %>' alt="avatar"> <br>
-            </div>
-        </div>
-    
-        <div id="intro" class="section-intro">
-            <!-- LOGO -->
-            <a href="/" class="logo"><img src="/images/ceedbaseLogo/ceedbase.png" alt="Logo"></a>
-
-            <button class="nav-toggle wave flipped" id="flipToProfile"><i></i><i></i><i></i></button>
-            <!-- RESUME CLOSE -->
-            <div class="resume-close">
-            </div>            
-            <div class="container" id="intro-text-section" style="margin-top: -270px;">
-                <div class="row intro-row">
-                    <div class="col-xs-12 intro-text">
-                        <%if (user.profile && user.profile.introText[0]) { %><h1>I'm <span class="typed" id="typedDomElement"></span></h1><% } %>
-
-                        <!-- TYPED STRINGS -->
-                        <div class="typed-strings">
-                            <p><%if (user.profile) { %><%if (user.profile.introText) { %><%= user.profile.introText[0] %><% } %><% } %></p>
-                            <p><%if (user.profile) { %><%if (user.profile.introText) { %><%= user.profile.introText[1] %><% } %><% } %></p>
-                            <p><%if (user.profile) { %><%if (user.profile.introText) { %><%= user.profile.introText[2] %><% } %><% } %></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /END INTRO SECTION -->
-
-            <div style="display: none">
+        <div style="display: none">
             <%if (user.provider == 'google') { %>
                 <input id="providerId" type="text" value="<%= user.google.id %>">
             <% } %>
@@ -133,409 +92,417 @@
             <% } %>
             <p id="userProfileObject"> <%= JSON.stringify(user) %> </p>
         </div>
+
         <!-- RESUME SECTION -->
-        <div id="resume" class="section-resume" style="padding-top: 20px;">
-             <p style="margin-left: 40%; color: #694905">Select all items you want to authenticate and click on Authenticate button</p>
+        <div id="wrapper" class="clearfix">
 
-             <p style="margin-left: 40%; color: #694905">Click <a data-toggle="modal" data-target="#authenticate-whole-user-profile" href="">here</a> to authenticate complete profile</p>
-            <div class="container-fluid">
-                <!-- ABOUT -->
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>Passion</h2>
-                            <p>What I'm all about.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div>
-                             <p id="passion-content-display"><%- user.profile ? user.profile.passion : '' %></p>
-                            <ul class="info-list list-unstyled row p-t-30">
-                                <li class="col-sm-6 col-md-3">
-                                    <strong>Full Name</strong>                                      
-                                    <span id="display-name"><%= user.displayName %></span>
-                                </li>
-                                <li class="col-sm-6 col-md-3">
-                                    <strong>Birthday</strong>                                      
-                                    <span id="birthday"><%= user.profile.birthday %></span>
-                                </li>
-                                <li class="col-sm-6 col-md-3">
-                                    <strong>Residence</strong>                                      
-                                    <span id="residence"><%= user.profile.residence %></span>
-                                </li>
-                                <li class="col-sm-6 col-md-3">
-                                    <strong>Email</strong>                                      
-                                    <span id="email"><%= user.email %></span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- /END ABOUT -->
+            <p style="margin-left: 40%; color: #694905">Select all items you want to authenticate and click on Authenticate button</p>
 
-                <!-- SKILLS -->
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>Skills</h2>
-                            <p>Progress bars?</p>
-                        </div>
-                    </div>
+            <p style="margin-left: 40%; color: #694905">Click <a data-toggle="modal" data-target="#authenticate-whole-user-profile" href="">here</a> to authenticate complete profile</p>
 
-                    <!-- PROGRESS BARS -->
-                    <div class="col-lg-9 progress-bars">
-                        <div>
-                            <div class="row">
-                                <%if (user.profile && user.profile.skills) { %>
-                                    <% for(var i=0; i < user.profile.skills.length; i=i+2) { %>
-                                        <%if (user.profile.skills[i]) { %>
-                                            <div class="col-md-1 showAuthenticatorOnHover" style="padding-top: 10px">
-                                                <%if (!user.profile.skills[i].isAuthenticated) { %>
-                                                    <input type="checkbox" id="skill<%= i %>">
-                                                <% } %>
-                                                <%if (user.profile.skills[i].isAuthenticated) { %>
-                                                    <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
-                                                    <p class="authenticatedByOrg text-uppercase"> <%= user.profile.skills[i].authenticatedBy[0] %></p>
-                                                    <span class="verifiedTag">Verified</span>
-                                                    <span class="tooltiptext">
-                                                        <%= user.profile.skills[i].authenticatedBy%>
-                                                    </span>
-                                                <% } %>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <div class="progress">
-                                                    <div class="progress-info"><%= user.profile.skills[i].skill %></div>
-                                                    <div class="progress-bar" data-percent="<%= user.profile.skills[i].rating %>">
-                                                        <span class="value"><%= user.profile.skills[i].rating %></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        <% } %>
-                                        <%if (user.profile.skills[i+1]) { %>
-                                            <div class="col-md-1 showAuthenticatorOnHover" style="padding-top: 10px">
-                                               <%if (!user.profile.skills[i+1].isAuthenticated) { %>
-                                                    <input type="checkbox" id="skill<%= i + 1 %>">
-                                                <% } %>
-                                                <%if (user.profile.skills[i+1].isAuthenticated) { %>
-                                                    <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
-                                                    <p class="authenticatedByOrg text-uppercase"> <%= user.profile.skills[i+1].authenticatedBy[0] %></p>
-                                                    <span class="verifiedTag">Verified</span>
-                                                    <span class="tooltiptext">
-                                                        <%= user.profile.skills[i + 1].authenticatedBy%>
-                                                    </span>
-                                                <% } %>
-                                            </div>
-                                            <div class="col-md-5 pull-right">
-                                                <div class="progress">
-                                                    <div class="progress-info"><%= user.profile.skills[i+1].skill %></div>
-                                                    <div class="progress-bar" data-percent="<%= user.profile.skills[i+1].rating %>">
-                                                        <span class="value"><%= user.profile.skills[i+1].rating %></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        <% } %>
-                                    <% } %>
-                                <% } %>
+            <section id="intro" class="clearfix section notopborder nomargin">
+                <div class="container input-date-group">
+                    <div class="row">
+                        <div id="intro-img" class="col-md-3">
+                            <div class="img-container" style="min-width: 250px; max-width: 250px;">
+                                <img src="<%= user.image %>" class="center-content" alt="Avatar">
                             </div>
+
                         </div>
-                    </div>
-                </div>
-                <!-- /END SKILLS -->
-
-                <!-- Externam links -->
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>Certifications</h2>
-                            <p>My learning and development profile</p>
-                        </div>
-                    </div>
-
-                    <!-- PROGRESS BARS -->
-                    <div class="col-lg-9 progress-bars">
-                        <div id="external-links-container">
-                            <div class="row">
-                                <%if (user.profile && user.profile.externalLinks) { %>
-                                    <% for(var i=0; i < user.profile.externalLinks.length; i++) { %>
-                                        <div class="col-md-1 showAuthenticatorOnHover" style="margin-top: 2px;">
-                                            <%if (!user.profile.externalLinks[i].isAuthenticated) { %>
-                                                <input type="checkbox" id="externalLink<%= i %>">
-                                            <% } %>
-                                            <%if (user.profile.externalLinks[i].isAuthenticated) { %>
-                                                <img src="/images/partners/verify-shield.png" class="verifiedTagImageExternalLinks">
-                                                <p class="authenticatedByOrgExternalLinks text-uppercase"> <%= user.profile.externalLinks[i].authenticatedBy[0] %></p>
-                                                <span class="verifiedTagExternalLinks">Verified</span>
-                                                <span class="tooltiptext">
-                                                    <%= user.profile.externalLinks[i].authenticatedBy%>
-                                                </span>
-                                            <% } %>
-                                            
-                                        </div>
-                                        <div class="col-md-11">
-                                        <p><%=  user.profile.externalLinks[i].link %></p>
-                                        </div>
-
-                                    <% } %>
-                                <% } %>
+                        <div id="intro-profile" class="col-md-9 reduce-padding">
+                            <div class="row form-horizontal">
+                                <div class="col-sm-6"><h4 class="custom-heading">Hello, I'm</h4></div>
+                                <div class="col-sm-12">
+                                    <div class="mdl-textfield mdl-js-textfield full-width profile-name">
+                                        <input class="mdl-textfield__input" type="text" id="introText1" disabled value="<%= user.displayName %>">
+                                        <label class="mdl-textfield__label" for="introText1">Full Name</label>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /END SKILLS -->   
 
-                <!-- Video -->
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>Video</h2>
-                            <p>My 30 second video resume</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-sm-5-custom">
+                                    <div class="mdl-textfield mdl-js-textfield full-width">
+                                        <input class="mdl-textfield__input" type="text" id="introText2" disabled value="<%= (user.profile && user.profile.introText) ? user.profile.introText[1] : '' %>">
+                                        <label class="mdl-textfield__label" for="introText2">Designer</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-1">and</div>
+                                <div class="col-sm-5-custom">
+                                    <div class="mdl-textfield mdl-js-textfield full-width">
+                                        <input class="mdl-textfield__input" type="text" id="introText3" disabled value="<%= (user.profile && user.profile.introText) ? user.profile.introText[2] : '' %>">
+                                        <label class="mdl-textfield__label" for="introText3">Designer</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row topmargin-sm">
+                                <div class="col-sm-12">
+                                    <label>Opportunities I&#39;m seeking</label>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-6 col-sm-6">
+                                            <input id="unPaidInternship" class="radio-style" disabled name="opportunityOption" type="radio" value="unPaidInternship">
+                                            <label for="unPaidInternship" class="radio-style-3-label radio-small radio-button-label">Unpaid Internship</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-sm-6">
+                                            <input id="paidInternship" class="radio-style" disabled name="opportunityOption" type="radio" value="paidInternship">
+                                            <label for="paidInternship" class="radio-style-3-label radio-small radio-button-label">Paid internship</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-sm-6">
+                                            <input id="tempContract" class="radio-style" disabled name="opportunityOption" type="radio" value="tempContract">
+                                            <label for="tempContract" class="radio-style-3-label radio-small radio-button-label">Temporary Contract</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-sm-6">
+                                            <input id="fullTimeHire" class="radio-style" disabled name="opportunityOption" type="radio" value="fullTimeHire">
+                                            <label for="fullTimeHire" class="radio-style-3-label radio-small radio-button-label">Full Time Hire</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row topmargin-sm">
+                                <div class="col-sm-12">
+                                    <label>Video Resume</label>
                                     <div id="profile-video-show"></div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>         
 
-                <!-- PORTFOLIO -->
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>Portfolio</h2>
-                            <p>My amazing works.</p>
                         </div>
                     </div>
-                    <div class="col-lg-9">
-                        <div class="row">
-                            <div class="col-lg-12 portfolio-div">
-                                <ul class="timeline" id="portfolio-timeline" style="margin-left: 6px;">
-                                    <%if (user.profile && user.profile.portfolios) { %>
-                                        <% for(var i=0; i < user.profile.portfolios.length; i++) { %>
-                                            <%if (!user.profile.portfolios[i].isAuthenticated) { %>
-                                                <div class="col-md-1" style="margin-left: 10px; margin-top: -4px;">
-                                                    <input type="checkbox" id="portfolio<%= i %>" style="margin-left: -30px;">
+                </div>
+            </section>
+
+            <div id="content" style="background-color: #F9F9F9;">
+                <div id="content-wrap">
+                    <div class="container clearfix" style="margin: 40px auto; padding: 0 20px;">
+
+                        <div class="row card-block">
+                            <div class="col-sm-12">
+                                <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                                    <div class="mdl-card__title">
+                                        <h2 class="mdl-card__title-text">About Me</h2>
+                                    </div>
+                                    <div class="mdl-card__supporting-text input-date-group">
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                                <div class="form-horizontal row">
+                                                    <div class="col-sm-4">
+                                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                            <input name="birthday" disabled id="birthday" type="text" pattern="-?[0-9]*(\.[0-9]+)?" value="<%= user.profile ? user.profile.birthday : '' %>" class="mdl-textfield__input tleft mnth" placeholder="mm/yyyy">
+                                                            <label class="mdl-textfield__label" for="birthday">Birthday</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8 col-sm-9">
+                                                        <label class="custom-mdl-textfield__label" for="creativeRegion" style="">Region</label>
+                                                        <select id="creativeRegion" disabled class="form-control select2-element" data-placeholder="Select a region">
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
+                                                            <input class="mdl-textfield__input" disabled type="email" id="email" value="<%= user.email %>">
+                                                            <label class="mdl-textfield__label" for="email">Email</label>
+                                                            <span class="mdl-textfield__error">Input does not have the correct format!</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            <% } %>
-                                            <%if (user.profile.portfolios[i].isAuthenticated) { %>
-                                                <div class="col-md-1 showAuthenticatorOnHover" style="margin-left: -20px; margin-top: 0;">
-                                                    <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
-                                                    <p class="authenticatedByOrg text-uppercase"> <%= user.profile.portfolios[i].authenticatedBy[0] %></p>
-                                                    <span class="verifiedTag">Verified</span>
-                                                    <span class="tooltiptext">
-                                                        <%= user.profile.portfolios[i].authenticatedBy%>
-                                                    </span>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 90%;">
+                                                    <textarea class="mdl-textfield__input autoresize" disabled type="text" rows="4" id="passion" maxlength="200" style="overflow: hidden; max-width:100%;"><%= user.profile ? user.profile.passion : '' %></textarea>
+                                                    <label class="mdl-textfield__label" for="passion">Describe your passion</label>
                                                 </div>
-                                            <% } %>
-                                                
-                                                <li style="margin-left: 40px;">
-                                                    <h2 class="title"><%= user.profile.portfolios[i].title %></h2>
-                                                    <span class="time"><%= user.profile.portfolios[i].from %> - <%= user.profile.portfolios[i].to %></span>
-                                                    <p><%- user.profile.portfolios[i].description %></p>
-                                                    <p><%= user.profile.portfolios[i].link %></p>
-                                                </li>
-                                        <% } %>
-                                    <% } %> 
-                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- /END PORTFOLIO -->
 
-                <!-- EXPERIENCE -->
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>Experience</h2>
-                            <p>Yes. I've been around.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div>
-                            <ul class="timeline">
-                                <%if (user.profile && user.profile.experiences) { %>
-                                    <% for(var i=0; i < user.profile.experiences.length; i++) { %>
-                                        <%if (!user.profile.experiences[i].isAuthenticated) { %>
-                                            <div class="col-md-1" style="margin-left: 10px; margin-top: -4px;">
-                                                <input type="checkbox" id="experience<%= i %>" style="margin-left: -30px;">
-                                            </div>
-                                        <% } %>
-                                        <%if (user.profile.experiences[i].isAuthenticated) { %>
-                                            <div class="col-md-1 showAuthenticatorOnHover" style="margin-left: -20px; margin-top: 0;">
-                                                <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
-                                                <p class="authenticatedByOrg text-uppercase"> <%= user.profile.experiences[i].authenticatedBy[0] %></p>
-                                                <span class="verifiedTag">Verified</span>
-                                                <span class="tooltiptext">
-                                                    <%= user.profile.experiences[i].authenticatedBy%>
-                                                </span>
-                                            </div>
-                                        <% } %>
-                                            
-                                        
-                                        <li style="margin-left: 40px;">
-                                            <h2 class="title"><%= user.profile.experiences[i].company %></h2>
-                                            <span class="time"><%= user.profile.experiences[i].from %> - <%= user.profile.experiences[i].to %></span>
-                                            <p><%= user.profile.experiences[i].description %></p>
-                                        </li>
-                                    <% } %>
-                                <% } %>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- /END EXPERIENCE -->
+                        <div class="row card-block">
+                            <div class="col-sm-12">
+                                <div class="mdl-card mdl-shadow--2dp">
+                                    <div class="mdl-card__title">
+                                        <h2 class="mdl-card__title-text">Skills</h2>
+                                    </div>
+                                    <div class="mdl-card__supporting-text input-date-group">
 
-                <!-- EDUCATION -->
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>Education</h2>
-                            <p>Add maximum two degrees.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div>
+                                        <ul class="skills row nopadding">
 
-                            <!-- EDUCATION TIMELINE -->
-                            <ul class="timeline">
-                                <%if (user.profile && user.profile.educations) { %>
-                                    <% for(var i=0; i < user.profile.educations.length; i++) { %>
-                                        <li>
-                                            <h2 class="title"><%= user.profile.educations[i].institute %></h2>
-                                            <span class="time"><%= user.profile.educations[i].from %> - <%= user.profile.educations[i].to %></span>
-                                            <p><%= user.profile.educations[i].description %></p>
-                                        </li>
-                                    <% } %>
-                                <% } %>
-                            </ul>
-                            <!-- /END EDUCATION TIMELINE -->
-
-                        </div>
-                    </div>
-                </div>
-                <!-- /END EDUCATION -->
-
-                <!-- Friend -->
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>Reference</h2>
-                            <p>How my friends describe me.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div>
-                            <p id="freind-reference-content-display"><%- user.profile ? user.profile.friendReference : '' %></p>
-                        </div>
-                    </div>
-                </div>
-                <!-- /END EDUCATION -->
-
-                <!-- SERVICES -->
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>Services</h2>
-                            <p>What I can do.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div>
-                            <div class="row">
-                                <%if (user.profile && user.profile.services) { %>
-                                    <% for(var i=0; i < user.profile.services.length; i=i+2) { %>
-                                        <%if (user.profile.services[i]) { %>
-                                            <div class="col-md-1 showAuthenticatorOnHover" style="padding-top: 21px">
-                                                <%if (!user.profile.services[i].isAuthenticated) { %>
-                                                    <input type="checkbox" id="service<%= i %>">
-                                                <% } %>
-                                                <%if (user.profile.services[i].isAuthenticated) { %>
-                                                    <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
-                                                    <p class="authenticatedByOrg text-uppercase"> <%= user.profile.services[i].authenticatedBy[0] %></p>
-                                                     <span class="verifiedTag">Verified</span>
-                                                    <span class="tooltiptext">
-                                                        <%= user.profile.services[i].authenticatedBy%>
-                                                    </span>
-                                                <% } %>
-                                                
-                                            </div>
-                                            <div class="icon-box col-md-5">
-                                                <div class="box-icon">
-                                                    <i class="icon fa fa-shield"></i>
-                                                </div>
-                                                <div class="box-content">
-                                                    <h4><%= user.profile.services[i].service %></h4>
-                                                    <p><%= user.profile.services[i].description %></p>
+                                            <!-- Existing skills -->
+                                            <% if (user.profile && user.profile.skills ) { %>
+                                            <% for (var i = 1; i <= user.profile.skills.length; i++) {%>
+                                            <div class="skill-item col-sm-6 hover-component verify-component" id="skill<%=i%>">
+                                                <div class="main-content">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <span id="skill-title" class="mdl-badge skill-title" data-badge="<%=user.profile.skills[i].verifiedCount%>"><%=user.profile.skills[i].skill%></span>
+                                                            <li data-percent="<%=user.profile.skills[i].rating%>">
+                                                                <div class="progress nopadding">
+                                                                    <div class="progress-percent">
+                                                                        <div class="counter counter-inherit">
+                                                                            <span id="skill-range" class="skill-range" data-from="0" data-to="<%=user.profile.skills[i].rating%>" data-refresh-interval="30" data-speed="1100"></span>%
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        <% } %>
-                                        <%if (user.profile.services[i+1]) { %>
-                                            <div class="col-md-1 showAuthenticatorOnHover" style="padding-top: 21px">
-                                                <%if (!user.profile.services[i + 1].isAuthenticated) { %>
-                                                    <input type="checkbox" id="service<%= i + 1 %>">
-                                                <% } %>
-                                                <%if (user.profile.services[i + 1].isAuthenticated) { %>
-                                                    <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
-                                                    <p class="authenticatedByOrg text-uppercase"> <%= user.profile.services[i + 1].authenticatedBy[0] %></p>
-                                                     <span class="verifiedTag">Verified</span>
-                                                    <span class="tooltiptext">
-                                                        <%= user.profile.services[i + 1].authenticatedBy%>
-                                                    </span>
-                                                <% } %>
-                                            </div>
-                                            <div class="icon-box col-md-5">
-                                                <div class="box-icon">
-                                                    <i class="icon fa fa-shield"></i>
-                                                </div>
-                                                <div class="box-content">
-                                                    <h4><%= user.profile.services[i+1].service %></h4>
-                                                    <p><%= user.profile.services[i+1].description %></p>
-                                                </div>
-                                            </div>
-                                        <% } %>
-                                    <% } %>
-                                <% } %>
+                                            <% } %>
+                                            <% } %>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        <div class="row card-block">
+                            <div class="col-sm-12">
+                                <div class="mdl-card mdl-shadow--2dp">
+                                    <div class="mdl-card__title">
+                                        <h2 class="mdl-card__title-text">Certifications</h2>
+                                    </div>
+                                    <div class="mdl-card__supporting-text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row card-block">
+                            <div class="col-sm-6">
+                                <div class="mdl-card mdl-shadow--2dp">
+                                    <div class="mdl-card__title">
+                                        <h2 class="mdl-card__title-text">Projects</h2>
+                                    </div>
+                                    <div class="mdl-card__supporting-text">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+
+                                                <div id="project-timeline" class="timeline hide-content verify-component">
+                                                    <% if (user.profile && user.profile.experiences) {%>
+                                                    <% for (var i = 1; i <= user.profile.experiences.length; i++) {%>
+                                                    <div class="project-item timeline-item" id="project<%=i%>">
+                                                        <div class="main-content">
+                                                            <span class="material-icons mdl-badge" data-badge="<%=user.profile.skills[i].verifiedCount%>"><h4 class="item-title"><%= user.profile.experiences[i].title%></h4></span>
+                                                            <span class="item-period"><%= user.profile.experiences[i].from %> - <%= user.profile.experiences[i].to %></span>
+                                                            <p class="item-description"><%= user.profile.experiences[i].description %></p>
+                                                        </div>
+                                                    </div>
+                                                    <% } %>
+                                                    <% } %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mdl-card mdl-shadow--2dp">
+                                    <div class="mdl-card__title">
+                                        <h2 class="mdl-card__title-text">Education</h2>
+                                    </div>
+                                    <div class="mdl-card__supporting-text">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <div id="education-timeline" class="timeline">
+                                                    <% if (user.profile && user.profile.educations) { %>
+                                                    <% for (var i = 1; i <= user.profile.educations.length; i++) { %>
+                                                    <div class="education-item timeline-item hover-component" id="edu<%=i%>">
+                                                        <div class="main-content">
+                                                            <h4 class="item-title"><%=user.profile.educations[i].degree%></h4>
+                                                            <div class="item-edit">
+                                                                <a class="edit-content"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                                <a class="remove-content"><i class="fa fa-remove" aria-hidden="true"></i></a>
+                                                            </div>
+                                                            <span class="item-period"><%=user.profile.educations[i].from%> - <%=user.profile.educations[i].to%></span>
+                                                            <span class="item-small"><%=user.profile.educations[i].institute%></span>
+                                                            <p class="item-description"><%=user.profile.educations[i].description%></p>
+                                                        </div>
+                                                    </div>
+                                                    <% } %>
+                                                    <% } %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row card-block">
+                            <div class="col-sm-12">
+                                <div class="mdl-card mdl-shadow--2dp">
+                                    <div class="mdl-card__title">
+                                        <h2 class="mdl-card__title-text">Services</h2>
+                                    </div>
+                                    <div class="mdl-card__supporting-text">
+                                        <div id="services-component" class="row">
+                                            <% if (user.profile && user.profile.services) { %>
+                                                <% for (var i = 1; i <= user.profile.services.length; i++) { %>
+                                                    <div class="service-item hover-component col-sm-4 hide-content" id="service<%=i%>">
+                                                        <div class="main-content">
+                                                            <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
+                                                                <div class="service-edit">
+                                                                    <a class="edit-content"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                                                                    <a class="remove-content"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
+                                                                </div>
+                                                                <div class="service-icon fbox-icon">
+                                                                    <a href="#"><i class="fa <%=user.profile.services[i].icon%>"></i></a>
+                                                                </div>
+                                                                <h3 class="service-title"><%=user.profile.services[i].service%></h3>
+                                                                <p class="service-desc"><%=user.profile.services[i].description%></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <% }%>
+                                            <% } %>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row card-block">
+                            <div class="col-sm-12">
+                                <div class="mdl-card mdl-shadow--2dp">
+                                    <div class="mdl-card__title">
+                                        <h2 class="mdl-card__title-text">Portfolio</h2>
+                                    </div>
+                                    <div class="mdl-card__supporting-text">
+                                        <!--<div class="portfolio-container">
+                                            <div id="portfolio">
+                                                <div class="col-md-4 bottommargin portfolio-element">
+                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
+                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                                        <h4>Responsive &amp; Retina</h4>
+                                                        <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
+                                                    </div>
+
+                                                    <p>Employment respond committed meaningful fight against oppression social challenges rural legal aid governance. Meaningful work, implementation, process cooperation, campaign inspire.</p>
+                                                </div>
+
+                                                <div class="col-md-4 bottommargin portfolio-element">
+                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
+                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                                        <h4>Powerful Performance</h4>
+                                                        <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
+                                                    </div>
+                                                    <p>Medecins du Monde Jane Addams reduce child mortality challenges Ford Foundation. Diversification shifting landscape advocate pathway to a better life rights international. Assessment.</p>
+                                                </div>
+
+                                                <div class="col-md-4 bottommargin portfolio-element">
+                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
+                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                                        <h4>Truly Multipurpose</h4>
+                                                        <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
+                                                    </div>
+                                                    <p>Democracy inspire breakthroughs, Rosa Parks; inspiration raise awareness natural resources. Governance impact; transformative donation philanthropy, respect reproductive.</p>
+                                                </div>
+                                                <div class="col-md-4 bottommargin portfolio-element">
+                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
+                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                                        <h4>Responsive &amp; Retina 2</h4>
+                                                    </div>
+                                                    <p>Employment respond committed meaningful fight against oppression social challenges rural legal aid governance. Meaningful work, implementation, process cooperation, campaign inspire.</p>
+                                                </div>
+
+                                                <div class="col-md-4 bottommargin portfolio-element">
+                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
+                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                                        <h4>Powerful Performance 2</h4>
+                                                        <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
+                                                    </div>
+                                                    <p>Medecins du Monde Jane Addams reduce child mortality challenges Ford Foundation. Diversification shifting landscape advocate pathway to a better life rights international. Assessment.</p>
+                                                </div>
+
+                                                <div class="col-md-4 bottommargin portfolio-element">
+                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
+                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                                        <h4>Truly Multipurpose 2</h4>
+                                                        <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
+                                                    </div>
+                                                    <p>Democracy inspire breakthroughs, Rosa Parks; inspiration raise awareness natural resources. Governance impact; transformative donation philanthropy, respect reproductive.</p>
+                                                </div>
+                                            </div>
+                                            <div class="pagination-container topmargin nobottommargin">
+                                                <ul class="pagination nomargin"></ul>
+                                            </div>
+                                        </div>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row card-block">
+                            <div class="col-sm-12">
+                                <div class="mdl-card mdl-shadow--2dp">
+                                    <div class="mdl-card__title">
+                                        <h2 class="mdl-card__title-text">Qualifications</h2>
+                                    </div>
+                                    <div class="mdl-card__supporting-text">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-                <!-- /END SERVICES -->
+            </div>
 
-                <div class="row asymetric">
-                    <div class="col-lg-3">
-                        <div class="section-header">
-                            <h2>Your Details</h2>
-                            <p></p>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div>
-                            <!--
-                            <ul class="info-list list-unstyled row">
-                                <li class="col-sm-6 col-md-3"><strong>Location</strong><span>United States</span></li>
-                                <li class="col-sm-6 col-md-3"><strong>Phone</strong><span>+522 234 56789</span></li>
-                                <li class="col-sm-6 col-md-3"><strong>Website</strong><a href="http://www.cssloss.com"><span>cssloss.com</span></a></li>
-                                <li class="col-sm-6 col-md-3"><strong>Email</strong><span>yourmail@mail.com</span></li>
-                            </ul>
-                            -->
-                            <!-- CONTACT FORM -->
-                            <form class="contact-form p-y-40">
-                                <p class="send-status success"><i class="icon icon-check"></i>Your message has been sent successfully.</p>
-                                <p class="send-status error"><i class="icon icon-close-circle"></i>E-mail must be valid and message must be longer than 1 character.</p>
-                                <input class="form-control" id="authenticatorName" type="text" name="name" placeholder="name">
-                                <input class="form-control" id="authenticatorEmail" type="email" name="email" placeholder="email">
-                                <input class="form-control" id="authenticatorOrganisationName" type="text" name="subject" placeholder="company or organisation name">
-                                <button class="btn text-uppercase m-t-40" id="authenticateTheProfile" name="submit"><span>Authenticate</span></button>
+            <section id="contact" class="clearfix section notopborder nomargin">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="heading-block">
+                                <h4>Your Details</h4>
+                            </div>
+                            <form action="#" class="contact-form">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p class="send-status success"><i class="icon icon-check"></i>Your message has been sent successfully.</p>
+                                        <p class="send-status error"><i class="icon icon-close-circle"></i>E-mail must be valid and message must be longer than 1 character.</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
+                                            <input class="mdl-textfield__input" type="text" id="authenticatorName">
+                                            <label class="mdl-textfield__label" for="authenticatorName">Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
+                                            <input class="mdl-textfield__input" type="email" id="authenticatorEmail">
+                                            <label class="mdl-textfield__label" for="authenticatorEmail">Email</label>
+                                            <span class="mdl-textfield__error">Input does not have the correct format!</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
+                                            <input class="mdl-textfield__input" type="text" id="authenticationOrganisationName">
+                                            <label class="mdl-textfield__label" for="authenticationOrganisationName">Subject</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <button id="authenticateTheProfile" class="mdl-button mdl-js-button mdl-button--raised" type="submit" name="submit">
+                                            Authenticate
+                                        </button>
+                                    </div>
+                                </div>
+
                             </form>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
+
         </div>
         <!-- /END RESUME SECTION -->
 
@@ -546,17 +513,47 @@
         <!-- /END AUDIO -->
 
         <!-- jQuery -->
-        <script src="/js/vendor/jquery-1.11.3.min.js"></script>
+        <script src="js/vendor/jquery-1.11.3.min.js"></script>
 
         <!-- BOOTSTRAP CORE JAVASCRIPT -->
-        <script src="/js/vendor/bootstrap.min.js"></script>
-        <script src="/plugins/fine-uploader/fine-uploader/fine-uploader.min.js"></script>
-        <!-- PLUGIN SCRIPTS FOR THIS TEMPLATE -->
-        <script src="/js/vendor/plugins.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="plugins/fine-uploader/fine-uploader/fine-uploader.min.js"></script>
+        <script src="plugins/select2/dist/js/select2.min.js"></script>
+
+        <!-- Scripts for Canvas Template -->
+        <script type="text/javascript" src="js/plugins.js"></script>
+        <script type="text/javascript" src="js/functions.js"></script>
         <script src="/js/vendor/audio.js"></script>
-        <script src="/plugins/datepicker/js/datepicker.js"></script>
-        <!-- MAIN SCRIPT FOR THIS TEMPLATE -->
-        <script src="/js/authenticate-main.js"></script>
+
+        <!-- Canvas Components JS -->
+        <script type="text/javascript" src="js/canvas-components/datepicker.js"></script>
+        <script type="text/javascript" src="js/canvas-components/moment.js"></script>
+        <script type="text/javascript" src="js/canvas-components/rangeslider.min.js"></script>
+        <script type="text/javascript" src="js/canvas-components/bs-filestyle.js"></script>
+
+        <!-- Script for Google Material Design Lite -->
+        <script type="text/javascript" src="js/mdl/material.min.js"></script>
+
+        <script type="text/javascript" src="js/fontawesome-iconpicker.min.js"></script>
+
+        <script>
+            //Verification Badge
+            $('.verify-component').on('click', function() {
+                var badge = $(this).find('.mdl-badge');
+                var verifiedCount = parseInt($(badge).attr('data-badge'));
+                if ($(this).hasClass('verified')) {
+                    //Decrease verified count by 1
+                    $(badge).attr('data-badge', verifiedCount - 1);
+                    $(this).removeClass('verified');
+                } else {
+                    //Increase verified count by 1
+                    $(badge).attr('data-badge', verifiedCount + 1);
+                    $(this).addClass('verified');
+                }
+            });
+        </script>
+
+		<script src="/js/authenticate-main.js"></script>
 
         <script type="text/template" id="qq-template">
             <div class="qq-uploader-selector qq-uploader qq-gallery" style="width: 100% !important">
@@ -658,13 +655,13 @@
                             var fileObject = {uuid: responseJSON.newUuid, size: responseJSON.size, name: responseJSON.name, url: responseJSON.url};
                             var para = document.createElement('p');
                             $('#videoResumeUrl').text(responseJSON.url);
-                            
+
                         },
                         onError: function (id, name, reason, maybeXhrOrXdr) {
                             /*angular.element('#product-photo-uploader').scope().showImageUploadErrors(reason);*/
                         },
                         onSessionRequestComplete: function(response, success, xhrOrXdr) {
-                            
+
                         }
                     }
                 });

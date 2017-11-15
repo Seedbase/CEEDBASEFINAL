@@ -89,12 +89,62 @@
             profile = userObj.profile;
         } else {
             profile = {};
-            var introText = [];
         }
+        var introText = [];
 
         if (profile.opportunitySeeking) {
             $('#' + profile.opportunitySeeking).attr('checked', 'checked');
         }
+
+        /**
+         * Contact Form
+         */
+        $('#submitTheVerificationRequest').on('click', function(e) {
+
+            //TODO: validation!!!!
+
+            var providerId = $('#providerId').val();
+            e.preventDefault();
+            var message = $("#authenticatorMessage").val();
+            var emailData = {
+                fromName: $("#authenticatorName").val(),
+                fromEmail: $('#email').text(),
+                toEmail: $("#authenticatorEmail").val(),
+                subject: $("#authenticatorSubject").val(),
+                message: $("#authenticatorMessage").val()
+            };
+
+            //Introtext
+            profile.displayName = $('#introText1').val();
+            introText.push($('#introText1').val());
+            introText.push($('#introText2').val());
+            introText.push($('#introText3').val());
+
+            //Opportunities
+            profile['opportunitySeeking'] = $('input[name=opportunityOption]:checked').val();
+
+            //Region
+            profile['residence'] = $("#creativeRegion").select2().find(":selected").data().data.text;
+
+            //requestData
+            var requestData = {
+                dataString: emailData,
+                userProfile: profile,
+                providerId: providerId
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/profile/authentication/request',
+                data: requestData,
+                success: function() {
+                    $(".success").fadeIn(1000);
+                    $(".error").fadeOut(500);
+                    alert('Mail sent successfully.');
+                    window.location = '/';
+                }
+            });
+        });
 
         /**
          * Editing the profile
@@ -113,6 +163,7 @@
         function upgradeMaterialized(el) {
             $(el).find('.mdl-textfield, .mdl-button').each(function() {
                 componentHandler.upgradeElement(this);
+                $(this).addClass('is-dirty');
             });
         }
 
@@ -150,7 +201,9 @@
             materializedSkill = materialize(clonedSkill);
             upgradeMaterialized(materializedSkill);
 
-            $(materializedSkill).find('.main-content span.skill-title').text(skillTitleValue);
+            $(materializedSkill).find('.main-content span.skill-title')
+                .text(skillTitleValue)
+                .attr('data-badge', 0);
             $(materializedSkill).find('.main-content li')
                 .removeClass('skills-animated')
                 .attr('data-percent', skillRatingValue);
@@ -166,8 +219,7 @@
                     'name': 'skill-range-input' + skillsId
                 });
             $(materializedSkill).find('.editable-content input.mdl-textfield__input')
-                .val(skillTitleValue)
-                .parent().addClass('is-dirty');
+                .val(skillTitleValue);
 
             $(skillsUl).append(materializedSkill);
             SEMICOLON.widget.progress();
@@ -183,7 +235,8 @@
             //Add skill to db
             var skillSet = {
                 skill: $(skillTitle).val(),
-                rating: skillRatingValue
+                rating: skillRatingValue,
+                verifiedCount: 0
             };
 
             if (profile.skills) {
@@ -266,26 +319,23 @@
             var materializedProject = materialize(cloneProject);
             upgradeMaterialized(materializedProject);
 
+            $(materializedProject).find('.mdl-badge').attr('data-badge', 0);
             $(materializedProject).find(".item-title").text(projectTitle);
             $(materializedProject).find('.item-period').text(projectDateFrom + ' - ' + projectDateTo);
             $(materializedProject).find('.item-description').text(projectDesc);
 
             $(materializedProject).find('.editable-content .project-title-content')
                 .attr('id', 'project-title' + projectId)
-                .val(projectTitle)
-                .parent().addClass('is-dirty');
+                .val(projectTitle);
             $(materializedProject).find('.editable-content .project-date-to-content')
                 .attr('id', 'project-date-to' + projectId)
-                .val(projectDateTo)
-                .parent().addClass('is-dirty');
+                .val(projectDateTo);
             $(materializedProject).find('.editable-content .project-date-from-content')
                 .attr('id', 'project-date-from' + projectId)
-                .val(projectDateFrom)
-                .parent().addClass('is-dirty');
+                .val(projectDateFrom);
             $(materializedProject).find('.editable-content .project-desc-content')
                 .attr('id', 'project-desc' + projectId)
-                .val(projectDesc)
-                .parent().addClass('is-dirty');
+                .val(projectDesc);
 
             //Initialize datepicker
             $(materializedProject).find('.input-date-group-template input').datepicker({
@@ -301,7 +351,8 @@
                 title: projectTitle,
                 from: projectDateFrom,
                 to: projectDateTo,
-                description: projectDesc
+                description: projectDesc,
+                verifiedCount: 0
             };
             if (profile.experiences) {
                 profile.experiences.push(experienceSet);
@@ -373,24 +424,19 @@
 
             $(materializedEdu).find('.editable-content .edu-degree-title-content')
                 .attr('id', 'education-title' + eduId)
-                .val(eduDegreeTitle)
-                .parent().addClass('is-dirty');
+                .val(eduDegreeTitle);
             $(materializedEdu).find('.editable-content .edu-institution-content')
                 .attr('id', 'education-institution' + eduId)
-                .val(eduInstitution)
-                .parent().addClass('is-dirty');
+                .val(eduInstitution);
             $(materializedEdu).find('.editable-content .edu-date-from-content')
                 .attr('id', 'education-date-from' + eduId)
-                .val(eduDateFrom)
-                .parent().addClass('is-dirty');
+                .val(eduDateFrom);
             $(materializedEdu).find('.editable-content .edu-date-to-content')
                 .attr('id', 'education-date-to' + eduId)
-                .val(eduDateTo)
-                .parent().addClass('is-dirty');
+                .val(eduDateTo);
             $(materializedEdu).find('.editable-content .edu-desc-content')
                 .attr('id', 'education-desc' + eduId)
-                .val(eduDesc)
-                .parent().addClass('is-dirty');
+                .val(eduDesc);
 
             //Initialize datepicker
             $(materializedEdu).find('.input-date-group-template input').datepicker({
@@ -408,7 +454,8 @@
                 institute: eduInstitution,
                 from: eduDateFrom,
                 to: eduDateTo,
-                description: eduDesc
+                description: eduDesc,
+                verifiedCount: 0
             };
 
             if (profile.educations) {
@@ -451,11 +498,103 @@
             $(project).remove();
         });
 
-        $('.cancel-project-button, .cancel-edu-content').on('click', function() {
+        // --- Services ---
+
+        $('#add-service-content').on('click', function() {
+            var servicesContainer = $('#services-component');
+            var servicesCount = $(servicesContainer).children('.service-item').length;
+            var serviceId = servicesCount + 1;
+
+            var serviceTemplate = $('#service-template');
+            var serviceClone = $(serviceTemplate)
+                .clone(true, true)
+                .attr('id', 'service' + serviceId)
+                .removeClass('hide-content');
+
+            var serviceTitle = $('#service-title').val();
+            var serviceDesc = $('#service-desc').val();
+            var serviceIcon = $('#service-icon-selector').attr('data-selected');
+
+            var materializedService = materialize(serviceClone);
+            upgradeMaterialized(materializedService);
+
+            $(materializedService).find('.main-content .service-icon a i').attr('class', 'fa ' + serviceIcon);
+            $(materializedService).find('.main-content .service-title').text(serviceTitle);
+            $(materializedService).find('.main-content .service-desc').text(serviceDesc);
+
+            $(materializedService).find('.editable-content .service-title-content')
+                .attr('id', 'service-title' + serviceId)
+                .val(serviceTitle);
+            $(materializedService).find('.editable-content .service-desc-content')
+                .attr('id', 'service-desc' + serviceId)
+                .val(serviceDesc);
+            $(materializedService).find('.editable-content .service-icon-content')
+                .attr('id', 'service-icon' + serviceId)
+                .iconpicker({
+                    selected: serviceIcon
+                });
+
+            $(servicesContainer).append(materializedService);
+            $(materializedService).find('.feature-box').removeClass('not-animated').addClass('animated');
+
+            var serviceSet = {
+                service: serviceTitle,
+                description: serviceDesc,
+                icon: serviceIcon,
+                verifiedCount: 0
+            };
+
+            if (profile.services) {
+                profile.services.push(serviceSet);
+            } else {
+                var serviceSetArr = [];
+                serviceSetArr.push(serviceSet);
+                profile['services'] = serviceSetArr;
+            }
+
+            //Reset input fields for creating a new service item
+            $('#service-title').val('');
+            $('#service-desc').val('');
+            $('#service-icon-selector').iconpicker({
+                selected: false
+            });
+
+        });
+
+        $('.save-service-content').on('click', function() {
+            var editableContent = $(this).parents('.editable-content');
+            var mainContent = $(editableContent).siblings('.main-content');
+
+            $(mainContent).find('.service-title').text($(editableContent).find('.service-title-content').val());
+            $(mainContent).find('.service-desc').text($(editableContent).find('.service-desc-content').val());
+            $(mainContent).find('.service-icon i').attr('class', 'fa ' + $(editableContent).find('.service-icon-content').attr('data-selected'));
+
+            $(editableContent).addClass('hide-content');
+            $(mainContent).removeClass('hide-content');
+        });
+
+        $('.service-item .remove-content').on('click', function() {
+            var service = $(this).parents('.service-item');
+            var index = $(service).parent().index();
+
+            //Remove service
+            profile.services.splice(index - 1, 1);
+            $(service).remove();
+        });
+
+        $('.cancel-project-button, .cancel-edu-content, .cancel-service-content').on('click', function() {
             var editableContent = $(this).parents('.editable-content');
             $(editableContent).addClass('hide-content');
             $(editableContent).siblings('.main-content').removeClass('hide-content');
+            $(editableContent).parents('.hover-component').removeClass('add-box-shadow');
         });
+
+		// --- Portfolio ---
+		// $('#add-a-new-portfolio-button').on('click', function() {
+		// 	var portfolioTemplate = $('#portfolio-template');
+		// 	var portfolioClone = $(portfolioTempalte)
+		// 		.clone('')
+		// });
 
     });
 

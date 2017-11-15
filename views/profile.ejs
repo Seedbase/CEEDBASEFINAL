@@ -16,6 +16,7 @@
         <!-- Styles for Canvas Template -->
         <link rel="stylesheet" href="css/style-updated.css" type="text/css" />
         <link rel="stylesheet" href="css/dark.css" type="text/css" />
+        <link rel="stylesheet" href="css/swiper.css" type="text/css" />
         <link rel="stylesheet" href="css/font-icons.css" type="text/css" />
         <link rel="stylesheet" href="css/animate.css" type="text/css" />
         <link rel="stylesheet" href="css/responsive.css" type="text/css" />
@@ -46,7 +47,7 @@
 
     </head>
 
-    <body class="stretched">
+    <body class="stretched side-header side-header-right open-header">
         <!-- LOADER -->
         <div class="loader-wrapper">
             <div class="loader"></div>
@@ -72,6 +73,17 @@
         </div>
 
         <div id="wrapper" class="clearfix">
+
+            <div id="header-trigger"><i class="icon-line2-settings"></i><i class="icon-line-cross"></i></div>
+
+            <!-- Side Menu -->
+            <header id="header" class="no-sticky">
+                <div id="header-wrap">
+                    <div class="container clearfix">
+                    </div>
+                </div>
+            </header>
+
             <section id="intro" class="clearfix section notopborder nomargin">
                 <div class="container input-date-group">
                     <div class="row">
@@ -180,7 +192,7 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 90%;">
-                                                    <textarea class="mdl-textfield__input autoresize" type="text" rows="1" id="passion" maxlength="200" style="overflow: hidden; max-width:100%;"><%= user.profile ? user.profile.passion : '' %></textarea>
+                                                    <textarea class="mdl-textfield__input autoresize" type="text" rows="4" id="passion" maxlength="200" style="overflow: hidden; max-width:100%;"><%= user.profile ? user.profile.passion : '' %></textarea>
                                                     <label class="mdl-textfield__label" for="passion">Describe your passion</label>
                                                 </div>
                                             </div>
@@ -203,7 +215,7 @@
                                             <div class="main-content">
                                                 <div class="row">
                                                     <div class="col-sm-10">
-                                                        <span id="skill-title" class="mdl-badge skill-title" data-badge="0"></span>
+                                                        <span id="skill-title" class="mdl-badge skill-title" data-badge=""></span>
                                                         <li data-percent="">
                                                             <div class="progress nopadding">
                                                                 <div class="progress-percent">
@@ -223,10 +235,10 @@
                                             <div class="editable-content hide-content">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <div class="template-shield-mdl-textfield template-shield-mdl-js-textfield template-shield-mdl-textfield--floating-label full-width">
-                                                            <input id="skill-title-input" class="template-shield-mdl-textfield__input" type="text" value="" maxlength="40" />
-                                                            <label class="template-shield-mdl-textfield__label" for="skill-title-input">Skill Name</label>
-                                                            <span class="template-shield-mdl-textfield__error">Skill name must be defined!</span>
+                                                        <div class="mdl-textfield template-shield-mdl-js-textfield mdl-textfield--floating-label full-width">
+                                                            <input id="skill-title-input" class="mdl-textfield__input" type="text" value="" maxlength="40" />
+                                                            <label class="mdl-textfield__label" for="skill-title-input">Skill Name</label>
+                                                            <span class="mdl-textfield__error">Skill name must be defined!</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -239,10 +251,10 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-12 padding-15">
-                                                        <button class="template-shield-mdl-button template-shield-mdl-js-button template-shield-mdl-button--raised save-skill-button" style="margin-right: 8px;">
+                                                        <button class="mdl-button template-shield-mdl-js-button mdl-button--raised save-skill-button" style="margin-right: 8px;">
                                                             Save
                                                         </button>
-                                                        <button class="template-shield-mdl-button template-shield-mdl-js-button template-shield-mdl-button--raised cancel-skill-button">
+                                                        <button class="mdl-button template-shield-mdl-js-button mdl-button--raised cancel-skill-button">
                                                             Cancel
                                                         </button>
                                                     </div>
@@ -259,7 +271,7 @@
                                                         <div class="main-content">
                                                             <div class="row">
                                                                 <div class="col-sm-10">
-                                                                    <span id="skill-title" class="mdl-badge skill-title" data-badge="0"><%=user.profile.skills[i].skill%></span>
+                                                                    <span id="skill-title" class="mdl-badge skill-title" data-badge="<%=user.profile.skills[i].verifiedCount%>"><%=user.profile.skills[i].skill%></span>
                                                                     <li data-percent="<%=user.profile.skills[i].rating%>">
                                                                         <div class="progress nopadding">
                                                                             <div class="progress-percent">
@@ -366,7 +378,7 @@
                                                 <!-- Project Template -->
                                                 <div class="project-item timeline-item hover-component hide-content" id="project-template">
                                                     <div class="main-content">
-                                                        <h4 class="item-title"></h4>
+                                                        <span class="material-icons mdl-badge" data-badge=""><h4 class="item-title"></h4></span>
                                                         <div class="item-edit">
                                                             <a class="edit-content"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                                             <a class="remove-content"><i class="fa fa-remove" aria-hidden="true"></i></a>
@@ -377,40 +389,40 @@
                                                     <div class="editable-content hide-content">
                                                         <div class="row">
                                                             <div class="col-sm-12">
-                                                                <div class="template-shield-mdl-textfield template-shield-mdl-js-textfield template-shield-mdl-textfield--floating-label full-width">
-                                                                    <input class="template-shield-mdl-textfield__input project-title-content" type="text" id="">
-                                                                    <label class="template-shield-mdl-textfield__label" for="">Project Title</label>
+                                                                <div class="mdl-textfield template-shield-mdl-js-textfield mdl-textfield--floating-label full-width">
+                                                                    <input class="mdl-textfield__input project-title-content" type="text" id="">
+                                                                    <label class="mdl-textfield__label" for="">Project Title</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-12">
                                                                 <div class="row input-date-group-template">
                                                                     <div class="col-sm-5">
-                                                                        <div class="template-shield-mdl-textfield template-shield-mdl-js-textfield template-shield-mdl-textfield--floating-label">
-                                                                            <input class="template-shield-mdl-textfield__input year project-date-from-content" placeholder="yyyy" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="">
-                                                                            <label class="template-shield-mdl-textfield__label" for="">From</label>
-                                                                            <span class="template-shield-mdl-textfield__error">Input is not a number!</span>
+                                                                        <div class="mdl-textfield template-shield-mdl-js-textfield mdl-textfield--floating-label">
+                                                                            <input class="mdl-textfield__input year project-date-from-content" placeholder="yyyy" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="">
+                                                                            <label class="mdl-textfield__label" for="">From</label>
+                                                                            <span class="mdl-textfield__error">Input is not a number!</span>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-5">
-                                                                        <div class="template-shield-mdl-textfield template-shield-mdl-js-textfield template-shield-mdl-textfield--floating-label">
-                                                                            <input class="template-shield-mdl-textfield__input year project-date-to-content" type="text" pattern="-?[0-9]*(\.[0-9]+)?" placeholder="yyyy" id="">
-                                                                            <label class="template-shield-mdl-textfield__label" for="">To</label>
-                                                                            <span class="template-shield-mdl-textfield__error">Input is not a number!</span>
+                                                                        <div class="mdl-textfield template-shield-mdl-js-textfield mdl-textfield--floating-label">
+                                                                            <input class="mdl-textfield__input year project-date-to-content" type="text" pattern="-?[0-9]*(\.[0-9]+)?" placeholder="yyyy" id="">
+                                                                            <label class="mdl-textfield__label" for="">To</label>
+                                                                            <span class="mdl-textfield__error">Input is not a number!</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-12">
-                                                                <div class="template-shield-mdl-textfield template-shield-mdl-js-textfield template-shield-mdl-textfield--floating-label full-width">
-                                                                    <textarea class="template-shield-mdl-textfield__input autoresize project-desc-content" type="text" rows= "1" id=""></textarea>
-                                                                    <label class="template-shield-mdl-textfield__label" for="">Description</label>
+                                                                <div class="mdl-textfield template-shield-mdl-js-textfield mdl-textfield--floating-label full-width">
+                                                                    <textarea class="mdl-textfield__input autoresize project-desc-content" type="text" rows= "1" id=""></textarea>
+                                                                    <label class="mdl-textfield__label" for="">Description</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-12 padding-15">
-                                                                <button id="" class="template-shield-mdl-button template-shield-mdl-js-button template-shield-mdl-button--raised save-project-button" style="margin-right: 8px;">
+                                                                <button id="" class="mdl-button template-shield-mdl-js-button mdl-button--raised save-project-button" style="margin-right: 8px;">
                                                                     Save
                                                                 </button>
-                                                                <button id="" class="template-shield-mdl-button template-shield-mdl-js-button template-shield-mdl-button--raised cancel-project-button">
+                                                                <button id="" class="mdl-button template-shield-mdl-js-button mdl-button--raised cancel-project-button">
                                                                     Cancel
                                                                 </button>
                                                             </div>
@@ -423,7 +435,7 @@
                                                         <% for (var i = 1; i <= user.profile.experiences.length; i++) {%>
                                                             <div class="project-item timeline-item" id="project<%=i%>">
                                                                 <div class="main-content">
-                                                                    <h4 class="item-title"><%= user.profile.experiences[i].title%></h4>
+                                                                    <span class="material-icons mdl-badge" data-badge="<%=user.profile.experiences[i].verifiedCount%>"><h4 class="item-title"><%= user.profile.experiences[i].title%></h4></span>
                                                                     <div class="item-edit">
                                                                         <a class="edit-content"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                                                         <a class="remove-content"><i class="fa fa-remove" aria-hidden="true"></i></a>
@@ -446,32 +458,32 @@
                                                                         <div class="col-sm-12">
                                                                             <div class="row input-date-group">
                                                                                 <div class="col-sm-5">
-                                                                                    <div class="mdl-textfield template-shield-mdl-js-textfield template-shield-mdl-textfield--floating-label">
-                                                                                        <input class="template-shield-mdl-textfield__input year project-date-from-content" placeholder="yyyy" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="project-date-from<%=i%>">
-                                                                                        <label class="template-shield-mdl-textfield__label" for="project-date-from<%=i%>">From</label>
-                                                                                        <span class="template-shield-mdl-textfield__error">Input is not a number!</span>
+                                                                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                                                        <input class="mdl-textfield__input year project-date-from-content" placeholder="yyyy" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="project-date-from<%=i%>">
+                                                                                        <label class="mdl-textfield__label" for="project-date-from<%=i%>">From</label>
+                                                                                        <span class="mdl-textfield__error">Input is not a number!</span>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-sm-5">
-                                                                                    <div class="template-shield-mdl-textfield template-shield-mdl-js-textfield template-shield-mdl-textfield--floating-label">
-                                                                                        <input class="template-shield-mdl-textfield__input year project-date-to-content" type="text" pattern="-?[0-9]*(\.[0-9]+)?" placeholder="yyyy" id="project-date-to<%=i%>">
-                                                                                        <label class="template-shield-mdl-textfield__label" for="project-date-to<%=i%>">To</label>
-                                                                                        <span class="template-shield-mdl-textfield__error">Input is not a number!</span>
+                                                                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                                                        <input class="mdl-textfield__input year project-date-to-content" type="text" pattern="-?[0-9]*(\.[0-9]+)?" placeholder="yyyy" id="project-date-to<%=i%>">
+                                                                                        <label class="mdl-textfield__label" for="project-date-to<%=i%>">To</label>
+                                                                                        <span class="mdl-textfield__error">Input is not a number!</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-sm-12">
-                                                                            <div class="template-shield-mdl-textfield template-shield-mdl-js-textfield template-shield-mdl-textfield--floating-label full-width">
-                                                                                <textarea class="template-shield-mdl-textfield__input autoresize project-desc-content" type="text" rows= "1" id="project-desc<%=i%>"></textarea>
-                                                                                <label class="template-shield-mdl-textfield__label" for="project-desc<%=i%>">Description</label>
+                                                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
+                                                                                <textarea class="mdl-textfield__input autoresize project-desc-content" type="text" rows= "1" id="project-desc<%=i%>"></textarea>
+                                                                                <label class="mdl-textfield__label" for="project-desc<%=i%>">Description</label>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-sm-12 padding-15">
-                                                                            <button id="" class="template-shield-mdl-button template-shield-mdl-js-button template-shield-mdl-button--raised save-project-button" style="margin-right: 8px;">
+                                                                            <button id="" class="mdl-button mdl-js-button mdl-button--raised save-project-button" style="margin-right: 8px;">
                                                                                 Save
                                                                             </button>
-                                                                            <button id="" class="template-shield-mdl-button template-shield-mdl-js-button template-shield-mdl-button--raised cancel-project-button">
+                                                                            <button id="" class="mdl-button mdl-js-button mdl-button--raised cancel-project-button">
                                                                                 Cancel
                                                                             </button>
                                                                         </div>
@@ -747,143 +759,314 @@
                                         <h2 class="mdl-card__title-text">Services</h2>
                                     </div>
                                     <div class="mdl-card__supporting-text">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <div class="main-content">
-                                                    <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
-                                                        <div class="service-edit">
-                                                            <a class="edit-content"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
-                                                            <a class="remove-content"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
+                                        <!-- Service Template -->
+                                        <div class="service-item hover-component col-sm-4 hide-content" id="service-template">
+                                            <div class="main-content">
+                                                <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
+                                                    <div class="service-edit">
+                                                        <a class="edit-content"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                                                        <a class="remove-content"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
+                                                    </div>
+                                                    <div class="service-icon fbox-icon">
+                                                        <a href="#"><i class="fa fa-camera-retro"></i></a>
+                                                    </div>
+                                                    <h3 class="service-title"></h3>
+                                                    <p class="service-desc"></p>
+                                                </div>
+                                            </div>
+                                            <div class="editable-content hide-content padding-15">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="mdl-textfield template-shield-mdl-js-textfield mdl-textfield--floating-label">
+                                                            <input class="mdl-textfield__input service-title-content" type="text" id="">
+                                                            <label class="mdl-textfield__label" for="">Service Title</label>
                                                         </div>
-                                                        <div class="fbox-icon">
-                                                            <a href="#"><i class="fa fa-camera-retro"></i></a>
-                                                        </div>
-                                                        <h3>Responsive Layout</h3>
-                                                        <p>Powerful Layout with Responsive functionality that can be adapted to any screen size.</p>
                                                     </div>
                                                 </div>
-                                                <div class="editable-content hide-content center">
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                                <input class="mdl-textfield__input" type="text" id="sample3">
-                                                                <label class="mdl-textfield__label" for="sample3">Service name</label>
-                                                            </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <label data-title="" data-placement="inline" class="icp icp-auto service-icon-content full-width" data-selected="">
+                                                            Select an icon
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="mdl-textfield template-shield-mdl-js-textfield mdl-textfield--floating-label full-width">
+                                                            <textarea class="mdl-textfield__input service-desc-content" type="text" rows= "3" id="" maxlength="250" ></textarea>
+                                                            <label class="mdl-textfield__label" for="">Service Description</label>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <div class="input-group">
-                                                                <input class="form-control icp icp-auto" value="fa-archive" type="text" />
-                                                                <span class="input-group-addon"></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-                                                                <textarea class="mdl-textfield__input" type="text" rows= "3" id="sample5" maxlength="100" ></textarea>
-                                                                <label class="mdl-textfield__label" for="sample5">Description</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <button id="" class="mdl-button mdl-js-button mdl-button--raised save-content" style="margin-right: 8px;">
-                                                                Save
-                                                            </button>
-                                                            <button id="" class="mdl-button mdl-js-button mdl-button--raised cancel-content">
-                                                                Cancel
-                                                            </button>
-                                                        </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <button id="" class="mdl-button template-shield-mdl-js-button mdl-button--raised save-service-content" style="margin-right: 8px;">
+                                                            Save
+                                                        </button>
+                                                        <button id="" class="mdl-button template-shield-mdl-js-button mdl-button--raised cancel-service-content">
+                                                            Cancel
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
-                                                    <div class="fbox-icon">
-                                                        <a href="#"><i class="fa fa-camera-retro"></i></a>
+                                        </div>
+
+                                        <div id="services-component" class="row">
+                                            <% if (user.profile && user.profile.services) { %>
+                                                <% for (var i = 1; i <= user.profile.services.length; i++) { %>
+                                                <div class="service-item hover-component col-sm-4 hide-content" id="service<%=i%>">
+                                                    <div class="main-content">
+                                                        <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
+                                                            <div class="service-edit">
+                                                                <a class="edit-content"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                                                                <a class="remove-content"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
+                                                            </div>
+                                                            <div class="service-icon fbox-icon">
+                                                                <a href="#"><i class="fa <%=user.profile.services[i].icon%>"></i></a>
+                                                            </div>
+                                                            <h3 class="service-title"><%=user.profile.services[i].service%></h3>
+                                                            <p class="service-desc"><%=user.profile.services[i].description%></p>
+                                                        </div>
                                                     </div>
-                                                    <h3>Responsive Layout</h3>
-                                                    <p>Powerful Layout with Responsive functionality that can be adapted to any screen size.</p>
+                                                    <div class="editable-content hide-content padding-15">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                                    <input class="mdl-textfield__input service-title-content" type="text" value="<%=user.profile.services[i].service%>" id="service-title<%=i%>">
+                                                                    <label class="mdl-textfield__label" for="">Service Title</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <label data-title="" data-placement="inline" id="service-icon<%=i%>" class="icp icp-auto service-icon-content full-width" data-selected="<%=user.profile.services[i].icon%>">
+                                                                    Select an icon
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
+                                                                    <textarea class="mdl-textfield__input service-desc-content" type="text" rows= "3" id="service-desc<%=i%>" maxlength="250"><%=user.profile.services[i].description%></textarea>
+                                                                    <label class="mdl-textfield__label" for="">Service Description</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <button id="" class="mdl-button mdl-js-button mdl-button--raised save-service-content" style="margin-right: 8px;">
+                                                                    Save
+                                                                </button>
+                                                                <button id="" class="mdl-button mdl-js-button mdl-button--raised cancel-service-content">
+                                                                    Cancel
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div><
+                                                <% }%>
+                                            <% } %>
+                                        </div>
+
+                                        <div class="row show-content-button">
+                                            <div class="col-sm-2">
+                                                <button id="add-a-new-service-button" class="mdl-button mdl-js-button mdl-button--raised add-button">
+                                                    Add
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row add-button-content hide-content">
+                                            <div class="col-sm-12">
+                                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
+                                                    <input class="mdl-textfield__input" type="text" id="service-title">
+                                                    <label class="mdl-textfield__label" for="service-title">Service Title</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
+                                                    <textarea class="mdl-textfield__input autoresize" type="text" id="service-desc" maxlength="250"></textarea>
+                                                    <label class="mdl-textfield__label" for="service-desc">Service Description</label>
+                                                </div>
+                                            </div>
+                                             <div class="col-sm-6">
+                                                <label id="service-icon-selector" data-title="" data-placement="inline" class="icp icp-auto full-width" data-selected="">
+                                                    Select an icon
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <button id="add-service-content" class="mdl-button mdl-js-button mdl-button--raised" style="margin-right: 8px;">
+                                                    Save
+                                                </button>
+                                                <button id="" class="mdl-button mdl-js-button mdl-button--raised cancel-content">
+                                                    Cancel
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!--<div class="row card-block">-->
-                            <!--<div class="col-sm-12">-->
-                                <!--<div class="mdl-card mdl-shadow&#45;&#45;2dp">-->
-                                    <!--<div class="mdl-card__title">-->
-                                        <!--<h2 class="mdl-card__title-text">Portfolio</h2>-->
-                                    <!--</div>-->
-                                    <!--<div class="mdl-card__supporting-text">-->
-                                        <!--<div class="portfolio-container">-->
-                                            <!--<div id="portfolio">-->
-                                                <!--<div class="col-md-4 bottommargin portfolio-element">-->
-                                                    <!--<i class="fa fa-globe fa-4x color inline-block"></i>-->
-                                                    <!--<div class="heading-block nobottomborder" style="margin-bottom: 15px;">-->
-                                                        <!--<h4>Responsive &amp; Retina</h4>-->
-                                                        <!--<div class="before-heading" style="font-size:16px;">2010 - 2014</div>-->
-                                                    <!--</div>-->
+                        <div class="row card-block">
+                            <div class="col-sm-12">
+                                <div class="mdl-card mdl-shadow--2dp">
+                                    <div class="mdl-card__title">
+                                        <h2 class="mdl-card__title-text">Portfolio</h2>
+                                    </div>
+                                    <div class="mdl-card__supporting-text">
 
-                                                    <!--<p>Employment respond committed meaningful fight against oppression social challenges rural legal aid governance. Meaningful work, implementation, process cooperation, campaign inspire.</p>-->
-                                                <!--</div>-->
+										<!-- Portfolio Template -->
+										<div class="col-md-4 bottommargin portfolio-element hover-component padding-15 hide-content" id="portfolio-template">
+											<div class="main-content">
+												<div class="portfolio-edit">
+													<a class="edit-content"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+													<a class="remove-content"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
+												</div>
+												<i class="fa fa-globe fa-4x color inline-block"></i>
+												<div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+													<h4 class="portfolio-title"></h4>
+													<div class="portfolio-period before-heading" style="font-size:16px;"></div>
+												</div>
+												<p class="portfolio-desc"></p>
+												<div class="porfolio-link"></div>
+											</div>
+											<div class="editable-content hide-content">
+												<div class="row">
+													<div class="col-sm-12">
+		                                                <div class="mdl-textfield template-shield-mdl-js-textfield mdl-textfield--floating-label full-width">
+		                                                    <input class="mdl-textfield__input" type="text" id="">
+		                                                    <label class="mdl-textfield__label" for="">Title</label>
+		                                                </div>
+		                                            </div>
+													<div class="col-sm-12">
+		                                                <div class="row input-date-group">
+		                                                    <div class="col-sm-5">
+		                                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+		                                                            <input class="mdl-textfield__input year" placeholder="yyyy" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="">
+		                                                            <label class="mdl-textfield__label" for="">From</label>
+		                                                            <span class="mdl-textfield__error">Input is not a number!</span>
+		                                                        </div>
+		                                                    </div>
+		                                                    <div class="col-sm-5">
+		                                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+		                                                            <input class="mdl-textfield__input year" type="text" pattern="-?[0-9]*(\.[0-9]+)?" placeholder="yyyy" id="">
+		                                                            <label class="mdl-textfield__label" for="">To</label>
+		                                                            <span class="mdl-textfield__error">Input is not a number!</span>
+		                                                        </div>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+													<div class="col-sm-12">
+													   <label id="" data-title="" data-placement="inline" class="icp icp-auto full-width" data-selected="">
+														   Select an icon
+													   </label>
+												   </div>
+		                                            <div class="col-sm-12">
+		                                                <div class="mdl-textfield template-shield-mdl-js-textfield mdl-textfield--floating-label full-width">
+		                                                    <textarea class="mdl-textfield__input autoresize" type="text" id="" maxlength="250"></textarea>
+		                                                    <label class="mdl-textfield__label" for="">Description</label>
+		                                                </div>
+		                                            </div>
+													<div class="col-sm-12">
+		                                                <div class="mdl-textfield template-shield-mdl-js-textfield mdl-textfield--floating-label full-width">
+		                                                    <input class="mdl-textfield__input" type="text" id="">
+		                                                    <label class="mdl-textfield__label" for="">Link</label>
+		                                                </div>
+		                                            </div>
+												</div>
+											</div>
+										</div>
 
-                                                <!--<div class="col-md-4 bottommargin portfolio-element">-->
-                                                    <!--<i class="fa fa-globe fa-4x color inline-block"></i>-->
-                                                    <!--<div class="heading-block nobottomborder" style="margin-bottom: 15px;">-->
-                                                        <!--<h4>Powerful Performance</h4>-->
-                                                        <!--<div class="before-heading" style="font-size:16px;">2010 - 2014</div>-->
-                                                    <!--</div>-->
-                                                    <!--<p>Medecins du Monde Jane Addams reduce child mortality challenges Ford Foundation. Diversification shifting landscape advocate pathway to a better life rights international. Assessment.</p>-->
-                                                <!--</div>-->
+                                        <div class="portfolio-container">
+                                            <div id="portfolio">
+                                                <div class="col-md-4 bottommargin portfolio-element">
+                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
+                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                                        <h4>Responsive &amp; Retina</h4>
+                                                        <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
+                                                    </div>
 
-                                                <!--<div class="col-md-4 bottommargin portfolio-element">-->
-                                                    <!--<i class="fa fa-globe fa-4x color inline-block"></i>-->
-                                                    <!--<div class="heading-block nobottomborder" style="margin-bottom: 15px;">-->
-                                                        <!--<h4>Truly Multipurpose</h4>-->
-                                                        <!--<div class="before-heading" style="font-size:16px;">2010 - 2014</div>-->
-                                                    <!--</div>-->
-                                                    <!--<p>Democracy inspire breakthroughs, Rosa Parks; inspiration raise awareness natural resources. Governance impact; transformative donation philanthropy, respect reproductive.</p>-->
-                                                <!--</div>-->
-                                                <!--<div class="col-md-4 bottommargin portfolio-element">-->
-                                                    <!--<i class="fa fa-globe fa-4x color inline-block"></i>-->
-                                                    <!--<div class="heading-block nobottomborder" style="margin-bottom: 15px;">-->
-                                                        <!--<h4>Responsive &amp; Retina 2</h4>-->
-                                                    <!--</div>-->
-                                                    <!--<p>Employment respond committed meaningful fight against oppression social challenges rural legal aid governance. Meaningful work, implementation, process cooperation, campaign inspire.</p>-->
-                                                <!--</div>-->
+                                                    <p>Employment respond committed meaningful fight against oppression social challenges rural legal aid governance. Meaningful work, implementation, process cooperation, campaign inspire.</p>
+                                                </div>
 
-                                                <!--<div class="col-md-4 bottommargin portfolio-element">-->
-                                                    <!--<i class="fa fa-globe fa-4x color inline-block"></i>-->
-                                                    <!--<div class="heading-block nobottomborder" style="margin-bottom: 15px;">-->
-                                                        <!--<h4>Powerful Performance 2</h4>-->
-                                                        <!--<div class="before-heading" style="font-size:16px;">2010 - 2014</div>-->
-                                                    <!--</div>-->
-                                                    <!--<p>Medecins du Monde Jane Addams reduce child mortality challenges Ford Foundation. Diversification shifting landscape advocate pathway to a better life rights international. Assessment.</p>-->
-                                                <!--</div>-->
+                                                <div class="col-md-4 bottommargin portfolio-element">
+                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
+                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                                        <h4>Powerful Performance</h4>
+                                                        <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
+                                                    </div>
+                                                    <p>Medecins du Monde Jane Addams reduce child mortality challenges Ford Foundation. Diversification shifting landscape advocate pathway to a better life rights international. Assessment.</p>
+                                                </div>
 
-                                                <!--<div class="col-md-4 bottommargin portfolio-element">-->
-                                                    <!--<i class="fa fa-globe fa-4x color inline-block"></i>-->
-                                                    <!--<div class="heading-block nobottomborder" style="margin-bottom: 15px;">-->
-                                                        <!--<h4>Truly Multipurpose 2</h4>-->
-                                                        <!--<div class="before-heading" style="font-size:16px;">2010 - 2014</div>-->
-                                                    <!--</div>-->
-                                                    <!--<p>Democracy inspire breakthroughs, Rosa Parks; inspiration raise awareness natural resources. Governance impact; transformative donation philanthropy, respect reproductive.</p>-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                            <!--<div class="pagination-container topmargin nobottommargin">-->
-                                                <!--<ul class="pagination nomargin"></ul>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                                                <div class="col-md-4 bottommargin portfolio-element">
+                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
+                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                                        <h4>Truly Multipurpose</h4>
+                                                        <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
+                                                    </div>
+                                                    <p>Democracy inspire breakthroughs, Rosa Parks; inspiration raise awareness natural resources. Governance impact; transformative donation philanthropy, respect reproductive.</p>
+                                                </div>
+
+                                            </div>
+                                            <div class="pagination-container row topmargin nobottommargin">
+                                                <ul class="pagination nomargin"></ul>
+                                            </div>
+                                        </div>
+
+										<div class="row show-content-button">
+                                            <div class="col-sm-2">
+                                                <button id="add-a-new-portfolio-button" class="mdl-button mdl-js-button mdl-button--raised add-button">
+                                                    Add
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row add-button-content hide-content">
+											<div class="col-sm-12">
+												<div class="mdl-textfield template-shield-mdl-js-textfield mdl-textfield--floating-label full-width">
+													<input class="mdl-textfield__input" type="text" id="portfolio-title">
+													<label class="mdl-textfield__label" for="portfolio-title">Title</label>
+												</div>
+											</div>
+											<div class="col-sm-12">
+												<div class="row input-date-group">
+													<div class="col-sm-5">
+														<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+															<input class="mdl-textfield__input year" placeholder="yyyy" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="portfolio-date-from">
+															<label class="mdl-textfield__label" for="portfolio-date-from">From</label>
+															<span class="mdl-textfield__error">Input is not a number!</span>
+														</div>
+													</div>
+													<div class="col-sm-5">
+														<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+															<input class="mdl-textfield__input year" type="text" pattern="-?[0-9]*(\.[0-9]+)?" placeholder="yyyy" id="portfolio-date-to">
+															<label class="mdl-textfield__label" for="portfolio-date-to">To</label>
+															<span class="mdl-textfield__error">Input is not a number!</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-sm-12">
+											   <label id="portfolio-icon-selector" data-title="" data-placement="inline" class="icp icp-auto full-width" data-selected="">
+												   Select an icon
+											   </label>
+										   </div>
+											<div class="col-sm-12">
+												<div class="mdl-textfield template-shield-mdl-js-textfield mdl-textfield--floating-label full-width">
+													<textarea class="mdl-textfield__input autoresize" type="text" id="portfolio-desc" maxlength="250"></textarea>
+													<label class="mdl-textfield__label" for="portfolio-desc">Description</label>
+												</div>
+											</div>
+											<div class="col-sm-12">
+												<div class="mdl-textfield template-shield-mdl-js-textfield mdl-textfield--floating-label full-width">
+													<input class="mdl-textfield__input" type="text" id="portfolio-link">
+													<label class="mdl-textfield__label" for="portfolio-link">Link</label>
+												</div>
+											</div>
+										</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="row card-block">
                             <div class="col-sm-12">
@@ -913,14 +1096,14 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-                                            <input class="mdl-textfield__input" type="text" id="sample3">
-                                            <label class="mdl-textfield__label" for="sample3">Name</label>
+                                            <input class="mdl-textfield__input" type="text" id="authenticatorName">
+                                            <label class="mdl-textfield__label" for="authenticatorName">Name</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-                                            <input class="mdl-textfield__input" type="email" id="sample3">
-                                            <label class="mdl-textfield__label" for="sample3">Email</label>
+                                            <input class="mdl-textfield__input" type="email" id="authenticatorEmail">
+                                            <label class="mdl-textfield__label" for="authenticatorEmail">Email</label>
                                             <span class="mdl-textfield__error">Input does not have the correct format!</span>
                                         </div>
                                     </div>
@@ -928,22 +1111,22 @@
                                 <div class="row">
                                     <div class="col-sm-8">
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-                                            <input class="mdl-textfield__input" type="text" id="sample3">
-                                            <label class="mdl-textfield__label" for="sample3">Subject</label>
+                                            <input class="mdl-textfield__input" type="text" id="authenticatorSubject">
+                                            <label class="mdl-textfield__label" for="authenticatorSubject">Subject</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width" style="width: 90%;">
-                                            <textarea class="mdl-textfield__input" type="text" rows="4" id="sample5" maxlength="200" style="overflow: hidden; max-width:100%;"></textarea>
-                                            <label class="mdl-textfield__label" for="sample5">Message</label>
+                                            <textarea class="mdl-textfield__input" type="text" rows="4" id="authenticatorMessage" maxlength="200" style="overflow: hidden; max-width:100%;"></textarea>
+                                            <label class="mdl-textfield__label" for="authenticatorMessage">Message</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-3">
-                                        <button class="mdl-button mdl-js-button mdl-button--raised" type="submit" name="submit">
+                                        <button id="submitTheVerificationRequest" class="mdl-button mdl-js-button mdl-button--raised" type="submit" name="submit">
                                             Send
                                         </button>
                                     </div>
@@ -1009,6 +1192,8 @@
                     })
                 })
 
+                $('.icp-auto:not(.service-icon-content)').iconpicker();
+
                 $('.portfolio-container').pajinate({
                     items_per_page : 3,
                     item_container_id : '#portfolio',
@@ -1016,18 +1201,30 @@
                     show_first_last: false
                 });
 
-                enableHover();
+                //enableHover();
             });
 
-            function enableHover() {
-                $('.hover-component').on('mouseenter', function() {
-                    $(this).addClass('add-box-shadow');
-                });
+            /*$('.verify-component').on('click', function() {
+                var badge = $(this).find('.mdl-badge');
+                var verifiedCount = parseInt($(badge).attr('data-badge'));
+                if ($(this).hasClass('verified')) {
+                    //Decrease verified count by 1
+                    $(badge).attr('data-badge', verifiedCount - 1);
+                    $(this).removeClass('verified');
+                } else {
+                    //Increase verified count by 1
+                    $(badge).attr('data-badge', verifiedCount + 1);
+                    $(this).addClass('verified');
+                }
+            });*/
 
-                $('.hover-component').on('mouseleave', function() {
-                    $(this).removeClass('add-box-shadow');
-                });
-            }
+            $('.hover-component').on('mouseenter', function() {
+                $(this).addClass('add-box-shadow');
+            });
+
+            $('.hover-component').on('mouseleave', function() {
+                $(this).removeClass('add-box-shadow');
+            });
 
             $('.add-button').on('click', function() {
                 var supportingText = $(this).parents('.mdl-card__supporting-text');
@@ -1043,7 +1240,7 @@
                 var editableContent = $(mainContent).siblings('.editable-content');
                 $(mainContent).addClass('hide-content');
                 $(editableContent).removeClass('hide-content');
-                $(this).parents('.hover-component').off("mouseleave mouseenter");
+                //$(this).parents('.hover-component').off("mouseleave mouseenter");
                 $(this).parents('.hover-component').addClass('add-box-shadow');
             });
 
@@ -1059,7 +1256,7 @@
                 $(editableContent).addClass('hide-content');
                 $(mainContent).removeClass('hide-content');
                 $(this).parents('.hover-component').removeClass('add-box-shadow');
-                enableHover();
+                //enableHover();
             });
 
             //For mm/yy component
@@ -1075,6 +1272,12 @@
                 minViewMode: "years",
                 format: "yyyy",
                 orientation: "auto"
+            });
+
+            $('.icp').on('iconpickerSelect', function(e) {
+                //console.log(e.iconpickerValue);
+                var iconSelected = $(e.iconpickerItem[0]).find('i').attr('class');
+                $(this).attr('data-selected', iconSelected.split(' ')[1]);
             });
 
             function autoresize(textarea) {
