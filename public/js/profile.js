@@ -193,8 +193,14 @@
 		var skillCount = profile.counts.skillCount,
 			projectCount = profile.counts.projectCount,
 			educationCount = profile.counts.educationCount,
-			learningCount = profile.counts.learningCount
+			learningCount = profile.counts.learningCount,
 			servicesCount = profile.counts.servicesCount;
+
+		// var skillCount = 0,
+		// 	projectCount = 0,
+		// 	educationCount = 0,
+		// 	learningCount = 0,
+		// 	servicesCount = 0;
 
 
         // --- Skills ---
