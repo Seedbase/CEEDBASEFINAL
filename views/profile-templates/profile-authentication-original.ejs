@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="CSSLoss.com">
+    <link rel="icon" href="img/favicon.ico">
+    <title>CeedBase</title>
+
+    <!-- BOOTSTRAP CORE CSS -->
+    <link rel="stylesheet" href="/css/vendor/bootstrap.min.css">
+
+    <!-- PLUGIN STYLES FOR THIS TEMPLATE -->
+    <link rel="stylesheet" href="/css/vendor/magnific-popup.css">
+    <link rel="stylesheet" href="/css/vendor/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/plugins/datepicker/css/datepicker.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.theme.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css">
+
+    <link href="/plugins/fine-uploader/fine-uploader/fine-uploader-gallery.min.css" rel="stylesheet">
+    <link href="/plugins/fine-uploader/fine-uploader/fine-uploader.min.css" rel="stylesheet">
+
+    <!-- MAIN STYLE FOR THIS TEMPLATE -->
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/profile-authentication.css">
+</head>
+<div id="authenticate-whole-user-profile" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #fff">
+            <div class="modal-header">
+                <div class="col-lg-12">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" style="color:#555">Provide your details</h4>
+                </div>
+            </div>
+            <div class="modal-body" style="color: #333">
+                <div style="margin-left: 15px">
+                    <input class="form-control" id="wholeProfileAuthenticatorName" type="text" name="name" placeholder="name">
+                    <input class="form-control" id="wholeProfileAuthenticatorEmail" type="email" name="email" placeholder="email">
+                    <input class="form-control" id="wholeProfileAuthenticatorOrganisationName" type="text" name="organisation" placeholder="company or organisation name">
+                    <button class="btn text-uppercase m-t-40" id="authenticateWholeProfile"><span>Authenticate</span></button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<body class="layout-1 profile">
+
+<!-- LOADER -->
+<div class="loader-wrapper">
+    <div class="loader"></div>
+</div>
+
+<!-- NAV SOCIAL -->
+<div class="nav-social">
+    <ul>
+        <li><a href="#"><i class="icon icon-twitter"></i></a></li>
+        <li><a href="#"><i class="icon icon-facebook"></i></a></li>
+        <li><a href="#"><i class="icon icon-linkedin"></i></a></li>
+    </ul>
+</div>
+
+<!-- BACKGROUND IMAGE -->
+<div class="main-bg bg-image overlay" data-image="/img/single-bg.jpg"></div>
+<!-- INTRO SECTION -->
+<div class="col-md-3 intro-image" id="image-section">
+    <br>
+    <br>
+    <div style="margin-left: -70px;" style="display: none;" id="intro-text-new">
+        <%if (user.profile && user.profile.introText) { %>
+        <%if (user.profile && user.profile.introText[0]) { %>
+        <p>I'm <%= user.profile.introText[0] %> </p>
+        <% } %>
+        <%if (user.profile && user.profile.introText[1]) { %>
+        <p>I'm <%= user.profile.introText[1] %> </p>
+        <% } %>
+        <%if (user.profile && user.profile.introText[2]) { %>
+        <p>I'm <%= user.profile.introText[2] %> </p>
+        <% } %>
+        <% } %>
+    </div>
+    <br>
+    <!-- YOUR AVATAR -->
+    <div id="avatarProfilePic" class="text-center">
+        <img src='<%= user.image %>' alt="avatar"> <br>
+    </div>
+</div>
+
+<div id="intro" class="section-intro">
+    <!-- LOGO -->
+    <a href="/" class="logo"><img src="/images/ceedbaseLogo/ceedbase.png" alt="Logo"></a>
+
+    <button class="nav-toggle wave flipped" id="flipToProfile"><i></i><i></i><i></i></button>
+    <!-- RESUME CLOSE -->
+    <div class="resume-close">
+    </div>
+    <div class="container" id="intro-text-section" style="margin-top: -270px;">
+        <div class="row intro-row">
+            <div class="col-xs-12 intro-text">
+                <%if (user.profile && user.profile.introText[0]) { %><h1>I'm <span class="typed" id="typedDomElement"></span></h1><% } %>
+
+                <!-- TYPED STRINGS -->
+                <div class="typed-strings">
+                    <p><%if (user.profile) { %><%if (user.profile.introText) { %><%= user.profile.introText[0] %><% } %><% } %></p>
+                    <p><%if (user.profile) { %><%if (user.profile.introText) { %><%= user.profile.introText[1] %><% } %><% } %></p>
+                    <p><%if (user.profile) { %><%if (user.profile.introText) { %><%= user.profile.introText[2] %><% } %><% } %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /END INTRO SECTION -->
+
+<div style="display: none">
+    <%if (user.provider == 'google') { %>
+    <input id="providerId" type="text" value="<%= user.google.id %>">
+    <% } %>
+    <%if (user.provider == 'facebook') { %>
+    <input id="providerId" type="text" value="<%= user.facebook.id %>">
+    <% } %>
+    <%if (user.provider == 'linkedin') { %>
+    <input id="providerId" type="text" value="<%= user.linkedIn.id %>">
+    <% } %>
+    <%if (user.provider == 'twitter') { %>
+    <input id="providerId" type="text" value="<%= user.twitter.id %>">
+    <% } %>
+    <p id="userProfileObject"> <%= JSON.stringify(user) %> </p>
+</div>
+<!-- RESUME SECTION -->
+<div id="resume" class="section-resume" style="padding-top: 20px;">
+    <p style="margin-left: 40%; color: #694905">Select all items you want to authenticate and click on Authenticate button</p>
+
+    <p style="margin-left: 40%; color: #694905">Click <a data-toggle="modal" data-target="#authenticate-whole-user-profile" href="">here</a> to authenticate complete profile</p>
+    <div class="container-fluid">
+        <!-- ABOUT -->
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Passion</h2>
+                    <p>What I'm all about.</p>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div>
+                    <p id="passion-content-display"><%- user.profile ? user.profile.passion : '' %></p>
+                    <ul class="info-list list-unstyled row p-t-30">
+                        <li class="col-sm-6 col-md-3">
+                            <strong>Full Name</strong>
+                            <span id="display-name"><%= user.displayName %></span>
+                        </li>
+                        <li class="col-sm-6 col-md-3">
+                            <strong>Birthday</strong>
+                            <span id="birthday"><%= user.profile.birthday %></span>
+                        </li>
+                        <li class="col-sm-6 col-md-3">
+                            <strong>Residence</strong>
+                            <span id="residence"><%= user.profile.residence %></span>
+                        </li>
+                        <li class="col-sm-6 col-md-3">
+                            <strong>Email</strong>
+                            <span id="email"><%= user.email %></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /END ABOUT -->
+
+        <!-- SKILLS -->
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Skills</h2>
+                    <p>Progress bars?</p>
+                </div>
+            </div>
+
+            <!-- PROGRESS BARS -->
+            <div class="col-lg-9 progress-bars">
+                <div>
+                    <div class="row">
+                        <%if (user.profile && user.profile.skills) { %>
+                        <% for(var i=0; i < user.profile.skills.length; i=i+2) { %>
+                        <%if (user.profile.skills[i]) { %>
+                        <div class="col-md-1 showAuthenticatorOnHover" style="padding-top: 10px">
+                            <%if (!user.profile.skills[i].isAuthenticated) { %>
+                            <input type="checkbox" id="skill<%= i %>">
+                            <% } %>
+                            <%if (user.profile.skills[i].isAuthenticated) { %>
+                            <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
+                            <p class="authenticatedByOrg text-uppercase"> <%= user.profile.skills[i].authenticatedBy[0] %></p>
+                            <span class="verifiedTag">Verified</span>
+                            <span class="tooltiptext">
+                                                        <%= user.profile.skills[i].authenticatedBy%>
+                                                    </span>
+                            <% } %>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="progress">
+                                <div class="progress-info"><%= user.profile.skills[i].skill %></div>
+                                <div class="progress-bar" data-percent="<%= user.profile.skills[i].rating %>">
+                                    <span class="value"><%= user.profile.skills[i].rating %></span>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                        <%if (user.profile.skills[i+1]) { %>
+                        <div class="col-md-1 showAuthenticatorOnHover" style="padding-top: 10px">
+                            <%if (!user.profile.skills[i+1].isAuthenticated) { %>
+                            <input type="checkbox" id="skill<%= i + 1 %>">
+                            <% } %>
+                            <%if (user.profile.skills[i+1].isAuthenticated) { %>
+                            <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
+                            <p class="authenticatedByOrg text-uppercase"> <%= user.profile.skills[i+1].authenticatedBy[0] %></p>
+                            <span class="verifiedTag">Verified</span>
+                            <span class="tooltiptext">
+                                                        <%= user.profile.skills[i + 1].authenticatedBy%>
+                                                    </span>
+                            <% } %>
+                        </div>
+                        <div class="col-md-5 pull-right">
+                            <div class="progress">
+                                <div class="progress-info"><%= user.profile.skills[i+1].skill %></div>
+                                <div class="progress-bar" data-percent="<%= user.profile.skills[i+1].rating %>">
+                                    <span class="value"><%= user.profile.skills[i+1].rating %></span>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                        <% } %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /END SKILLS -->
+
+        <!-- Externam links -->
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Certifications</h2>
+                    <p>My learning and development profile</p>
+                </div>
+            </div>
+
+            <!-- PROGRESS BARS -->
+            <div class="col-lg-9 progress-bars">
+                <div id="external-links-container">
+                    <div class="row">
+                        <%if (user.profile && user.profile.externalLinks) { %>
+                        <% for(var i=0; i < user.profile.externalLinks.length; i++) { %>
+                        <div class="col-md-1 showAuthenticatorOnHover" style="margin-top: 2px;">
+                            <%if (!user.profile.externalLinks[i].isAuthenticated) { %>
+                            <input type="checkbox" id="externalLink<%= i %>">
+                            <% } %>
+                            <%if (user.profile.externalLinks[i].isAuthenticated) { %>
+                            <img src="/images/partners/verify-shield.png" class="verifiedTagImageExternalLinks">
+                            <p class="authenticatedByOrgExternalLinks text-uppercase"> <%= user.profile.externalLinks[i].authenticatedBy[0] %></p>
+                            <span class="verifiedTagExternalLinks">Verified</span>
+                            <span class="tooltiptext">
+                                                    <%= user.profile.externalLinks[i].authenticatedBy%>
+                                                </span>
+                            <% } %>
+
+                        </div>
+                        <div class="col-md-11">
+                            <p><%=  user.profile.externalLinks[i].link %></p>
+                        </div>
+
+                        <% } %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /END SKILLS -->
+
+        <!-- Video -->
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Video</h2>
+                    <p>My 30 second video resume</p>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="profile-video-show"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PORTFOLIO -->
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Portfolio</h2>
+                    <p>My amazing works.</p>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-lg-12 portfolio-div">
+                        <ul class="timeline" id="portfolio-timeline" style="margin-left: 6px;">
+                            <%if (user.profile && user.profile.portfolios) { %>
+                            <% for(var i=0; i < user.profile.portfolios.length; i++) { %>
+                            <%if (!user.profile.portfolios[i].isAuthenticated) { %>
+                            <div class="col-md-1" style="margin-left: 10px; margin-top: -4px;">
+                                <input type="checkbox" id="portfolio<%= i %>" style="margin-left: -30px;">
+                            </div>
+                            <% } %>
+                            <%if (user.profile.portfolios[i].isAuthenticated) { %>
+                            <div class="col-md-1 showAuthenticatorOnHover" style="margin-left: -20px; margin-top: 0;">
+                                <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
+                                <p class="authenticatedByOrg text-uppercase"> <%= user.profile.portfolios[i].authenticatedBy[0] %></p>
+                                <span class="verifiedTag">Verified</span>
+                                <span class="tooltiptext">
+                                                        <%= user.profile.portfolios[i].authenticatedBy%>
+                                                    </span>
+                            </div>
+                            <% } %>
+
+                            <li style="margin-left: 40px;">
+                                <h2 class="title"><%= user.profile.portfolios[i].title %></h2>
+                                <span class="time"><%= user.profile.portfolios[i].from %> - <%= user.profile.portfolios[i].to %></span>
+                                <p><%- user.profile.portfolios[i].description %></p>
+                                <p><%= user.profile.portfolios[i].link %></p>
+                            </li>
+                            <% } %>
+                            <% } %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /END PORTFOLIO -->
+
+        <!-- EXPERIENCE -->
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Experience</h2>
+                    <p>Yes. I've been around.</p>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div>
+                    <ul class="timeline">
+                        <%if (user.profile && user.profile.experiences) { %>
+                        <% for(var i=0; i < user.profile.experiences.length; i++) { %>
+                        <%if (!user.profile.experiences[i].isAuthenticated) { %>
+                        <div class="col-md-1" style="margin-left: 10px; margin-top: -4px;">
+                            <input type="checkbox" id="experience<%= i %>" style="margin-left: -30px;">
+                        </div>
+                        <% } %>
+                        <%if (user.profile.experiences[i].isAuthenticated) { %>
+                        <div class="col-md-1 showAuthenticatorOnHover" style="margin-left: -20px; margin-top: 0;">
+                            <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
+                            <p class="authenticatedByOrg text-uppercase"> <%= user.profile.experiences[i].authenticatedBy[0] %></p>
+                            <span class="verifiedTag">Verified</span>
+                            <span class="tooltiptext">
+                                                    <%= user.profile.experiences[i].authenticatedBy%>
+                                                </span>
+                        </div>
+                        <% } %>
+
+
+                        <li style="margin-left: 40px;">
+                            <h2 class="title"><%= user.profile.experiences[i].company %></h2>
+                            <span class="time"><%= user.profile.experiences[i].from %> - <%= user.profile.experiences[i].to %></span>
+                            <p><%= user.profile.experiences[i].description %></p>
+                        </li>
+                        <% } %>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /END EXPERIENCE -->
+
+        <!-- EDUCATION -->
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Education</h2>
+                    <p>Add maximum two degrees.</p>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div>
+
+                    <!-- EDUCATION TIMELINE -->
+                    <ul class="timeline">
+                        <%if (user.profile && user.profile.educations) { %>
+                        <% for(var i=0; i < user.profile.educations.length; i++) { %>
+                        <li>
+                            <h2 class="title"><%= user.profile.educations[i].institute %></h2>
+                            <span class="time"><%= user.profile.educations[i].from %> - <%= user.profile.educations[i].to %></span>
+                            <p><%= user.profile.educations[i].description %></p>
+                        </li>
+                        <% } %>
+                        <% } %>
+                    </ul>
+                    <!-- /END EDUCATION TIMELINE -->
+
+                </div>
+            </div>
+        </div>
+        <!-- /END EDUCATION -->
+
+        <!-- Friend -->
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Reference</h2>
+                    <p>How my friends describe me.</p>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div>
+                    <p id="freind-reference-content-display"><%- user.profile ? user.profile.friendReference : '' %></p>
+                </div>
+            </div>
+        </div>
+        <!-- /END EDUCATION -->
+
+        <!-- SERVICES -->
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Services</h2>
+                    <p>What I can do.</p>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div>
+                    <div class="row">
+                        <%if (user.profile && user.profile.services) { %>
+                        <% for(var i=0; i < user.profile.services.length; i=i+2) { %>
+                        <%if (user.profile.services[i]) { %>
+                        <div class="col-md-1 showAuthenticatorOnHover" style="padding-top: 21px">
+                            <%if (!user.profile.services[i].isAuthenticated) { %>
+                            <input type="checkbox" id="service<%= i %>">
+                            <% } %>
+                            <%if (user.profile.services[i].isAuthenticated) { %>
+                            <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
+                            <p class="authenticatedByOrg text-uppercase"> <%= user.profile.services[i].authenticatedBy[0] %></p>
+                            <span class="verifiedTag">Verified</span>
+                            <span class="tooltiptext">
+                                                        <%= user.profile.services[i].authenticatedBy%>
+                                                    </span>
+                            <% } %>
+
+                        </div>
+                        <div class="icon-box col-md-5">
+                            <div class="box-icon">
+                                <i class="icon fa fa-shield"></i>
+                            </div>
+                            <div class="box-content">
+                                <h4><%= user.profile.services[i].service %></h4>
+                                <p><%= user.profile.services[i].description %></p>
+                            </div>
+                        </div>
+                        <% } %>
+                        <%if (user.profile.services[i+1]) { %>
+                        <div class="col-md-1 showAuthenticatorOnHover" style="padding-top: 21px">
+                            <%if (!user.profile.services[i + 1].isAuthenticated) { %>
+                            <input type="checkbox" id="service<%= i + 1 %>">
+                            <% } %>
+                            <%if (user.profile.services[i + 1].isAuthenticated) { %>
+                            <img src="/images/partners/verify-shield.png" class="verifiedTagImage">
+                            <p class="authenticatedByOrg text-uppercase"> <%= user.profile.services[i + 1].authenticatedBy[0] %></p>
+                            <span class="verifiedTag">Verified</span>
+                            <span class="tooltiptext">
+                                                        <%= user.profile.services[i + 1].authenticatedBy%>
+                                                    </span>
+                            <% } %>
+                        </div>
+                        <div class="icon-box col-md-5">
+                            <div class="box-icon">
+                                <i class="icon fa fa-shield"></i>
+                            </div>
+                            <div class="box-content">
+                                <h4><%= user.profile.services[i+1].service %></h4>
+                                <p><%= user.profile.services[i+1].description %></p>
+                            </div>
+                        </div>
+                        <% } %>
+                        <% } %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /END SERVICES -->
+
+        <div class="row asymetric">
+            <div class="col-lg-3">
+                <div class="section-header">
+                    <h2>Your Details</h2>
+                    <p></p>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div>
+                    <!--
+                    <ul class="info-list list-unstyled row">
+                        <li class="col-sm-6 col-md-3"><strong>Location</strong><span>United States</span></li>
+                        <li class="col-sm-6 col-md-3"><strong>Phone</strong><span>+522 234 56789</span></li>
+                        <li class="col-sm-6 col-md-3"><strong>Website</strong><a href="http://www.cssloss.com"><span>cssloss.com</span></a></li>
+                        <li class="col-sm-6 col-md-3"><strong>Email</strong><span>yourmail@mail.com</span></li>
+                    </ul>
+                    -->
+                    <!-- CONTACT FORM -->
+                    <form class="contact-form p-y-40">
+                        <p class="send-status success"><i class="icon icon-check"></i>Your message has been sent successfully.</p>
+                        <p class="send-status error"><i class="icon icon-close-circle"></i>E-mail must be valid and message must be longer than 1 character.</p>
+                        <input class="form-control" id="authenticatorName" type="text" name="name" placeholder="name">
+                        <input class="form-control" id="authenticatorEmail" type="email" name="email" placeholder="email">
+                        <input class="form-control" id="authenticatorOrganisationName" type="text" name="subject" placeholder="company or organisation name">
+                        <button class="btn text-uppercase m-t-40" id="authenticateTheProfile" name="submit"><span>Authenticate</span></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /END RESUME SECTION -->
+
+<!-- AUDIO -->
+<audio id="audio-player" loop>
+    <source src="/audio/audio.mp3" type="audio/mpeg">
+</audio>
+<!-- /END AUDIO -->
+
+<!-- jQuery -->
+<script src="/js/vendor/jquery-1.11.3.min.js"></script>
+
+<!-- BOOTSTRAP CORE JAVASCRIPT -->
+<script src="/js/vendor/bootstrap.min.js"></script>
+<script src="/plugins/fine-uploader/fine-uploader/fine-uploader.min.js"></script>
+<!-- PLUGIN SCRIPTS FOR THIS TEMPLATE -->
+<script src="/js/vendor/plugins.js"></script>
+<script src="/js/vendor/audio.js"></script>
+<script src="/plugins/datepicker/js/datepicker.js"></script>
+<!-- MAIN SCRIPT FOR THIS TEMPLATE -->
+<script src="/js/authenticate-main.js"></script>
+
+<script type="text/template" id="qq-template">
+    <div class="qq-uploader-selector qq-uploader qq-gallery" style="width: 100% !important">
+        <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
+            <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
+        </div>
+        <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
+            <span class="qq-upload-drop-area-text-selector"></span>
+        </div>
+        <ul class="qq-upload-list-selector qq-upload-list" role="region" aria-live="polite" aria-relevant="additions removals">
+            <li style="max-width: 255px !important;">
+                <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                <div class="qq-progress-bar-container-selector qq-progress-bar-container">
+                    <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
+                </div>
+                <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                <div class="qq-thumbnail-wrapper" style="width: 255px;">
+                    <img class="qq-thumbnail-selector" qq-max-size="255" qq-server-scale>
+                </div>
+                <button type="button" class="qq-upload-cancel-selector qq-upload-cancel">X</button>
+                <button type="button" class="qq-upload-retry-selector qq-upload-retry">
+                    <span class="qq-btn qq-retry-icon" aria-label="Retry"></span>
+                    Retry
+                </button>
+
+                <div class="qq-file-info">
+                    <div class="qq-file-name" style="color: #929292">
+                        <span class="qq-upload-file-selector qq-upload-file"></span>
+                        <span class="qq-edit-filename-icon-selector qq-btn qq-edit-filename-icon" aria-label="Edit filename"></span>
+                    </div>
+                    <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+                    <span class="qq-upload-size-selector qq-upload-size"></span>
+                    <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">
+                        <span class="qq-btn qq-delete-icon" aria-label="Delete"></span>
+                    </button>
+                    <button type="button" class="qq-btn qq-upload-pause-selector qq-upload-pause">
+                        <span class="qq-btn qq-pause-icon" aria-label="Pause"></span>
+                    </button>
+                    <button type="button" class="qq-btn qq-upload-continue-selector qq-upload-continue">
+                        <span class="qq-btn qq-continue-icon" aria-label="Continue"></span>
+                    </button>
+                </div>
+            </li>
+        </ul>
+
+        <dialog class="qq-alert-dialog-selector">
+            <div class="qq-dialog-message-selector"></div>
+            <div class="qq-dialog-buttons">
+                <button type="button" class="qq-cancel-button-selector">Close</button>
+            </div>
+        </dialog>
+
+        <dialog class="qq-confirm-dialog-selector">
+            <div class="qq-dialog-message-selector"></div>
+            <div class="qq-dialog-buttons">
+                <button type="button" class="qq-cancel-button-selector">No</button>
+                <button type="button" class="qq-ok-button-selector">Yes</button>
+            </div>
+        </dialog>
+
+        <dialog class="qq-prompt-dialog-selector">
+            <div class="qq-dialog-message-selector"></div>
+            <input type="text">
+            <div class="qq-dialog-buttons">
+                <button type="button" class="qq-cancel-button-selector">Cancel</button>
+                <button type="button" class="qq-ok-button-selector">Ok</button>
+            </div>
+        </dialog>
+    </div>
+</script>
+<script>
+    var user = JSON.parse($('#userProfileObject').text());
+    var userId = user._id;
+    $(document).ready(function() {
+        var showVideo = new qq.FineUploader({
+            element: document.getElementById("profile-video-show"),
+            template: 'qq-template',
+            debug: false,
+            multiple: false,
+            session: {
+                endpoint: '/api/profile/video/upload/fetch/' + userId
+            },
+            thumbnails: {
+                placeholders: {
+                    notAvailablePath: "/images/fineuploader/default-thumb.jpg"
+                }
+            },
+            validation: {
+                allowedExtensions: ['webm', 'mkv', 'flv', 'mp3', 'mp4', 'vob', 'ogv', 'ogg', 'drc', 'gif',
+                    'gifv', 'mng', 'avi', 'mov', 'qt', 'wmv', 'yuv', 'rm', 'rmvb', 'asf',
+                    'amv', 'm4p', 'm4v', 'mpg', 'mp2', 'mpeg', 'mpe', 'mpv', 'mpg', 'mpeg',
+                    'm2v', 'm4v', 'svi', '3gp', '3g2', 'mxf', 'roq', 'nsv', 'nsv', 'f4v',
+                    'f4p', 'f4a', 'f4b'],
+                minSizeLimit: 0,
+                stopOnFirstInvalidFile: false
+            },
+            callbacks: {
+                onComplete: function(id, name, responseJSON, maybeXhr) {
+                    var fileObject = {uuid: responseJSON.newUuid, size: responseJSON.size, name: responseJSON.name, url: responseJSON.url};
+                    var para = document.createElement('p');
+                    $('#videoResumeUrl').text(responseJSON.url);
+
+                },
+                onError: function (id, name, reason, maybeXhrOrXdr) {
+                    /*angular.element('#product-photo-uploader').scope().showImageUploadErrors(reason);*/
+                },
+                onSessionRequestComplete: function(response, success, xhrOrXdr) {
+
+                }
+            }
+        });
+    });
+</script>
+</body>
+
+</html>
