@@ -167,30 +167,58 @@
             });
         }
 
-        function clean(obj) {
-            var propNames = Object.getOwnPropertyNames(obj);
-            for (var i = 0; i < propNames.length; i++) {
-                var propName = propNames[i];
-                if (obj[propName] === null || obj[propName] === undefined) {
-                    delete obj[propName];
-                }
-            }
-        }
+		function getIndexFromJSONArray(jsonArray, id) {
+			for (var i = 0; i < jsonArray.length; i++) {
+				if (id == jsonArray[i].id) {
+					return i;
+				}
+			}
+		}
+
+		//Counts for maintaining how many skills have been Created
+		var counts = {
+			skillCount: 0,
+			projectCount: 0,
+			educationCount: 0,
+			learningCount: 0,
+			servicesCount: 0
+		}
+
+		if (!profile.counts) {
+			var countSetArr = [];
+			countSetArr.push(counts);
+			profile['counts'] = countSetArr;
+		}
+
+		var skillCount = profile.counts.skillCount,
+			projectCount = profile.counts.projectCount,
+			educationCount = profile.counts.educationCount,
+			learningCount = profile.counts.learningCount
+			servicesCount = profile.counts.servicesCount;
 
 
         // --- Skills ---
 
         $('#add-a-skill-button').on('click', function() {
+			//Get skill template
             var skillTemplate = $('#skill-template');
+
+			//Get skills container
             var skillsUl = $('.skills');
-            var skillsCount = $(skillsUl).children('.skill-item').length;
-            var skillsId = skillsCount + 1;
+            //var skillsCount = $(skillsUl).children('.skill-item').length;
+            var skillsId = skillCount + 1;
             var materializedSkill;
+
+			//Get container and fields for creating a new skill
             var addSkillContainer = $('#add-a-skill');
             var skillTitle = $(addSkillContainer).find('input#skill-name');
             var skillTitleValue = $(skillTitle).val();
             var skillRating = $(addSkillContainer).find('input#skill-rating-content');
             var skillRatingValue = $(skillRating).val();
+
+			//Get edit dialog and main-content for new skill
+			var dialog;
+			var mainContent;
 
             //Clone #skill-template element and materialize it
             var clonedSkill = $(skillTemplate)
@@ -201,27 +229,45 @@
             materializedSkill = materialize(clonedSkill);
             upgradeMaterialized(materializedSkill);
 
-            $(materializedSkill).find('.main-content span.skill-title')
+			dialog = $(materializedSkill).find('.editable-content');
+			mainContent = $(materializedSkill).find('.main-content');
+
+			//For main content
+            $(mainContent).find('span.skill-title')
                 .text(skillTitleValue)
-                .attr('data-badge', 0);
-            $(materializedSkill).find('.main-content li')
+                .attr({
+					'data-badge': 0,
+					'id': 'skill-title' + skillsId
+				});
+            $(mainContent).find('li')
                 .removeClass('skills-animated')
                 .attr('data-percent', skillRatingValue);
-            $(materializedSkill).find('.main-content span.skill-range')
+            $(mainContent).find('span.skill-range')
                 .attr({
                     'data-to': skillRatingValue,
                     'id': 'skill-range' + skillsId
                 });
+			$(mainContent).find('.edit-skill-button').on('click', function() {
+				dialog[0].showModal();
+			});
 
-            $(materializedSkill).find('.editable-content input.skill-range-slider-template')
+			//For dialog
+            $(dialog).find('input.skill-range-slider-template')
                 .attr({
                     'id': 'skill-range-input' + skillsId,
                     'name': 'skill-range-input' + skillsId
                 });
-            $(materializedSkill).find('.editable-content input.mdl-textfield__input')
-                .val(skillTitleValue);
+            $(dialog).find('input.mdl-textfield__input')
+                .val(skillTitleValue)
+				.attr('id', 'skill-title-input' + skillsId);
+			$(dialog).find('.close').on('click', function() {
+				dialog[0].close();
+			});
 
+			//Append new skill to container
             $(skillsUl).append(materializedSkill);
+
+			//Animate progress bar widget
             SEMICOLON.widget.progress();
 
             //countTo is not called in SEMICOLON.widget.progress() and need to set value for ionRangeSlider
@@ -234,6 +280,7 @@
 
             //Add skill to db
             var skillSet = {
+				id: 'skill' + skillsId,
                 skill: $(skillTitle).val(),
                 rating: skillRatingValue,
                 verifiedCount: 0
@@ -248,16 +295,18 @@
             }
 
             //Reset input fields for creating a new skill
-            $('#skill-rating-content').data("ionRangeSlider").update({from: 0});
+            $('#skill-rating-content').data("ionRangeSlider").update({from: 10});
             $('#skill-name').val('');
         });
 
         $('.save-skill-button').on('click', function() {
-            var editableContent = $(this).parents('.editable-content');
-            var mainContent = $(editableContent).siblings('.main-content');
-            var newSkillName = $(editableContent).find('.mdl-textfield__input').val();
-            var newSkillRatingValue = $(editableContent).find('.skill-range-slider-template').val();
+			var dialog = $(this).parents('.editable-content');
+            var mainContent = $(dialog).siblings('.main-content');
+			var skillId = $(this).parents('.skill-item').attr('id');
+            var newSkillName = $(dialog).find('.mdl-textfield__input').val();
+            var newSkillRatingValue = $(dialog).find('.skill-range-slider-template').val();
 
+			//Update main content fields
             $(mainContent).find('span.skill-title').text(newSkillName);
             $(mainContent).find('li')
                 .removeClass('skills-animated')
@@ -276,35 +325,51 @@
                 });
             }, 100);
 
-            $(editableContent).addClass('hide-content');
-            $(mainContent).removeClass('hide-content');
+			//Update skill JSONObject
+			var skills = profile.skills;
+			for (var i = 0; i < profile.skills.length; i++) {
+				if (profile.skills[i].id == skillId) {
+					profile.skills[i].skill = newSkillName;
+					profile.skills[i].rating = parseInt(newSkillRatingValue);
+					break;
+				}
+			}
+
+			//Close dialog
+			dialog[0].close();
         });
 
-        $('.cancel-skill-button').on('click', function() {
-            $(this).parent('editable-content').addClass('hide-content');
-        });
+        // $('.cancel-skill-button').on('click', function() {
+        //     $(this).parent('editable-content').addClass('hide-content');
+        // });
 
         $('.skill-item .remove-content').on('click', function() {
             var skillsItem = $(this).parents('.skill-item');
-            var index = $(skillsItem).parent().index();
+			var skillId = $(skillsItem).attr('id');
+
+			//Get index of JSONObject in profile.skills JSONArray
+			var index = getIndexFromJSONArray(profile.skills, skillId);
 
             //Remove skill
-            profile.skills.splice(index - 1, 1);
+            profile.skills.splice(index, 1);
             $(skillsItem).remove();
         });
 
         // --- Projects ---
 
         $('#add-project-button').on('click', function() {
-            var addButtonContent = $(this).parents('.add-button-content')[0];
-            var projectTitle = $(addButtonContent).find('#project-title').val();
-            var projectDateTo = $(addButtonContent).find('#project-date-to').val();
-            var projectDateFrom = $(addButtonContent).find('#project-date-from').val();
-            var projectDesc = $(addButtonContent).find('#project-desc').val();
+			var addProjectContainer = $('#add-a-project');
+			var projectTitle = $('#project-title').val();
+			var projectDateTo = $('#project-date-to').val();
+			var projectDateFrom = $('#project-date-from').val();
+			var projectDesc = $('#project-desc').val();
 
             var projectTimeline = $('#project-timeline');
-            var projectCount = $(projectTimeline).children('.timeline-item').length;
+            //var projectCount = $(projectTimeline).children('.timeline-item').length;
             var projectId = projectCount + 1;
+
+			var dialog;
+			var mainContent;
 
             if ($(projectTimeline).hasClass('hide-content')) {
                 $(projectTimeline).removeClass('hide-content');
@@ -319,21 +384,23 @@
             var materializedProject = materialize(cloneProject);
             upgradeMaterialized(materializedProject);
 
-            $(materializedProject).find('.mdl-badge').attr('data-badge', 0);
-            $(materializedProject).find(".item-title").text(projectTitle);
-            $(materializedProject).find('.item-period').text(projectDateFrom + ' - ' + projectDateTo);
-            $(materializedProject).find('.item-description').text(projectDesc);
+			dialog = $(materializedProject).find('dialog.editable-content');
+			mainContent = $(materializedProject).find('.main-content');
 
-            $(materializedProject).find('.editable-content .project-title-content')
+            $(mainContent).find(".item-title").text(projectTitle);
+            $(mainContent).find('.item-period').text(projectDateFrom + ' - ' + projectDateTo);
+            $(mainContent).find('.item-description').text(projectDesc);
+
+            $(dialog).find('.project-title-content')
                 .attr('id', 'project-title' + projectId)
                 .val(projectTitle);
-            $(materializedProject).find('.editable-content .project-date-to-content')
+            $(dialog).find('.project-date-to-content')
                 .attr('id', 'project-date-to' + projectId)
                 .val(projectDateTo);
-            $(materializedProject).find('.editable-content .project-date-from-content')
+            $(dialog).find('.project-date-from-content')
                 .attr('id', 'project-date-from' + projectId)
                 .val(projectDateFrom);
-            $(materializedProject).find('.editable-content .project-desc-content')
+            $(dialog).find('.project-desc-content')
                 .attr('id', 'project-desc' + projectId)
                 .val(projectDesc);
 
@@ -346,8 +413,16 @@
                 format: "yyyy"
             });
 
+			$(mainContent).find('.edit-project-button').on('click', function() {
+				dialog[0].showModal();
+			});
+			$(dialog).find('.close').on('click', function() {
+				dialog[0].close();
+			});
+
             //Add project to DB
             var experienceSet = {
+				id: 'project' + projectId,
                 title: projectTitle,
                 from: projectDateFrom,
                 to: projectDateTo,
@@ -373,25 +448,43 @@
         });
 
         $('.save-project-button').on('click', function() {
-            var editableContent = $(this).parents('.editable-content');
-            var mainContent = $(editableContent).siblings('.main-content');
+            var dialog = $(this).parents('.editable-content');
+            var mainContent = $(dialog).siblings('.main-content');
+			var projectId = $(this).parents('.timeline-item').attr('id');
 
-            $(mainContent).find('.item-title').text($(editableContent).find('.project-title-content').val());
+			var newProjectTitle = $(dialog).find('.project-title-content').val();
+			var newProjectDateFrom = $(dialog).find('.project-date-from-content').val();
+			var newProjectDateTo = $(dialog).find('.project-date-to-content').val();
+			var newProjectDesc = $(dialog).find('.project-desc-content').val();
+
+            $(mainContent).find('.item-title').text(newProjectTitle);
             $(mainContent).find('.item-period')
-                .text($(editableContent).find('.project-date-from-content').val() + ' - ' + $(editableContent).find('.project-date-to-content').val());
-            $(mainContent).find('.item-description').text($(editableContent).find('.project-desc-content').val());
+                .text(newProjectDateFrom + ' - ' + newProjectDateTo);
+            $(mainContent).find('.item-description').text(newProjectDesc);
 
-            $(editableContent).addClass('hide-content');
-            $(mainContent).removeClass('hide-content');
+			//Update project JSONObject
+			var projects = profile.experiences;
+			for (var i = 0; i < profile.experiences.length; i++) {
+				if (profile.experiences[i].id ==  projectId) {
+					profile.experiences[i].title = newProjectTitle;
+					profile.experiences[i].from = parseInt(newProjectDateFrom);
+					profile.experiences[i].to = parseInt(newProjectDateTo);
+					profile.experiences[i].desc = newProjectDesc;
+					break;
+				}
+			}
 
+			//Close dialog
+			dialog[0].close();
         });
 
         $('.project-item .remove-content').on('click', function() {
             var project = $(this).parents('.timeline-item');
-            var index = $(project).parent().index();
+			var projectId = $(project).attr('id');
+            var index = getIndexFromJSONArray(profile.experiences, projectId);
 
             //Remove skill
-            profile.experiences.splice(index - 1, 1);
+            profile.experiences.splice(index, 1);
             $(project).remove();
         });
 
@@ -399,8 +492,10 @@
 
         $('#add-edu-content').on('click', function() {
             var eduTimeline = $('#education-timeline');
-            var eduCount = $(eduTemplate).children('.timeline-item').length;
-            var eduId = eduCount + 1;
+            var eduId = educationCount + 1;
+
+			var dialog;
+			var mainContent;
 
             var eduDegreeTitle = $('#edu-degree-title').val();
             var eduInstitution = $('#edu-institution').val();
@@ -417,26 +512,36 @@
             var materializedEdu = materialize(cloneEdu);
             upgradeMaterialized(materializedEdu);
 
+			dialog = $(materializedEdu).find('.editable-content');
+			mainContent = $(materializedEdu).find('.main-content');
+
             $(materializedEdu).find(".item-title").text(eduDegreeTitle);
             $(materializedEdu).find('.item-period').text(eduDateFrom + ' - ' + eduDateTo);
             $(materializedEdu).find('.item-description').text(eduDesc);
-            $(materializedEdu).find('.item-span').text(eduInstitution);
+            $(materializedEdu).find('.item-institute').text(eduInstitution);
 
-            $(materializedEdu).find('.editable-content .edu-degree-title-content')
+            $(dialog).find('.edu-degree-title-content')
                 .attr('id', 'education-title' + eduId)
                 .val(eduDegreeTitle);
-            $(materializedEdu).find('.editable-content .edu-institution-content')
+            $(dialog).find('.edu-institution-content')
                 .attr('id', 'education-institution' + eduId)
                 .val(eduInstitution);
-            $(materializedEdu).find('.editable-content .edu-date-from-content')
+            $(dialog).find('.edu-date-from-content')
                 .attr('id', 'education-date-from' + eduId)
                 .val(eduDateFrom);
-            $(materializedEdu).find('.editable-content .edu-date-to-content')
+            $(dialog).find('.edu-date-to-content')
                 .attr('id', 'education-date-to' + eduId)
                 .val(eduDateTo);
-            $(materializedEdu).find('.editable-content .edu-desc-content')
+            $(dialog).find('.edu-desc-content')
                 .attr('id', 'education-desc' + eduId)
                 .val(eduDesc);
+
+			$(mainContent).find('.edit-edu-button').on('click', function() {
+				dialog[0].showModal();
+			});
+			$(dialog).find('.close').on('click', function() {
+				dialog[0].close();
+			});
 
             //Initialize datepicker
             $(materializedEdu).find('.input-date-group-template input').datepicker({
@@ -450,6 +555,7 @@
             $(eduTimeline).append(materializedEdu);
 
             var educationSet = {
+				id: 'edu' + eduId,
                 degree: eduDegreeTitle,
                 institute: eduInstitution,
                 from: eduDateFrom,
@@ -475,35 +581,58 @@
 
         });
 
-        $('.save-edu-content').on('click', function() {
-            var editableContent = $(this).parents('.editable-content');
-            var mainContent = $(editableContent).siblings('.main-content');
+        $('.save-edu-button').on('click', function() {
+			var dialog = $(this).parents('.editable-content');
+            var mainContent = $(dialog).siblings('.main-content');
+			var eduId = $(this).parents('.education-item').attr('id');
 
-            $(mainContent).find('.item-title').text($(editableContent).find('.edu-degree-title-content').val());
+			var newEduDegree = $(dialog).find('.edu-degree-title-content').val();
+			var newEduInstitute = $(dialog).find('.edu-institution-content').val();
+			var newEdutDateFrom = $(dialog).find('.edu-date-from-content').val();
+			var newEduDateTo = $(dialog).find('.edu-date-to-content').val();
+			var newEduDesc = $(dialog).find('.edu-desc-content').val();
+
+            $(mainContent).find('.item-title').text(newEduDegree);
+			$(mainContent).find('.item-institute').text(newEduInstitute);
             $(mainContent).find('.item-period')
-                .text($(editableContent).find('.edu-date-from-content').val() + ' - ' + $(editableContent).find('.edu-date-to-content').val());
-            $(mainContent).find('.item-span').text($(editableContent).find('.edu-institution-content').val());
-            $(mainContent).find('.item-description').text($(editableContent).find('.edu-desc-content').val());
+                .text(newEdutDateFrom + ' - ' + newEduDateTo);
+            $(mainContent).find('.item-description').text(newEduDesc);
 
-            $(editableContent).addClass('hide-content');
-            $(mainContent).removeClass('hide-content');
+			//Update education JSONObject
+			var projects = profile.educations;
+			for (var i = 0; i < profile.educations.length; i++) {
+				if (profile.educations[i].id == eduId) {
+					profile.educations[i].degree = newEduDegree;
+					profile.educations[i].institute = newEduInstitute;
+					profile.educations[i].from = parseInt(newEdutDateFrom);
+					profile.educations[i].to = parseInt(newEdutDateTo);
+					profile.educations[i].description = newEduDesc;
+					break;
+				}
+			}
+
+			//Close dialog
+			dialog[0].close();
         });
 
         $('.education-item .remove-content').on('click', function() {
-            var project = $(this).parents('.timeline-item');
-            var index = $(project).parent().index();
+			var edu = $(this).parents('.education-item');
+			var eduId = $(edu).attr('id');
+			var index = getIndexFromJSONArray(profile.educations, eduId);
 
-            //Remove skill
-            profile.educations.splice(index - 1, 1);
-            $(project).remove();
+			//Remove education
+			profile.educations.splice(index, 1);
+			$(edu).remove();
         });
 
         // --- Services ---
 
         $('#add-service-content').on('click', function() {
             var servicesContainer = $('#services-component');
-            var servicesCount = $(servicesContainer).children('.service-item').length;
             var serviceId = servicesCount + 1;
+
+			var dialog;
+			var mainContent;
 
             var serviceTemplate = $('#service-template');
             var serviceClone = $(serviceTemplate)
@@ -518,26 +647,37 @@
             var materializedService = materialize(serviceClone);
             upgradeMaterialized(materializedService);
 
-            $(materializedService).find('.main-content .service-icon a i').attr('class', 'fa ' + serviceIcon);
-            $(materializedService).find('.main-content .service-title').text(serviceTitle);
-            $(materializedService).find('.main-content .service-desc').text(serviceDesc);
+			var dialog = $(materializedService).find('.editable-content');
+			var mainContent = $(materializedService).find('.main-content');
 
-            $(materializedService).find('.editable-content .service-title-content')
+            $(mainContent).find('.service-icon a i').attr('class', 'fa ' + serviceIcon);
+            $(mainContent).find('.service-title').text(serviceTitle);
+            $(mainContent).find('.service-desc').text(serviceDesc);
+
+            $(dialog).find('.service-title-content')
                 .attr('id', 'service-title' + serviceId)
                 .val(serviceTitle);
-            $(materializedService).find('.editable-content .service-desc-content')
+            $(dialog).find('.service-desc-content')
                 .attr('id', 'service-desc' + serviceId)
                 .val(serviceDesc);
-            $(materializedService).find('.editable-content .service-icon-content')
+            $(dialog).find('.service-icon-content')
                 .attr('id', 'service-icon' + serviceId)
                 .iconpicker({
                     selected: serviceIcon
                 });
 
+			$(mainContent).find('.edit-service-button').on('click', function() {
+				dialog[0].showModal();
+			});
+			$(dialog).find('.close').on('click', function() {
+				dialog[0].close();
+			});
+
             $(servicesContainer).append(materializedService);
-            $(materializedService).find('.feature-box').removeClass('not-animated').addClass('animated');
+            $(mainContent).find('.feature-box').removeClass('not-animated').addClass('animated');
 
             var serviceSet = {
+				id: "service" + serviceId,
                 service: serviceTitle,
                 description: serviceDesc,
                 icon: serviceIcon,
@@ -562,39 +702,42 @@
         });
 
         $('.save-service-content').on('click', function() {
-            var editableContent = $(this).parents('.editable-content');
-            var mainContent = $(editableContent).siblings('.main-content');
+            var dialog = $(this).parents('.editable-content');
+            var mainContent = $(dialog).siblings('.main-content');
+			var serviceId = $(mainContent).parents('.service-item').attr('id');
 
-            $(mainContent).find('.service-title').text($(editableContent).find('.service-title-content').val());
-            $(mainContent).find('.service-desc').text($(editableContent).find('.service-desc-content').val());
-            $(mainContent).find('.service-icon i').attr('class', 'fa ' + $(editableContent).find('.service-icon-content').attr('data-selected'));
+			var newServiceTitle = $(dialog).find('.service-title-content').val();
+			var newServiceDesc = $(dialog).find('.service-desc-content').val();
+			var newServiceIcon = $(dialog).find('.service-icon-content').attr('data-selected');
 
-            $(editableContent).addClass('hide-content');
-            $(mainContent).removeClass('hide-content');
+            $(mainContent).find('.service-title').text(newServiceTitle);
+            $(mainContent).find('.service-desc').text(newServiceDesc);
+            $(mainContent).find('.service-icon i').attr('class', 'fa ' + newServiceIcon);
+
+			//Update education JSONObject
+			var services = profile.services;
+			for (var i = 0; i < profile.services.length; i++) {
+				if (profile.services[i].id == serviceId) {
+					profile.services[i].service = newServiceTitle;
+					profile.services[i].description = newServiceDesc;
+					profile.services[i].icon = newServiceIcon;
+					break;
+				}
+			}
+
+			//Close dialog
+			dialog[0].close();
         });
 
         $('.service-item .remove-content').on('click', function() {
             var service = $(this).parents('.service-item');
-            var index = $(service).parent().index();
+			var serviceId = $(service).attr('id');
+            var index = getIndexFromJSONArray(profile.services, serviceId);
 
             //Remove service
-            profile.services.splice(index - 1, 1);
+            profile.services.splice(index, 1);
             $(service).remove();
         });
-
-        $('.cancel-project-button, .cancel-edu-content, .cancel-service-content').on('click', function() {
-            var editableContent = $(this).parents('.editable-content');
-            $(editableContent).addClass('hide-content');
-            $(editableContent).siblings('.main-content').removeClass('hide-content');
-            $(editableContent).parents('.hover-component').removeClass('add-box-shadow');
-        });
-
-		// --- Portfolio ---
-		// $('#add-a-new-portfolio-button').on('click', function() {
-		// 	var portfolioTemplate = $('#portfolio-template');
-		// 	var portfolioClone = $(portfolioTempalte)
-		// 		.clone('')
-		// });
 
     });
 

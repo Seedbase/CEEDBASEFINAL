@@ -48,27 +48,27 @@
     </head>
 
     <div id="authenticate-whole-user-profile" class="modal fade" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content" style="background-color: #fff">
-                        <div class="modal-header">
-                            <div class="col-lg-12">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" style="color:#555">Provide your details</h4>
-                            </div>
-                        </div>
-                        <div class="modal-body" style="color: #333">
-                            <div style="margin-left: 15px">
-                                <input class="form-control" id="wholeProfileAuthenticatorName" type="text" name="name" placeholder="name">
-                                <input class="form-control" id="wholeProfileAuthenticatorEmail" type="email" name="email" placeholder="email">
-                                <input class="form-control" id="wholeProfileAuthenticatorOrganisationName" type="text" name="organisation" placeholder="company or organisation name">
-                                <button class="btn text-uppercase m-t-40" id="authenticateWholeProfile"><span>Authenticate</span></button>
-                            </div>
-
-                        </div>
-
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #fff">
+                <div class="modal-header">
+                    <div class="col-lg-12">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" style="color:#555">Provide your details</h4>
                     </div>
                 </div>
+                <div class="modal-body" style="color: #333">
+                    <div style="margin-left: 15px">
+                        <input class="form-control" id="wholeProfileAuthenticatorName" type="text" name="name" placeholder="name">
+                        <input class="form-control" id="wholeProfileAuthenticatorEmail" type="email" name="email" placeholder="email">
+                        <input class="form-control" id="wholeProfileAuthenticatorOrganisationName" type="text" name="organisation" placeholder="company or organisation name">
+                        <button class="btn text-uppercase m-t-40" id="authenticateWholeProfile"><span>Authenticate</span></button>
+                    </div>
+
+                </div>
+
             </div>
+        </div>
+    </div>
 
     <body class="stretched">
 
@@ -120,17 +120,25 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+							<div class="row">
                                 <div class="col-sm-5-custom">
                                     <div class="mdl-textfield mdl-js-textfield full-width">
-                                        <input class="mdl-textfield__input" type="text" id="introText2" disabled value="<%= (user.profile && user.profile.introText) ? user.profile.introText[1] : '' %>">
+										<% if (user.profile && user.profile.introText) { %>
+                                        	<input class="mdl-textfield__input" type="text" id="introText2" value="<%=user.profile.introText[2]%>">
+										<% } else { %>
+											<input class="mdl-textfield__input" type="text" id="introText2" value="">
+										<% } %>
                                         <label class="mdl-textfield__label" for="introText2">Designer</label>
                                     </div>
                                 </div>
-                                <div class="col-sm-1">and</div>
+                                <div class="col-sm-1" style="text-align: center; padding-top: 4px;">and</div>
                                 <div class="col-sm-5-custom">
                                     <div class="mdl-textfield mdl-js-textfield full-width">
-                                        <input class="mdl-textfield__input" type="text" id="introText3" disabled value="<%= (user.profile && user.profile.introText) ? user.profile.introText[2] : '' %>">
+										<% if (user.profile && user.profile.introText) { %>
+                                        	<input class="mdl-textfield__input" type="text" id="introText3" value="<%=user.profile.introText[3]%>">
+										<% } else { %>
+											<input class="mdl-textfield__input" type="text" id="introText3" value="">
+										<% } %>
                                         <label class="mdl-textfield__label" for="introText3">Designer</label>
                                     </div>
                                 </div>
@@ -176,7 +184,7 @@
                 <div id="content-wrap">
                     <div class="container clearfix" style="margin: 40px auto; padding: 0 20px;">
 
-                        <div class="row card-block">
+						<div class="row card-block">
                             <div class="col-sm-12">
                                 <div class="demo-card-wide mdl-card mdl-shadow--2dp">
                                     <div class="mdl-card__title">
@@ -184,35 +192,26 @@
                                     </div>
                                     <div class="mdl-card__supporting-text input-date-group">
                                         <div class="row">
-                                            <div class="col-sm-5">
-                                                <div class="form-horizontal row">
-                                                    <div class="col-sm-4">
-                                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                            <input name="birthday" disabled id="birthday" type="text" pattern="-?[0-9]*(\.[0-9]+)?" value="<%= user.profile ? user.profile.birthday : '' %>" class="mdl-textfield__input tleft mnth" placeholder="mm/yyyy">
-                                                            <label class="mdl-textfield__label" for="birthday">Birthday</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-8 col-sm-9">
-                                                        <label class="custom-mdl-textfield__label" for="creativeRegion" style="">Region</label>
-                                                        <select id="creativeRegion" disabled class="form-control select2-element" data-placeholder="Select a region">
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-sm-12">
-                                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-                                                            <input class="mdl-textfield__input" disabled type="email" id="email" value="<%= user.email %>">
-                                                            <label class="mdl-textfield__label" for="email">Email</label>
-                                                            <span class="mdl-textfield__error">Input does not have the correct format!</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
+											<div class="col-sm-12">
                                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 90%;">
-                                                    <textarea class="mdl-textfield__input autoresize" disabled type="text" rows="4" id="passion" maxlength="200" style="overflow: hidden; max-width:100%;"><%= user.profile ? user.profile.passion : '' %></textarea>
+                                                    <textarea class="mdl-textfield__input autoresize" type="text" rows="4" id="passion" maxlength="200" style="overflow: hidden; max-width:100%;"><%= user.profile ? user.profile.passion : '' %></textarea>
                                                     <label class="mdl-textfield__label" for="passion">Describe your passion</label>
                                                 </div>
                                             </div>
-                                        </div>
+										</div>
+										<div class="row">
+											<div class="col-sm-4">
+												<label class="custom-mdl-textfield__label" for="creativeRegion" style="">Region</label>
+												<select id="creativeRegion" class="form-control select2-element" data-placeholder="Select a region">
+												</select>
+											</div>
+										</div>
+										<div class="row topmargin-sm">
+			                                <div class="col-sm-12">
+			                                    <label>Video Resume</label>
+			                                    <div id="profile-video-show"></div>
+			                                </div>
+			                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -235,7 +234,13 @@
                                                 <div class="main-content">
                                                     <div class="row">
                                                         <div class="col-sm-12">
-                                                            <span id="skill-title" class="mdl-badge skill-title" data-badge="<%=user.profile.skills[i].verifiedCount%>"><%=user.profile.skills[i].skill%></span>
+															<% if (user.profile.skills[i].verifiedCount > 0) { %>
+																<span id="skill-title" class="mdl-badge skill-title" data-badge="<%=user.profile.skills[i].verifiedCount%>">
+															<% } else { %>
+																<span id="skill-title" class="skill-title" data-badge="">
+															<% } %>
+																	<%=user.profile.skills[i].skill%>
+																</span>
                                                             <li data-percent="<%=user.profile.skills[i].rating%>">
                                                                 <div class="progress nopadding">
                                                                     <div class="progress-percent">
@@ -261,9 +266,32 @@
                             <div class="col-sm-12">
                                 <div class="mdl-card mdl-shadow--2dp">
                                     <div class="mdl-card__title">
-                                        <h2 class="mdl-card__title-text">Certifications</h2>
+                                        <h2 class="mdl-card__title-text">Projects</h2>
                                     </div>
                                     <div class="mdl-card__supporting-text">
+										<div class="row">
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <div id="project-timeline" class="timeline hide-content verify-component">
+                                                    <% if (user.profile && user.profile.experiences) {%>
+                                                    <% for (var i = 1; i <= user.profile.experiences.length; i++) {%>
+                                                    <div class="project-item timeline-item" id="project<%=i%>">
+                                                        <div class="main-content">
+															<% if (user.profile.experiences[i].verifiedCount > 0) { %>
+                                                            <span class="material-icons mdl-badge" data-badge="<%=user.profile.skills[i].verifiedCount%>">
+															<% } else { %>
+															<span class="material-icons" data-badge="">
+															<% } %>
+																<h4 class="item-title"><%= user.profile.experiences[i].title%></h4>
+															</span>
+                                                            <span class="item-period"><%= user.profile.experiences[i].from %> - <%= user.profile.experiences[i].to %></span>
+                                                            <p class="item-description"><%= user.profile.experiences[i].description %></p>
+                                                        </div>
+                                                    </div>
+                                                    <% } %>
+                                                    <% } %>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -273,25 +301,11 @@
                             <div class="col-sm-6">
                                 <div class="mdl-card mdl-shadow--2dp">
                                     <div class="mdl-card__title">
-                                        <h2 class="mdl-card__title-text">Projects</h2>
+                                        <h2 class="mdl-card__title-text">Learning</h2>
                                     </div>
                                     <div class="mdl-card__supporting-text">
                                         <div class="row">
                                             <div class="col-sm-12 col-md-12 col-lg-12">
-
-                                                <div id="project-timeline" class="timeline hide-content verify-component">
-                                                    <% if (user.profile && user.profile.experiences) {%>
-                                                    <% for (var i = 1; i <= user.profile.experiences.length; i++) {%>
-                                                    <div class="project-item timeline-item" id="project<%=i%>">
-                                                        <div class="main-content">
-                                                            <span class="material-icons mdl-badge" data-badge="<%=user.profile.skills[i].verifiedCount%>"><h4 class="item-title"><%= user.profile.experiences[i].title%></h4></span>
-                                                            <span class="item-period"><%= user.profile.experiences[i].from %> - <%= user.profile.experiences[i].to %></span>
-                                                            <p class="item-description"><%= user.profile.experiences[i].description %></p>
-                                                        </div>
-                                                    </div>
-                                                    <% } %>
-                                                    <% } %>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -308,15 +322,21 @@
                                                 <div id="education-timeline" class="timeline">
                                                     <% if (user.profile && user.profile.educations) { %>
                                                     <% for (var i = 1; i <= user.profile.educations.length; i++) { %>
-                                                    <div class="education-item timeline-item hover-component" id="edu<%=i%>">
+                                                    <div class="education-item timeline-item hover-component verify-component" id="edu<%=i%>">
                                                         <div class="main-content">
-                                                            <h4 class="item-title"><%=user.profile.educations[i].degree%></h4>
+															<% if (user.profile.educations[i].verifiedCount > 0) { %>
+															<span class="mdl-badge" data-badge="<%=user.profile[i].verifiedCount%>">
+															<% }%>
+															<span class="" data-badge="">
+															<% } %>
+															<h4 class="item-title"><%=user.profile.educations[i].degree%></h4>
+															</span>
                                                             <div class="item-edit">
                                                                 <a class="edit-content"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                                                 <a class="remove-content"><i class="fa fa-remove" aria-hidden="true"></i></a>
                                                             </div>
+															<span class="item-institute"><%=user.profile.educations[i].institute%></span>
                                                             <span class="item-period"><%=user.profile.educations[i].from%> - <%=user.profile.educations[i].to%></span>
-                                                            <span class="item-small"><%=user.profile.educations[i].institute%></span>
                                                             <p class="item-description"><%=user.profile.educations[i].description%></p>
                                                         </div>
                                                     </div>
@@ -340,14 +360,18 @@
                                         <div id="services-component" class="row">
                                             <% if (user.profile && user.profile.services) { %>
                                                 <% for (var i = 1; i <= user.profile.services.length; i++) { %>
-                                                    <div class="service-item hover-component col-sm-4 hide-content" id="service<%=i%>">
+                                                    <div class="service-item hover-component col-sm-4 hide-content verify-component" id="service<%=i%>">
                                                         <div class="main-content">
                                                             <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
                                                                 <div class="service-edit">
                                                                     <a class="edit-content"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
                                                                     <a class="remove-content"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
                                                                 </div>
-                                                                <div class="service-icon fbox-icon">
+																<% if (user.profile.services[i].verifiedCount > 0) { %>
+                                                                <div class="service-icon fbox-icon mdl-badge" data-badge="<%=user.profile[i].verifiedCount%>">
+																<% } %>
+																<div class="service-icon fbox-icon" data-badge="">
+																<% } %>
                                                                     <a href="#"><i class="fa <%=user.profile.services[i].icon%>"></i></a>
                                                                 </div>
                                                                 <h3 class="service-title"><%=user.profile.services[i].service%></h3>
@@ -364,76 +388,76 @@
                             </div>
                         </div>
 
-                        <div class="row card-block">
-                            <div class="col-sm-12">
-                                <div class="mdl-card mdl-shadow--2dp">
-                                    <div class="mdl-card__title">
-                                        <h2 class="mdl-card__title-text">Portfolio</h2>
-                                    </div>
-                                    <div class="mdl-card__supporting-text">
-                                        <!--<div class="portfolio-container">
-                                            <div id="portfolio">
-                                                <div class="col-md-4 bottommargin portfolio-element">
-                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
-                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
-                                                        <h4>Responsive &amp; Retina</h4>
-                                                        <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
-                                                    </div>
-
-                                                    <p>Employment respond committed meaningful fight against oppression social challenges rural legal aid governance. Meaningful work, implementation, process cooperation, campaign inspire.</p>
-                                                </div>
-
-                                                <div class="col-md-4 bottommargin portfolio-element">
-                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
-                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
-                                                        <h4>Powerful Performance</h4>
-                                                        <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
-                                                    </div>
-                                                    <p>Medecins du Monde Jane Addams reduce child mortality challenges Ford Foundation. Diversification shifting landscape advocate pathway to a better life rights international. Assessment.</p>
-                                                </div>
-
-                                                <div class="col-md-4 bottommargin portfolio-element">
-                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
-                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
-                                                        <h4>Truly Multipurpose</h4>
-                                                        <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
-                                                    </div>
-                                                    <p>Democracy inspire breakthroughs, Rosa Parks; inspiration raise awareness natural resources. Governance impact; transformative donation philanthropy, respect reproductive.</p>
-                                                </div>
-                                                <div class="col-md-4 bottommargin portfolio-element">
-                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
-                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
-                                                        <h4>Responsive &amp; Retina 2</h4>
-                                                    </div>
-                                                    <p>Employment respond committed meaningful fight against oppression social challenges rural legal aid governance. Meaningful work, implementation, process cooperation, campaign inspire.</p>
-                                                </div>
-
-                                                <div class="col-md-4 bottommargin portfolio-element">
-                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
-                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
-                                                        <h4>Powerful Performance 2</h4>
-                                                        <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
-                                                    </div>
-                                                    <p>Medecins du Monde Jane Addams reduce child mortality challenges Ford Foundation. Diversification shifting landscape advocate pathway to a better life rights international. Assessment.</p>
-                                                </div>
-
-                                                <div class="col-md-4 bottommargin portfolio-element">
-                                                    <i class="fa fa-globe fa-4x color inline-block"></i>
-                                                    <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
-                                                        <h4>Truly Multipurpose 2</h4>
-                                                        <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
-                                                    </div>
-                                                    <p>Democracy inspire breakthroughs, Rosa Parks; inspiration raise awareness natural resources. Governance impact; transformative donation philanthropy, respect reproductive.</p>
-                                                </div>
-                                            </div>
-                                            <div class="pagination-container topmargin nobottommargin">
-                                                <ul class="pagination nomargin"></ul>
-                                            </div>
-                                        </div>-->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        // <div class="row card-block">
+                        //     <div class="col-sm-12">
+                        //         <div class="mdl-card mdl-shadow--2dp">
+                        //             <div class="mdl-card__title">
+                        //                 <h2 class="mdl-card__title-text">Portfolio</h2>
+                        //             </div>
+                        //             <div class="mdl-card__supporting-text">
+                        //                 <!--<div class="portfolio-container">
+                        //                     <div id="portfolio">
+                        //                         <div class="col-md-4 bottommargin portfolio-element">
+                        //                             <i class="fa fa-globe fa-4x color inline-block"></i>
+                        //                             <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                        //                                 <h4>Responsive &amp; Retina</h4>
+                        //                                 <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
+                        //                             </div>
+						//
+                        //                             <p>Employment respond committed meaningful fight against oppression social challenges rural legal aid governance. Meaningful work, implementation, process cooperation, campaign inspire.</p>
+                        //                         </div>
+						//
+                        //                         <div class="col-md-4 bottommargin portfolio-element">
+                        //                             <i class="fa fa-globe fa-4x color inline-block"></i>
+                        //                             <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                        //                                 <h4>Powerful Performance</h4>
+                        //                                 <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
+                        //                             </div>
+                        //                             <p>Medecins du Monde Jane Addams reduce child mortality challenges Ford Foundation. Diversification shifting landscape advocate pathway to a better life rights international. Assessment.</p>
+                        //                         </div>
+						//
+                        //                         <div class="col-md-4 bottommargin portfolio-element">
+                        //                             <i class="fa fa-globe fa-4x color inline-block"></i>
+                        //                             <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                        //                                 <h4>Truly Multipurpose</h4>
+                        //                                 <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
+                        //                             </div>
+                        //                             <p>Democracy inspire breakthroughs, Rosa Parks; inspiration raise awareness natural resources. Governance impact; transformative donation philanthropy, respect reproductive.</p>
+                        //                         </div>
+                        //                         <div class="col-md-4 bottommargin portfolio-element">
+                        //                             <i class="fa fa-globe fa-4x color inline-block"></i>
+                        //                             <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                        //                                 <h4>Responsive &amp; Retina 2</h4>
+                        //                             </div>
+                        //                             <p>Employment respond committed meaningful fight against oppression social challenges rural legal aid governance. Meaningful work, implementation, process cooperation, campaign inspire.</p>
+                        //                         </div>
+						//
+                        //                         <div class="col-md-4 bottommargin portfolio-element">
+                        //                             <i class="fa fa-globe fa-4x color inline-block"></i>
+                        //                             <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                        //                                 <h4>Powerful Performance 2</h4>
+                        //                                 <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
+                        //                             </div>
+                        //                             <p>Medecins du Monde Jane Addams reduce child mortality challenges Ford Foundation. Diversification shifting landscape advocate pathway to a better life rights international. Assessment.</p>
+                        //                         </div>
+						//
+                        //                         <div class="col-md-4 bottommargin portfolio-element">
+                        //                             <i class="fa fa-globe fa-4x color inline-block"></i>
+                        //                             <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                        //                                 <h4>Truly Multipurpose 2</h4>
+                        //                                 <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
+                        //                             </div>
+                        //                             <p>Democracy inspire breakthroughs, Rosa Parks; inspiration raise awareness natural resources. Governance impact; transformative donation philanthropy, respect reproductive.</p>
+                        //                         </div>
+                        //                     </div>
+                        //                     <div class="pagination-container topmargin nobottommargin">
+                        //                         <ul class="pagination nomargin"></ul>
+                        //                     </div>
+                        //                 </div>-->
+                        //             </div>
+                        //         </div>
+                        //     </div>
+                        // </div>
 
                         <div class="row card-block">
                             <div class="col-sm-12">
@@ -528,13 +552,10 @@
         <!-- Canvas Components JS -->
         <script type="text/javascript" src="js/canvas-components/datepicker.js"></script>
         <script type="text/javascript" src="js/canvas-components/moment.js"></script>
-        <script type="text/javascript" src="js/canvas-components/rangeslider.min.js"></script>
-        <script type="text/javascript" src="js/canvas-components/bs-filestyle.js"></script>
 
         <!-- Script for Google Material Design Lite -->
         <script type="text/javascript" src="js/mdl/material.min.js"></script>
 
-        <script type="text/javascript" src="js/fontawesome-iconpicker.min.js"></script>
 
         <script>
             //Verification Badge

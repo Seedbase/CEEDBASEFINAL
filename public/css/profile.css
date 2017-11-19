@@ -18,12 +18,44 @@
     z-index: 9999;
 }
 
+/* --- Side Panel --- */
+
+.side-push-panel #header {
+	-webkit-transition: right .4s ease;
+	-o-transition: right .4s ease;
+	transition: right .4s ease;
+	left: auto;
+	right: 20px;
+	display: block;
+	position: fixed;
+	cursor: pointer;
+	top: 20px;
+	z-index: 11;
+	font-size: 16px;
+	width: 32px;
+	height: 32px;
+	line-height: 32px;
+	background-color: #FFF;
+	text-align: center;
+	border-radius: 2px;
+}
+
+.side-push-panel #header-wrap {
+	height: 32px;
+}
+
 /* --- Iconpicker popover --- */
 
 .iconpicker-popover.popover {
     max-width: 100%;
     width: 100%;
 }
+
+/* --- Datepicker --- */
+
+/*.datepicker {
+	z-index: 9999!important;
+}*/
 
 /* --- Custom CSS for MDL Lite --- */
 
@@ -44,6 +76,19 @@
     top: 4px;
     visibility: visible;
     margin-bottom: 5px;
+}
+
+.mdl-dialog__close {
+	position: absolute;
+	right: 16px;
+	top: 16px;
+}
+
+dialog {
+  position: fixed;
+  top: 50%;
+  transform: translate(0, -50%);
+  z-index: 7000!important;
 }
 
 /* --- Profile Header --- */
@@ -78,14 +123,20 @@ h4.custom-heading {
 }
 
 .img-container {
-    min-width: 250px;
     max-width: 250px;
+	width: 250px;
+	max-height: 250px;
+	height: 250px;
+	display: table-cell;
+	vertical-align: middle;
 }
 
 .img-container img {
     object-fit: cover;
-    width: 100%;
+    width: auto;
     height: auto;
+	margin: auto;
+	display: block;
 }
 
 /* --- Skills --- */
@@ -117,16 +168,16 @@ h4.custom-heading {
 
 /* --- Editable Content --- */
 
-.edit-content,
+/*.edit-content,
 .remove-content {
     display: none;
-}
+}*/
 
 /*.main-content:hover {*/
     /*box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);*/
 /*}*/
 
-.main-content:hover .edit-content,
+/*.main-content:hover .edit-content,
 .main-content:hover .remove-content {
     display: inline;
 }
@@ -140,7 +191,7 @@ h4.custom-heading {
     top: -12px;
     right: -50px;
     opacity: 0;
-}
+}*/
 
 /* -- Experiment from Bootstrap using flex -- */
 .row-eq-height {
@@ -230,6 +281,13 @@ h4.custom-heading {
     font-size: 12px;
     line-height: 1.2em;
     color: #2eca7f;
+    margin-bottom: 8px;
+}
+
+.timeline-item .item-institute {
+	display: block;
+    font-size: 12px;
+    line-height: 1.2em;
     margin-bottom: 8px;
 }
 
