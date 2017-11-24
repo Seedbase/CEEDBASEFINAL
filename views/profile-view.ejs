@@ -70,7 +70,7 @@
                                 <div class="col-sm-6"><h4 class="custom-heading">Hello, I'm</h4></div>
                                 <div class="col-sm-12">
                                     <div class="mdl-textfield mdl-js-textfield full-width profile-name">
-                                        <input class="mdl-textfield__input" type="text" id="introText1" disabled value="<%= user.displayName %>">
+                                        <input class="mdl-textfield__input" disabled type="text" id="introText1" disabled value="<%= user.displayName %>">
                                         <label class="mdl-textfield__label" for="introText1">Full Name</label>
                                     </div>
                                 </div>
@@ -80,9 +80,9 @@
                                 <div class="col-sm-5-custom">
                                     <div class="mdl-textfield mdl-js-textfield full-width">
 										<% if (user.profile && user.profile.introText) { %>
-                                        	<input class="mdl-textfield__input" type="text" id="introText2" value="<%=user.profile.introText[2]%>">
+                                        	<input class="mdl-textfield__input" disabled type="text" id="introText2" value="<%=user.profile.introText[2]%>">
 										<% } else { %>
-											<input class="mdl-textfield__input" type="text" id="introText2" value="">
+											<input class="mdl-textfield__input" disabled type="text" id="introText2" value="">
 										<% } %>
                                         <label class="mdl-textfield__label" for="introText2">Designer</label>
                                     </div>
@@ -91,9 +91,9 @@
                                 <div class="col-sm-5-custom">
                                     <div class="mdl-textfield mdl-js-textfield full-width">
 										<% if (user.profile && user.profile.introText) { %>
-                                        	<input class="mdl-textfield__input" type="text" id="introText3" value="<%=user.profile.introText[3]%>">
+                                        	<input class="mdl-textfield__input" disabled type="text" id="introText3" value="<%=user.profile.introText[3]%>">
 										<% } else { %>
-											<input class="mdl-textfield__input" type="text" id="introText3" value="">
+											<input class="mdl-textfield__input" disabled type="text" id="introText3" value="">
 										<% } %>
                                         <label class="mdl-textfield__label" for="introText3">Designer</label>
                                     </div>
@@ -150,7 +150,7 @@
                                         <div class="row">
 											<div class="col-sm-12">
                                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 90%;">
-                                                    <textarea class="mdl-textfield__input autoresize" type="text" rows="4" id="passion" maxlength="200" style="overflow: hidden; max-width:100%;"><%= user.profile ? user.profile.passion : '' %></textarea>
+                                                    <textarea class="mdl-textfield__input autoresize" disabled type="text" rows="4" id="passion" maxlength="200" style="overflow: hidden; max-width:100%;"><%= user.profile ? user.profile.passion : '' %></textarea>
                                                     <label class="mdl-textfield__label" for="passion">Describe your passion</label>
                                                 </div>
                                             </div>

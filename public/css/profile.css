@@ -51,10 +51,14 @@
     width: 100%;
 }
 
+/*.mdl-dialog {
+	overflow: visible;
+}*/
+
 /* --- Datepicker --- */
 
 /*.datepicker {
-	z-index: 9999!important;
+	z-index: 9999999;
 }*/
 
 /* --- Custom CSS for MDL Lite --- */
@@ -78,6 +82,10 @@
     margin-bottom: 5px;
 }
 
+.mdl-dialog {
+	z-index: 9999;
+}
+
 .mdl-dialog__close {
 	position: absolute;
 	right: 16px;
@@ -88,7 +96,6 @@ dialog {
   position: fixed;
   top: 50%;
   transform: translate(0, -50%);
-  z-index: 7000!important;
 }
 
 /* --- Profile Header --- */
