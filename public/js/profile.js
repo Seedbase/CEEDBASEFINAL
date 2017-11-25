@@ -210,19 +210,18 @@
 
 			//Get skills container
             var skillsUl = $('.skills');
-            //var skillsCount = $(skillsUl).children('.skill-item').length;
-            var skillsId = skillCount + 1;
+			skillCount++;
+            var skillsId = skillCount;
             var materializedSkill;
 
 			//Get container and fields for creating a new skill
-            var addSkillContainer = $('#add-a-skill');
-            var skillTitle = $(addSkillContainer).find('input#skill-name');
-            var skillTitleValue = $(skillTitle).val();
-            var skillRating = $(addSkillContainer).find('input#skill-rating-content');
-            var skillRatingValue = $(skillRating).val();
+            //var addSkillContainer = $('#add-a-skill');
+            var skillTitle = $('#skill-name').val();
+            //var skillTitleValue = $(skillTitle).val();
+            var skillRating = $('#skill-rating').val();
+            //var skillRatingValue = $(skillRating).val();
 
 			//Get edit dialog and main-content for new skill
-			var dialog;
 			var mainContent;
 
             //Clone #skill-template element and materialize it
@@ -234,40 +233,39 @@
             materializedSkill = materialize(clonedSkill);
             upgradeMaterialized(materializedSkill);
 
-			dialog = $(materializedSkill).find('.editable-content');
+		//	dialog = $(materializedSkill).find('.editable-content');
 			mainContent = $(materializedSkill).find('.main-content');
 
 			//For main content
             $(mainContent).find('span.skill-title')
-                .text(skillTitleValue)
+                .text(skillTitle)
                 .attr({
 					'data-badge': 0,
 					'id': 'skill-title' + skillsId
 				});
             $(mainContent).find('li')
                 .removeClass('skills-animated')
-                .attr('data-percent', skillRatingValue);
+                .attr('data-percent', skillRating);
             $(mainContent).find('span.skill-range')
                 .attr({
-                    'data-to': skillRatingValue,
+                    'data-to': skillRating,
                     'id': 'skill-range' + skillsId
                 });
+
 			$(mainContent).find('.edit-skill-button').on('click', function() {
-				dialog[0].show();
+				uploadSkill(skillsId);
+				editSkillDialog.showModal();
 			});
 
 			//For dialog
-            $(dialog).find('input.skill-range-slider-template')
-                .attr({
-                    'id': 'skill-range-input' + skillsId,
-                    'name': 'skill-range-input' + skillsId
-                });
-            $(dialog).find('input.mdl-textfield__input')
-                .val(skillTitleValue)
-				.attr('id', 'skill-title-input' + skillsId);
-			$(dialog).find('.close').on('click', function() {
-				dialog[0].close();
-			});
+            // $(dialog).find('input.skill-range-slider-template')
+            //     .attr({
+            //         'id': 'skill-range-input' + skillsId,
+            //         'name': 'skill-range-input' + skillsId
+            //     });
+            // $(dialog).find('input.mdl-textfield__input')
+            //     .val(skillTitleValue)
+			// 	.attr('id', 'skill-title-input' + skillsId);
 
 			//Append new skill to container
             $(skillsUl).append(materializedSkill);
@@ -279,15 +277,15 @@
             $(materializedSkill).show(100, function() {
                 $(this).find('.main-content span.skill-range').countTo();
                 $('#skill-range-input' + skillsId).ionRangeSlider({
-                    from: parseInt(skillRatingValue)
+                    from: parseInt(skillRating)
                 });
             });
 
             //Add skill to db
             var skillSet = {
 				id: 'skill' + skillsId,
-                skill: $(skillTitle).val(),
-                rating: skillRatingValue,
+                skill: skillTitle,
+                rating: skillRating,
                 verifiedCount: 0
             };
 
@@ -300,64 +298,90 @@
             }
 
             //Reset input fields for creating a new skill
-            $('#skill-rating-content').data("ionRangeSlider").update({from: 10});
-            $('#skill-name').val('');
+            $('#skill-rating').data("ionRangeSlider").update({from: 10});
+            clearFields(addSkillDialog);
         });
 
-        $('.save-skill-button').on('click', function() {
-			var dialog = $(this).parents('.editable-content');
-            var mainContent = $(dialog).siblings('.main-content');
-			var skillId = $(this).parents('.skill-item').attr('id');
-            var newSkillName = $(dialog).find('.mdl-textfield__input').val();
-            var newSkillRatingValue = $(dialog).find('.skill-range-slider-template').val();
+		function uploadSkill(skillId) {
+			$(editSkillDialog).attr('data-dataID', skillId);
+			var skills = profile.skills;
+			var data;
+
+			for (var i = 0; i < skills.length; i++) {
+				if (skills[i].id == 'skill' + skillId) {
+					data = skills[i];
+					break;
+				}
+			}
+
+			$('#edit-skill-name')
+				.val(data.skill)
+				.parents('.mdl-textfield').addClass('is-dirty');
+			$('#edit-skill-rating').data('ionRangeSlider').update({from: parseInt(data.rating)});
+		}
+
+        $('#save-skill-button').on('click', function() {
+			//var dialog = $(this).parents('.editable-content');
+			var id = $(editSkillDialog).attr('data-dataID');
+            var mainContent = $('#skill' + id);
+			//var skillId = $(this).parents('.skill-item').attr('id');
+            var newSkillName = $('#edit-skill-name').val();
+            var newSkillRating = $('#edit-skill-rating').val();
 
 			//Update main content fields
             $(mainContent).find('span.skill-title').text(newSkillName);
             $(mainContent).find('li')
                 .removeClass('skills-animated')
-                .attr('data-percent', newSkillRatingValue)
+                .attr('data-percent', newSkillRating)
                 .css('width', '');
             var prev = $(mainContent).find('span.skill-range').attr('data-to');
             $(mainContent).find('span.skill-range').attr({
-                'data-to': newSkillRatingValue,
+                'data-to': newSkillRating,
                 'data-from': prev
             });
             setTimeout(function() {
                 SEMICOLON.widget.progress();
                 $(mainContent).find('span.skill-range').countTo({
                     'from': parseInt(prev),
-                    'to': parseInt(newSkillRatingValue)
+                    'to': parseInt(newSkillRating)
                 });
             }, 100);
 
 			//Update skill JSONObject
 			var skills = profile.skills;
 			for (var i = 0; i < profile.skills.length; i++) {
-				if (profile.skills[i].id == skillId) {
+				if (profile.skills[i].id == 'skill' + id) {
 					profile.skills[i].skill = newSkillName;
-					profile.skills[i].rating = parseInt(newSkillRatingValue);
+					profile.skills[i].rating = parseInt(newSkillRating);
 					break;
 				}
 			}
 
 			//Close dialog
-			dialog[0].close();
+			editSkillDialog.close();
+			clearFields(editSkillDialog);
+			$('#edit-skill-rating').data('ionRangeSlider').update({from: 10});
         });
 
         // $('.cancel-skill-button').on('click', function() {
         //     $(this).parent('editable-content').addClass('hide-content');
         // });
 
-        $('.skill-item .remove-content').on('click', function() {
-            var skillsItem = $(this).parents('.skill-item');
-			var skillId = $(skillsItem).attr('id');
+        $('#delete-skill-button').on('click', function() {
+			var id = $(editSkillDialog).attr('data-dataID');
+            var skillsItem = $('#skill' + id);
 
 			//Get index of JSONObject in profile.skills JSONArray
-			var index = getIndexFromJSONArray(profile.skills, skillId);
+			var index = getIndexFromJSONArray(profile.skills, 'skill' + id);
 
             //Remove skill
             profile.skills.splice(index, 1);
             $(skillsItem).remove();
+
+			//Clear dialog and fields
+			clearFields(editSkillDialog);
+			$('#edit-skill-rating').data('ionRangeSlider').update({from: 10});
+			editSkillDialog.close();
         });
 
         // --- Projects ---
@@ -374,7 +398,8 @@
             var projectTimeline = $('#project-timeline');
 
 			//Get new project ID
-            var projectId = projectCount + 1;
+			projectCount++;
+            var projectId = projectCount;
 
 			//Get template to clone
 			var projectTemplate = $('#project-template');
@@ -426,9 +451,6 @@
 			$(mainContent).find('.edit-project-button').on('click', function() {
 				uploadProjectData(projectId);
 				editProjectDialog.showModal();
-			});
-			$(dialog).find('.close').on('click', function() {
-				editProjectDialog.close();
 			});
 
             //Add project to DB
@@ -534,7 +556,8 @@
 
         $('#add-edu-button').on('click', function() {
             var eduTimeline = $('#education-timeline');
-            var eduId = educationCount + 1;
+			educationCount++;
+            var eduId = educationCount;
 
 			var mainContent;
 
@@ -671,7 +694,8 @@
 
         $('#add-service-button').on('click', function() {
             var servicesContainer = $('#services-component');
-            var serviceId = servicesCount + 1;
+			servicesCount++;
+            var serviceId = servicesCount;
 
 			var mainContent;
 
@@ -683,7 +707,7 @@
 
             var serviceTitle = $('#service-title').val();
             var serviceDesc = $('#service-desc').val();
-            var serviceIcon = $('#service-icon-selector').attr('data-selected');
+            var serviceIcon = $('#service-iconpicker').attr('data-selected');
 
             var materializedService = materialize(serviceClone);
             upgradeMaterialized(materializedService);
@@ -712,9 +736,7 @@
 			});
 			$(dialog).find('.close').on('click', function() {
 				clearFields(editServiceDialog);
-				$('#edit-service-icon-selector').iconpicker({
-	                selected: false
-	            });
+				$('#edit-service-iconpicker').iconpicker('setIcon', 'fa-');
 				editServiceDialog.close();
 			});
 
@@ -739,7 +761,7 @@
 
             //Reset input fields for creating a new service item
             clearFields(addServiceDialog);
-            $('#service-icon-selector').iconpicker();
+            $('#service-iconpicker').iconpicker('setIcon', 'fa-');
 
         });
 
@@ -761,9 +783,7 @@
 			$('#edit-service-desc')
 				.val(data.description)
 				.parents('.mdl-textfield').addClass('is-dirty');
-			$('#edit-service-icon-selector').iconpicker({
-				selected: data.serviceIcon
-			});
+			$('#edit-service-iconpicker').iconpicker('setIcon', data.icon);
 		}
 
         $('#save-service-button').on('click', function() {
@@ -772,7 +792,7 @@
 
 			var newServiceTitle = $('#edit-service-title').val();
 			var newServiceDesc = $('#edit-service-desc').val();
-			var newServiceIcon = $('#edit-service-icon-selector').attr('data-selected');
+			var newServiceIcon = $('#edit-service-iconpicker').attr('data-selected');
 
             $(mainContent).find('.service-title').text(newServiceTitle);
             $(mainContent).find('.service-desc').text(newServiceDesc);
@@ -791,7 +811,7 @@
 
 			//Clear fields and close dialog
 			clearFields(editServiceDialog);
-			$('#edit-service-icon-selector').iconpicker();
+			$('#edit-service-iconpicker').iconpicker('setIcon', 'fa-');
 			editServiceDialog.close();
         });
 
@@ -806,7 +826,7 @@
 
 			//Clear fields and close dialog
 			clearFields(editServiceDialog);
-			$('#edit-service-icon-selector').iconpicker();
+			$('#edit-service-iconpicker').iconpicker('setIcon', 'fa-');
 			editServiceDialog.close();
         });
 

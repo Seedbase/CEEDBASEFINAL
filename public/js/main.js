@@ -100,7 +100,7 @@ Version: 1.0
                 for (var index = 0; index < response.length; index++) {
                     unreadMessages.push(response[index].creative);
                 }
-            }node
+            }
         });
         $('#notificationLink').click(function () {
             var requestData = {messages: unreadMessages}
