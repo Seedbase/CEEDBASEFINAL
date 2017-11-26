@@ -161,56 +161,78 @@ Version: 1.0
             var profile;
             var userObj = JSON.parse($('#userProfileObject').text());
             e.preventDefault();
+
+			/*
+			TODO: there may be many authentications - currently only the recent authenticatorOrganisationName is recorded
+			may need to modify to include list of authenticators for skill, learning, service, education, and project element in profile
+			*/
+
             if (userObj.profile) {
                 if (userObj.profile.skills) {
                     for (var index = 0; index < userObj.profile.skills.length; index++) {
-                        if ($('#skill'+index).hasClass('verified'))) {
+                        if ($('#skill'+(index+1)).hasClass('verified'))) {
 						//if ($('#skill'+index).is(":checked")) {
                              userObj.profile.skills[index].isAuthenticated = true;
                             userObj.profile.skills[index].authenticatedBy = $('#authenticatorOrganisationName').val();
                             userObj.isUserSkillsAuthenticated = true;
+							userObj.profile.skills[index].verifiedCount++;
                         }
                     }
                 }
 
                 if (userObj.profile.externalLinks) {
                     for (var index = 0; index < userObj.profile.externalLinks.length; index++) {
-                        if ($('#externalLink'+index).is(":checked")) {
+                        if ($('#learning'+(index+1)).is(":checked")) {
                             userObj.profile.externalLinks[index].isAuthenticated = true;
                             userObj.profile.externalLinks[index].authenticatedBy = $('#authenticatorOrganisationName').val();
                             userObj.isUserExternalLinksAuthenticated = true;
+							userObj.profile.externalLinks[index].verifiedCount++;
                         }
                     }
                 }
 
                 if (userObj.profile.services) {
                     for (var index = 0; index < userObj.profile.services.length; index++) {
-                        if ($('#service'+index).hasClass('verified')) {
+                        if ($('#service'+(index+1)).hasClass('verified')) {
 						//if ($('#service'+index).is(":checked")) {
                             userObj.profile.services[index].isAuthenticated = true;
                             userObj.profile.services[index].authenticatedBy = $('#authenticatorOrganisationName').val();
                             userObj.isUserServicesAuthenticated = true;
+							userObj.profile.services[index].verifiedCount++;
                         }
                     }
                 }
 
-                if (userObj.profile.portfolios) {
-                    for (var index = 0; index < userObj.profile.portfolios.length; index++) {
-                        if ($('#portfolio'+index).is(":checked")) {
-                            userObj.profile.portfolios[index].isAuthenticated = true;
-                            userObj.profile.portfolios[index].authenticatedBy = $('#authenticatorOrganisationName').val();
-                            userObj.isUserPortfoliosAuthenticated = true;
-                        }
-                    }
-                }
+                // if (userObj.profile.portfolios) {
+                //     for (var index = 0; index < userObj.profile.portfolios.length; index++) {
+                //         if ($('#portfolio'+index).is(":checked")) {
+                //             userObj.profile.portfolios[index].isAuthenticated = true;
+                //             userObj.profile.portfolios[index].authenticatedBy = $('#authenticatorOrganisationName').val();
+                //             userObj.isUserPortfoliosAuthenticated = true;
+                //         }
+                //     }
+                // }
 
                 if (userObj.profile.experiences) {
                     for (var index = 0; index < userObj.profile.experiences.length; index++) {
                         //if ($('#experience'+index).is(":checked")) {
-						if ($('#experience'+index).hasClass('verified')) {
+						if ($('#project'+(index+1)).hasClass('verified')) {
                             userObj.profile.experiences[index].isAuthenticated = true;
                             userObj.profile.experiences[index].authenticatedBy = $('#authenticatorOrganisationName').val();
                             userObj.isUserExperiencesAuthenticated = true;
+							userObj.profile.experiences[index].verifiedCount++;
+                        }
+                    }
+                }
+
+				if (userObj.profile.educations) {
+                    for (var index = 0; index < userObj.profile.educations.length; index++) {
+                        //if ($('#experience'+index).is(":checked")) {
+						if ($('#edu'+(index+1)).hasClass('verified')) {
+                            userObj.profile.educations[index].isAuthenticated = true;
+                            userObj.profile.educations[index].authenticatedBy = $('#authenticatorOrganisationName').val();
+                            userObj.isUserEducationsAuthenticated = true;
+							userObj.profile.educations[index].verifiedCount++;
                         }
                     }
                 }
@@ -252,6 +274,8 @@ Version: 1.0
                 user: userObj,
                 authenticator: authenticatorObj
             };
+
+			//TODO: when authenticating profile, must increment each verifiedCount
 
             console.log(requestData);
             $.ajax({

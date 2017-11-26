@@ -59,9 +59,9 @@ app.get('/', function (req,  res) {
 		else {
 			res.render('index', {users: users});
 		}
-		
+
 	})
-    
+
 });
 
 app.get('/login', function (req, res) {
@@ -95,7 +95,7 @@ app.get('/profile/authentication', function (req, res) {
 		} else
 			res.render('common-error', {error: 'Something went wrong. Pleae try again.'});
 	});
-	
+
 });
 
 app.get('/profile/view', function (req, res) {
@@ -108,7 +108,7 @@ app.get('/profile/view', function (req, res) {
 		else
 			res.render('common-error', {error: 'Something went wrong. Pleae try again.'});
 	});
-	
+
 });
 app.get('/profile/interest', function (req, res) {
 	res.render('profile-interest');
@@ -151,7 +151,7 @@ app.post('/api/profile/video/upload', function (req, res) {
 	    });
 	}
 
-  	function onUploadSuccess () {    
+  	function onUploadSuccess () {
     	res.json({success: true, newUuid: newUUID, size: size, name: name, url: profileVideoURL});
     	return true;
   	}
@@ -231,7 +231,7 @@ app.post('/profile/authentication/request', function(req, res) {
 				      res.render('profile' , {user:user});
 				    }
 			  	});
-			});  
+			});
 		});
 	});
 });
@@ -311,7 +311,7 @@ app.post('/profile/authenticate/complete/user', function(req, res) {
 	});
 });
 
-app.get('/client-form', function (req, res) {	
+app.get('/client-form', function (req, res) {
     res.render('clientForm');
 });
 
@@ -327,7 +327,7 @@ app.post('/api/client/job/upload', function (req, res) {
     .catch(function (err) {
       res.json(err);
     });
-	
+
 	function uploadFile () {
 	    return new Promise(function (resolve, reject) {
 	        upload(req, res, function (uploadError) {
@@ -346,7 +346,7 @@ app.post('/api/client/job/upload', function (req, res) {
 	    });
 	}
 
-  	function onUploadSuccess () {    
+  	function onUploadSuccess () {
     	res.json({success: true, newUuid: newUUID, size: size, name: name, url: jobFileUrl});
     	return true;
   	}
@@ -387,8 +387,8 @@ app.post('/api/client/profile/request', function(req, res) {
 			    if (err){
 			    	console.log(err);
 			    	res.render('clientForm');
-			    }		    	
-			     
+			    }
+
 			    else {
 			      res.json('success');
 			    }
@@ -427,12 +427,12 @@ app.get('/client/verification', function (req, res) {
 				if (err)
 					res.render('common-error', {error: 'Something went wrong. Pleae try again.'});
 				res.redirect('/')
-				
+
 			});
 		} else
 			res.render('common-error', {error: 'Something went wrong. Pleae try again.'});
 	});
-	
+
 });
 
 var MessageModel = require('./models/messageModel');
@@ -585,6 +585,16 @@ app.get('/terms-of-use', function(req, res) {
 
 app.get('/privacy-policy', function(req, res) {
     res.render('privacyPolicy');
+});
+
+/* Temporary - TO BE REMOVED */
+
+app.get('/profile-view-temp', function(req, res) {
+	res.render('profile-view');
+});
+
+app.get('/profile-authentication-temp', function(req, res) {
+	res.render('profile-authentication');
 });
 
 app.listen(3000, function () {
