@@ -387,7 +387,7 @@ a:hover, a:focus {
 }
 .page-topbar .dropdown-menu:after, .page-topbar .dropdown-menu:before {
     bottom: 100%;
-    right: 22px; /*Changed from left*/
+    right: 11px; /*Changed from left: 22px*/
     border: solid transparent;
     content: " ";
     height: 0;

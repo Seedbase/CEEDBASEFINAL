@@ -52,7 +52,7 @@
 
     </head>
 
-    <body class="stretched side-push-panel">
+    <body class="stretched">
         <!-- LOADER -->
         <div class="loader-wrapper">
             <div class="loader"></div>
@@ -79,44 +79,88 @@
 
 		<div id="side-panel" style="top: 60px;">
 				<div class="side-panel-wrap">
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="mdl-textfield mdl-js-textfield full-width mdl-textfield--floating-label">
-								<input class="mdl-textfield__input" type="text" id="changeEmail" value="">
-								<label class="mdl-textfield__label" for="changeEmail">Email</label>
+					<h6>Manage this user account</h6>
+					<form>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="mdl-textfield mdl-js-textfield full-width mdl-textfield--floating-label">
+									<input class="mdl-textfield__input" type="email" id="changeEmail1" value="">
+									<label class="mdl-textfield__label" for="changeEmail1">New email</label>
+								</div>
 							</div>
 						</div>
-					</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="mdl-textfield mdl-js-textfield full-width mdl-textfield--floating-label">
+									<input class="mdl-textfield__input" type="email" id="changeEmail2" value="">
+									<label class="mdl-textfield__label" for="changeEmail2">Re-enter email</label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="mdl-textfield mdl-js-textfield full-width mdl-textfield--floating-label">
+									<input class="mdl-textfield__input" type="password" id="changePassword1" value="">
+									<label class="mdl-textfield__label" for="changePassword1">New password</label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="mdl-textfield mdl-js-textfield full-width mdl-textfield--floating-label">
+									<input class="mdl-textfield__input" type="password" id="changePassword2" value="">
+									<label class="mdl-textfield__label" for="changePassword2">Re-enter password</label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<button class="mdl-button mdl-js-button" type="submit">
+								  Save Changes
+								</button>
+								<button class="mdl-button mdl-js-button">
+								  Cancel
+								</button>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
 
 		<div class='page-topbar'>
-			<div class="logo-area">
-
-			</div>
+			<div class="logo-area"></div>
             <div class='quick-area'>
                 <div class='pull-right'>
                     <ul class="info-menu right-links list-inline list-unstyled">
                         <li class="notify-toggle-wrapper">
-                            <a href="#" data-toggle="dropdown" class="toggle">
+                            <a href="#" id="notificationLink" data-toggle="dropdown" class="toggle" style="margin: 0px;">
                                 <i class="fa fa-bell"></i>
-                                <span class="badge badge-accent">3</span>
+                                <span class="badge badge-accent messageCounter">3</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right notifications animated fadeIn">
                                 <li class="total">
                                     <span class="small">
-                                        You have <strong>3</strong> new messages.
-                                        <%# <a href="javascript:;" class="pull-right">Mark all as Read</a>%>
+                                        You have <strong class="messageCounter">3</strong> new messages.
                                     </span>
                                 </li>
                                 <li class="list">
-									<ul class="dropdown-menu-list list-unstyled ps-scrollbar">
+									<ul class="dropdown-menu-list list-unstyled ps-scrollbar" id="messageUl">
+										<li id="messageTemplate" class="hide-content">
+											<div>
+												<span class="name">
+													<strong id="messageName"></strong>
+													<%# <span class="time small" id="messageTime"></span>%>
+												</span>
+												<span class="desc small" id="messageDesc">
+												</span>
+											</div>
+										</li>
 										<li>
 											<div>
 												<span class="name">
 													<strong>Clarine Vassar</strong>
-													<span class="time small">- 15 mins ago</span>
+													<%# <span class="time small">- 15 mins ago</span>%>
 												</span>
 												<span class="desc small">
 													Sometimes it takes a lifetime to win a battle.
@@ -127,18 +171,18 @@
 											<div>
 												<span class="name">
 													<strong>Brooks Latshaw</strong>
-													<span class="time small">- 45 mins ago</span>
+													<%# <span class="time small">- 45 mins ago</span>%>
 												</span>
 												<span class="desc small">
 													Sometimes it takes a lifetime to win a battle.
 												</span>
 											</div>
 										</li>
-										<li class="">
+										<li>
 											<div>
 												<span class="name">
 													<strong>Clementina Brodeur</strong>
-													<span class="time small">- 1 hour ago</span>
+													<%# <span class="time small">- 1 hour ago</span>%>
 												</span>
 												<span class="desc small">
 													Sometimes it takes a lifetime to win a battle.
@@ -168,36 +212,30 @@
         </div>
 
         <div id="wrapper" class="clearfix">
-
-            <%# <div id="header-trigger"><i class="icon-line2-settings"></i><i class="icon-line-cross"></i></div>%>
-
-            <!-- Side Menu -->
-            <%# <header id="header">
-                <div id="header-wrap">
-                    <div class="clearfix">
-						<div id="primary-menu-trigger"><i class="icon-line2-settings"></i></div>
-						<nav id="primary-menu" class="dark">
-							<div id="side-panel-trigger" class="side-panel-trigger"><a href="#"><i class="icon-reorder"></i></a></div>
-						</nav>
-                    </div>
-                </div>
-            </header>%>
-
             <section id="intro" class="clearfix section notopborder nomargin">
                 <div class="container input-date-group">
                     <div class="row">
                         <div id="intro-img" class="col-md-3">
+							<%if (user.isUserProfileAuthenticated) { %>
+							<span class="badge badge-accent" id="profile-badge">
+								<img src="/images/partners/verify-shield.png">
+							</span>
+							<div class="mdl-tooltip" data-mdl-for="profile-badge">
+								Profiled Verified by <%= user.userProfileAuthenticatedBy %>
+							</div>
+							<% } %>
                             <div class="img-container">
-                                <img src="<%= user.image %>" class="center-content" alt="Avatar">
+                                <img src="<%= user.image %>" class="center" alt="Avatar">
                             </div>
                         </div>
-                        <div id="intro-profile" class="col-md-9 reduce-padding">
+                        <div id="intro-profile" class="col-md-9">
                             <div class="row form-horizontal">
                                 <div class="col-sm-6"><h4 class="custom-heading">Hello, I'm</h4></div>
                                 <div class="col-sm-12">
                                     <div class="mdl-textfield mdl-js-textfield full-width profile-name">
-                                        <input class="mdl-textfield__input" type="text" id="introText1" value="<%= user.displayName %>">
+                                        <input class="mdl-textfield__input" type="text" id="introText1" value="<%= user.displayName %>" pattern="^[a-zA-Z][a-zA-Z0-9-_\.\s]{1,30}$">
                                         <label class="mdl-textfield__label" for="introText1">Full Name</label>
+										<span class="mdl-textfield__error">Input can only contain digits, letters and spaces!</span>
                                     </div>
                                 </div>
                             </div>
@@ -206,22 +244,24 @@
                                 <div class="col-sm-5-custom">
                                     <div class="mdl-textfield mdl-js-textfield full-width">
 										<% if (user.profile && user.profile.introText) { %>
-                                        	<input class="mdl-textfield__input" type="text" id="introText2" value="<%=user.profile.introText[2]%>">
+                                        	<input class="mdl-textfield__input" type="text" id="introText2" value="<%=user.profile.introText[2]%>" pattern="^[a-zA-Z][a-zA-Z0-9-_\.\s]{1,20}$">
 										<% } else { %>
-											<input class="mdl-textfield__input" type="text" id="introText2" value="">
+											<input class="mdl-textfield__input" type="text" id="introText2" value="" pattern="^[a-zA-Z][a-zA-Z0-9-_\.\s]{1,20}$">
 										<% } %>
-                                        <label class="mdl-textfield__label" for="introText2">Designer</label>
+                                        <label class="mdl-textfield__label" for="introText2">Developer</label>
+										<span class="mdl-textfield__error">Input can only contain digits, letters and spaces!</span>
                                     </div>
                                 </div>
                                 <div class="col-sm-1" style="text-align: center; padding-top: 4px;">and</div>
                                 <div class="col-sm-5-custom">
                                     <div class="mdl-textfield mdl-js-textfield full-width">
 										<% if (user.profile && user.profile.introText) { %>
-                                        	<input class="mdl-textfield__input" type="text" id="introText3" value="<%=user.profile.introText[3]%>">
+                                        	<input class="mdl-textfield__input" type="text" id="introText3" value="<%=user.profile.introText[3]%>" pattern="^[a-zA-Z][a-zA-Z0-9-_\.\s]{1,20}$">
 										<% } else { %>
-											<input class="mdl-textfield__input" type="text" id="introText3" value="">
+											<input class="mdl-textfield__input" type="text" id="introText3" value="" pattern="^[a-zA-Z][a-zA-Z0-9-_\.\s]{1,20}$">
 										<% } %>
                                         <label class="mdl-textfield__label" for="introText3">Designer</label>
+										<span class="mdl-textfield__error">Input can only contain digits, letters and spaces!</span>
                                     </div>
                                 </div>
                             </div>
@@ -256,10 +296,9 @@
 
             <div id="content" style="background-color: #F9F9F9;">
                 <div id="content-wrap">
-                    <div class="container clearfix" style="margin: 40px auto; padding: 0 20px;">
-
+                    <div class="container-fluid clearfix" style="margin: 40px auto; padding: 0 20px;">
                         <div class="row card-block">
-                            <div class="col-sm-12">
+                            <div class="col-sm-12 col-md-8 col-md-offset-2">
                                 <div class="demo-card-wide mdl-card mdl-shadow--2dp">
                                     <div class="mdl-card__title">
                                         <h2 class="mdl-card__title-text">About Me</h2>
@@ -268,8 +307,9 @@
                                         <div class="row">
 											<div class="col-sm-12">
                                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 90%;">
-                                                    <textarea class="mdl-textfield__input autoresize" type="text" rows="4" id="passion" maxlength="200" style="overflow: hidden; max-width:100%;"><%= user.profile ? user.profile.passion : '' %></textarea>
+                                                    <textarea class="mdl-textfield__input autoresize" type="text" rows="4" id="passion" maxlength="200" style="overflow: hidden; max-width:100%;" ><%= user.profile ? user.profile.passion : '' %></textarea>
                                                     <label class="mdl-textfield__label" for="passion">Describe your passion</label>
+													<span class="mdl-textfield__error">Input must be defined!</span>
                                                 </div>
                                             </div>
 										</div>
@@ -292,7 +332,7 @@
                         </div>
 
                         <div class="row card-block">
-                            <div class="col-sm-12">
+                            <div class="col-sm-12 col-md-8 col-md-offset-2">
                                 <div class="mdl-card mdl-shadow--2dp">
                                     <div class="mdl-card__title">
                                         <h2 class="mdl-card__title-text">Skills</h2>
@@ -316,42 +356,10 @@
                                                         </li>
                                                     </div>
                                                     <div class="col-sm-2">
-                                                        <a class="edit-skill-button"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                                                        <a class="edit-skill-button edit"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
-											<%# <dialog class="mdl-dialog editable-content">
-												<h4 class="mdl-dialog__title">Edit Skill</h4>
-												<div class="mdl-dialog__close">
-													<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect close">
-														<i class="material-icons">close</i>
-													</button>
-												</div>
-												<div class="mdl-dialog__content">
-													<div class="mdl-dialog__content">
-														<div class="row">
-															<div class="col-sm-12">
-																<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-				                                                    <input class="mdl-textfield__input" type="text" id="" value="" maxlength="40">
-				                                                    <label class="mdl-textfield__label" for="">Skill Name</label>
-				                                                    <span class="mdl-textfield__error">Skill name must be defined!</span>
-				                                                </div>
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-sm-12">
-																<div>
-																	<input id="" name="edit-skill-rating-content" value="" class="skill-range-slider-template" />
-																</div>
-															</div>
-														</div>
-													</div>
-													<div class="mdl-dialog__actions">
-														<button type="button" class="mdl-button save-skill-button">Save</button>
-														<button type="button" class="mdl-button remove-content">Delete</button>
-													</div>
-												</div>
-											</dialog>%>
                                         </div>
 
                                         <ul class="skills row nopadding">
@@ -380,40 +388,9 @@
                                                                     </li>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a class="edit-content edit-skill-button"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                                                                    <a class="edit edit-skill-button"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
                                                                 </div>
                                                             </div>
-                                                        </div>
-														// <dialog class="mdl-dialog editable-content">
-														// 	<h4 class="mdl-dialog__title">Edit Skill</h4>
-														// 	<div class="mdl-dialog__close">
-														// 		<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect close">
-														// 			<i class="material-icons">close</i>
-														// 		</button>
-														// 	</div>
-														// 	<div class="mdl-dialog__content">
-														// 		<div class="mdl-dialog__content">
-														// 			<div class="row">
-														// 				<div class="col-sm-12">
-														// 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							                            //                         <input class="mdl-textfield__input" type="text" id="skill-title-input<%=i%>" value="<%=user.profile.skills[i].skill%>" maxlength="40">
-							                            //                         <label class="mdl-textfield__label" for="skill-title-input<%=i%>">Skill Name</label>
-							                            //                         <span class="mdl-textfield__error">Skill name must be defined!</span>
-							                            //                     </div>
-														// 				</div>
-														// 			</div>
-														// 			<div class="row">
-														// 				<div class="col-sm-12">
-														// 					<input id="skill-range-input<%=i%>" name="skill-range-input<%=i%>" value="<%=user.profile.skills[i].rating%>" class="skill-range-slider" />
-														// 				</div>
-														// 			</div>
-														// 		</div>
-														// 		<div class="mdl-dialog__actions">
-														// 			<button type="button" class="mdl-button save-skill-button">Save</button>
-														// 			<button type="button" class="mdl-button">Delete</button>
-														// 		</div>
-														// 	</div>
-														// </dialog>
                                                         </div>
                                                     </div>
                                                 <% } %>
@@ -430,7 +407,7 @@
                         </div>
 
                         <div class="row card-block">
-							<div class="col-sm-12">
+							<div class="col-sm-12 col-md-8 col-md-offset-2">
                                 <div class="mdl-card mdl-shadow--2dp">
                                     <div class="mdl-card__title">
                                         <h2 class="mdl-card__title-text">Projects</h2>
@@ -443,7 +420,7 @@
                                                     <div class="main-content">
                                                         <span class="material-icons" data-badge=""><h4 class="item-title"></h4></span>
                                                         <div class="item-edit">
-                                                            <a class="edit-project-button"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                            <a class="edit-project-button edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                                         </div>
                                                         <span class="item-period"></span>
                                                         <p class="item-description"></p>
@@ -456,14 +433,14 @@
                                                             <div class="project-item timeline-item" id="project<%=i%>">
                                                                 <div class="main-content">
 																	<% if (user.profile.experiences[i].verifiedCount > 0) { %>
-																	<span class="material-icons mdl-badge" data-badge="<%=user.profile.skills[i].verifiedCount%>">
+																	<span class="material-icons mdl-badge" data-badge="<%=user.profile.experiences[i].verifiedCount%>">
 																	<% } else { %>
 																	<span class="" data-badge="">
 																	<% } %>
 																		<h4 class="item-title"><%= user.profile.experiences[i].title%></h4>
 																	</span>
 																	<div class="item-edit">
-                                                                        <a class="edit-project-content"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                                        <a class="edit-project-button edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                                                     </div>
                                                                     <div class="item-edit">
                                                                         <a><i class="fa fa-pencil" aria-hidden="true"></i></a>
@@ -488,128 +465,125 @@
                             </div>
                         </div>
 
-                        <div class="row card-block">
-							<div class="col-sm-6">
-                                <div class="mdl-card mdl-shadow--2dp">
-                                    <div class="mdl-card__title">
-                                        <h2 class="mdl-card__title-text">Learning</h2>
-                                    </div>
-                                    <div class="mdl-card__supporting-text">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="mdl-card mdl-shadow--2dp">
-                                    <div class="mdl-card__title">
-                                        <h2 class="mdl-card__title-text">Education</h2>
-                                    </div>
-                                    <div class="mdl-card__supporting-text">
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                                <!-- Education Template -->
-                                                <div class="education-item timeline-item hover-component hide-content" id="education-template">
-                                                    <div class="main-content">
-                                                        <h4 class="item-title"></h4>
-                                                        <div class="item-edit">
-                                                            <a class="edit-edu-button"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                        </div>
-														<span class="item-institute"></span>
-                                                        <span class="item-period"></span>
-                                                        <p class="item-description"></p>
-                                                    </div>
-													<%# <dialog class="mdl-dialog editable-content">
-														<h4 class="mdl-dialog__title">Edit Project</h4>
-														<div class="mdl-dialog__close">
-															<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect close">
-																<i class="material-icons">close</i>
-															</button>
-														</div>
-														<div class="mdl-dialog__content">
-	                                                        <div class="row">
-	                                                            <div class="col-sm-12">
-	                                                                <div class="mdl-textfield template-shield-mdl-js-textfield mdl-textfield--floating-label full-width">
-	                                                                    <input class="mdl-textfield__input edu-degree-title-content" type="text" id="">
-	                                                                    <label class="mdl-textfield__label" for="">Degree title</label>
-	                                                                </div>
-	                                                            </div>
+						<div class="row">
+							<div class="col-sm-6 col-md-4 col-md-offset-2">
+								<div class="card-block">
+									<div class="mdl-card mdl-shadow--2dp">
+	                                    <div class="mdl-card__title">
+	                                        <h2 class="mdl-card__title-text">Learning</h2>
+	                                    </div>
+										<div class="mdl-card__supporting-text">
+	                                        <div class="row">
+	                                            <div class="col-sm-12">
+	                                                <!-- Learning Template -->
+	                                                <div class="learning-item timeline-item hover-component hide-content" id="learning-template">
+	                                                    <div class="main-content">
+	                                                        <span class="material-icons" data-badge=""><h4 class="item-title"></h4></span>
+	                                                        <div class="item-edit">
+	                                                            <a class="edit-learning-button edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 	                                                        </div>
-	                                                        <div class="row">
-	                                                            <div class="col-sm-12">
-	                                                                <div class="mdl-textfield template-shield-mdl-js-textfield mdl-textfield--floating-label full-width">
-	                                                                    <input class="mdl-textfield__input edu-institution-content" type="text" id="">
-	                                                                    <label class="mdl-textfield__label" for="">Institution name</label>
-	                                                                </div>
-	                                                            </div>
-	                                                        </div>
-	                                                        <div class="row input-date-group-template">
-	                                                                <div class="col-sm-5">
-	                                                                    <div class="mdl-textfield template-shield-mdl-js-textfield mdl-textfield--floating-label">
-	                                                                        <input class="mdl-textfield__input year edu-date-from-content" placeholder="yyyy" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="">
-	                                                                        <label class="mdl-textfield__label" for="">From</label>
-	                                                                        <span class="mdl-textfield__error">Input is not a number!</span>
-	                                                                    </div>
-	                                                                </div>
-	                                                                <div class="col-sm-5">
-	                                                                    <div class="mdl-textfield template-shield-mdl-js-textfield mdl-textfield--floating-label">
-	                                                                        <input class="mdl-textfield__input year edu-date-to-content" placeholder="yyyy" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="">
-	                                                                        <label class="mdl-textfield__label" for="">To</label>
-	                                                                        <span class="mdl-textfield__error">Input is not a number!</span>
-	                                                                    </div>
-	                                                                </div>
-	                                                        </div>
-	                                                        <div class="row">
-	                                                            <div class="col-sm-12">
-	                                                                <div class="mdl-textfield template-shield-mdl-js-textfield mdl-textfield--floating-label full-width">
-	                                                                    <textarea class="mdl-textfield__input autoresize edu-desc-content" type="text" rows= "1" id="" ></textarea>
-	                                                                    <label class="mdl-textfield__label" for="">Description</label>
-	                                                                </div>
-	                                                            </div>
-	                                                        </div>
-														</div>
-														<div class="mdl-dialog__actions">
-															<button type="button" class="mdl-button save-edu-button">Save</button>
-															<button type="button" class="mdl-button remove-content">Delete</button>
-														</div>%>
-													</dialog>
-                                                </div>
+	                                                        <span class="item-period"></span>
+	                                                        <p class="item-description"></p>
+	                                                    </div>
+	                                                </div>
 
-                                                <div id="education-timeline" class="timeline">
-                                                    <% if (user.profile && user.profile.educations) { %>
-                                                        <% for (var i = 1; i <= user.profile.educations.length; i++) { %>
-                                                            <div class="education-item timeline-item hover-component" id="edu<%=i%>">
-                                                                <div class="main-content">
-																<% if (user.profile.educations[i].verifiedCount > 0) { %>
-																<span class="mdl-badge" data-badge="<%=user.profile[i].verifiedCount%>">
-																<% } else { %>
-																<span class="" data-badge="">
-																<% } %>
-																<h4 class="item-title"><%=user.profile.educations[i].degree%></h4>
-																</span>
-                                                                <div class="item-edit">
-                                                                    <a class="edit-edu-button"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                                </div>
-																<span class="item-institute"><%=user.profile.educations[i].institute%></span>
-                                                                <span class="item-period"><%=user.profile.educations[i].from%> - <%=user.profile.educations[i].to%></span>
-                                                                <p class="item-description"><%=user.profile.educations[i].description%></p>
-                                                                </div>
-                                                            </div>
-                                                        <% } %>
-                                                    <% } %>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-									<div class="mdl-card__menu">
-								    	<button id="add-a-new-edu-button" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-								      		<i class="material-icons">add</i>
-									    </button>
-								  	</div>
-                                </div>
-                            </div>
-                        </div>
+	                                                <div id="learning-timeline" class="timeline">
+	                                                    <% if (user.profile && user.profile.externalLinks) {%>
+	                                                        <% for (var i = 1; i <= user.profile.externalLinks.length; i++) {%>
+	                                                            <div class="project-item timeline-item" id="project<%=i%>">
+	                                                                <div class="main-content">
+																		<% if (user.profile.externalLinks[i].verifiedCount > 0) { %>
+																		<span class="material-icons mdl-badge" data-badge="<%=user.profile.externalLinks[i].verifiedCount%>">
+																		<% } else { %>
+																		<span class="" data-badge="">
+																		<% } %>
+																			<h4 class="item-title"><%= user.profile.externalLinks[i].title%></h4>
+																		</span>
+																		<div class="item-edit">
+	                                                                        <a class="edit-learning-button edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+	                                                                    </div>
+	                                                                    <div class="item-edit">
+	                                                                        <a><i class="fa fa-pencil" aria-hidden="true"></i></a>
+	                                                                        <a><i class="fa fa-remove" aria-hidden="true"></i></a>
+	                                                                    </div>
+	                                                                    <span class="item-period"><%= user.profile.externalLinks[i].from %> - <%= user.profile.externalLinks[i].to %></span>
+	                                                                    <p class="item-description"><%= user.profile.externalLinks[i].description %></p>
+	                                                                </div>
+	                                                            </div>
+	                                                        <% } %>
+	                                                    <% } %>
+	                                                </div>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+										<div class="mdl-card__menu">
+									    	<button id="add-a-new-learning-button" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+									      		<i class="material-icons">add</i>
+										    </button>
+									  	</div>
+	                                </div>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4">
+								<div class="card-block">
+									<div class="mdl-card mdl-shadow--2dp">
+	                                    <div class="mdl-card__title">
+	                                        <h2 class="mdl-card__title-text">Education</h2>
+	                                    </div>
+	                                    <div class="mdl-card__supporting-text">
+	                                        <div class="row">
+	                                            <div class="col-sm-12 col-md-12 col-lg-12">
+	                                                <!-- Education Template -->
+	                                                <div class="education-item timeline-item hover-component hide-content" id="education-template">
+	                                                    <div class="main-content">
+	                                                        <h4 class="item-title"></h4>
+	                                                        <div class="item-edit">
+	                                                            <a class="edit-edu-button edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+	                                                        </div>
+															<span class="item-institute"></span>
+	                                                        <span class="item-period"></span>
+	                                                        <p class="item-description"></p>
+	                                                    </div>
+	                                                </div>
+
+	                                                <div id="education-timeline" class="timeline">
+	                                                    <% if (user.profile && user.profile.educations) { %>
+	                                                        <% for (var i = 1; i <= user.profile.educations.length; i++) { %>
+	                                                            <div class="education-item timeline-item hover-component" id="edu<%=i%>">
+	                                                                <div class="main-content">
+																	<% if (user.profile.educations[i].verifiedCount > 0) { %>
+																	<span class="mdl-badge" data-badge="<%=user.profile.educations[i].verifiedCount%>">
+																	<% } else { %>
+																	<span class="" data-badge="">
+																	<% } %>
+																	<h4 class="item-title"><%=user.profile.educations[i].degree%></h4>
+																	</span>
+	                                                                <div class="item-edit">
+	                                                                    <a class="edit-edu-button edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+	                                                                </div>
+																	<span class="item-institute"><%=user.profile.educations[i].institute%></span>
+	                                                                <span class="item-period"><%=user.profile.educations[i].from%> - <%=user.profile.educations[i].to%></span>
+	                                                                <p class="item-description"><%=user.profile.educations[i].description%></p>
+	                                                                </div>
+	                                                            </div>
+	                                                        <% } %>
+	                                                    <% } %>
+	                                                </div>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+										<div class="mdl-card__menu">
+									    	<button id="add-a-new-edu-button" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+									      		<i class="material-icons">add</i>
+										    </button>
+									  	</div>
+	                                </div>
+								</div>
+							</div>
+						</div>
 
                         <div class="row card-block">
-                            <div class="col-sm-12">
+                            <div class="col-sm-12 col-md-8 col-md-offset-2">
                                 <div class="mdl-card mdl-shadow--2dp">
                                     <div class="mdl-card__title">
                                         <h2 class="mdl-card__title-text">Services</h2>
@@ -620,66 +594,28 @@
                                             <div class="main-content">
                                                 <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
                                                     <div class="service-edit">
-                                                        <a class="edit-service-button"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                                                        <a class="edit-service-button edit"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
                                                     </div>
-                                                    <div class="service-icon fbox-icon">
+                                                    <div class="service-icon fbox-icon" data-badge="1">
                                                         <i class="fa fa-camera-retro"></i>
                                                     </div>
                                                     <h3 class="service-title"></h3>
                                                     <p class="service-desc"></p>
                                                 </div>
                                             </div>
-											<%# <dialog class="mdl-dialog editable-content">
-												<h4 class="mdl-dialog__title">Edit Project</h4>
-												<div class="mdl-dialog__close">
-													<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect close">
-														<i class="material-icons">close</i>
-													</button>
-												</div>
-												<div class="mdl-dialog__content">
-	                                                <div class="row">
-	                                                    <div class="col-sm-12">
-	                                                        <div class="mdl-textfield template-shield-mdl-js-textfield mdl-textfield--floating-label">
-	                                                            <input class="mdl-textfield__input service-title-content" type="text" id="">
-	                                                            <label class="mdl-textfield__label" for="">Service Title</label>
-	                                                        </div>
-	                                                    </div>
-	                                                </div>
-	                                                <div class="row">
-	                                                    <div class="col-sm-12">
-	                                                        <label data-title="" data-placement="inline" class="icp icp-auto service-icon-content full-width" data-selected="">
-	                                                            Select an icon
-	                                                        </label>
-	                                                    </div>
-	                                                </div>
-	                                                <div class="row">
-	                                                    <div class="col-sm-12">
-	                                                        <div class="mdl-textfield template-shield-mdl-js-textfield mdl-textfield--floating-label full-width">
-	                                                            <textarea class="mdl-textfield__input service-desc-content" type="text" rows= "3" id="" maxlength="250" ></textarea>
-	                                                            <label class="mdl-textfield__label" for="">Service Description</label>
-	                                                        </div>
-	                                                    </div>
-	                                                </div>
-												</div>
-												<div class="mdl-dialog__actions">
-													<button type="button" class="mdl-button save-service-content">Save</button>
-													<button type="button" class="mdl-button remove-content">Delete</button>
-												</div>
-											</dialog>%>
                                         </div>
 
                                         <div id="services-component" class="row">
                                             <% if (user.profile && user.profile.services) { %>
                                                 <% for (var i = 1; i <= user.profile.services.length; i++) { %>
-                                                <div class="service-item hover-component col-sm-4 hide-content" id="service<%=i%>">
+                                                <div class="service-item hover-component col-sm-4" id="service<%=i%>">
                                                     <div class="main-content">
                                                         <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
                                                             <div class="service-edit">
-                                                                <a class="edit-content"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
-                                                                <a class="remove-content"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
+                                                                <a class="edit-service button edit"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
                                                             </div>
 															<% if (user.profile.services[i].verifiedCount > 0) { %>
-															<div class="service-icon fbox-icon mdl-badge" data-badge="<%=user.profile[i].verifiedCount%>">
+															<div class="service-icon fbox-icon mdl-badge" data-badge="<%=user.profile.services[i].verifiedCount%>">
 															<% } else { %>
 															<div class="service-icon fbox-icon" data-badge="">
 															<% } %>
@@ -693,42 +629,6 @@
                                                 <% }%>
                                             <% } %>
                                         </div>
-
-                                        <%# <div class="row show-content-button">
-                                            <div class="col-sm-2">
-                                                <button id="add-a-new-service-button" class="mdl-button mdl-js-button mdl-button--raised add-button">
-                                                    Add
-                                                </button>
-                                            </div>
-                                        </div>%>
-
-                                        <%# <div class="row add-button-content hide-content">
-                                            <div class="col-sm-12">
-                                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-                                                    <input class="mdl-textfield__input" type="text" id="service-title">
-                                                    <label class="mdl-textfield__label" for="service-title">Service Title</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-                                                    <textarea class="mdl-textfield__input autoresize" type="text" id="service-desc" maxlength="250"></textarea>
-                                                    <label class="mdl-textfield__label" for="service-desc">Service Description</label>
-                                                </div>
-                                            </div>
-                                             <div class="col-sm-6">
-                                                <label id="service-icon-selector" data-title="" data-placement="inline" class="icp icp-auto full-width" data-selected="">
-                                                    Select an icon
-                                                </label>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <button id="add-service-content" class="mdl-button mdl-js-button mdl-button--raised" style="margin-right: 8px;">
-                                                    Save
-                                                </button>
-                                                <button id="" class="mdl-button mdl-js-button mdl-button--raised cancel-content">
-                                                    Cancel
-                                                </button>
-                                            </div>
-                                        </div>%>
                                     </div>
 									<div class="mdl-card__menu">
 								    	<button id="add-a-new-service-button" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
@@ -739,20 +639,101 @@
                             </div>
                         </div>
 
-						<% if (user.profile && user.profile.qualifications) { %>
                         <div class="row card-block">
-                            <div class="col-sm-12">
+                            <div class="col-sm-12 col-md-8 col-md-offset-2">
                                 <div class="mdl-card mdl-shadow--2dp">
                                     <div class="mdl-card__title">
                                         <h2 class="mdl-card__title-text">Qualifications</h2>
                                     </div>
                                     <div class="mdl-card__supporting-text">
-
+										<div class="row">
+											<div class="col-sm-12">
+												<div id="qualifcations-oc" class="owl-carousel team-carousel bottommargin carousel-widget" data-margin="30" data-pagi="false" data-items-xxs="1" data-items-sm="2" data-items-lg="3">
+													<div class="oc-item">
+														<div class="team">
+															<div class="team-image">
+																<img src="images/profile/avatar.jpg" alt="John Doe">
+															</div>
+															<div class="team-desc">
+																<div class="team-title">
+																	<h4 class="qualificationAuthenticator">John Doe</h4>
+																	<span class="qualificationOrganizationName">IBM</span>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="oc-item">
+														<div class="team">
+															<div class="team-image">
+																<img src="images/profile/avatar.jpg" alt="John Doe">
+															</div>
+															<div class="team-desc">
+																<div class="team-title">
+																	<h4 class="qualificationAuthenticator">John Doe</h4>
+																	<span class="qualificationOrganizationName">Nokia</span>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="oc-item">
+														<div class="team">
+															<div class="team-image">
+																<img src="images/profile/avatar.jpg" alt="John Doe">
+															</div>
+															<div class="team-desc">
+																<div class="team-title">
+																	<h4 class="qualificationAuthenticator">John Doe</h4>
+																	<span class="qualificationOrganizationName">Canada Revenue Agency</span>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="oc-item">
+														<div class="team">
+															<div class="team-image">
+																<img src="images/profile/avatar.jpg" alt="John Doe">
+															</div>
+															<div class="team-desc">
+																<div class="team-title">
+																	<h4 class="qualificationAuthenticator">John Doe</h4>
+																	<span class="qualificationOrganizationName">IBM</span>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="oc-item">
+														<div class="team">
+															<div class="team-image">
+																<img src="images/profile/avatar.jpg" alt="John Doe">
+															</div>
+															<div class="team-desc">
+																<div class="team-title">
+																	<h4 class="qualificationAuthenticator">John Doe</h4>
+																	<span class="qualificationOrganizationName">Canada Revenue Agency</span>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="oc-item">
+														<div class="team">
+															<div class="team-image">
+																<img src="images/profile/avatar.jpg" alt="John Doe">
+															</div>
+															<div class="team-desc">
+																<div class="team-title">
+																	<h4 class="qualificationAuthenticator">John Doe</h4>
+																	<span class="qualificationOrganizationName">IBM</span>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-						<% } %>
                     </div>
                 </div>
             </div>
@@ -760,7 +741,7 @@
             <section id="contact" class="clearfix section notopborder nomargin">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-12 col-md-8 col-md-offset-2">
                             <div class="heading-block">
                                 <h4>Contact CEEDER</h4>
                             </div>
@@ -770,13 +751,14 @@
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
                                             <input class="mdl-textfield__input" type="text" id="authenticatorName">
                                             <label class="mdl-textfield__label" for="authenticatorName">Name</label>
+											<span class="mdl-textfield__error">Input is required.</span>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
                                             <input class="mdl-textfield__input" type="email" id="authenticatorEmail">
                                             <label class="mdl-textfield__label" for="authenticatorEmail">Email</label>
-                                            <span class="mdl-textfield__error">Input does not have the correct format!</span>
+                                            <span class="mdl-textfield__error">Input does not have the correct format.</span>
                                         </div>
                                     </div>
                                 </div>
@@ -785,6 +767,7 @@
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
                                             <input class="mdl-textfield__input" type="text" id="authenticatorSubject">
                                             <label class="mdl-textfield__label" for="authenticatorSubject">Subject</label>
+											<span class="mdl-textfield__error">Input is required.</span>
                                         </div>
                                     </div>
                                 </div>
@@ -823,13 +806,13 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<input class="mdl-textfield__input" type="text" id="skill-name" value="" maxlength="40">
+							<input class="mdl-textfield__input" type="text" id="skill-name" value="" maxlength="20" pattern="^(?!\s*$)\w{1,20}$" data-required>
 							<label class="mdl-textfield__label" for="skill-name">Skill Name</label>
-							<span class="mdl-textfield__error">Skill name must be defined!</span>
+							<span class="mdl-textfield__error">Input can only contain digits and letters!</span>
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row" style="margin-top: 23px;">
 					<div class="col-sm-12">
 						<input id="skill-rating" name="skill-rating" value="" class="skill-range-slider" />
 					</div>
@@ -851,13 +834,13 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<input class="mdl-textfield__input" type="text" id="edit-skill-name" value="" maxlength="40">
+							<input class="mdl-textfield__input" type="text" id="edit-skill-name" value="" maxlength="20"  pattern="^(?!\s*$)\w{1,20}$" data-required>
 							<label class="mdl-textfield__label" for="edit-skill-name">Skill Name</label>
 							<span class="mdl-textfield__error">Skill name must be defined!</span>
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row" style="margin-top: 23px;">
 					<div class="col-sm-12">
 						<input id="edit-skill-rating" name="edit-skill-rating" value="" class="skill-range-slider" />
 					</div>
@@ -880,22 +863,23 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<input class="mdl-textfield__input" type="text" id="project-title">
+							<input class="mdl-textfield__input" type="text" id="project-title" pattern="^(?!\s*$)\w{1,20}$" data-required>
 							<label class="mdl-textfield__label" for="project-title">Project Title</label>
+							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
 					</div>
 					<div class="col-sm-12">
 						<div class="row input-date-group input-daterange">
 							<div class="col-sm-5">
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-									<input class="mdl-textfield__input from year" placeholder="yyyy" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="project-date-from">
+									<input class="mdl-textfield__input from year" placeholder="yyyy" pattern="[0-9]{4}" type="text" id="project-date-from">
 									<label class="mdl-textfield__label" for="project-date-from">From</label>
 									<span class="mdl-textfield__error">Input is not a number!</span>
 								</div>
 							</div>
 							<div class="col-sm-5">
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-									<input class="mdl-textfield__input to year" type="text" pattern="-?[0-9]*(\.[0-9]+)?" placeholder="yyyy" id="project-date-to">
+									<input class="mdl-textfield__input to year" type="text" placeholder="yyyy" pattern="[0-9]{4}" id="project-date-to">
 									<label class="mdl-textfield__label" for="project-date-to">To</label>
 									<span class="mdl-textfield__error">Input is not a number!</span>
 								</div>
@@ -904,7 +888,7 @@
 					</div>
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<textarea class="mdl-textfield__input autoresize" type="text" rows= "1" id="project-desc" ></textarea>
+							<textarea class="mdl-textfield__input autoresize" type="text" rows= "1" id="project-desc" pattern="^(?!\s*$)\w{1,240}$" data-required></textarea>
 							<label class="mdl-textfield__label" for="project-desc">Description</label>
 						</div>
 					</div>
@@ -926,22 +910,23 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<input class="mdl-textfield__input" type="text" id="edit-project-title">
+							<input class="mdl-textfield__input" type="text" id="edit-project-title" maxlength="20" pattern="^(?!\s*$)\w{1,20}$" data-required>
 							<label class="mdl-textfield__label" for="edit-project-title">Project Title</label>
+							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
 					</div>
 					<div class="col-sm-12">
 						<div class="row input-date-group input-daterange">
 							<div class="col-sm-5">
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-									<input class="mdl-textfield__input from year" placeholder="yyyy" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="edit-project-date-from">
+									<input class="mdl-textfield__input from year" placeholder="yyyy" pattern="[0-9]{4}" type="text" id="edit-project-date-from">
 									<label class="mdl-textfield__label" for="edit-project-date-from">From</label>
 									<span class="mdl-textfield__error">Input is not a number!</span>
 								</div>
 							</div>
 							<div class="col-sm-5">
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-									<input class="mdl-textfield__input to year" type="text" pattern="-?[0-9]*(\.[0-9]+)?" placeholder="yyyy" id="edit-project-date-to">
+									<input class="mdl-textfield__input to year" type="text" pattern="[0-9]{4}" placeholder="yyyy" id="edit-project-date-to">
 									<label class="mdl-textfield__label" for="edit-project-date-to">To</label>
 									<span class="mdl-textfield__error">Input is not a number!</span>
 								</div>
@@ -950,14 +935,108 @@
 					</div>
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<textarea class="mdl-textfield__input autoresize" type="text" rows= "4" id="edit-project-desc" ></textarea>
+							<textarea class="mdl-textfield__input autoresize" type="text" rows= "4" id="edit-project-desc" pattern="^(?!\s*$)\w{1,240}$" data-required></textarea>
 							<label class="mdl-textfield__label" for="edit-project-desc">Description</label>
+							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
 					</div>
 				</div>
 				<div class="mdl-dialog__actions">
 					<button id="save-project-button" type="button" class="mdl-button save-project-button">Save</button>
 					<button id="delete-project-button" type="button" class="mdl-button remove-content">Delete</button>
+				</div>
+			</div>
+		</dialog>
+
+		<dialog class="mdl-dialog" id="add-a-learning" data-dataId="">
+			<h4 class="mdl-dialog__title">Add learning</h4>
+			<div class="mdl-dialog__close">
+				<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect close">
+					<i class="material-icons">close</i>
+				</button>
+			</div>
+			<div class="mdl-dialog__content">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
+							<input class="mdl-textfield__input" type="text" id="learning-title" >
+							<label class="mdl-textfield__label" for="learning-title">Learning Title</label>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div class="row input-date-group input-daterange">
+							<div class="col-sm-5">
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									<input class="mdl-textfield__input from year" placeholder="yyyy" pattern="[0-9]{4}" type="text" id="learning-date-from">
+									<label class="mdl-textfield__label" for="learning-date-from">From</label>
+									<span class="mdl-textfield__error">Input is not a number!</span>
+								</div>
+							</div>
+							<div class="col-sm-5">
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									<input class="mdl-textfield__input to year" type="text" pattern="[0-9]{4}" placeholder="yyyy" id="learning-date-to">
+									<label class="mdl-textfield__label" for="learning-date-to">To</label>
+									<span class="mdl-textfield__error">Input is not a number!</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
+							<textarea class="mdl-textfield__input autoresize" type="text" rows= "1" id="learning-desc" ></textarea>
+							<label class="mdl-textfield__label" for="learning-desc">Description</label>
+						</div>
+					</div>
+				</div>
+				<div class="mdl-dialog__actions">
+					<button id="add-learning-button" type="button" class="mdl-button">Add</button>
+				</div>
+			</div>
+		</dialog>
+
+		<dialog class="mdl-dialog" id="edit-a-learning" data-dataId="">
+			<h4 class="mdl-dialog__title">Edit learning</h4>
+			<div class="mdl-dialog__close">
+				<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect close">
+					<i class="material-icons">close</i>
+				</button>
+			</div>
+			<div class="mdl-dialog__content">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
+							<input class="mdl-textfield__input" type="text" id="edit-learning-title">
+							<label class="mdl-textfield__label" for="edit-learning-title">Learning Title</label>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div class="row input-date-group input-daterange">
+							<div class="col-sm-5">
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									<input class="mdl-textfield__input from year" placeholder="yyyy" pattern="[0-9]{4}" type="text" id="edit-learning-date-from">
+									<label class="mdl-textfield__label" for="edit-learning-date-from">From</label>
+									<span class="mdl-textfield__error">Input is not a number!</span>
+								</div>
+							</div>
+							<div class="col-sm-5">
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									<input class="mdl-textfield__input to year" type="text" pattern="[0-9]{4}" placeholder="yyyy" id="edit-learning-date-to">
+									<label class="mdl-textfield__label" for="edit-learning-date-to">To</label>
+									<span class="mdl-textfield__error">Input is not a number!</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
+							<textarea class="mdl-textfield__input autoresize" type="text" rows= "4" id="edit-learning-desc" ></textarea>
+							<label class="mdl-textfield__label" for="edit-learning-desc">Description</label>
+						</div>
+					</div>
+				</div>
+				<div class="mdl-dialog__actions">
+					<button id="save-learning-button" type="button" class="mdl-button save-project-button">Save</button>
+					<button id="delete-learning-button" type="button" class="mdl-button remove-content">Delete</button>
 				</div>
 			</div>
 		</dialog>
@@ -991,14 +1070,14 @@
 						<div class="row input-daterange">
 							<div class="col-sm-5">
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-									<input class="mdl-textfield__input year from" placeholder="yyyy" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="edu-date-from">
+									<input class="mdl-textfield__input year from" placeholder="yyyy" type="text" pattern="[0-9]{4}" id="edu-date-from">
 									<label class="mdl-textfield__label" for="edu-date-from">From</label>
 									<span class="mdl-textfield__error">Input is not a number!</span>
 								</div>
 							</div>
 							<div class="col-sm-5">
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-									<input class="mdl-textfield__input year to" type="text" placeholder="yyyy" pattern="-?[0-9]*(\.[0-9]+)?" id="edu-date-to">
+									<input class="mdl-textfield__input year to" type="text" placeholder="yyyy" pattern="[0-9]{4}" id="edu-date-to">
 									<label class="mdl-textfield__label" for="edu-date-to">To</label>
 									<span class="mdl-textfield__error">Input is not a number!</span>
 								</div>
@@ -1051,14 +1130,14 @@
 						<div class="row input-daterange">
 							<div class="col-sm-5">
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-									<input class="mdl-textfield__input year from" placeholder="yyyy" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="edit-edu-date-from">
+									<input class="mdl-textfield__input year from" placeholder="yyyy" type="text" pattern="[0-9]{4}" id="edit-edu-date-from">
 									<label class="mdl-textfield__label" for="edit-edu-date-from">From</label>
 									<span class="mdl-textfield__error">Input is not a number!</span>
 								</div>
 							</div>
 							<div class="col-sm-5">
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-									<input class="mdl-textfield__input year to" type="text" placeholder="yyyy" pattern="-?[0-9]*(\.[0-9]+)?" id="edit-edu-date-to">
+									<input class="mdl-textfield__input year to" type="text" placeholder="yyyy" pattern="[0-9]{4}" id="edit-edu-date-to">
 									<label class="mdl-textfield__label" for="edit-edu-date-to">To</label>
 									<span class="mdl-textfield__error">Input is not a number!</span>
 								</div>
@@ -1214,6 +1293,12 @@
 
             // For region dropdown
             $(document).ready(function() {
+
+				// Check the validity state and update field accordingly.
+				// document.querySelectorAll("input[data-required]").forEach(function (e) {
+			    //    e.required = true;
+			    // });
+
                 $('#creativeRegion').select2({
                     data: ['', 'Barrie', 'Bay of Quinte', 'Bow Valley', 'Calgary', 'Charlottetown', 'Comox Valley',
                         'Durham Region', 'Edmonton', 'Fredericton', 'Halifax', 'Hamilton', 'Kamloops', 'Kingston', 'Montreal',
@@ -1317,39 +1402,32 @@
             //     orientation: "auto"
             // });
 
-			$("#add-a-project, #edit-a-project, #add-a-edu, #edit-a-edu").delegate(".input-daterange input", "focusin", function(e){
-				// $(this).datepicker({
-				// 	viewMode: "years",
-				// 	format: "yyyy",
-				// 	minViewMode: "years",
-				// 	container: '#add-a-project',
-				// 	startDate: "1900",
-				// 	endDate: new Date()
-				// });
+			$("#add-a-project, #edit-a-project, #add-a-edu, #edit-a-edu, #add-a-learning, #edit-a-learning")
+				.delegate(".input-daterange input", "focusin", function(e){
 
-				var options = {
-					viewMode: "years",
-					format: "yyyy",
-					minViewMode: "years",
-					container: e.delegateTarget,
-					startDate: '1900',
-					endDate: '+0y'
-				};
+					var options = {
+						viewMode: "years",
+						format: "yyyy",
+						minViewMode: "years",
+						container: e.delegateTarget,
+						startDate: '1900',
+						endDate: '+0y'
+					};
 
-				//var inputs = $(e.delegateTarget).find('.input-daterange input'); //Should only be 2
+					//var inputs = $(e.delegateTarget).find('.input-daterange input'); //Should only be 2
 
-				var from = $(e.delegateTarget).find('.input-daterange .from')[0];
-				var to = $(e.delegateTarget).find('.input-daterange .to')[0];
+					var from = $(e.delegateTarget).find('.input-daterange .from')[0];
+					var to = $(e.delegateTarget).find('.input-daterange .to')[0];
 
-				$(from).datepicker(options).on('changeDate', function(e){
-			    	$(to).datepicker("setStartDate", e.date.getFullYear().toString());
-			  	});
-			  	$(to).datepicker(options).on('changeDate', function(e){
-			    	$(from).datepicker("setEndDate", e.date.getFullYear().toString());
-			  	});
+					$(from).datepicker(options).on('changeDate', function(e){
+				    	$(to).datepicker("setStartDate", e.date.getFullYear().toString());
+				  	});
+				  	$(to).datepicker(options).on('changeDate', function(e){
+				    	$(from).datepicker("setEndDate", e.date.getFullYear().toString());
+				  	});
 
-				//datepickerParams(options, $(from), $(to));
-			});
+					//datepickerParams(options, $(from), $(to));
+				});
 
 			function datepickerParams(options, dateFrom, dateTo) {
 				//var dateFrom = $('#' + dateFromId);
@@ -1407,6 +1485,7 @@
 			//var editSkillDialogButton = $('.edit-skill-button');
 			addSkillDialogButton.addEventListener('click', function() {
 			  	addSkillDialog.showModal();
+				//MaterialTextfield.prototype.checkValidity();
 			});
 			// editSkillDialogButton.on("click", function(){
 			// 	editSkillDialog.showModal();
@@ -1430,6 +1509,15 @@
 			// 	editProjectDialog.showModal();
 			// });
 
+			//Assign Dialogs for Learning
+			var addLearningDialog = document.querySelector('dialog#add-a-learning');
+			var editLearningDialog = document.querySelector('dialog#edit-a-learning');
+			var addLearningDialogButton = document.querySelector('#add-a-new-learning-button');
+			//var editProjectDialogButton = $('.edit-project-button');
+			addLearningDialogButton.addEventListener('click', function() {
+			  addLearningDialog.showModal();
+			});
+
 			//Assign Dialogs for Education
 			var addEduDialog = document.querySelector('dialog#add-a-edu');
 			var editEduDialog = document.querySelector('dialog#edit-a-edu');
@@ -1438,9 +1526,9 @@
 			addEduDialogButton.addEventListener('click', function() {
 			  addEduDialog.showModal();
 			});
-			editEduDialogButton.on('click', function() {
-				editEduDialog.showModal();
-			});
+			// editEduDialogButton.on('click', function() {
+			// 	editEduDialog.showModal();
+			// });
 
 			//Assign Dialogs for Education
 			var addServiceDialog = document.querySelector('dialog#add-a-service');
@@ -1450,9 +1538,9 @@
 			addServiceDialogButton.addEventListener('click', function() {
 			  addServiceDialog.showModal();
 			});
-			editServiceDialogButton.on('click', function() {
-				editServiceDialog.showModal();
-			});
+			// editServiceDialogButton.on('click', function() {
+			// 	editServiceDialog.showModal();
+			// });
 
 			// $('body').on('click', '.edit-skill-button', function () {
 			// 	editSkillDialog.showModal();

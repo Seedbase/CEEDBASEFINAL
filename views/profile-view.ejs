@@ -253,58 +253,91 @@
                             </div>
                         </div>
 
-                        <div class="row card-block">
-                            <div class="col-sm-6">
-                                <div class="mdl-card mdl-shadow--2dp">
-                                    <div class="mdl-card__title">
-                                        <h2 class="mdl-card__title-text">Learning</h2>
-                                    </div>
-                                    <div class="mdl-card__supporting-text">
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="mdl-card mdl-shadow--2dp">
-                                    <div class="mdl-card__title">
-                                        <h2 class="mdl-card__title-text">Education</h2>
-                                    </div>
-                                    <div class="mdl-card__supporting-text">
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                                <div id="education-timeline" class="timeline">
-                                                    <% if (user.profile && user.profile.educations) { %>
-                                                    <% for (var i = 1; i <= user.profile.educations.length; i++) { %>
-                                                    <div class="education-item timeline-item hover-component" id="edu<%=i%>">
-                                                        <div class="main-content">
-															<% if (user.profile.educations[i].verifiedCount > 0) { %>
-															<span class="mdl-badge" data-badge="<%=user.profile[i].verifiedCount%>">
-															<% }%>
-															<span class="" data-badge="">
+                        <div class="row">
+							<div class="col-sm-6 col-md-4 col-md-offset-2">
+	                            <div class="card-block">
+	                                <div class="mdl-card mdl-shadow--2dp">
+	                                    <div class="mdl-card__title">
+	                                        <h2 class="mdl-card__title-text">Learning</h2>
+	                                    </div>
+	                                    <div class="mdl-card__supporting-text">
+	                                        <div class="row">
+	                                            <div class="col-sm-12">
+													<div id="learning-timeline" class="timeline">
+														<% if (user.profile && user.profile.externalLinks) {%>
+															<% for (var i = 1; i <= user.profile.externalLinks.length; i++) {%>
+																<div class="project-item timeline-item" id="project<%=i%>">
+																	<div class="main-content">
+																		<% if (user.profile.externalLinks[i].verifiedCount > 0) { %>
+																		<span class="material-icons mdl-badge" data-badge="<%=user.profile.externalLinks[i].verifiedCount%>">
+																		<% } else { %>
+																		<span class="" data-badge="">
+																		<% } %>
+																			<h4 class="item-title"><%= user.profile.externalLinks[i].title%></h4>
+																		</span>
+																		<div class="item-edit">
+																			<a class="edit-learning-button edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+																		</div>
+																		<div class="item-edit">
+																			<a><i class="fa fa-pencil" aria-hidden="true"></i></a>
+																			<a><i class="fa fa-remove" aria-hidden="true"></i></a>
+																		</div>
+																		<span class="item-period"><%= user.profile.externalLinks[i].from %> - <%= user.profile.externalLinks[i].to %></span>
+																		<p class="item-description"><%= user.profile.externalLinks[i].description %></p>
+																	</div>
+																</div>
 															<% } %>
-															<h4 class="item-title"><%=user.profile.educations[i].degree%></h4>
-															</span>
-                                                            <div class="item-edit">
-                                                                <a class="edit-content"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                                <a class="remove-content"><i class="fa fa-remove" aria-hidden="true"></i></a>
-                                                            </div>
-															<span class="item-institute"><%=user.profile.educations[i].institute%></span>
-                                                            <span class="item-period"><%=user.profile.educations[i].from%> - <%=user.profile.educations[i].to%></span>
-                                                            <p class="item-description"><%=user.profile.educations[i].description%></p>
-                                                        </div>
-                                                    </div>
-                                                    <% } %>
-                                                    <% } %>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+														<% } %>
+													</div>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+							</div>
                         </div>
+
+						<div class="row">
+							<div class="col-sm-6 col-md-4">
+								<div class="card-block">
+									<div class="mdl-card mdl-shadow--2dp">
+	                                    <div class="mdl-card__title">
+	                                        <h2 class="mdl-card__title-text">Education</h2>
+	                                    </div>
+	                                    <div class="mdl-card__supporting-text">
+	                                        <div class="row">
+	                                            <div class="col-sm-12 col-md-12 col-lg-12">
+	                                                <div id="education-timeline" class="timeline">
+	                                                    <% if (user.profile && user.profile.educations) { %>
+	                                                    <% for (var i = 1; i <= user.profile.educations.length; i++) { %>
+	                                                    <div class="education-item timeline-item hover-component" id="edu<%=i%>">
+	                                                        <div class="main-content">
+																<% if (user.profile.educations[i].verifiedCount > 0) { %>
+																<span class="mdl-badge" data-badge="<%=user.profile[i].verifiedCount%>">
+																<% }%>
+																<span class="" data-badge="">
+																<% } %>
+																<h4 class="item-title"><%=user.profile.educations[i].degree%></h4>
+																</span>
+	                                                            <div class="item-edit">
+	                                                                <a class="edit-content"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+	                                                                <a class="remove-content"><i class="fa fa-remove" aria-hidden="true"></i></a>
+	                                                            </div>
+																<span class="item-institute"><%=user.profile.educations[i].institute%></span>
+	                                                            <span class="item-period"><%=user.profile.educations[i].from%> - <%=user.profile.educations[i].to%></span>
+	                                                            <p class="item-description"><%=user.profile.educations[i].description%></p>
+	                                                        </div>
+	                                                    </div>
+	                                                    <% } %>
+	                                                    <% } %>
+	                                                </div>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                </div>
+								</div>
+                            </div>
+						</div>
 
                         <div class="row card-block">
                             <div class="col-sm-12">
@@ -316,7 +349,7 @@
                                         <div id="services-component" class="row">
                                             <% if (user.profile && user.profile.services) { %>
                                                 <% for (var i = 1; i <= user.profile.services.length; i++) { %>
-                                                    <div class="service-item hover-component col-sm-4 hide-content" id="service<%=i%>">
+                                                    <div class="service-item hover-component col-sm-4" id="service<%=i%>">
                                                         <div class="main-content">
                                                             <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
                                                                 <div class="service-edit">
@@ -356,7 +389,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

@@ -62,15 +62,33 @@
             url: '/profile/user/messages/fetch',
             success: function (response) {
                 console.log(JSON.stringify(response));
-                $('#messageCounter').text(response.length);
-                for (var index = 0; index < response.length; index++) {
-                    unreadMessages.push(response[index].creative);
-                }
+                $('.messageCounter').text(response.length);
+                // for (var index = 0; index < response.length; index++) {
+                //     unreadMessages.push(response[index].creative);
+                // }
+				if (response.length > 0) {
+					unreadMessages.push(response);
+				}
             }
         });
         $('#notificationLink').click(function () {
             var requestData = {messages: unreadMessages};
-            $('#messageCounter').text('');
+            $('.messageCounter').text('0');
+
+			//Display unreadMessages
+			var messageUl = $('#messageUl');
+			var messageTemplate = $('#messageTemplate');
+			var unreadMessage;
+
+			for (var i = 0; i < unreadMessages.length; i++) {
+				unreadMessage = $(messageTemplate)
+					.clone()
+					.removeClass('hide-content');
+				$(unreadMessage).find('#messageName').text(unreadMessages[i].client.companyName);
+				$(unreadMessage).find('#messageDesc').text(unreadMessages[i].client.message);
+				$(messageUl).append(unreadMessage);
+			}
+
             $.ajax({
                 type: 'POST',
                 url: '/profile/user/messages/markread',
@@ -183,6 +201,23 @@
 			$(el).find('input[type=radio]').prop('checked', false);
 		}
 
+		function validateFields(el) {
+			var submit = false;
+			// Check the validity state and update field accordingly.
+			el.querySelectorAll("input[data-required], textarea[data-required]").forEach(function (e) {
+				e.parentElement.MaterialTextfield.checkValidity();
+			   //e.setAttribute('required', true);
+			   //componentHandler.upgradeElement(e.parentElement);
+			   //MaterialTextfield.change();
+			   //e.checkValidity();
+			   if (e.parentElement.MaterialTextfield.input_.validity.valid && $(e).val() != "") {
+				   submit = true;
+			   }
+			});
+
+			return submit;
+		}
+
 		//Counts for maintaining how many skills have been Created
 		var counts = {
 			skillCount: 0,
@@ -205,101 +240,91 @@
         // --- Skills ---
 
         $('#add-a-skill-button').on('click', function() {
-			//Get skill template
-            var skillTemplate = $('#skill-template');
 
-			//Get skills container
-            var skillsUl = $('.skills');
-			skillCount++;
-            var skillsId = skillCount;
-            var materializedSkill;
+			var canAdd = validateFields(addSkillDialog);
 
-			//Get container and fields for creating a new skill
-            //var addSkillContainer = $('#add-a-skill');
-            var skillTitle = $('#skill-name').val();
-            //var skillTitleValue = $(skillTitle).val();
-            var skillRating = $('#skill-rating').val();
-            //var skillRatingValue = $(skillRating).val();
+			if (canAdd) {
+				//Get skill template
+	            var skillTemplate = $('#skill-template');
 
-			//Get edit dialog and main-content for new skill
-			var mainContent;
+				//Get skills container
+	            var skillsUl = $('.skills');
+				skillCount++;
+	            var skillsId = skillCount;
+	            var materializedSkill;
 
-            //Clone #skill-template element and materialize it
-            var clonedSkill = $(skillTemplate)
-                .clone(true, true)
-                .prop('id', 'skill' + skillsId)
-                .removeClass('hide-content');
+				//Get container and fields for creating a new skill
+	            var skillTitle = $('#skill-name').val();
+	            var skillRating = $('#skill-rating').val();
 
-            materializedSkill = materialize(clonedSkill);
-            upgradeMaterialized(materializedSkill);
+				//Get edit dialog and main-content for new skill
+				var mainContent;
 
-		//	dialog = $(materializedSkill).find('.editable-content');
-			mainContent = $(materializedSkill).find('.main-content');
+	            //Clone #skill-template element and materialize it
+	            var clonedSkill = $(skillTemplate)
+	                .clone(true, true)
+	                .prop('id', 'skill' + skillsId)
+	                .removeClass('hide-content');
 
-			//For main content
-            $(mainContent).find('span.skill-title')
-                .text(skillTitle)
-                .attr({
-					'data-badge': 0,
-					'id': 'skill-title' + skillsId
+	            materializedSkill = materialize(clonedSkill);
+	            upgradeMaterialized(materializedSkill);
+
+				mainContent = $(materializedSkill).find('.main-content');
+
+				//For main content
+	            $(mainContent).find('span.skill-title')
+	                .text(skillTitle)
+	                .attr({
+						'data-badge': 0,
+						'id': 'skill-title' + skillsId
+					});
+	            $(mainContent).find('li')
+	                .removeClass('skills-animated')
+	                .attr('data-percent', skillRating);
+	            $(mainContent).find('span.skill-range')
+	                .attr({
+	                    'data-to': skillRating,
+	                    'id': 'skill-range' + skillsId
+	                });
+
+				$(mainContent).find('.edit-skill-button').on('click', function() {
+					uploadSkill(skillsId);
+					editSkillDialog.showModal();
 				});
-            $(mainContent).find('li')
-                .removeClass('skills-animated')
-                .attr('data-percent', skillRating);
-            $(mainContent).find('span.skill-range')
-                .attr({
-                    'data-to': skillRating,
-                    'id': 'skill-range' + skillsId
-                });
 
-			$(mainContent).find('.edit-skill-button').on('click', function() {
-				uploadSkill(skillsId);
-				editSkillDialog.showModal();
-			});
+				//Append new skill to container
+	            $(skillsUl).append(materializedSkill);
 
-			//For dialog
-            // $(dialog).find('input.skill-range-slider-template')
-            //     .attr({
-            //         'id': 'skill-range-input' + skillsId,
-            //         'name': 'skill-range-input' + skillsId
-            //     });
-            // $(dialog).find('input.mdl-textfield__input')
-            //     .val(skillTitleValue)
-			// 	.attr('id', 'skill-title-input' + skillsId);
+	            //countTo is not called in SEMICOLON.widget.progress() and need to set value for ionRangeSlider
+	            $(materializedSkill).show(100, function() {
+					//Animate progress bar widget
+		            SEMICOLON.widget.progress();
+	                $(this).find('.main-content span.skill-range').countTo();
+	                $('#skill-range-input' + skillsId).ionRangeSlider({
+	                    from: parseInt(skillRating)
+	                });
+	            });
 
-			//Append new skill to container
-            $(skillsUl).append(materializedSkill);
+	            //Add skill to db
+	            var skillSet = {
+					id: 'skill' + skillsId,
+	                skill: skillTitle,
+	                rating: skillRating,
+	                verifiedCount: 0
+	            };
 
-			//Animate progress bar widget
-            SEMICOLON.widget.progress();
+	            if (profile.skills) {
+	                profile.skills.push(skillSet);
+	            } else {
+	                var skillSetArr = [];
+	                skillSetArr.push(skillSet);
+	                profile['skills'] = skillSetArr;
+	            }
 
-            //countTo is not called in SEMICOLON.widget.progress() and need to set value for ionRangeSlider
-            $(materializedSkill).show(100, function() {
-                $(this).find('.main-content span.skill-range').countTo();
-                $('#skill-range-input' + skillsId).ionRangeSlider({
-                    from: parseInt(skillRating)
-                });
-            });
-
-            //Add skill to db
-            var skillSet = {
-				id: 'skill' + skillsId,
-                skill: skillTitle,
-                rating: skillRating,
-                verifiedCount: 0
-            };
-
-            if (profile.skills) {
-                profile.skills.push(skillSet);
-            } else {
-                var skillSetArr = [];
-                skillSetArr.push(skillSet);
-                profile['skills'] = skillSetArr;
-            }
-
-            //Reset input fields for creating a new skill
-            $('#skill-rating').data("ionRangeSlider").update({from: 10});
-            clearFields(addSkillDialog);
+	            //Reset input fields for creating a new skill
+	            $('#skill-rating').data("ionRangeSlider").update({from: 10});
+	            clearFields(addSkillDialog);
+			}
         });
 
 		function uploadSkill(skillId) {
@@ -321,10 +346,8 @@
 		}
 
         $('#save-skill-button').on('click', function() {
-			//var dialog = $(this).parents('.editable-content');
 			var id = $(editSkillDialog).attr('data-dataID');
             var mainContent = $('#skill' + id);
-			//var skillId = $(this).parents('.skill-item').attr('id');
             var newSkillName = $('#edit-skill-name').val();
             var newSkillRating = $('#edit-skill-rating').val();
 
@@ -362,10 +385,6 @@
 			clearFields(editSkillDialog);
 			$('#edit-skill-rating').data('ionRangeSlider').update({from: 10});
         });
-
-        // $('.cancel-skill-button').on('click', function() {
-        //     $(this).parent('editable-content').addClass('hide-content');
-        // });
 
         $('#delete-skill-button').on('click', function() {
 			var id = $(editSkillDialog).attr('data-dataID');
@@ -411,10 +430,6 @@
 			//Get edit dialog and main-content for new project
 			var mainContent;
 
-            // if ($(projectTimeline).hasClass('hide-content')) {
-            //     $(projectTimeline).removeClass('hide-content');
-            // }
-
 			//Materialize input fields (necessary for MDL Lite)
             var materializedProject = materialize(cloneProject);
             upgradeMaterialized(materializedProject);
@@ -425,28 +440,6 @@
             $(mainContent).find(".item-title").text(projectTitle);
             $(mainContent).find('.item-period').text(projectDateFrom + ' - ' + projectDateTo);
             $(mainContent).find('.item-description').text(projectDesc);
-
-            // $(dialog).find('.project-title-content')
-            //     .attr('id', 'project-title' + projectId)
-            //     .val(projectTitle);
-            // $(dialog).find('.project-date-to-content')
-            //     .attr('id', 'project-date-to' + projectId)
-            //     .val(projectDateTo);
-            // $(dialog).find('.project-date-from-content')
-            //     .attr('id', 'project-date-from' + projectId)
-            //     .val(projectDateFrom);
-            // $(dialog).find('.project-desc-content')
-            //     .attr('id', 'project-desc' + projectId)
-            //     .val(projectDesc);
-
-            //Initialize datepicker
-            // $(materializedProject).find('.input-date-group-template input').datepicker({
-            //     autoclose: true,
-            //     viewMode: "years",
-            //     minViewMode: 2,
-            //     maxViewMode: 2,
-            //     format: "yyyy"
-            // });
 
 			$(mainContent).find('.edit-project-button').on('click', function() {
 				uploadProjectData(projectId);
@@ -475,10 +468,6 @@
 
             //Reset input fields
 			clearFields(addProjectDialog);
-            // $('#project-title').val('');
-            // $('#project-date-from').val('');
-            // $('#project-date-to').val('');
-            // $('#project-desc').val('');
 
         });
 
@@ -507,7 +496,7 @@
 				.parents('.mdl-textfield').addClass('is-dirty');
 		}
 
-        $('.save-project-button').on('click', function() {
+        $('#save-project-button').on('click', function() {
 			var id = $(editProjectDialog).attr('data-dataID');
             var mainContent = $("#project" + id);
 
@@ -550,6 +539,145 @@
 			//Close and reset dialog
 			clearFields(editProjectDialog);
 			editProjectDialog.close();
+        });
+
+		// --- Learning ---
+
+        $('#add-learning-button').on('click', function() {
+
+			//Get values from add dialog
+			var learningTitle = $('#learning-title').val();
+			var learningDateTo = $('#learning-date-to').val();
+			var learningDateFrom = $('#learning-date-from').val();
+			var learningDesc = $('#learning-desc').val();
+
+			//Get container to append new learning
+            var learningTimeline = $('#learning-timeline');
+
+			//Get new learning ID
+			learningCount++;
+            var learningId = learningCount;
+
+			//Get template to clone
+			var learningTemplate = $('#learning-template');
+            var cloneLearning = $(learningTemplate)
+                .clone(true, true)
+                .attr('id', 'learning' + learningId)
+                .removeClass('hide-content');
+
+			//Get edit dialog and main-content for new project
+			var mainContent;
+
+			//Materialize input fields (necessary for MDL Lite)
+            var materializedLearning = materialize(cloneLearning);
+            upgradeMaterialized(materializedLearning);
+
+			mainContent = $(materializedLearning).find('.main-content');
+
+			//Set new values
+            $(mainContent).find(".item-title").text(learningTitle);
+            $(mainContent).find('.item-period').text(learningDateFrom + ' - ' + learningDateTo);
+            $(mainContent).find('.item-description').text(learningDesc);
+
+			$(mainContent).find('.edit-learning-button').on('click', function() {
+				uploadLearningData(learningId);
+				editLearningDialog.showModal();
+			});
+
+            //Add project to DB
+            var learningSet = {
+				id: 'learning' + learningId,
+                title: learningTitle,
+                from: learningDateFrom,
+                to: learningDateTo,
+                description: learningDesc,
+                verifiedCount: 0
+            };
+
+            if (profile.externalLinks) {
+                profile.externalLinks.push(learningSet);
+            } else {
+                var learningSetArr = [];
+                learningSetArr.push(learningSet);
+                profile['externalLinks'] = learningSetArr;
+            }
+
+            $(learningTimeline).append(materializedLearning);
+
+            //Reset input fields
+			clearFields(addLearningDialog);
+
+        });
+
+		function uploadLearningData(learningId) {
+			$(editLearningDialog).attr('data-dataID', learningId);
+			var links = profile.externalLinks;
+			var data;
+
+			//Find JSONObject with learningId
+			//Note: currently there are only 6 learning allowed
+			for (var i = 0; i < links.length; i++) {
+				if (links[i].id == 'learning' + learningId) {
+					data = links[i];
+					break;
+				}
+			}
+
+			//Set fields
+			$('#edit-learning-title')
+				.val(data.title)
+				.parents('.mdl-textfield').addClass('is-dirty');
+			$('#edit-learning-date-from').val(data.from);
+			$('#edit-learning-date-to').val(data.to);
+			$('#edit-learning-desc')
+				.val(data.description)
+				.parents('.mdl-textfield').addClass('is-dirty');
+		}
+
+
+        $('#save-learning-button').on('click', function() {
+			var id = $(editLearningDialog).attr('data-dataID');
+            var mainContent = $("#learning" + id);
+
+			var newLearningTitle = $('#edit-learning-title').val();
+			var newLearningDateFrom = $('#edit-learning-date-from').val();
+			var newLearningDateTo = $('#edit-learning-date-to').val();
+			var newLearningDesc = $('#edit-learning-desc').val();
+
+            $(mainContent).find('.item-title').text(newLearningTitle);
+            $(mainContent).find('.item-period')
+                .text(newLearningDateFrom + ' - ' + newLearningDateTo);
+            $(mainContent).find('.item-description').text(newLearningDesc);
+
+			//Update project JSONObject
+			var projects = profile.externalLinks;
+			for (var i = 0; i < profile.externalLinks.length; i++) {
+				if (profile.externalLinks[i].id ==  'learning' + id) {
+					profile.externalLinks[i].title = newLearningTitle;
+					profile.externalLinks[i].from = parseInt(newLearningDateFrom);
+					profile.externalLinks[i].to = parseInt(newLearningDateTo);
+					profile.externalLinks[i].desc = newLearningDesc;
+					break;
+				}
+			}
+
+			//Close and reset dialog
+			clearFields(editLearningDialog);
+			editLearningDialog.close();
+        });
+
+        $('#delete-learning-button').on('click', function() {
+			var id = $(editLearningDialog).attr('data-dataID');
+            var learning = $('#learning' + id);
+            var index = getIndexFromJSONArray(profile.externalLinks, 'learning' + id);
+
+            //Remove project
+            profile.externalLinks.splice(index, 1);
+            $(learning).remove();
+
+			//Close and reset dialog
+			clearFields(editLearningDialog);
+			editLearningDialog.close();
         });
 
         // --- Education ---

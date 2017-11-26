@@ -258,6 +258,11 @@
                                             <% } %>
                                         </ul>
                                     </div>
+									<div class="mdl-card__menu">
+										<button id="verify-all-skill-button" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+											<i class="material-icons">verified_user</i>
+										</button>
+									</div>
                                 </div>
                             </div>
                         </div>
@@ -271,13 +276,13 @@
                                     <div class="mdl-card__supporting-text">
 										<div class="row">
                                             <div class="col-sm-12 col-md-12 col-lg-12">
-                                                <div id="project-timeline" class="timeline hide-content verify-component">
+                                                <div id="project-timeline" class="timeline hide-content">
                                                     <% if (user.profile && user.profile.experiences) {%>
                                                     <% for (var i = 1; i <= user.profile.experiences.length; i++) {%>
-                                                    <div class="project-item timeline-item" id="project<%=i%>">
+                                                    <div class="project-item timeline-item verify-component" id="project<%=i%>">
                                                         <div class="main-content">
 															<% if (user.profile.experiences[i].verifiedCount > 0) { %>
-                                                            <span class="material-icons mdl-badge" data-badge="<%=user.profile.skills[i].verifiedCount%>">
+                                                            <span class="material-icons mdl-badge" data-badge="<%=user.profile.experiences[i].verifiedCount%>">
 															<% } else { %>
 															<span class="material-icons" data-badge="">
 															<% } %>
@@ -293,171 +298,152 @@
                                             </div>
                                         </div>
                                     </div>
+									<div class="mdl-card__menu">
+										<button id="verify-all-project-button" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+											<i class="material-icons">verified_user</i>
+										</button>
+									</div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row card-block">
-                            <div class="col-sm-6">
-                                <div class="mdl-card mdl-shadow--2dp">
-                                    <div class="mdl-card__title">
-                                        <h2 class="mdl-card__title-text">Learning</h2>
-                                    </div>
-                                    <div class="mdl-card__supporting-text">
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="mdl-card mdl-shadow--2dp">
-                                    <div class="mdl-card__title">
-                                        <h2 class="mdl-card__title-text">Education</h2>
-                                    </div>
-                                    <div class="mdl-card__supporting-text">
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                                <div id="education-timeline" class="timeline">
-                                                    <% if (user.profile && user.profile.educations) { %>
-                                                    <% for (var i = 1; i <= user.profile.educations.length; i++) { %>
-                                                    <div class="education-item timeline-item hover-component verify-component" id="edu<%=i%>">
-                                                        <div class="main-content">
-															<% if (user.profile.educations[i].verifiedCount > 0) { %>
-															<span class="mdl-badge" data-badge="<%=user.profile[i].verifiedCount%>">
-															<% }%>
-															<span class="" data-badge="">
+						<div class="row">
+							<div class="col-sm-6 col-md-4 col-md-offset-2">
+	                            <div class="card-block">
+	                                <div class="mdl-card mdl-shadow--2dp">
+	                                    <div class="mdl-card__title">
+	                                        <h2 class="mdl-card__title-text">Learning</h2>
+	                                    </div>
+	                                    <div class="mdl-card__supporting-text">
+	                                        <div class="row">
+	                                            <div class="col-sm-12">
+													<div id="learning-timeline" class="timeline">
+														<% if (user.profile && user.profile.externalLinks) {%>
+															<% for (var i = 1; i <= user.profile.externalLinks.length; i++) {%>
+																<div class="project-item timeline-item verify-component" id="project<%=i%>">
+																	<div class="main-content">
+																		<% if (user.profile.externalLinks[i].verifiedCount > 0) { %>
+																		<span class="material-icons mdl-badge" data-badge="<%=user.profile.externalLinks[i].verifiedCount%>">
+																		<% } else { %>
+																		<span class="" data-badge="">
+																		<% } %>
+																			<h4 class="item-title"><%= user.profile.externalLinks[i].title%></h4>
+																		</span>
+																		<div class="item-edit">
+																			<a class="edit-learning-button edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+																		</div>
+																		<div class="item-edit">
+																			<a><i class="fa fa-pencil" aria-hidden="true"></i></a>
+																			<a><i class="fa fa-remove" aria-hidden="true"></i></a>
+																		</div>
+																		<span class="item-period"><%= user.profile.externalLinks[i].from %> - <%= user.profile.externalLinks[i].to %></span>
+																		<p class="item-description"><%= user.profile.externalLinks[i].description %></p>
+																	</div>
+																</div>
 															<% } %>
-															<h4 class="item-title"><%=user.profile.educations[i].degree%></h4>
-															</span>
-                                                            <div class="item-edit">
-                                                                <a class="edit-content"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                                <a class="remove-content"><i class="fa fa-remove" aria-hidden="true"></i></a>
-                                                            </div>
-															<span class="item-institute"><%=user.profile.educations[i].institute%></span>
-                                                            <span class="item-period"><%=user.profile.educations[i].from%> - <%=user.profile.educations[i].to%></span>
-                                                            <p class="item-description"><%=user.profile.educations[i].description%></p>
-                                                        </div>
-                                                    </div>
-                                                    <% } %>
-                                                    <% } %>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+														<% } %>
+													</div>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+										<div class="mdl-card__menu">
+											<button id="verify-all-learning-button" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+												<i class="material-icons">verified_user</i>
+											</button>
+										</div>
+	                                </div>
+	                            </div>
+							</div>
                         </div>
 
-                        <div class="row card-block">
-                            <div class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-6 col-md-4">
+								<div class="card-block">
+									<div class="mdl-card mdl-shadow--2dp">
+	                                    <div class="mdl-card__title">
+	                                        <h2 class="mdl-card__title-text">Education</h2>
+	                                    </div>
+	                                    <div class="mdl-card__supporting-text">
+	                                        <div class="row">
+	                                            <div class="col-sm-12 col-md-12 col-lg-12">
+	                                                <div id="education-timeline" class="timeline">
+	                                                    <% if (user.profile && user.profile.educations) { %>
+	                                                    <% for (var i = 1; i <= user.profile.educations.length; i++) { %>
+	                                                    <div class="education-item timeline-item hover-component verify-component" id="edu<%=i%>">
+	                                                        <div class="main-content">
+																<% if (user.profile.educations[i].verifiedCount > 0) { %>
+																<span class="mdl-badge" data-badge="<%=user.profile[i].verifiedCount%>">
+																<% }%>
+																<span class="" data-badge="">
+																<% } %>
+																<h4 class="item-title"><%=user.profile.educations[i].degree%></h4>
+																</span>
+	                                                            <div class="item-edit">
+	                                                                <a class="edit-content"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+	                                                                <a class="remove-content"><i class="fa fa-remove" aria-hidden="true"></i></a>
+	                                                            </div>
+																<span class="item-institute"><%=user.profile.educations[i].institute%></span>
+	                                                            <span class="item-period"><%=user.profile.educations[i].from%> - <%=user.profile.educations[i].to%></span>
+	                                                            <p class="item-description"><%=user.profile.educations[i].description%></p>
+	                                                        </div>
+	                                                    </div>
+	                                                    <% } %>
+	                                                    <% } %>
+	                                                </div>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+										<div class="mdl-card__menu">
+											<button id="verify-all-edu-button" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+												<i class="material-icons">verified_user</i>
+											</button>
+										</div>
+	                                </div>
+								</div>
+                            </div>
+						</div>
+
+						<div class="row card-block">
+                            <div class="col-sm-12 col-md-8 col-md-offset-2">
                                 <div class="mdl-card mdl-shadow--2dp">
                                     <div class="mdl-card__title">
                                         <h2 class="mdl-card__title-text">Services</h2>
                                     </div>
                                     <div class="mdl-card__supporting-text">
-                                        <div id="services-component" class="row">
+										<div id="services-component" class="row">
                                             <% if (user.profile && user.profile.services) { %>
                                                 <% for (var i = 1; i <= user.profile.services.length; i++) { %>
-                                                    <div class="service-item hover-component col-sm-4 hide-content verify-component" id="service<%=i%>">
-                                                        <div class="main-content">
-                                                            <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
-                                                                <div class="service-edit">
-                                                                    <a class="edit-content"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
-                                                                    <a class="remove-content"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
-                                                                </div>
-																<% if (user.profile.services[i].verifiedCount > 0) { %>
-                                                                <div class="service-icon fbox-icon mdl-badge" data-badge="<%=user.profile[i].verifiedCount%>">
-																<% } %>
-																<div class="service-icon fbox-icon" data-badge="">
-																<% } %>
-                                                                    <a href="#"><i class="fa <%=user.profile.services[i].icon%>"></i></a>
-                                                                </div>
-                                                                <h3 class="service-title"><%=user.profile.services[i].service%></h3>
-                                                                <p class="service-desc"><%=user.profile.services[i].description%></p>
+                                                <div class="service-item hover-component col-sm-4 verify-component" id="service<%=i%>">
+                                                    <div class="main-content">
+                                                        <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
+                                                            <div class="service-edit">
+                                                                <a class="edit-service button edit"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
                                                             </div>
+															<% if (user.profile.services[i].verifiedCount > 0) { %>
+															<div class="service-icon fbox-icon mdl-badge" data-badge="<%=user.profile.services[i].verifiedCount%>">
+															<% } else { %>
+															<div class="service-icon fbox-icon" data-badge="">
+															<% } %>
+                                                                <i class="fa <%=user.profile.services[i].icon%>"></i>
+                                                            </div>
+                                                            <h3 class="service-title"><%=user.profile.services[i].service%></h3>
+                                                            <p class="service-desc"><%=user.profile.services[i].description%></p>
                                                         </div>
                                                     </div>
+                                                </div>
                                                 <% }%>
                                             <% } %>
                                         </div>
-
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        // <div class="row card-block">
-                        //     <div class="col-sm-12">
-                        //         <div class="mdl-card mdl-shadow--2dp">
-                        //             <div class="mdl-card__title">
-                        //                 <h2 class="mdl-card__title-text">Portfolio</h2>
-                        //             </div>
-                        //             <div class="mdl-card__supporting-text">
-                        //                 <!--<div class="portfolio-container">
-                        //                     <div id="portfolio">
-                        //                         <div class="col-md-4 bottommargin portfolio-element">
-                        //                             <i class="fa fa-globe fa-4x color inline-block"></i>
-                        //                             <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
-                        //                                 <h4>Responsive &amp; Retina</h4>
-                        //                                 <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
-                        //                             </div>
-						//
-                        //                             <p>Employment respond committed meaningful fight against oppression social challenges rural legal aid governance. Meaningful work, implementation, process cooperation, campaign inspire.</p>
-                        //                         </div>
-						//
-                        //                         <div class="col-md-4 bottommargin portfolio-element">
-                        //                             <i class="fa fa-globe fa-4x color inline-block"></i>
-                        //                             <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
-                        //                                 <h4>Powerful Performance</h4>
-                        //                                 <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
-                        //                             </div>
-                        //                             <p>Medecins du Monde Jane Addams reduce child mortality challenges Ford Foundation. Diversification shifting landscape advocate pathway to a better life rights international. Assessment.</p>
-                        //                         </div>
-						//
-                        //                         <div class="col-md-4 bottommargin portfolio-element">
-                        //                             <i class="fa fa-globe fa-4x color inline-block"></i>
-                        //                             <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
-                        //                                 <h4>Truly Multipurpose</h4>
-                        //                                 <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
-                        //                             </div>
-                        //                             <p>Democracy inspire breakthroughs, Rosa Parks; inspiration raise awareness natural resources. Governance impact; transformative donation philanthropy, respect reproductive.</p>
-                        //                         </div>
-                        //                         <div class="col-md-4 bottommargin portfolio-element">
-                        //                             <i class="fa fa-globe fa-4x color inline-block"></i>
-                        //                             <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
-                        //                                 <h4>Responsive &amp; Retina 2</h4>
-                        //                             </div>
-                        //                             <p>Employment respond committed meaningful fight against oppression social challenges rural legal aid governance. Meaningful work, implementation, process cooperation, campaign inspire.</p>
-                        //                         </div>
-						//
-                        //                         <div class="col-md-4 bottommargin portfolio-element">
-                        //                             <i class="fa fa-globe fa-4x color inline-block"></i>
-                        //                             <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
-                        //                                 <h4>Powerful Performance 2</h4>
-                        //                                 <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
-                        //                             </div>
-                        //                             <p>Medecins du Monde Jane Addams reduce child mortality challenges Ford Foundation. Diversification shifting landscape advocate pathway to a better life rights international. Assessment.</p>
-                        //                         </div>
-						//
-                        //                         <div class="col-md-4 bottommargin portfolio-element">
-                        //                             <i class="fa fa-globe fa-4x color inline-block"></i>
-                        //                             <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
-                        //                                 <h4>Truly Multipurpose 2</h4>
-                        //                                 <div class="before-heading" style="font-size:16px;">2010 - 2014</div>
-                        //                             </div>
-                        //                             <p>Democracy inspire breakthroughs, Rosa Parks; inspiration raise awareness natural resources. Governance impact; transformative donation philanthropy, respect reproductive.</p>
-                        //                         </div>
-                        //                     </div>
-                        //                     <div class="pagination-container topmargin nobottommargin">
-                        //                         <ul class="pagination nomargin"></ul>
-                        //                     </div>
-                        //                 </div>-->
-                        //             </div>
-                        //         </div>
-                        //     </div>
-                        // </div>
+									</div>
+									<div class="mdl-card__menu">
+										<button id="verify-all-service-button" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+											<i class="material-icons">verified_user</i>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
 
                         <div class="row card-block">
                             <div class="col-sm-12">
@@ -509,7 +495,7 @@
                                     <div class="col-sm-6">
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
                                             <input class="mdl-textfield__input" type="text" id="authenticationOrganisationName">
-                                            <label class="mdl-textfield__label" for="authenticationOrganisationName">Subject</label>
+                                            <label class="mdl-textfield__label" for="authenticationOrganisationName">Organization Name</label>
                                         </div>
                                     </div>
                                 </div>
@@ -572,6 +558,10 @@
                     $(this).addClass('verified');
                 }
             });
+
+			$('.verify-all').on('click', function() {
+
+			});
         </script>
 
 		<script src="/js/authenticate-main.js"></script>
