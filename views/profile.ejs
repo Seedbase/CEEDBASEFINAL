@@ -16,7 +16,6 @@
         <!-- Styles for Canvas Template -->
         <link rel="stylesheet" href="css/style-updated.css" type="text/css" />
         <link rel="stylesheet" href="css/dark.css" type="text/css" />
-        <link rel="stylesheet" href="css/swiper.css" type="text/css" />
         <link rel="stylesheet" href="css/font-icons.css" type="text/css" />
         <link rel="stylesheet" href="css/animate.css" type="text/css" />
         <link rel="stylesheet" href="css/responsive.css" type="text/css" />
@@ -233,9 +232,9 @@
                                 <div class="col-sm-6"><h4 class="custom-heading">Hello, I'm</h4></div>
                                 <div class="col-sm-12">
                                     <div class="mdl-textfield mdl-js-textfield full-width profile-name">
-                                        <input class="mdl-textfield__input" type="text" id="introText1" value="<%= user.displayName %>" pattern="^[a-zA-Z][a-zA-Z0-9-_\.\s]{1,30}$">
+                                        <input class="mdl-textfield__input" type="text" id="introText1" value="<%= user.displayName %>" maxlength="25" pattern="^(?!^$|^\s+$)[^\n\t]+" required>
                                         <label class="mdl-textfield__label" for="introText1">Full Name</label>
-										<span class="mdl-textfield__error">Input can only contain digits, letters and spaces!</span>
+										<span class="mdl-textfield__error">Input must be defined!</span>
                                     </div>
                                 </div>
                             </div>
@@ -244,24 +243,24 @@
                                 <div class="col-sm-5-custom">
                                     <div class="mdl-textfield mdl-js-textfield full-width">
 										<% if (user.profile && user.profile.introText) { %>
-                                        	<input class="mdl-textfield__input" type="text" id="introText2" value="<%=user.profile.introText[2]%>" pattern="^[a-zA-Z][a-zA-Z0-9-_\.\s]{1,20}$">
+                                        	<input class="mdl-textfield__input" type="text" id="introText2" value="<%=user.profile.introText[2]%>" maxlength="25" pattern="^(?!^$|^\s+$)[^\n\t]+" required>
 										<% } else { %>
-											<input class="mdl-textfield__input" type="text" id="introText2" value="" pattern="^[a-zA-Z][a-zA-Z0-9-_\.\s]{1,20}$">
+											<input class="mdl-textfield__input" type="text" id="introText2" value="" maxlength="25" pattern="^(?!^$|^\s+$)[^\n\t]+" required>
 										<% } %>
                                         <label class="mdl-textfield__label" for="introText2">Developer</label>
-										<span class="mdl-textfield__error">Input can only contain digits, letters and spaces!</span>
+										<span class="mdl-textfield__error">Input must be defined!</span>
                                     </div>
                                 </div>
                                 <div class="col-sm-1" style="text-align: center; padding-top: 4px;">and</div>
                                 <div class="col-sm-5-custom">
                                     <div class="mdl-textfield mdl-js-textfield full-width">
 										<% if (user.profile && user.profile.introText) { %>
-                                        	<input class="mdl-textfield__input" type="text" id="introText3" value="<%=user.profile.introText[3]%>" pattern="^[a-zA-Z][a-zA-Z0-9-_\.\s]{1,20}$">
+                                        	<input class="mdl-textfield__input" type="text" id="introText3" value="<%=user.profile.introText[3]%>" pattern="^(?!^$|^\s+$)[^\n\t]+" required>
 										<% } else { %>
-											<input class="mdl-textfield__input" type="text" id="introText3" value="" pattern="^[a-zA-Z][a-zA-Z0-9-_\.\s]{1,20}$">
+											<input class="mdl-textfield__input" type="text" id="introText3" value="" pattern="^(?!^$|^\s+$)[^\n\t]+" required>
 										<% } %>
                                         <label class="mdl-textfield__label" for="introText3">Designer</label>
-										<span class="mdl-textfield__error">Input can only contain digits, letters and spaces!</span>
+										<span class="mdl-textfield__error">Input must be defined!</span>
                                     </div>
                                 </div>
                             </div>
@@ -271,20 +270,28 @@
                                     <label>Opportunities I&#39;m seeking</label>
                                     <div class="row">
                                         <div class="col-lg-3 col-md-6 col-sm-6">
-                                            <input id="unPaidInternship" class="radio-style" name="opportunityOption" type="radio" value="unPaidInternship">
-                                            <label for="unPaidInternship" class="radio-style-3-label radio-small radio-button-label">Unpaid Internship</label>
+											<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="unPaidInternship">
+										  		<input type="radio" id="unPaidInternship" class="mdl-radio__button" name="opportunityOption" value="unPaidInternship" required>
+											  	<span class="mdl-radio__label radio-button-label radio-small">Unpaid Internship</span>
+											</label>
                                         </div>
                                         <div class="col-lg-3 col-md-6 col-sm-6">
-                                            <input id="paidInternship" class="radio-style" name="opportunityOption" type="radio" value="paidInternship">
-                                            <label for="paidInternship" class="radio-style-3-label radio-small radio-button-label">Paid internship</label>
+											<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="paidInternship">
+										  		<input type="radio" id="paidInternship" class="mdl-radio__button" name="opportunityOption" value="paidInternship" required>
+											  	<span class="mdl-radio__label radio-button-label radio-small">Paid Internship</span>
+											</label>
                                         </div>
                                         <div class="col-lg-3 col-md-6 col-sm-6">
-                                            <input id="tempContract" class="radio-style" name="opportunityOption" type="radio" value="tempContract">
-                                            <label for="tempContract" class="radio-style-3-label radio-small radio-button-label">Temporary Contract</label>
+											<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="tempContract">
+										  		<input type="radio" id="tempContract" class="mdl-radio__button" name="opportunityOption" value="tempContract" required>
+											  	<span class="mdl-radio__label radio-button-label radio-small">Temporary Contract</span>
+											</label>
                                         </div>
                                         <div class="col-lg-3 col-md-6 col-sm-6">
-                                            <input id="fullTimeHire" class="radio-style" name="opportunityOption" type="radio" value="fullTimeHire">
-                                            <label for="fullTimeHire" class="radio-style-3-label radio-small radio-button-label">Full Time Hire</label>
+											<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="fullTimeHire">
+										  		<input type="radio" id="fullTimeHire" class="mdl-radio__button" name="opportunityOption" value="fullTimeHire" required>
+											  	<span class="mdl-radio__label radio-button-label radio-small">Full Time Hire</span>
+											</label>
                                         </div>
                                     </div>
                                 </div>
@@ -745,18 +752,18 @@
                             <div class="heading-block">
                                 <h4>Contact CEEDER</h4>
                             </div>
-                            <form action="#">
+                            <form action="#" id="contactForm">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-                                            <input class="mdl-textfield__input" type="text" id="authenticatorName">
+                                            <input class="mdl-textfield__input" type="text" id="authenticatorName" required>
                                             <label class="mdl-textfield__label" for="authenticatorName">Name</label>
-											<span class="mdl-textfield__error">Input is required.</span>
+											<span class="mdl-textfield__error">Input is required!</span>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-                                            <input class="mdl-textfield__input" type="email" id="authenticatorEmail">
+                                            <input class="mdl-textfield__input" type="email" id="authenticatorEmail" required>
                                             <label class="mdl-textfield__label" for="authenticatorEmail">Email</label>
                                             <span class="mdl-textfield__error">Input does not have the correct format.</span>
                                         </div>
@@ -765,17 +772,18 @@
                                 <div class="row">
                                     <div class="col-sm-8">
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-                                            <input class="mdl-textfield__input" type="text" id="authenticatorSubject">
+                                            <input class="mdl-textfield__input" type="text" id="authenticatorSubject" required>
                                             <label class="mdl-textfield__label" for="authenticatorSubject">Subject</label>
-											<span class="mdl-textfield__error">Input is required.</span>
+											<span class="mdl-textfield__error">Input is required!</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width" style="width: 90%;">
-                                            <textarea class="mdl-textfield__input" type="text" rows="4" id="authenticatorMessage" maxlength="200" style="overflow: hidden; max-width:100%;"></textarea>
+                                            <textarea class="mdl-textfield__input" type="text" rows="4" id="authenticatorMessage" maxlength="200" style="overflow: hidden; max-width:100%;" required></textarea>
                                             <label class="mdl-textfield__label" for="authenticatorMessage">Message</label>
+											<span class="mdl-textfield__error">Input is required!</span>
                                         </div>
                                     </div>
                                 </div>
@@ -806,9 +814,9 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<input class="mdl-textfield__input" type="text" id="skill-name" value="" maxlength="20" pattern="^(?!\s*$)\w{1,20}$" data-required>
+							<input class="mdl-textfield__input" type="text" id="skill-name" value="" maxlength="25" pattern="(?!^$|^\s+$)[^\n\t]+" data-required>
 							<label class="mdl-textfield__label" for="skill-name">Skill Name</label>
-							<span class="mdl-textfield__error">Input can only contain digits and letters!</span>
+							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
 					</div>
 				</div>
@@ -834,9 +842,9 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<input class="mdl-textfield__input" type="text" id="edit-skill-name" value="" maxlength="20"  pattern="^(?!\s*$)\w{1,20}$" data-required>
+							<input class="mdl-textfield__input" type="text" id="edit-skill-name" value="" maxlength="25"  pattern="^(?!^$|^\s+$)[^\n\t]+" data-required>
 							<label class="mdl-textfield__label" for="edit-skill-name">Skill Name</label>
-							<span class="mdl-textfield__error">Skill name must be defined!</span>
+							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
 					</div>
 				</div>
@@ -863,7 +871,7 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<input class="mdl-textfield__input" type="text" id="project-title" pattern="^(?!\s*$)\w{1,20}$" data-required>
+							<input class="mdl-textfield__input" type="text" id="project-title" maxlength="25" pattern="^(?!^$|^\s+$)[^\n\t]+" data-required>
 							<label class="mdl-textfield__label" for="project-title">Project Title</label>
 							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
@@ -874,22 +882,23 @@
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 									<input class="mdl-textfield__input from year" placeholder="yyyy" pattern="[0-9]{4}" type="text" id="project-date-from">
 									<label class="mdl-textfield__label" for="project-date-from">From</label>
-									<span class="mdl-textfield__error">Input is not a number!</span>
+									<span class="mdl-textfield__error">Input is not a 4-digit number!</span>
 								</div>
 							</div>
 							<div class="col-sm-5">
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 									<input class="mdl-textfield__input to year" type="text" placeholder="yyyy" pattern="[0-9]{4}" id="project-date-to">
 									<label class="mdl-textfield__label" for="project-date-to">To</label>
-									<span class="mdl-textfield__error">Input is not a number!</span>
+									<span class="mdl-textfield__error">Input is not a 4-digit number!</span>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<textarea class="mdl-textfield__input autoresize" type="text" rows= "1" id="project-desc" pattern="^(?!\s*$)\w{1,240}$" data-required></textarea>
+							<textarea class="mdl-textfield__input autoresize" type="text" rows= "1" id="project-desc" maxlength="240" pattern="^(?!^$|^\s+$)[^\n\t]+" data-required></textarea>
 							<label class="mdl-textfield__label" for="project-desc">Description</label>
+							<span class="mdl-textfield__error">Input must be defined</span>
 						</div>
 					</div>
 				</div>
@@ -910,7 +919,7 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<input class="mdl-textfield__input" type="text" id="edit-project-title" maxlength="20" pattern="^(?!\s*$)\w{1,20}$" data-required>
+							<input class="mdl-textfield__input" type="text" id="edit-project-title" maxlength="25" pattern="^(?!^$|^\s+$)[^\n\t]+" data-required>
 							<label class="mdl-textfield__label" for="edit-project-title">Project Title</label>
 							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
@@ -921,21 +930,21 @@
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 									<input class="mdl-textfield__input from year" placeholder="yyyy" pattern="[0-9]{4}" type="text" id="edit-project-date-from">
 									<label class="mdl-textfield__label" for="edit-project-date-from">From</label>
-									<span class="mdl-textfield__error">Input is not a number!</span>
+									<span class="mdl-textfield__error">Input is not a 4-digit number!</span>
 								</div>
 							</div>
 							<div class="col-sm-5">
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 									<input class="mdl-textfield__input to year" type="text" pattern="[0-9]{4}" placeholder="yyyy" id="edit-project-date-to">
 									<label class="mdl-textfield__label" for="edit-project-date-to">To</label>
-									<span class="mdl-textfield__error">Input is not a number!</span>
+									<span class="mdl-textfield__error">Input is not a 4-digit number!</span>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<textarea class="mdl-textfield__input autoresize" type="text" rows= "4" id="edit-project-desc" pattern="^(?!\s*$)\w{1,240}$" data-required></textarea>
+							<textarea class="mdl-textfield__input autoresize" type="text" rows= "4" id="edit-project-desc" maxlength="240" pattern="^(?!^$|^\s+$)[^\n\t]+" data-required></textarea>
 							<label class="mdl-textfield__label" for="edit-project-desc">Description</label>
 							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
@@ -959,8 +968,9 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<input class="mdl-textfield__input" type="text" id="learning-title" >
+							<input class="mdl-textfield__input" type="text" id="learning-title" pattern="^(?!^$|^\s+$)[^\n\t]+" maxlength="25" data-required>
 							<label class="mdl-textfield__label" for="learning-title">Learning Title</label>
+							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
 					</div>
 					<div class="col-sm-12">
@@ -969,22 +979,23 @@
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 									<input class="mdl-textfield__input from year" placeholder="yyyy" pattern="[0-9]{4}" type="text" id="learning-date-from">
 									<label class="mdl-textfield__label" for="learning-date-from">From</label>
-									<span class="mdl-textfield__error">Input is not a number!</span>
+									<span class="mdl-textfield__error">Input is not a 4-digit number!</span>
 								</div>
 							</div>
 							<div class="col-sm-5">
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 									<input class="mdl-textfield__input to year" type="text" pattern="[0-9]{4}" placeholder="yyyy" id="learning-date-to">
 									<label class="mdl-textfield__label" for="learning-date-to">To</label>
-									<span class="mdl-textfield__error">Input is not a number!</span>
+									<span class="mdl-textfield__error">Input is not a 4-digit number!</span>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<textarea class="mdl-textfield__input autoresize" type="text" rows= "1" id="learning-desc" ></textarea>
+							<textarea class="mdl-textfield__input autoresize" type="text" rows= "4" id="learning-desc" pattern="^(?!^$|^\s+$)[^\n\t]+" maxlength="240" data-required></textarea>
 							<label class="mdl-textfield__label" for="learning-desc">Description</label>
+							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
 					</div>
 				</div>
@@ -1005,8 +1016,9 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<input class="mdl-textfield__input" type="text" id="edit-learning-title">
+							<input class="mdl-textfield__input" type="text" id="edit-learning-title" maxlength="25" pattern="^(?!^$|^\s+$)[^\n\t]+" data-required>
 							<label class="mdl-textfield__label" for="edit-learning-title">Learning Title</label>
+							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
 					</div>
 					<div class="col-sm-12">
@@ -1029,8 +1041,9 @@
 					</div>
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<textarea class="mdl-textfield__input autoresize" type="text" rows= "4" id="edit-learning-desc" ></textarea>
+							<textarea class="mdl-textfield__input autoresize" type="text" rows= "4" id="edit-learning-desc" maxlength="240" pattern="^(?!^$|^\s+$)[^\n\t]+" data-required></textarea>
 							<label class="mdl-textfield__label" for="edit-learning-desc">Description</label>
+							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
 					</div>
 				</div>
@@ -1052,16 +1065,18 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<input class="mdl-textfield__input" type="text" id="edu-degree-title">
+							<input class="mdl-textfield__input" type="text" id="edu-degree-title" maxlength="25" pattern="^(?!^$|^\s+$)[^\n\t]+" data-required>
 							<label class="mdl-textfield__label" for="edu-degree-title">Degree title</label>
+							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<input class="mdl-textfield__input" type="text" id="edu-institution">
+							<input class="mdl-textfield__input" type="text" id="edu-institution" maxlength="25" pattern="^(?!^$|^\s+$)[^\n\t]+" data-required>
 							<label class="mdl-textfield__label" for="edu-institution">Institution name</label>
+							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
 					</div>
 				</div>
@@ -1072,14 +1087,14 @@
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 									<input class="mdl-textfield__input year from" placeholder="yyyy" type="text" pattern="[0-9]{4}" id="edu-date-from">
 									<label class="mdl-textfield__label" for="edu-date-from">From</label>
-									<span class="mdl-textfield__error">Input is not a number!</span>
+									<span class="mdl-textfield__error">Input is not a 4-digit number!</span>
 								</div>
 							</div>
 							<div class="col-sm-5">
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 									<input class="mdl-textfield__input year to" type="text" placeholder="yyyy" pattern="[0-9]{4}" id="edu-date-to">
 									<label class="mdl-textfield__label" for="edu-date-to">To</label>
-									<span class="mdl-textfield__error">Input is not a number!</span>
+									<span class="mdl-textfield__error">Input is not a 4-digit number!</span>
 								</div>
 							</div>
 						</div>
@@ -1088,8 +1103,9 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<textarea class="mdl-textfield__input autoresize" type="text" rows= "4" id="edu-desc" ></textarea>
+							<textarea class="mdl-textfield__input autoresize" type="text" rows= "4" id="edu-desc" maxlength="240" pattern="^(?!^$|^\s+$)[^\n\t]+" data-required></textarea>
 							<label class="mdl-textfield__label" for="edu-desc">Description</label>
+							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
 					</div>
 				</div>
@@ -1112,16 +1128,18 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<input class="mdl-textfield__input" type="text" id="edit-edu-degree-title">
+							<input class="mdl-textfield__input" type="text" id="edit-edu-degree-title" maxlength="25" pattern="^(?!^$|^\s+$)[^\n\t]+" data-required>
 							<label class="mdl-textfield__label" for="edit-edu-degree-title">Degree title</label>
+							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<input class="mdl-textfield__input" type="text" id="edit-edu-institution">
+							<input class="mdl-textfield__input" type="text" id="edit-edu-institution" maxlength="25" pattern="^(?!^$|^\s+$)[^\n\t]+" data-required>
 							<label class="mdl-textfield__label" for="edit-edu-institution">Institution name</label>
+							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
 					</div>
 				</div>
@@ -1132,14 +1150,14 @@
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 									<input class="mdl-textfield__input year from" placeholder="yyyy" type="text" pattern="[0-9]{4}" id="edit-edu-date-from">
 									<label class="mdl-textfield__label" for="edit-edu-date-from">From</label>
-									<span class="mdl-textfield__error">Input is not a number!</span>
+									<span class="mdl-textfield__error">Input is not a 4-digit number!</span>
 								</div>
 							</div>
 							<div class="col-sm-5">
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 									<input class="mdl-textfield__input year to" type="text" placeholder="yyyy" pattern="[0-9]{4}" id="edit-edu-date-to">
 									<label class="mdl-textfield__label" for="edit-edu-date-to">To</label>
-									<span class="mdl-textfield__error">Input is not a number!</span>
+									<span class="mdl-textfield__error">Input is not a 4-digit number!</span>
 								</div>
 							</div>
 						</div>
@@ -1148,8 +1166,9 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<textarea class="mdl-textfield__input autoresize" type="text" rows= "1" id="edit-edu-desc" ></textarea>
+							<textarea class="mdl-textfield__input autoresize" type="text" rows= "4" id="edit-edu-desc" maxlength="240" pattern="^(?!^$|^\s+$)[^\n\t]+" data-required></textarea>
 							<label class="mdl-textfield__label" for="edit-edu-desc">Description</label>
+							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
 					</div>
 				</div>
@@ -1175,16 +1194,18 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<input class="mdl-textfield__input" type="text" id="service-title">
+							<input class="mdl-textfield__input" type="text" id="service-title" maxlength="25" pattern="^(?!^$|^\s+$)[^\n\t]+" data-required>
 							<label class="mdl-textfield__label" for="service-title">Service Title</label>
+							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<textarea class="mdl-textfield__input autoresize" type="text" id="service-desc" maxlength="250"></textarea>
+							<textarea class="mdl-textfield__input autoresize" type="text" id="service-desc" rows="4" maxlength="240" pattern="^(?!^$|^\s+$)[^\n\t]+" data-required></textarea>
 							<label class="mdl-textfield__label" for="service-desc">Service Description</label>
+							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
 					</div>
 				</div>
@@ -1199,7 +1220,9 @@
 						data-search="true" data-search-text="Search icon..."
 						data-label-header="{0} / {1} pages"
 						data-label-footer="{0} - {1} of {2} icons"
-						role="iconpicker"></div>
+						role="iconpicker"
+						data-selected="empty" required></div>
+						<span class="mdl-textfield__error">Icon must be selected!</span>
 				   </div>
 				</div>
 			</div>
@@ -1219,16 +1242,18 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<input class="mdl-textfield__input" type="text" id="edit-service-title">
+							<input class="mdl-textfield__input" type="text" id="edit-service-title" maxlength="25" pattern="^(?!^$|^\s+$)[^\n\t]+" data-required>
 							<label class="mdl-textfield__label" for="edit-service-title">Service Title</label>
+							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-							<textarea class="mdl-textfield__input autoresize" type="text" id="edit-service-desc" maxlength="250"></textarea>
+							<textarea class="mdl-textfield__input autoresize" type="text" rows="4" id="edit-service-desc" maxlength="240" pattern="^(?!^$|^\s+$)[^\n\t]+" data-required></textarea>
 							<label class="mdl-textfield__label" for="edit-service-desc">Service Description</label>
+							<span class="mdl-textfield__error">Input must be defined!</span>
 						</div>
 					</div>
 				</div>
@@ -1243,7 +1268,9 @@
 						data-search="true" data-search-text="Search icon..."
 						data-label-header="{0} / {1} pages"
 						data-label-footer="{0} - {1} of {2} icons"
-						role="iconpicker"></div>
+						role="iconpicker"
+						data-selected="empty" required></div>
+						<span class="mdl-textfield__error">Icon must be selected!</span>
 				   </div>
 				</div>
 			</div>
@@ -1295,7 +1322,7 @@
             $(document).ready(function() {
 
 				// Check the validity state and update field accordingly.
-				// document.querySelectorAll("input[data-required]").forEach(function (e) {
+				// document.querySelectorAll("input[required]").forEach(function (e) {
 			    //    e.required = true;
 			    // });
 
@@ -1318,7 +1345,17 @@
                     })
                 });
 
-				$('.service-iconpicker').iconpicker();
+				$('.service-iconpicker')
+					.iconpicker()
+					.on('change', function(e) {
+						if (e.icon == 'empty') {
+							$(e.delegateTarget).siblings('.mdl-textfield__error').css('visibility', 'visible');
+							//$(e).addClass('is-invalid');
+						} else {
+							$(e.delegateTarget).siblings('.mdl-textfield__error').css('visibility', 'hidden');
+							//$(e).removeClass('is-invalid');
+						}
+					});
 
                 // $('.icp-auto').iconpicker();
 
@@ -1464,8 +1501,6 @@
 
 		<script>
 
-			var dialog = document.querySelector('dialog');
-
 			//Register all dialogs to polyfill
 			var dialogAll = document.querySelectorAll('dialog');
 			$(dialogAll).each(function() {
@@ -1475,6 +1510,7 @@
 				}
 				dialog.querySelector('.close').addEventListener('click', function() {
 					dialog.close();
+					removeRequired(dialog);
 				});
 			});
 
@@ -1485,17 +1521,7 @@
 			//var editSkillDialogButton = $('.edit-skill-button');
 			addSkillDialogButton.addEventListener('click', function() {
 			  	addSkillDialog.showModal();
-				//MaterialTextfield.prototype.checkValidity();
 			});
-			// editSkillDialogButton.on("click", function(){
-			// 	editSkillDialog.showModal();
-			// });
-
-			// for (var k = 0; k < editSkillDialogButton.length; k++) {
-			// 	editSkillDialogButton[k].addEventListener('click', function() {
-			// 	  editSkillDialog.showModal();
-			// 	});
-			// }
 
 			//Assign Dialogs for Projects
 			var addProjectDialog = document.querySelector('dialog#add-a-project');
@@ -1505,9 +1531,6 @@
 			addProjectDialogButton.addEventListener('click', function() {
 			  addProjectDialog.showModal();
 			});
-			// editProjectDialogButton.on('click', function() {
-			// 	editProjectDialog.showModal();
-			// });
 
 			//Assign Dialogs for Learning
 			var addLearningDialog = document.querySelector('dialog#add-a-learning');
@@ -1538,31 +1561,24 @@
 			addServiceDialogButton.addEventListener('click', function() {
 			  addServiceDialog.showModal();
 			});
-			// editServiceDialogButton.on('click', function() {
-			// 	editServiceDialog.showModal();
-			// });
 
-			// $('body').on('click', '.edit-skill-button', function () {
-			// 	editSkillDialog.showModal();
-			// });
-			//
-			// function addClickEventToDialogById(elId, dialogId) {
-			// 	var element = document.querySelector('#' + elId);
-			// 	var dialog = document.querySelector('#' + dialogId);
-			// 	element.addEventListener('click', function() {
-			//       dialog.showModal();
-			//     });
-			// }
-			//
-			// function addClickEventToDialogByClassName(elClassName, dialogId) {
-			// 	var elements = document.querySelectorAll('.' + elClassName);
-			// 	var dialog = document.querySelector('#' + dialogId);
-			// 	for (var i = 0; i < elements.length; i++) {
-			// 		elements[i].addEventListener('click', function() {
-			// 	      dialog.showModal();
-			// 	    });
-			// 	}
-			// }
+			function removeRequired(el) {
+				el.querySelectorAll("input[data-required], textarea[data-required]").forEach(function(e) {
+					e.setAttribute('required', false);
+					$(e.parentElement).removeClass('is-invalid');
+				});
+				clearFields(el);
+			}
+
+			//Clear MDL textfield components in el
+			function clearFields(el) {
+				$(el).find('input[type=text], textarea')
+					.val('')
+					.parents('.mdl-textfield').removeClass('is-dirty');
+				$(el).find('select').find('option').prop('selected', false);
+				$(el).find('input[type=radio]').prop('checked', false);
+			}
+
 		</script>
 
         <script type="text/javascript" src="js/profile.js"></script>

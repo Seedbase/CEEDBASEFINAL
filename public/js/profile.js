@@ -119,55 +119,66 @@
          */
         $('#submitTheVerificationRequest').on('click', function(e) {
 
-            //TODO: validation!!!!
+            //Validate before submission
+			var canSubmit = validateMDLFields($('#contactForm')) && validateMDLFields($('#intro-profile'));
 
-            var providerId = $('#providerId').val();
-            e.preventDefault();
-            var message = $("#authenticatorMessage").val();
-            var emailData = {
-                fromName: $("#authenticatorName").val(),
-                fromEmail: $('#email').text(),
-                toEmail: $("#authenticatorEmail").val(),
-                subject: $("#authenticatorSubject").val(),
-                message: $("#authenticatorMessage").val()
-            };
+			if (canSubmit) {
+				var providerId = $('#providerId').val();
+	            e.preventDefault();
+	            var message = $("#authenticatorMessage").val();
+	            var emailData = {
+	                fromName: $("#authenticatorName").val(),
+	                fromEmail: $('#email').text(),
+	                toEmail: $("#authenticatorEmail").val(),
+	                subject: $("#authenticatorSubject").val(),
+	                message: $("#authenticatorMessage").val()
+	            };
 
-            //Introtext
-            profile.displayName = $('#introText1').val();
-            introText.push($('#introText1').val());
-            introText.push($('#introText2').val());
-            introText.push($('#introText3').val());
+	            //Introtext
+				/*
+					Note that introText[0] is the same as profile.displayName
+					profile.displayName appears in profile.ejs
+				*/
+	            introText.push(profile.displayName);
+	            introText.push($('#introText2').val());
+	            introText.push($('#introText3').val());
 
-            //Opportunities
-            profile['opportunitySeeking'] = $('input[name=opportunityOption]:checked').val();
+	            //Opportunities
+	            profile['opportunitySeeking'] = $('input[name=opportunityOption]:checked').val();
 
-            //Region
-            profile['residence'] = $("#creativeRegion").select2().find(":selected").data().data.text;
+	            //Region
+	            profile['residence'] = $("#creativeRegion").select2().find(":selected").data().data.text;
 
-            //requestData
-            var requestData = {
-                dataString: emailData,
-                userProfile: profile,
-                providerId: providerId
-            };
+	            //requestData
+	            var requestData = {
+	                dataString: emailData,
+	                userProfile: profile,
+	                providerId: providerId
+	            };
 
-            $.ajax({
-                type: 'POST',
-                url: '/profile/authentication/request',
-                data: requestData,
-                success: function() {
-                    $(".success").fadeIn(1000);
-                    $(".error").fadeOut(500);
-                    alert('Mail sent successfully.');
-                    window.location = '/';
-                }
-            });
+	            $.ajax({
+	                type: 'POST',
+	                url: '/profile/authentication/request',
+	                data: requestData,
+	                success: function() {
+	                    $(".success").fadeIn(1000);
+	                    $(".error").fadeOut(500);
+	                    alert('Mail sent successfully.');
+	                    window.location = '/';
+	                }
+	            });
+			}
         });
 
         /**
          * Editing the profile
          */
 
+	 	/*
+	 	For MDL Lite -> need to "materialize" MDL components after programmatically changing their values
+		"template-shield-" prefix is added to components so that they don't "materialize" on load,
+		but only when their values have changed programmatically
+		*/
         function materialize(el) {
             $(el).find('input[class*=template-shield-], button[class*=template-shield-], label[class*=template-shield-], span[class*=template-shield-], textarea[class*=template-shield-], div[class*=template-shield-]').each(function(index) {
                 //Remove template-shield- prefix
@@ -185,6 +196,8 @@
             });
         }
 
+		//Used to grab index of JSON object
+		//Note that JSONObjects in jsonArray (in user.profile) are in ascending order
 		function getIndexFromJSONArray(jsonArray, id) {
 			for (var i = 0; i < jsonArray.length; i++) {
 				if (id == jsonArray[i].id) {
@@ -193,32 +206,85 @@
 			}
 		}
 
-		function clearFields(el) {
-			$(el).find('input[type=text], textarea')
-				.val('')
-				.parents('.mdl-textfield').removeClass('is-dirty');
-			$(el).find('select').find('option').prop('selected', false);
-			$(el).find('input[type=radio]').prop('checked', false);
-		}
+		// //Clear MDL textfield components in el
+		// function clearFields(el) {
+		// 	$(el).find('input[type=text], textarea')
+		// 		.val('')
+		// 		.parents('.mdl-textfield').removeClass('is-dirty');
+		// 	$(el).find('select').find('option').prop('selected', false);
+		// 	$(el).find('input[type=radio]').prop('checked', false);
+		// }
 
+		//Validate MDL textfield components in el
 		function validateFields(el) {
-			var submit = false;
+			//var submit = false;
 			// Check the validity state and update field accordingly.
 			el.querySelectorAll("input[data-required], textarea[data-required]").forEach(function (e) {
+				e.setAttribute('required', true);
 				e.parentElement.MaterialTextfield.checkValidity();
-			   //e.setAttribute('required', true);
-			   //componentHandler.upgradeElement(e.parentElement);
-			   //MaterialTextfield.change();
-			   //e.checkValidity();
-			   if (e.parentElement.MaterialTextfield.input_.validity.valid && $(e).val() != "") {
-				   submit = true;
-			   }
+			   // if (e.parentElement.MaterialTextfield.input_.validity.valid && $(e).val() != "") {
+				//    submit = true;
+			   // } else {
+				//    submit = false;
+				//    break;
+			   // }
 			});
+
+			//return submit;
+		}
+
+		function validateMDLFields(el) {
+			var submit = false;
+			var mdlTextfields = el.querySelectorAll('input, textarea');
+			for (var i = 0; i < mdlTextfields.length; i++) {
+				if ($(mdlTextfields[i]).parents('.mdl-textfield').hasClass('is-invalid')) {
+					submit = false;
+					break;
+				} else {
+					submit = true;
+				}
+			}
+			return submit;
+		}
+
+		//Validate bootstrap iconpicker
+		function validateServiceIconpicker(el) {
+			var submit = false;
+			//Check that an icon has been selected
+			var iconpickers = el.querySelectorAll('div.service-iconpicker');
+			for (var i = 0; i < iconpickers.length; i++) {
+				if ($(iconpickers[i]).attr('data-selected') == 'empty') {
+					$(error).css('visibility', 'true');
+					submit = false;
+					break;
+				} else {
+					$(error).css('visibility', 'hidden');
+					submit = true;
+				}
+			}
+			// el.querySelectorAll("div.service-iconpicker[data-required]").forEach(function(e) {
+			// 	var error = $(e).siblings('.mdl-textfield__error');
+			// 	if ($(e).attr('data-selected') != 'empty') {
+			// 		submit = true;
+			// 		$(error).css('visibility', 'hidden');
+			// 	} else {
+			// 		submit = false;
+			// 		$(error).css('visibility', 'visible');
+			// 	}
+			// });
 
 			return submit;
 		}
 
-		//Counts for maintaining how many skills have been Created
+		// function removeRequired(el) {
+		// 	el.querySelectorAll("input[data-required], textarea[data-required]").forEach(function(e) {
+		// 		e.setAttribute('required', false);
+		// 		$(e.parentElement).removeClass('is-invalid');
+		// 	});
+		// 	clearFields(el);
+		// }
+
+		//Counts for maintaining how many skills have been created
 		var counts = {
 			skillCount: 0,
 			projectCount: 0,
@@ -241,7 +307,9 @@
 
         $('#add-a-skill-button').on('click', function() {
 
-			var canAdd = validateFields(addSkillDialog);
+			validateFields(addSkillDialog);
+
+			var canAdd = validateMDLFields(addSkillDialog);
 
 			if (canAdd) {
 				//Get skill template
@@ -324,6 +392,7 @@
 	            //Reset input fields for creating a new skill
 	            $('#skill-rating').data("ionRangeSlider").update({from: 10});
 	            clearFields(addSkillDialog);
+				//removeRequired(addSkillDialog);
 			}
         });
 
@@ -348,42 +417,49 @@
         $('#save-skill-button').on('click', function() {
 			var id = $(editSkillDialog).attr('data-dataID');
             var mainContent = $('#skill' + id);
-            var newSkillName = $('#edit-skill-name').val();
-            var newSkillRating = $('#edit-skill-rating').val();
 
-			//Update main content fields
-            $(mainContent).find('span.skill-title').text(newSkillName);
-            $(mainContent).find('li')
-                .removeClass('skills-animated')
-                .attr('data-percent', newSkillRating)
-                .css('width', '');
-            var prev = $(mainContent).find('span.skill-range').attr('data-to');
-            $(mainContent).find('span.skill-range').attr({
-                'data-to': newSkillRating,
-                'data-from': prev
-            });
-            setTimeout(function() {
-                SEMICOLON.widget.progress();
-                $(mainContent).find('span.skill-range').countTo({
-                    'from': parseInt(prev),
-                    'to': parseInt(newSkillRating)
-                });
-            }, 100);
+			validateFields(editSkillDialog);
 
-			//Update skill JSONObject
-			var skills = profile.skills;
-			for (var i = 0; i < profile.skills.length; i++) {
-				if (profile.skills[i].id == 'skill' + id) {
-					profile.skills[i].skill = newSkillName;
-					profile.skills[i].rating = parseInt(newSkillRating);
-					break;
+			var canSave = validateMDLFields(editSkillDialog);
+
+			if (canSave) {
+				var newSkillName = $('#edit-skill-name').val();
+	            var newSkillRating = $('#edit-skill-rating').val();
+
+				//Update main content fields
+	            $(mainContent).find('span.skill-title').text(newSkillName);
+	            $(mainContent).find('li')
+	                .removeClass('skills-animated')
+	                .attr('data-percent', newSkillRating)
+	                .css('width', '');
+	            var prev = $(mainContent).find('span.skill-range').attr('data-to');
+	            $(mainContent).find('span.skill-range').attr({
+	                'data-to': newSkillRating,
+	                'data-from': prev
+	            });
+	            setTimeout(function() {
+	                SEMICOLON.widget.progress();
+	                $(mainContent).find('span.skill-range').countTo({
+	                    'from': parseInt(prev),
+	                    'to': parseInt(newSkillRating)
+	                });
+	            }, 100);
+
+				//Update skill JSONObject
+				var skills = profile.skills;
+				for (var i = 0; i < profile.skills.length; i++) {
+					if (profile.skills[i].id == 'skill' + id) {
+						profile.skills[i].skill = newSkillName;
+						profile.skills[i].rating = parseInt(newSkillRating);
+						break;
+					}
 				}
-			}
 
-			//Close dialog
-			editSkillDialog.close();
-			clearFields(editSkillDialog);
-			$('#edit-skill-rating').data('ionRangeSlider').update({from: 10});
+				//Close dialog
+				editSkillDialog.close();
+				clearFields(editSkillDialog);
+				$('#edit-skill-rating').data('ionRangeSlider').update({from: 10});
+			}
         });
 
         $('#delete-skill-button').on('click', function() {
@@ -407,67 +483,73 @@
 
         $('#add-project-button').on('click', function() {
 
-			//Get values from add dialog
-			var projectTitle = $('#project-title').val();
-			var projectDateTo = $('#project-date-to').val();
-			var projectDateFrom = $('#project-date-from').val();
-			var projectDesc = $('#project-desc').val();
+			validateFields(addProjectDialog);
 
-			//Get container to append new project
-            var projectTimeline = $('#project-timeline');
+			var canAdd = validateMDLFields(addProjectDialog);
 
-			//Get new project ID
-			projectCount++;
-            var projectId = projectCount;
+			if (canAdd) {
+				//Get values from add dialog
+				var projectTitle = $('#project-title').val();
+				var projectDateTo = $('#project-date-to').val();
+				var projectDateFrom = $('#project-date-from').val();
+				var projectDesc = $('#project-desc').val();
 
-			//Get template to clone
-			var projectTemplate = $('#project-template');
-            var cloneProject = $(projectTemplate)
-                .clone(true, true)
-                .attr('id', 'project' + projectId)
-                .removeClass('hide-content');
+				//Get container to append new project
+	            var projectTimeline = $('#project-timeline');
 
-			//Get edit dialog and main-content for new project
-			var mainContent;
+				//Get new project ID
+				projectCount++;
+	            var projectId = projectCount;
 
-			//Materialize input fields (necessary for MDL Lite)
-            var materializedProject = materialize(cloneProject);
-            upgradeMaterialized(materializedProject);
+				//Get template to clone
+				var projectTemplate = $('#project-template');
+	            var cloneProject = $(projectTemplate)
+	                .clone(true, true)
+	                .attr('id', 'project' + projectId)
+	                .removeClass('hide-content');
 
-			mainContent = $(materializedProject).find('.main-content');
+				//Get edit dialog and main-content for new project
+				var mainContent;
 
-			//Set new values
-            $(mainContent).find(".item-title").text(projectTitle);
-            $(mainContent).find('.item-period').text(projectDateFrom + ' - ' + projectDateTo);
-            $(mainContent).find('.item-description').text(projectDesc);
+				//Materialize input fields (necessary for MDL Lite)
+	            var materializedProject = materialize(cloneProject);
+	            upgradeMaterialized(materializedProject);
 
-			$(mainContent).find('.edit-project-button').on('click', function() {
-				uploadProjectData(projectId);
-				editProjectDialog.showModal();
-			});
+				mainContent = $(materializedProject).find('.main-content');
 
-            //Add project to DB
-            var experienceSet = {
-				id: 'project' + projectId,
-                title: projectTitle,
-                from: projectDateFrom,
-                to: projectDateTo,
-                description: projectDesc,
-                verifiedCount: 0
-            };
+				//Set new values
+	            $(mainContent).find(".item-title").text(projectTitle);
+	            $(mainContent).find('.item-period').text(projectDateFrom + ' - ' + projectDateTo);
+	            $(mainContent).find('.item-description').text(projectDesc);
 
-            if (profile.experiences) {
-                profile.experiences.push(experienceSet);
-            } else {
-                var experienceSetArr = [];
-                experienceSetArr.push(experienceSet);
-                profile['experiences'] = experienceSetArr;
-            }
+				$(mainContent).find('.edit-project-button').on('click', function() {
+					uploadProjectData(projectId);
+					editProjectDialog.showModal();
+				});
 
-            $(projectTimeline).append(materializedProject);
+	            //Add project to DB
+	            var experienceSet = {
+					id: 'project' + projectId,
+	                title: projectTitle,
+	                from: projectDateFrom,
+	                to: projectDateTo,
+	                description: projectDesc,
+	                verifiedCount: 0
+	            };
 
-            //Reset input fields
-			clearFields(addProjectDialog);
+	            if (profile.experiences) {
+	                profile.experiences.push(experienceSet);
+	            } else {
+	                var experienceSetArr = [];
+	                experienceSetArr.push(experienceSet);
+	                profile['experiences'] = experienceSetArr;
+	            }
+
+	            $(projectTimeline).append(materializedProject);
+
+	            //Reset input fields
+				clearFields(addProjectDialog);
+			}
 
         });
 
@@ -500,31 +582,37 @@
 			var id = $(editProjectDialog).attr('data-dataID');
             var mainContent = $("#project" + id);
 
-			var newProjectTitle = $('#edit-project-title').val();
-			var newProjectDateFrom = $('#edit-project-date-from').val();
-			var newProjectDateTo = $('#edit-project-date-to').val();
-			var newProjectDesc = $('#edit-project-desc').val();
+			validateFields(editProjectDialog);
 
-            $(mainContent).find('.item-title').text(newProjectTitle);
-            $(mainContent).find('.item-period')
-                .text(newProjectDateFrom + ' - ' + newProjectDateTo);
-            $(mainContent).find('.item-description').text(newProjectDesc);
+			var canSave = validateMDLFields(editProjectDialog);
 
-			//Update project JSONObject
-			var projects = profile.experiences;
-			for (var i = 0; i < profile.experiences.length; i++) {
-				if (profile.experiences[i].id ==  'project' + id) {
-					profile.experiences[i].title = newProjectTitle;
-					profile.experiences[i].from = parseInt(newProjectDateFrom);
-					profile.experiences[i].to = parseInt(newProjectDateTo);
-					profile.experiences[i].desc = newProjectDesc;
-					break;
+			if (canSave) {
+				var newProjectTitle = $('#edit-project-title').val();
+				var newProjectDateFrom = $('#edit-project-date-from').val();
+				var newProjectDateTo = $('#edit-project-date-to').val();
+				var newProjectDesc = $('#edit-project-desc').val();
+
+	            $(mainContent).find('.item-title').text(newProjectTitle);
+	            $(mainContent).find('.item-period')
+	                .text(newProjectDateFrom + ' - ' + newProjectDateTo);
+	            $(mainContent).find('.item-description').text(newProjectDesc);
+
+				//Update project JSONObject
+				var projects = profile.experiences;
+				for (var i = 0; i < profile.experiences.length; i++) {
+					if (profile.experiences[i].id ==  'project' + id) {
+						profile.experiences[i].title = newProjectTitle;
+						profile.experiences[i].from = parseInt(newProjectDateFrom);
+						profile.experiences[i].to = parseInt(newProjectDateTo);
+						profile.experiences[i].desc = newProjectDesc;
+						break;
+					}
 				}
-			}
 
-			//Close and reset dialog
-			clearFields(editProjectDialog);
-			editProjectDialog.close();
+				//Close and reset dialog
+				clearFields(editProjectDialog);
+				editProjectDialog.close();
+			}
         });
 
         $('#delete-project-button').on('click', function() {
@@ -545,67 +633,73 @@
 
         $('#add-learning-button').on('click', function() {
 
-			//Get values from add dialog
-			var learningTitle = $('#learning-title').val();
-			var learningDateTo = $('#learning-date-to').val();
-			var learningDateFrom = $('#learning-date-from').val();
-			var learningDesc = $('#learning-desc').val();
+			validateFields(addLearningDialog);
 
-			//Get container to append new learning
-            var learningTimeline = $('#learning-timeline');
+			var canAdd = validateMDLFields(addLearningDialog);
 
-			//Get new learning ID
-			learningCount++;
-            var learningId = learningCount;
+			if (canAdd) {
+				//Get values from add dialog
+				var learningTitle = $('#learning-title').val();
+				var learningDateTo = $('#learning-date-to').val();
+				var learningDateFrom = $('#learning-date-from').val();
+				var learningDesc = $('#learning-desc').val();
 
-			//Get template to clone
-			var learningTemplate = $('#learning-template');
-            var cloneLearning = $(learningTemplate)
-                .clone(true, true)
-                .attr('id', 'learning' + learningId)
-                .removeClass('hide-content');
+				//Get container to append new learning
+				var learningTimeline = $('#learning-timeline');
 
-			//Get edit dialog and main-content for new project
-			var mainContent;
+				//Get new learning ID
+				learningCount++;
+				var learningId = learningCount;
 
-			//Materialize input fields (necessary for MDL Lite)
-            var materializedLearning = materialize(cloneLearning);
-            upgradeMaterialized(materializedLearning);
+				//Get template to clone
+				var learningTemplate = $('#learning-template');
+				var cloneLearning = $(learningTemplate)
+					.clone(true, true)
+					.attr('id', 'learning' + learningId)
+					.removeClass('hide-content');
 
-			mainContent = $(materializedLearning).find('.main-content');
+				//Get edit dialog and main-content for new project
+				var mainContent;
 
-			//Set new values
-            $(mainContent).find(".item-title").text(learningTitle);
-            $(mainContent).find('.item-period').text(learningDateFrom + ' - ' + learningDateTo);
-            $(mainContent).find('.item-description').text(learningDesc);
+				//Materialize input fields (necessary for MDL Lite)
+				var materializedLearning = materialize(cloneLearning);
+				upgradeMaterialized(materializedLearning);
 
-			$(mainContent).find('.edit-learning-button').on('click', function() {
-				uploadLearningData(learningId);
-				editLearningDialog.showModal();
-			});
+				mainContent = $(materializedLearning).find('.main-content');
 
-            //Add project to DB
-            var learningSet = {
-				id: 'learning' + learningId,
-                title: learningTitle,
-                from: learningDateFrom,
-                to: learningDateTo,
-                description: learningDesc,
-                verifiedCount: 0
-            };
+				//Set new values
+				$(mainContent).find(".item-title").text(learningTitle);
+				$(mainContent).find('.item-period').text(learningDateFrom + ' - ' + learningDateTo);
+				$(mainContent).find('.item-description').text(learningDesc);
 
-            if (profile.externalLinks) {
-                profile.externalLinks.push(learningSet);
-            } else {
-                var learningSetArr = [];
-                learningSetArr.push(learningSet);
-                profile['externalLinks'] = learningSetArr;
-            }
+				$(mainContent).find('.edit-learning-button').on('click', function() {
+					uploadLearningData(learningId);
+					editLearningDialog.showModal();
+				});
 
-            $(learningTimeline).append(materializedLearning);
+				//Add project to DB
+				var learningSet = {
+					id: 'learning' + learningId,
+					title: learningTitle,
+					from: learningDateFrom,
+					to: learningDateTo,
+					description: learningDesc,
+					verifiedCount: 0
+				};
 
-            //Reset input fields
-			clearFields(addLearningDialog);
+				if (profile.externalLinks) {
+					profile.externalLinks.push(learningSet);
+				} else {
+					var learningSetArr = [];
+					learningSetArr.push(learningSet);
+					profile['externalLinks'] = learningSetArr;
+				}
+
+				$(learningTimeline).append(materializedLearning);
+
+				//Reset input fields
+				clearFields(addLearningDialog);
+			}
 
         });
 
@@ -639,31 +733,37 @@
 			var id = $(editLearningDialog).attr('data-dataID');
             var mainContent = $("#learning" + id);
 
-			var newLearningTitle = $('#edit-learning-title').val();
-			var newLearningDateFrom = $('#edit-learning-date-from').val();
-			var newLearningDateTo = $('#edit-learning-date-to').val();
-			var newLearningDesc = $('#edit-learning-desc').val();
+			validateFields(editLearningDialog);
 
-            $(mainContent).find('.item-title').text(newLearningTitle);
-            $(mainContent).find('.item-period')
-                .text(newLearningDateFrom + ' - ' + newLearningDateTo);
-            $(mainContent).find('.item-description').text(newLearningDesc);
+			var canSave = validateMDLFields(editLearningDialog);
 
-			//Update project JSONObject
-			var projects = profile.externalLinks;
-			for (var i = 0; i < profile.externalLinks.length; i++) {
-				if (profile.externalLinks[i].id ==  'learning' + id) {
-					profile.externalLinks[i].title = newLearningTitle;
-					profile.externalLinks[i].from = parseInt(newLearningDateFrom);
-					profile.externalLinks[i].to = parseInt(newLearningDateTo);
-					profile.externalLinks[i].desc = newLearningDesc;
-					break;
+			if (canSave) {
+				var newLearningTitle = $('#edit-learning-title').val();
+				var newLearningDateFrom = $('#edit-learning-date-from').val();
+				var newLearningDateTo = $('#edit-learning-date-to').val();
+				var newLearningDesc = $('#edit-learning-desc').val();
+
+	            $(mainContent).find('.item-title').text(newLearningTitle);
+	            $(mainContent).find('.item-period')
+	                .text(newLearningDateFrom + ' - ' + newLearningDateTo);
+	            $(mainContent).find('.item-description').text(newLearningDesc);
+
+				//Update project JSONObject
+				var projects = profile.externalLinks;
+				for (var i = 0; i < profile.externalLinks.length; i++) {
+					if (profile.externalLinks[i].id ==  'learning' + id) {
+						profile.externalLinks[i].title = newLearningTitle;
+						profile.externalLinks[i].from = parseInt(newLearningDateFrom);
+						profile.externalLinks[i].to = parseInt(newLearningDateTo);
+						profile.externalLinks[i].desc = newLearningDesc;
+						break;
+					}
 				}
-			}
 
-			//Close and reset dialog
-			clearFields(editLearningDialog);
-			editLearningDialog.close();
+				//Close and reset dialog
+				clearFields(editLearningDialog);
+				editLearningDialog.close();
+			}
         });
 
         $('#delete-learning-button').on('click', function() {
@@ -683,66 +783,73 @@
         // --- Education ---
 
         $('#add-edu-button').on('click', function() {
-            var eduTimeline = $('#education-timeline');
-			educationCount++;
-            var eduId = educationCount;
 
-			var mainContent;
+			validateFields(addEduDialog);
 
-            var eduDegreeTitle = $('#edu-degree-title').val();
-            var eduInstitution = $('#edu-institution').val();
-            var eduDateFrom = $('#edu-date-from').val();
-            var eduDateTo = $('#edu-date-to').val();
-            var eduDesc = $('#edu-desc').val();
+			var canAdd = validateMDLFields(addEduDialog);
 
-			//Get education template and clone it
-            var eduTemplate = $('#education-template');
-            var cloneEdu = $(eduTemplate)
-                .clone(true, true)
-                .attr('id', 'education' + eduId)
-                .removeClass('hide-content');
+			if (canAdd) {
+				var eduTimeline = $('#education-timeline');
+				educationCount++;
+	            var eduId = educationCount;
 
-            var materializedEdu = materialize(cloneEdu);
-            upgradeMaterialized(materializedEdu);
+				var mainContent;
 
-			mainContent = $(materializedEdu).find('.main-content');
+				var eduDegreeTitle = $('#edu-degree-title').val();
+	            var eduInstitution = $('#edu-institution').val();
+	            var eduDateFrom = $('#edu-date-from').val();
+	            var eduDateTo = $('#edu-date-to').val();
+	            var eduDesc = $('#edu-desc').val();
 
-            $(materializedEdu).find(".item-title").text(eduDegreeTitle);
-            $(materializedEdu).find('.item-period').text(eduDateFrom + ' - ' + eduDateTo);
-            $(materializedEdu).find('.item-description').text(eduDesc);
-            $(materializedEdu).find('.item-institute').text(eduInstitution);
+				//Get education template and clone it
+	            var eduTemplate = $('#education-template');
+	            var cloneEdu = $(eduTemplate)
+	                .clone(true, true)
+	                .attr('id', 'education' + eduId)
+	                .removeClass('hide-content');
 
-			$(mainContent).find('.edit-edu-button').on('click', function() {
-				uploadEducation(eduId);
-				editEduDialog.showModal();
-			});
-			$(dialog).find('.close').on('click', function() {
-				clearFields(editEduDialog);
-				editEduDialog.close();
-			});
+	            var materializedEdu = materialize(cloneEdu);
+	            upgradeMaterialized(materializedEdu);
 
-            $(eduTimeline).append(materializedEdu);
+				mainContent = $(materializedEdu).find('.main-content');
 
-            var educationSet = {
-				id: 'edu' + eduId,
-                degree: eduDegreeTitle,
-                institute: eduInstitution,
-                from: eduDateFrom,
-                to: eduDateTo,
-                description: eduDesc,
-                verifiedCount: 0
-            };
+	            $(materializedEdu).find(".item-title").text(eduDegreeTitle);
+	            $(materializedEdu).find('.item-period').text(eduDateFrom + ' - ' + eduDateTo);
+	            $(materializedEdu).find('.item-description').text(eduDesc);
+	            $(materializedEdu).find('.item-institute').text(eduInstitution);
 
-            if (profile.educations) {
-                profile.educations.push(educationSet);
-            } else {
-                var educationSetArr = [];
-                educationSetArr.push(educationSet);
-                profile['educations'] = educationSetArr;
-            }
+				$(mainContent).find('.edit-edu-button').on('click', function() {
+					uploadEducation(eduId);
+					editEduDialog.showModal();
+				});
+				$(dialog).find('.close').on('click', function() {
+					clearFields(editEduDialog);
+					editEduDialog.close();
+				});
 
-            //Reset input fields for creating a new education item
-			clearFields(addEduDialog);
+	            $(eduTimeline).append(materializedEdu);
+
+	            var educationSet = {
+					id: 'edu' + eduId,
+	                degree: eduDegreeTitle,
+	                institute: eduInstitution,
+	                from: eduDateFrom,
+	                to: eduDateTo,
+	                description: eduDesc,
+	                verifiedCount: 0
+	            };
+
+	            if (profile.educations) {
+	                profile.educations.push(educationSet);
+	            } else {
+	                var educationSetArr = [];
+	                educationSetArr.push(educationSet);
+	                profile['educations'] = educationSetArr;
+	            }
+
+	            //Reset input fields for creating a new education item
+				clearFields(addEduDialog);
+			}
         });
 
 		function uploadEducation(eduId) {
@@ -774,34 +881,40 @@
 			var id = $(editEduDialog).attr('data-dataID');
             var mainContent = $('#edu' + id);
 
-			var newEduDegree = $('#edit-edu-degree-title').val();
-			var newEduInstitute = $('#edit-edu-institution').val();
-			var newEdutDateFrom = $('#edit-edu-date-from').val();
-			var newEduDateTo = $('#edit-edu-date-to').val();
-			var newEduDesc = $('#edit-edu-desc').val();
+			validateFields(editEduDialog);
 
-            $(mainContent).find('.item-title').text(newEduDegree);
-			$(mainContent).find('.item-institute').text(newEduInstitute);
-            $(mainContent).find('.item-period')
-                .text(newEdutDateFrom + ' - ' + newEduDateTo);
-            $(mainContent).find('.item-description').text(newEduDesc);
+			var canSave = validateMDLFields(editEduDialog);
 
-			//Update education JSONObject
-			var projects = profile.educations;
-			for (var i = 0; i < profile.educations.length; i++) {
-				if (profile.educations[i].id == 'edu' + id) {
-					profile.educations[i].degree = newEduDegree;
-					profile.educations[i].institute = newEduInstitute;
-					profile.educations[i].from = parseInt(newEdutDateFrom);
-					profile.educations[i].to = parseInt(newEduDateTo);
-					profile.educations[i].description = newEduDesc;
-					break;
+			if (canSave) {
+				var newEduDegree = $('#edit-edu-degree-title').val();
+				var newEduInstitute = $('#edit-edu-institution').val();
+				var newEdutDateFrom = $('#edit-edu-date-from').val();
+				var newEduDateTo = $('#edit-edu-date-to').val();
+				var newEduDesc = $('#edit-edu-desc').val();
+
+	            $(mainContent).find('.item-title').text(newEduDegree);
+				$(mainContent).find('.item-institute').text(newEduInstitute);
+	            $(mainContent).find('.item-period')
+	                .text(newEdutDateFrom + ' - ' + newEduDateTo);
+	            $(mainContent).find('.item-description').text(newEduDesc);
+
+				//Update education JSONObject
+				var projects = profile.educations;
+				for (var i = 0; i < profile.educations.length; i++) {
+					if (profile.educations[i].id == 'edu' + id) {
+						profile.educations[i].degree = newEduDegree;
+						profile.educations[i].institute = newEduInstitute;
+						profile.educations[i].from = parseInt(newEdutDateFrom);
+						profile.educations[i].to = parseInt(newEduDateTo);
+						profile.educations[i].description = newEduDesc;
+						break;
+					}
 				}
-			}
 
-			//Close dialog
-			clearFields(editEduDialog);
-			editEduDialog.close();
+				//Close dialog
+				clearFields(editEduDialog);
+				editEduDialog.close();
+			}
         });
 
         $('#delete-edu-button').on('click', function() {
@@ -821,75 +934,70 @@
         // --- Services ---
 
         $('#add-service-button').on('click', function() {
-            var servicesContainer = $('#services-component');
-			servicesCount++;
-            var serviceId = servicesCount;
 
-			var mainContent;
+			validateFields(addServiceDialog);
 
-            var serviceTemplate = $('#service-template');
-            var serviceClone = $(serviceTemplate)
-                .clone(true, true)
-                .attr('id', 'service' + serviceId)
-                .removeClass('hide-content');
+			var canAdd = validateMDLFields(addServiceDialog) && validateServiceIconpicker(addServiceDialog);
 
-            var serviceTitle = $('#service-title').val();
-            var serviceDesc = $('#service-desc').val();
-            var serviceIcon = $('#service-iconpicker').attr('data-selected');
+			if (canAdd) {
+				var servicesContainer = $('#services-component');
+				servicesCount++;
+	            var serviceId = servicesCount;
 
-            var materializedService = materialize(serviceClone);
-            upgradeMaterialized(materializedService);
+				var mainContent;
 
-			var mainContent = $(materializedService).find('.main-content');
+				var serviceTemplate = $('#service-template');
+	            var serviceClone = $(serviceTemplate)
+	                .clone(true, true)
+	                .attr('id', 'service' + serviceId)
+	                .removeClass('hide-content');
 
-            $(mainContent).find('.service-icon a i').attr('class', 'fa ' + serviceIcon);
-            $(mainContent).find('.service-title').text(serviceTitle);
-            $(mainContent).find('.service-desc').text(serviceDesc);
+	            var serviceTitle = $('#service-title').val();
+	            var serviceDesc = $('#service-desc').val();
+	            var serviceIcon = $('#service-iconpicker').attr('data-selected');
 
-            // $(dialog).find('.service-title-content')
-            //     .attr('id', 'service-title' + serviceId)
-            //     .val(serviceTitle);
-            // $(dialog).find('.service-desc-content')
-            //     .attr('id', 'service-desc' + serviceId)
-            //     .val(serviceDesc);
-            // $(dialog).find('.service-icon-content')
-            //     .attr('id', 'service-icon' + serviceId)
-            //     .iconpicker({
-            //         selected: serviceIcon
-            //     });
+	            var materializedService = materialize(serviceClone);
+	            upgradeMaterialized(materializedService);
 
-			$(mainContent).find('.edit-service-button').on('click', function() {
-				uploadService(serviceId);
-				editServiceDialog.showModal();
-			});
-			$(dialog).find('.close').on('click', function() {
-				clearFields(editServiceDialog);
-				$('#edit-service-iconpicker').iconpicker('setIcon', 'fa-');
-				editServiceDialog.close();
-			});
+				var mainContent = $(materializedService).find('.main-content');
 
-            $(servicesContainer).append(materializedService);
-            $(mainContent).find('.feature-box').removeClass('not-animated').addClass('animated');
+	            $(mainContent).find('.service-icon a i').attr('class', 'fa ' + serviceIcon);
+	            $(mainContent).find('.service-title').text(serviceTitle);
+	            $(mainContent).find('.service-desc').text(serviceDesc);
 
-            var serviceSet = {
-				id: "service" + serviceId,
-                service: serviceTitle,
-                description: serviceDesc,
-                icon: serviceIcon,
-                verifiedCount: 0
-            };
+				$(mainContent).find('.edit-service-button').on('click', function() {
+					uploadService(serviceId);
+					editServiceDialog.showModal();
+				});
+				$(dialog).find('.close').on('click', function() {
+					clearFields(editServiceDialog);
+					$('#edit-service-iconpicker').iconpicker('setIcon', 'fa-');
+					editServiceDialog.close();
+				});
 
-            if (profile.services) {
-                profile.services.push(serviceSet);
-            } else {
-                var serviceSetArr = [];
-                serviceSetArr.push(serviceSet);
-                profile['services'] = serviceSetArr;
-            }
+	            $(servicesContainer).append(materializedService);
+	            $(mainContent).find('.feature-box').removeClass('not-animated').addClass('animated');
 
-            //Reset input fields for creating a new service item
-            clearFields(addServiceDialog);
-            $('#service-iconpicker').iconpicker('setIcon', 'fa-');
+	            var serviceSet = {
+					id: "service" + serviceId,
+	                service: serviceTitle,
+	                description: serviceDesc,
+	                icon: serviceIcon,
+	                verifiedCount: 0
+	            };
+
+	            if (profile.services) {
+	                profile.services.push(serviceSet);
+	            } else {
+	                var serviceSetArr = [];
+	                serviceSetArr.push(serviceSet);
+	                profile['services'] = serviceSetArr;
+	            }
+
+	            //Reset input fields for creating a new service item
+	            clearFields(addServiceDialog);
+	            $('#service-iconpicker').iconpicker('setIcon', 'empty');
+			}
 
         });
 
@@ -918,29 +1026,35 @@
 			var id = $(editServiceDialog).attr('data-dataID');
             var mainContent = $('#service' + id);
 
-			var newServiceTitle = $('#edit-service-title').val();
-			var newServiceDesc = $('#edit-service-desc').val();
-			var newServiceIcon = $('#edit-service-iconpicker').attr('data-selected');
+			validateFields(editServiceDialog);
 
-            $(mainContent).find('.service-title').text(newServiceTitle);
-            $(mainContent).find('.service-desc').text(newServiceDesc);
-            $(mainContent).find('.service-icon i').attr('class', 'fa ' + newServiceIcon);
+			var canSave = validateMDLFields(editServiceDialog) && validateServiceIconpicker(editServiceDialog);
 
-			//Update education JSONObject
-			var services = profile.services;
-			for (var i = 0; i < profile.services.length; i++) {
-				if (profile.services[i].id == 'service' + id) {
-					profile.services[i].service = newServiceTitle;
-					profile.services[i].description = newServiceDesc;
-					profile.services[i].icon = newServiceIcon;
-					break;
+			if (canSave) {
+				var newServiceTitle = $('#edit-service-title').val();
+				var newServiceDesc = $('#edit-service-desc').val();
+				var newServiceIcon = $('#edit-service-iconpicker').attr('data-selected');
+
+	            $(mainContent).find('.service-title').text(newServiceTitle);
+	            $(mainContent).find('.service-desc').text(newServiceDesc);
+	            $(mainContent).find('.service-icon i').attr('class', 'fa ' + newServiceIcon);
+
+				//Update education JSONObject
+				var services = profile.services;
+				for (var i = 0; i < profile.services.length; i++) {
+					if (profile.services[i].id == 'service' + id) {
+						profile.services[i].service = newServiceTitle;
+						profile.services[i].description = newServiceDesc;
+						profile.services[i].icon = newServiceIcon;
+						break;
+					}
 				}
-			}
 
-			//Clear fields and close dialog
-			clearFields(editServiceDialog);
-			$('#edit-service-iconpicker').iconpicker('setIcon', 'fa-');
-			editServiceDialog.close();
+				//Clear fields and close dialog
+				clearFields(editServiceDialog);
+				$('#edit-service-iconpicker').iconpicker('setIcon', 'empty');
+				editServiceDialog.close();
+			}
         });
 
         $('#delete-service-button').on('click', function() {
@@ -954,7 +1068,7 @@
 
 			//Clear fields and close dialog
 			clearFields(editServiceDialog);
-			$('#edit-service-iconpicker').iconpicker('setIcon', 'fa-');
+			$('#edit-service-iconpicker').iconpicker('setIcon', 'empty');
 			editServiceDialog.close();
         });
 

@@ -129,6 +129,7 @@ h4.custom-heading {
 .radio-button-label {
     text-transform: none;
     font-weight: normal;
+	font-size: 13px !important;
 }
 
 .img-container {
