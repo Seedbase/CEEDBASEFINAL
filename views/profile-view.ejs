@@ -103,22 +103,30 @@
                             <div class="row topmargin-sm">
                                 <div class="col-sm-12">
                                     <label>Opportunities I&#39;m seeking</label>
-                                    <div class="row">
+									<div class="row">
                                         <div class="col-lg-3 col-md-6 col-sm-6">
-                                            <input id="unPaidInternship" class="radio-style" disabled name="opportunityOption" type="radio" value="unPaidInternship">
-                                            <label for="unPaidInternship" class="radio-style-3-label radio-small radio-button-label">Unpaid Internship</label>
+											<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="unPaidInternship">
+										  		<input type="radio" id="unPaidInternship" class="mdl-radio__button" name="opportunityOption" value="unPaidInternship" required>
+											  	<span class="mdl-radio__label radio-button-label radio-small">Unpaid Internship</span>
+											</label>
                                         </div>
                                         <div class="col-lg-3 col-md-6 col-sm-6">
-                                            <input id="paidInternship" class="radio-style" disabled name="opportunityOption" type="radio" value="paidInternship">
-                                            <label for="paidInternship" class="radio-style-3-label radio-small radio-button-label">Paid internship</label>
+											<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="paidInternship">
+										  		<input type="radio" id="paidInternship" class="mdl-radio__button" name="opportunityOption" value="paidInternship" required>
+											  	<span class="mdl-radio__label radio-button-label radio-small">Paid Internship</span>
+											</label>
                                         </div>
                                         <div class="col-lg-3 col-md-6 col-sm-6">
-                                            <input id="tempContract" class="radio-style" disabled name="opportunityOption" type="radio" value="tempContract">
-                                            <label for="tempContract" class="radio-style-3-label radio-small radio-button-label">Temporary Contract</label>
+											<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="tempContract">
+										  		<input type="radio" id="tempContract" class="mdl-radio__button" name="opportunityOption" value="tempContract" required>
+											  	<span class="mdl-radio__label radio-button-label radio-small">Temporary Contract</span>
+											</label>
                                         </div>
                                         <div class="col-lg-3 col-md-6 col-sm-6">
-                                            <input id="fullTimeHire" class="radio-style" disabled name="opportunityOption" type="radio" value="fullTimeHire">
-                                            <label for="fullTimeHire" class="radio-style-3-label radio-small radio-button-label">Full Time Hire</label>
+											<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="fullTimeHire">
+										  		<input type="radio" id="fullTimeHire" class="mdl-radio__button" name="opportunityOption" value="fullTimeHire" required>
+											  	<span class="mdl-radio__label radio-button-label radio-small">Full Time Hire</span>
+											</label>
                                         </div>
                                     </div>
                                 </div>
@@ -233,7 +241,7 @@
                                                     <div class="project-item timeline-item" id="project<%=i%>">
                                                         <div class="main-content">
 															<% if (user.profile.experiences[i].verifiedCount > 0) { %>
-                                                            <span class="material-icons mdl-badge" data-badge="<%=user.profile.skills[i].verifiedCount%>">
+                                                            <span class="material-icons mdl-badge" data-badge="<%=user.profile.experiences[i].verifiedCount%>">
 															<% } else { %>
 															<span class="material-icons" data-badge="">
 															<% } %>

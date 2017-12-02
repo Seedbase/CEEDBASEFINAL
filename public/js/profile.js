@@ -100,7 +100,8 @@
         });
 
         //Getting user profile
-        var profile;
+        var profile,
+			introText;
         var userObj = JSON.parse($('#userProfileObject').text());
 
         if (userObj.profile) {
@@ -108,11 +109,76 @@
         } else {
             profile = {};
         }
-        var introText = [];
+
+		if (profile.introText) {
+			introText = profile.introText;
+		} else {
+			introText = [];
+		}
+
+		if (profile.residence) {
+			$('#creativeRegion').val(profile.residence);
+			$('#creativeRegion').trigger('change');
+		}
 
         if (profile.opportunitySeeking) {
             $('#' + profile.opportunitySeeking).attr('checked', 'checked');
         }
+
+		function updateProfile() {
+			var providerId = $('#providerId').val();
+			var message = $("#authenticatorMessage").val();
+			//TODO: allow user to change email
+			var emailData = {
+				fromName: $("#authenticatorName").val(),
+				fromEmail: userObj.email,
+				toEmail: $("#authenticatorEmail").val(),
+				subject: $("#authenticatorSubject").val(),
+				message: $("#authenticatorMessage").val()
+			};
+
+			//Update Counts
+			profile.counts.skillCount = skillCount;
+			profile.counts.projectCount = projectCount;
+			profile.counts.learningCount = learningCount;
+			profile.counts.educationCount = educationCount;
+			profile.counts.servicesCount = servicesCount;
+
+			//Introtext
+			/*
+				Note that introText[0] is the same as profile.displayName
+				profile.displayName appears in profile.ejs
+			*/
+			introText.push($('#introText1').val());
+			introText.push($('#introText2').val());
+			introText.push($('#introText3').val());
+			profile['introText'] = introText;
+
+			profile['displayName'] = $('#introText1').val();
+
+			//Video Resume
+			if ($('#videoResume').text()) {
+				profile['videoResume'] = JSON.parse($('#videoResume').text());
+			}
+
+			//Opportunities
+			profile['opportunitySeeking'] = $('input[name=opportunityOption]:checked').val();
+
+			//Region
+			profile['residence'] = $("#creativeRegion").select2().find(":selected").data().data.text;
+
+			//Passion
+			profile['passion'] = $('#passion').val();
+
+			//requestData
+			var requestData = {
+				dataString: emailData,
+				userProfile: profile,
+				providerId: providerId
+			};
+
+			return requestData;
+		}
 
         /**
          * Contact Form
@@ -120,41 +186,13 @@
         $('#submitTheVerificationRequest').on('click', function(e) {
 
             //Validate before submission
-			var canSubmit = validateMDLFields($('#contactForm')) && validateMDLFields($('#intro-profile'));
+			var validateContactForm = validateMDLFields(document.querySelector('#contactForm'));
+			var validateIntro = validateMDLFields(document.querySelector('#intro-profile'))
 
-			if (canSubmit) {
-				var providerId = $('#providerId').val();
-	            e.preventDefault();
-	            var message = $("#authenticatorMessage").val();
-	            var emailData = {
-	                fromName: $("#authenticatorName").val(),
-	                fromEmail: $('#email').text(),
-	                toEmail: $("#authenticatorEmail").val(),
-	                subject: $("#authenticatorSubject").val(),
-	                message: $("#authenticatorMessage").val()
-	            };
+			e.preventDefault();
 
-	            //Introtext
-				/*
-					Note that introText[0] is the same as profile.displayName
-					profile.displayName appears in profile.ejs
-				*/
-	            introText.push(profile.displayName);
-	            introText.push($('#introText2').val());
-	            introText.push($('#introText3').val());
-
-	            //Opportunities
-	            profile['opportunitySeeking'] = $('input[name=opportunityOption]:checked').val();
-
-	            //Region
-	            profile['residence'] = $("#creativeRegion").select2().find(":selected").data().data.text;
-
-	            //requestData
-	            var requestData = {
-	                dataString: emailData,
-	                userProfile: profile,
-	                providerId: providerId
-	            };
+			if (validateContactForm && validateIntro) {
+				var requestData = updateProfile();
 
 	            $.ajax({
 	                type: 'POST',
@@ -169,6 +207,31 @@
 	            });
 			}
         });
+
+		/**
+		Save Profile
+		*/
+		$('#saveProfile').on('click', function(e) {
+			e.preventDefault();
+
+			//Validate before submission
+			//var validateContactForm = validateMDLFields(document.querySelector('#contactForm'));
+			var validateIntro = validateMDLFields(document.querySelector('#intro-profile'));
+
+			if (validateIntro) {
+				var requestData = updateProfile();
+
+				$.ajax({
+					type: 'POST',
+					url: '/profile/user/save',
+					data: requestData,
+					success: function() {
+						alert('Profile saved successfully.');
+					}
+				});
+
+			}
+		});
 
         /**
          * Editing the profile
@@ -253,8 +316,9 @@
 			//Check that an icon has been selected
 			var iconpickers = el.querySelectorAll('div.service-iconpicker');
 			for (var i = 0; i < iconpickers.length; i++) {
+				var error = $(iconpickers[i]).siblings('.mdl-textfield__error')[0];
 				if ($(iconpickers[i]).attr('data-selected') == 'empty') {
-					$(error).css('visibility', 'true');
+					$(error).css('visibility', 'visible');
 					submit = false;
 					break;
 				} else {
@@ -365,12 +429,12 @@
 
 	            //countTo is not called in SEMICOLON.widget.progress() and need to set value for ionRangeSlider
 	            $(materializedSkill).show(100, function() {
+					$('#skill-range-input' + skillsId).ionRangeSlider({
+	                    from: parseInt(skillRating)
+	                });
 					//Animate progress bar widget
 		            SEMICOLON.widget.progress();
 	                $(this).find('.main-content span.skill-range').countTo();
-	                $('#skill-range-input' + skillsId).ionRangeSlider({
-	                    from: parseInt(skillRating)
-	                });
 	            });
 
 	            //Add skill to db
@@ -822,10 +886,10 @@
 					uploadEducation(eduId);
 					editEduDialog.showModal();
 				});
-				$(dialog).find('.close').on('click', function() {
-					clearFields(editEduDialog);
-					editEduDialog.close();
-				});
+				// $(editEduDialog).find('.close').on('click', function() {
+				// 	clearFields(editEduDialog);
+				// 	editEduDialog.close();
+				// });
 
 	            $(eduTimeline).append(materializedEdu);
 
@@ -937,9 +1001,10 @@
 
 			validateFields(addServiceDialog);
 
-			var canAdd = validateMDLFields(addServiceDialog) && validateServiceIconpicker(addServiceDialog);
+			var canAdd = validateMDLFields(addServiceDialog);
+			var validateIconpicker = validateServiceIconpicker(addServiceDialog);
 
-			if (canAdd) {
+			if (canAdd && validateIconpicker) {
 				var servicesContainer = $('#services-component');
 				servicesCount++;
 	            var serviceId = servicesCount;
@@ -961,7 +1026,7 @@
 
 				var mainContent = $(materializedService).find('.main-content');
 
-	            $(mainContent).find('.service-icon a i').attr('class', 'fa ' + serviceIcon);
+	            $(mainContent).find('.service-icon i').attr('class', 'fa ' + serviceIcon);
 	            $(mainContent).find('.service-title').text(serviceTitle);
 	            $(mainContent).find('.service-desc').text(serviceDesc);
 
@@ -969,11 +1034,11 @@
 					uploadService(serviceId);
 					editServiceDialog.showModal();
 				});
-				$(dialog).find('.close').on('click', function() {
-					clearFields(editServiceDialog);
-					$('#edit-service-iconpicker').iconpicker('setIcon', 'fa-');
-					editServiceDialog.close();
-				});
+				// $(editServiceDialog).find('.close').on('click', function() {
+				// 	clearFields(editServiceDialog);
+				// 	$('#edit-service-iconpicker').iconpicker('setIcon', 'fa-');
+				// 	editServiceDialog.close();
+				// });
 
 	            $(servicesContainer).append(materializedService);
 	            $(mainContent).find('.feature-box').removeClass('not-animated').addClass('animated');
@@ -1071,6 +1136,18 @@
 			$('#edit-service-iconpicker').iconpicker('setIcon', 'empty');
 			editServiceDialog.close();
         });
+
+		/* --- Manage Account --- */
+
+		$('#saveEmail').on('click', function(e) {
+			e.preventDefault();
+			userObj['email'] = $('#changeEmail').val();
+		});
+
+		$('#cancelEmail').on('click', function(e) {
+			e.preventDefault();
+			$('#changeEmail').val(userObj.email);
+		});
 
     });
 

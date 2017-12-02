@@ -47,120 +47,64 @@ Version: 1.0
         setTimeout(function() {
             $(".loader-wrapper").fadeOut('fast');
             (loader).fadeOut('fast');
-            /*Set time in milisec */
-             $('.intro-image').addClass('intro-image-z-index');
         }, 3500);
 
-
-        /** Background Image
-        ----------------------------*/
-        $(".bg-image").each(function() {
-            var $imgPath = $(this).attr('data-image');
-            $(this).css('background-image', 'url(' + $imgPath + ')');
-        });
-
-        /** Portfolio Isotope */
-        $(".gallery").isotope({
-            itemSelector: '.gallery-item',
-                percentPosition: true,
-        });
-
-        // isotope click function
-        $(".gallery-menu ul li button").on('click', function(e) {
-            e.preventDefault();
-            $(".gallery-menu ul li button").removeClass("active");
-            $(this).addClass("active");
-
-            var selector = $(this).attr('data-filter');
-            $(".gallery").isotope({
-                filter: selector,
-                animationOptions: {
-                    duration: 750,
-                    easing: 'linear',
-                    queue: false,
-                }
-            });
-            return false;
-        });
-
     });
-
 
     /**
      * Document Ready
      */
     $(document).ready(function() {
 
-        /** Typed.js (Text typing effect) */
-        $(".typed").typed({
-            stringsElement: $(".typed-strings"),
-            loop: true,
-            backDelay: 2000
-        });
+		var profile;
+		var userObj = JSON.parse($('#userProfileObject').text());
 
-        /** Navigation */
-        // disable navigation of resume menu in case of profile.ejs
+		//Register all dialogs to polyfill
+		var dialogAll = document.querySelectorAll('dialog');
+		$(dialogAll).each(function() {
+			var dialog = this;
+			if (!dialog.show) {
+				dialogPolyfill.registerDialog(dialog);
+			}
+			dialog.querySelector('.close, .ok-close').addEventListener('click', function() {
+				dialog.close();
+			});
+		});
 
-        $(".nav-toggle, .resume-close").on('click', function(e) {
-            e.preventDefault();
-            $('body').toggleClass('menu-open');
-        });
+		var authenticateWholeProfileDialog = document.querySelector('dialog#authenticate-whole-user-profile');
 
-        /** Custom Scrollbar */
-        $(".section-resume").mCustomScrollbar({
-            theme: 'minimal-dark',
-            axis: 'y'
-        });
+		setTimeout(function() {
+			authenticateWholeProfileDialog.showModal();
+		}, 3500);
 
+		$('#creativeRegion').select2({
+			data: ['', 'Barrie', 'Bay of Quinte', 'Bow Valley', 'Calgary', 'Charlottetown', 'Comox Valley',
+				'Durham Region', 'Edmonton', 'Fredericton', 'Halifax', 'Hamilton', 'Kamloops', 'Kingston', 'Montreal',
+				'Nanaimo', 'Nelson', 'Niagara Falls', 'Ottawa', 'Ottawa Valley', 'Peel Region', 'Peterborough',
+				'Prince George', 'Revelstoke', 'Sarnia Lambton', 'Saskatoon', 'Sault Ste Marie', 'Smithers', 'Toronto',
+				'Vancouver', 'Waterloo', 'Whitehorse', 'Windsor', 'Winnipeg', 'York Region'],
+			placeholder: function () {
+				$(this).data('placeholder');
+			}
+		});
 
-        /** Progress Bar */
-        $(".progress-bar").each(function() {
-            var $imgPath = $(this).attr('data-percent');
-            $(this).css('width', $imgPath + '%');
-        });
+		if (userObj.profile.residence) {
+			$('#creativeRegion').val(userObj.profile.residence);
+			$('#creativeRegion').trigger('change');
+		}
 
-
-        // magnific popup for portfolio
-        $(".popup-image").magnificPopup({
-            type: 'image',
-        });
-
-        $(".popup-video").magnificPopup({
-            type: 'iframe',
-            iframe: {
-                markup: '<div class="mfp-iframe-scaler">' + '<div class="mfp-close"></div>' + '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>' + '</div>',
-
-                patterns: {
-                    youtube: {
-                        index: 'youtube.com/',
-                        id: 'v=',
-                        src: 'http://www.youtube.com/embed/%id%?autoplay=1'
-                    },
-                    vimeo: {
-                        index: 'vimeo.com/',
-                        id: '/',
-                        src: '//player.vimeo.com/video/%id%?autoplay=1'
-                    },
-                    gmaps: {
-                        index: '//maps.google.',
-                        src: '%id%&output=embed'
-                    }
-                },
-
-                srcAction: 'iframe_src',
-            }
-        });
-
+        if (userObj.profile.opportunitySeeking) {
+            $('#' + userObj.profile.opportunitySeeking).attr('checked', 'checked');
+        }
 
         $("#authenticateTheProfile").on('click', function(e) {
+			e.preventDefault();
+
             console.log($('#authenticatorOrganisationName').val());
             if (!$('#authenticatorName').val() || !$('#authenticatorEmail').val() || !$('#authenticatorOrganisationName').val()) {
                 alert('Please enter all required details');
                 return false;
             }
-            var profile;
-            var userObj = JSON.parse($('#userProfileObject').text());
-            e.preventDefault();
 
 			/*
 			TODO: there may be many authentications - currently only the recent authenticatorOrganisationName is recorded
@@ -170,7 +114,7 @@ Version: 1.0
             if (userObj.profile) {
                 if (userObj.profile.skills) {
                     for (var index = 0; index < userObj.profile.skills.length; index++) {
-                        if ($('#skill'+(index+1)).hasClass('verified'))) {
+                        if ($('#skill'+(index+1)).hasClass('verified')) {
 						//if ($('#skill'+index).is(":checked")) {
                              userObj.profile.skills[index].isAuthenticated = true;
                             userObj.profile.skills[index].authenticatedBy = $('#authenticatorOrganisationName').val();
@@ -293,31 +237,31 @@ Version: 1.0
             return false;
         });
 
-        $('#intro-text-new').css('display', 'none');
-        $('#passion-content-display').html($('#passion-content-display').html());
-        $('#freind-reference-content-display').html($('#freind-reference-content-display').html());
-
-
-        $('#flipToProfile').on('click', function () {
-            if($('#image-section').hasClass('intro-image')) {
-                setTimeout(function() {
-                    $('#image-section').removeClass('intro-image');
-                    $('#image-section').addClass('intro-image-new-margin');
-                    $('#intro-text-new').css('display', 'block');
-                    $('#intro-text-section').css('display', 'none');
-                }, 400);
-
-            } else {
-                setTimeout(function() {
-                    $('#image-section').addClass('intro-image');
-                    $('#image-section').removeClass('intro-image-new-margin');
-                    $('#intro-text-new').css('display', 'none');
-                    $('#intro-text-section').css('display', 'block');
-                }, 200);
-
-            }
-
-        });
+        // $('#intro-text-new').css('display', 'none');
+        // $('#passion-content-display').html($('#passion-content-display').html());
+        // $('#freind-reference-content-display').html($('#freind-reference-content-display').html());
+        //
+        //
+        // $('#flipToProfile').on('click', function () {
+        //     if($('#image-section').hasClass('intro-image')) {
+        //         setTimeout(function() {
+        //             $('#image-section').removeClass('intro-image');
+        //             $('#image-section').addClass('intro-image-new-margin');
+        //             $('#intro-text-new').css('display', 'block');
+        //             $('#intro-text-section').css('display', 'none');
+        //         }, 400);
+        //
+        //     } else {
+        //         setTimeout(function() {
+        //             $('#image-section').addClass('intro-image');
+        //             $('#image-section').removeClass('intro-image-new-margin');
+        //             $('#intro-text-new').css('display', 'none');
+        //             $('#intro-text-section').css('display', 'block');
+        //         }, 200);
+        //
+        //     }
+        //
+        // });
     });
 
 })(jQuery);

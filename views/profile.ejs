@@ -78,29 +78,33 @@
 
 		<div id="side-panel" style="top: 60px;">
 				<div class="side-panel-wrap">
-					<h6>Manage this user account</h6>
+					<h6>Manage this account</h6>
 					<form>
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="mdl-textfield mdl-js-textfield full-width mdl-textfield--floating-label">
-									<input class="mdl-textfield__input" type="email" id="changeEmail1" value="">
-									<label class="mdl-textfield__label" for="changeEmail1">New email</label>
+									<input class="mdl-textfield__input" type="email" id="changeEmail" value="<%=user.email%>">
+									<label class="mdl-textfield__label" for="changeEmail">Email</label>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-12">
-								<div class="mdl-textfield mdl-js-textfield full-width mdl-textfield--floating-label">
-									<input class="mdl-textfield__input" type="email" id="changeEmail2" value="">
-									<label class="mdl-textfield__label" for="changeEmail2">Re-enter email</label>
-								</div>
+								<button id="saveEmail" class="mdl-button mdl-js-button" type="submit">
+								  Save
+								</button>
+								<button id="cancelEmail" class="mdl-button mdl-js-button">
+								  Cancel
+								</button>
 							</div>
 						</div>
+					</form>
+					<form>
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="mdl-textfield mdl-js-textfield full-width mdl-textfield--floating-label">
 									<input class="mdl-textfield__input" type="password" id="changePassword1" value="">
-									<label class="mdl-textfield__label" for="changePassword1">New password</label>
+									<label class="mdl-textfield__label" for="changePassword1">Password</label>
 								</div>
 							</div>
 						</div>
@@ -108,14 +112,14 @@
 							<div class="col-sm-12">
 								<div class="mdl-textfield mdl-js-textfield full-width mdl-textfield--floating-label">
 									<input class="mdl-textfield__input" type="password" id="changePassword2" value="">
-									<label class="mdl-textfield__label" for="changePassword2">Re-enter password</label>
+									<label class="mdl-textfield__label" for="changePassword2">Confirm password</label>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-12">
 								<button class="mdl-button mdl-js-button" type="submit">
-								  Save Changes
+								  Save
 								</button>
 								<button class="mdl-button mdl-js-button">
 								  Cancel
@@ -228,7 +232,7 @@
                             </div>
                         </div>
                         <div id="intro-profile" class="col-md-9">
-                            <div class="row form-horizontal">
+                            <div class="row">
                                 <div class="col-sm-6"><h4 class="custom-heading">Hello, I'm</h4></div>
                                 <div class="col-sm-12">
                                     <div class="mdl-textfield mdl-js-textfield full-width profile-name">
@@ -240,10 +244,10 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-5-custom">
+                                <div class="col-sm-5">
                                     <div class="mdl-textfield mdl-js-textfield full-width">
 										<% if (user.profile && user.profile.introText) { %>
-                                        	<input class="mdl-textfield__input" type="text" id="introText2" value="<%=user.profile.introText[2]%>" maxlength="25" pattern="^(?!^$|^\s+$)[^\n\t]+" required>
+                                        	<input class="mdl-textfield__input" type="text" id="introText2" value="<%=user.profile.introText[1]%>" maxlength="25" pattern="^(?!^$|^\s+$)[^\n\t]+" required>
 										<% } else { %>
 											<input class="mdl-textfield__input" type="text" id="introText2" value="" maxlength="25" pattern="^(?!^$|^\s+$)[^\n\t]+" required>
 										<% } %>
@@ -251,11 +255,13 @@
 										<span class="mdl-textfield__error">Input must be defined!</span>
                                     </div>
                                 </div>
-                                <div class="col-sm-1" style="text-align: center; padding-top: 4px;">and</div>
-                                <div class="col-sm-5-custom">
+                                <div class="col-sm-1 align-centre-label">
+									<h6>AND</h6>
+								</div>
+                                <div class="col-sm-5">
                                     <div class="mdl-textfield mdl-js-textfield full-width">
 										<% if (user.profile && user.profile.introText) { %>
-                                        	<input class="mdl-textfield__input" type="text" id="introText3" value="<%=user.profile.introText[3]%>" pattern="^(?!^$|^\s+$)[^\n\t]+" required>
+                                        	<input class="mdl-textfield__input" type="text" id="introText3" value="<%=user.profile.introText[2]%>" pattern="^(?!^$|^\s+$)[^\n\t]+" required>
 										<% } else { %>
 											<input class="mdl-textfield__input" type="text" id="introText3" value="" pattern="^(?!^$|^\s+$)[^\n\t]+" required>
 										<% } %>
@@ -314,7 +320,7 @@
                                         <div class="row">
 											<div class="col-sm-12">
                                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 90%;">
-                                                    <textarea class="mdl-textfield__input autoresize" type="text" rows="4" id="passion" maxlength="200" style="overflow: hidden; max-width:100%;" ><%= user.profile ? user.profile.passion : '' %></textarea>
+                                                    <textarea class="mdl-textfield__input autoresize" type="text" rows="4" id="passion" maxlength="200" pattern="^(?!^$|^\s+$)[^\n\t]+" required style="overflow: hidden; max-width:100%;" ><%= user.profile ? user.profile.passion : '' %></textarea>
                                                     <label class="mdl-textfield__label" for="passion">Describe your passion</label>
 													<span class="mdl-textfield__error">Input must be defined!</span>
                                                 </div>
@@ -371,37 +377,39 @@
 
                                         <ul class="skills row nopadding">
                                             <!-- Existing skills -->
-                                            <% if (user.profile && user.profile.skills ) { %>
-                                                <% for (var i = 1; i <= user.profile.skills.length; i++) {%>
-                                                    <div class="skill-item col-sm-6 hover-component" id="skill<%=i%>">
-                                                        <div class="main-content">
-                                                            <div class="row">
-                                                                <div class="col-sm-10">
-																	<% if (user.profile.skills[i].verifiedCount > 0) { %>
-                                                                    	<span id="skill-title" class="mdl-badge skill-title" data-badge="<%=user.profile.skills[i].verifiedCount%>">
-																	<% } else { %>
-																		<span id="skill-title" class="skill-title" data-badge="">
-																	<% } %>
-																			<%=user.profile.skills[i].skill%>
-																		</span>
-                                                                    <li data-percent="<%=user.profile.skills[i].rating%>">
-                                                                        <div class="progress nopadding">
-                                                                            <div class="progress-percent">
-                                                                                <div class="counter counter-inherit">
-                                                                                    <span id="skill-range" class="skill-range" data-from="0" data-to="<%=user.profile.skills[i].rating%>" data-refresh-interval="30" data-speed="1100"></span>%
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </li>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <a class="edit edit-skill-button"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <% } %>
-                                            <% } %>
+											<% if (user.profile && user.profile.skills ) { %>
+												<% for (var i = 0; i <= user.profile.skills.length; i++) {%>
+													<% if (user.profile.skills[i]) { %>
+														<div class="skill-item col-sm-6 hover-component" id="skill<%=i+1%>">
+															<div class="main-content">
+																<div class="row">
+																	<div class="col-sm-10">
+																		<% if (user.profile.skills[i].verifiedCount > 0) { %>
+																			<span id="skill-title" class="mdl-badge skill-title" data-badge="<%=user.profile.skills[i].verifiedCount%>">
+																		<% } else { %>
+																			<span id="skill-title" class="skill-title" data-badge="">
+																		<% } %>
+																				<%=user.profile.skills[i].skill%>
+																			</span>
+																		<li data-percent="<%=user.profile.skills[i].rating%>">
+																			<div class="progress nopadding">
+																				<div class="progress-percent">
+																					<div class="counter counter-inherit">
+																						<span id="skill-range" class="skill-range" data-from="0" data-to="<%=user.profile.skills[i].rating%>" data-refresh-interval="30" data-speed="1100"></span>%
+																					</div>
+																				</div>
+																			</div>
+																		</li>
+																	</div>
+																	<div class="col-sm-2">
+																		<a class="edit edit-skill-button"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+																	</div>
+																</div>
+															</div>
+														</div>
+													<% } %>
+												<% } %>
+											<% } %>
                                         </ul>
                                     </div>
 									<div class="mdl-card__menu">
@@ -435,30 +443,28 @@
                                                 </div>
 
                                                 <div id="project-timeline" class="timeline">
-                                                    <% if (user.profile && user.profile.experiences) {%>
-                                                        <% for (var i = 1; i <= user.profile.experiences.length; i++) {%>
-                                                            <div class="project-item timeline-item" id="project<%=i%>">
-                                                                <div class="main-content">
-																	<% if (user.profile.experiences[i].verifiedCount > 0) { %>
-																	<span class="material-icons mdl-badge" data-badge="<%=user.profile.experiences[i].verifiedCount%>">
-																	<% } else { %>
-																	<span class="" data-badge="">
-																	<% } %>
-																		<h4 class="item-title"><%= user.profile.experiences[i].title%></h4>
-																	</span>
-																	<div class="item-edit">
-                                                                        <a class="edit-project-button edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                                    </div>
-                                                                    <div class="item-edit">
-                                                                        <a><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                                        <a><i class="fa fa-remove" aria-hidden="true"></i></a>
-                                                                    </div>
-                                                                    <span class="item-period"><%= user.profile.experiences[i].from %> - <%= user.profile.experiences[i].to %></span>
-                                                                    <p class="item-description"><%= user.profile.experiences[i].description %></p>
-                                                                </div>
-                                                            </div>
-                                                        <% } %>
-                                                    <% } %>
+												<% if (user.profile && user.profile.experiences) {%>
+													<% for (var i = 0; i <= user.profile.experiences.length; i++) {%>
+														<% if (user.profile.experiences[i]) { %>
+														<div class="project-item timeline-item hover-component" id="project<%=i+1%>">
+															<div class="main-content">
+																<% if (user.profile.experiences[i].verifiedCount > 0) { %>
+																<span class="material-icons mdl-badge" data-badge="<%=user.profile.experiences[i].verifiedCount%>">
+																<% } else { %>
+																<span class="" data-badge="">
+																<% } %>
+																	<h4 class="item-title"><%= user.profile.experiences[i].title%></h4>
+																</span>
+																<div class="item-edit">
+																	<a class="edit-project-button edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+																</div>
+																<span class="item-period"><%= user.profile.experiences[i].from %> - <%= user.profile.experiences[i].to %></span>
+																<p class="item-description"><%= user.profile.experiences[i].description %></p>
+															</div>
+														</div>
+														<% } %>
+													<% } %>
+												<% } %>
                                                 </div>
                                             </div>
                                         </div>
@@ -495,30 +501,28 @@
 	                                                </div>
 
 	                                                <div id="learning-timeline" class="timeline">
-	                                                    <% if (user.profile && user.profile.externalLinks) {%>
-	                                                        <% for (var i = 1; i <= user.profile.externalLinks.length; i++) {%>
-	                                                            <div class="project-item timeline-item" id="project<%=i%>">
-	                                                                <div class="main-content">
-																		<% if (user.profile.externalLinks[i].verifiedCount > 0) { %>
-																		<span class="material-icons mdl-badge" data-badge="<%=user.profile.externalLinks[i].verifiedCount%>">
-																		<% } else { %>
-																		<span class="" data-badge="">
-																		<% } %>
-																			<h4 class="item-title"><%= user.profile.externalLinks[i].title%></h4>
-																		</span>
-																		<div class="item-edit">
-	                                                                        <a class="edit-learning-button edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-	                                                                    </div>
-	                                                                    <div class="item-edit">
-	                                                                        <a><i class="fa fa-pencil" aria-hidden="true"></i></a>
-	                                                                        <a><i class="fa fa-remove" aria-hidden="true"></i></a>
-	                                                                    </div>
-	                                                                    <span class="item-period"><%= user.profile.externalLinks[i].from %> - <%= user.profile.externalLinks[i].to %></span>
-	                                                                    <p class="item-description"><%= user.profile.externalLinks[i].description %></p>
-	                                                                </div>
-	                                                            </div>
-	                                                        <% } %>
-	                                                    <% } %>
+													<% if (user.profile && user.profile.externalLinks) { %>
+														<% for (var i = 0; i <= user.profile.externalLinks.length; i++) { %>
+														<% if (user.profile.externalLinks[i]) { %>
+															<div class="project-item timeline-item hover-component" id="learning<%=i%>">
+																<div class="main-content">
+																	<% if (user.profile.externalLinks[i].verifiedCount > 0) { %>
+																	<span class="material-icons mdl-badge" data-badge="<%=user.profile.externalLinks[i].verifiedCount%>">
+																	<% } else { %>
+																	<span class="" data-badge="">
+																	<% } %>
+																		<h4 class="item-title"><%= user.profile.externalLinks[i].title%></h4>
+																	</span>
+																	<div class="item-edit">
+																		<a class="edit-learning-button edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+																	</div>
+																	<span class="item-period"><%= user.profile.externalLinks[i].from %> - <%= user.profile.externalLinks[i].to %></span>
+																	<p class="item-description"><%= user.profile.externalLinks[i].description %></p>
+																</div>
+															</div>
+														<% } %>
+														<% } %>
+													<% } %>
 	                                                </div>
 	                                            </div>
 	                                        </div>
@@ -554,27 +558,23 @@
 	                                                </div>
 
 	                                                <div id="education-timeline" class="timeline">
-	                                                    <% if (user.profile && user.profile.educations) { %>
-	                                                        <% for (var i = 1; i <= user.profile.educations.length; i++) { %>
-	                                                            <div class="education-item timeline-item hover-component" id="edu<%=i%>">
-	                                                                <div class="main-content">
-																	<% if (user.profile.educations[i].verifiedCount > 0) { %>
-																	<span class="mdl-badge" data-badge="<%=user.profile.educations[i].verifiedCount%>">
-																	<% } else { %>
-																	<span class="" data-badge="">
-																	<% } %>
-																	<h4 class="item-title"><%=user.profile.educations[i].degree%></h4>
-																	</span>
-	                                                                <div class="item-edit">
-	                                                                    <a class="edit-edu-button edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-	                                                                </div>
-																	<span class="item-institute"><%=user.profile.educations[i].institute%></span>
-	                                                                <span class="item-period"><%=user.profile.educations[i].from%> - <%=user.profile.educations[i].to%></span>
-	                                                                <p class="item-description"><%=user.profile.educations[i].description%></p>
-	                                                                </div>
-	                                                            </div>
-	                                                        <% } %>
-	                                                    <% } %>
+													<% if (user.profile && user.profile.educations) { %>
+														<% for (var i = 0; i <= user.profile.educations.length; i++) { %>
+															<% if (user.profile.educations[i]) { %>
+															<div class="education-item timeline-item hover-component" id="edu<%=i+1%>">
+																<div class="main-content">
+																<h4 class="item-title"><%=user.profile.educations[i].degree%></h4>
+																<div class="item-edit">
+																	<a class="edit-edu-button edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+																</div>
+																<span class="item-institute"><%=user.profile.educations[i].institute%></span>
+																<span class="item-period"><%=user.profile.educations[i].from%> - <%=user.profile.educations[i].to%></span>
+																<p class="item-description"><%=user.profile.educations[i].description%></p>
+																</div>
+															</div>
+															<% } %>
+														<% } %>
+													<% } %>
 	                                                </div>
 	                                            </div>
 	                                        </div>
@@ -613,28 +613,30 @@
                                         </div>
 
                                         <div id="services-component" class="row">
-                                            <% if (user.profile && user.profile.services) { %>
-                                                <% for (var i = 1; i <= user.profile.services.length; i++) { %>
-                                                <div class="service-item hover-component col-sm-4" id="service<%=i%>">
-                                                    <div class="main-content">
-                                                        <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
-                                                            <div class="service-edit">
-                                                                <a class="edit-service button edit"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
-                                                            </div>
-															<% if (user.profile.services[i].verifiedCount > 0) { %>
-															<div class="service-icon fbox-icon mdl-badge" data-badge="<%=user.profile.services[i].verifiedCount%>">
-															<% } else { %>
-															<div class="service-icon fbox-icon" data-badge="">
-															<% } %>
-                                                                <i class="fa <%=user.profile.services[i].icon%>"></i>
-                                                            </div>
-                                                            <h3 class="service-title"><%=user.profile.services[i].service%></h3>
-                                                            <p class="service-desc"><%=user.profile.services[i].description%></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <% }%>
-                                            <% } %>
+											<% if (user.profile && user.profile.services) { %>
+												<% for (var i = 0; i <= user.profile.services.length; i++) { %>
+													<% if (user.profile.services[i]) { %>
+													<div class="service-item hover-component col-sm-4" id="service<%=i+1%>">
+														<div class="main-content">
+															<div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
+																<div class="service-edit">
+																	<a class="edit-service-button edit"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+																</div>
+																<% if (user.profile.services[i].verifiedCount > 0) { %>
+																<div class="service-icon fbox-icon mdl-badge" data-badge="<%=user.profile.services[i].verifiedCount%>">
+																<% } else { %>
+																<div class="service-icon fbox-icon" data-badge="">
+																<% } %>
+																	<i class="fa <%=user.profile.services[i].icon%>"></i>
+																</div>
+																<h3 class="service-title"><%=user.profile.services[i].service%></h3>
+																<p class="service-desc"><%=user.profile.services[i].description%></p>
+															</div>
+														</div>
+													</div>
+													<% } %>
+												<% }%>
+											<% } %>
                                         </div>
                                     </div>
 									<div class="mdl-card__menu">
@@ -800,6 +802,11 @@
                     </div>
                 </div>
             </section>
+
+				<button id="saveProfile" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+					Save Profile <i class="fa fa-floppy-o"></i>
+				</button>
+
         </div>
 
 		<!-- Dialogs -->
@@ -1511,6 +1518,7 @@
 				dialog.querySelector('.close').addEventListener('click', function() {
 					dialog.close();
 					removeRequired(dialog);
+					clearFields(dialog);
 				});
 			});
 
@@ -1567,7 +1575,6 @@
 					e.setAttribute('required', false);
 					$(e.parentElement).removeClass('is-invalid');
 				});
-				clearFields(el);
 			}
 
 			//Clear MDL textfield components in el
@@ -1577,6 +1584,7 @@
 					.parents('.mdl-textfield').removeClass('is-dirty');
 				$(el).find('select').find('option').prop('selected', false);
 				$(el).find('input[type=radio]').prop('checked', false);
+				$(el).find('.service-iconpicker').iconpicker('setIcon', 'fa-');
 			}
 
 		</script>
