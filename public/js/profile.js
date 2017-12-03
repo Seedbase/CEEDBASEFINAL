@@ -101,7 +101,7 @@
 
         //Getting user profile
         var profile,
-			introText;
+			introText = [];
         var userObj = JSON.parse($('#userProfileObject').text());
 
         if (userObj.profile) {
@@ -109,12 +109,6 @@
         } else {
             profile = {};
         }
-
-		if (profile.introText) {
-			introText = profile.introText;
-		} else {
-			introText = [];
-		}
 
 		if (profile.residence) {
 			$('#creativeRegion').val(profile.residence);
@@ -153,7 +147,6 @@
 			introText.push($('#introText2').val());
 			introText.push($('#introText3').val());
 			profile['introText'] = introText;
-
 			profile['displayName'] = $('#introText1').val();
 
 			//Video Resume

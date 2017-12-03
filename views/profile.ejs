@@ -216,13 +216,13 @@
 
         <div id="wrapper" class="clearfix">
             <section id="intro" class="clearfix section notopborder nomargin">
-                <div class="container input-date-group">
-                    <div class="row">
+                <div class="container">
+                    <div class="row" style="margin-top: 30px;">
                         <div id="intro-img" class="col-md-3">
 							<%if (user.isUserProfileAuthenticated) { %>
-							<span class="badge badge-accent" id="profile-badge">
-								<img src="/images/partners/verify-shield.png">
-							</span>
+								<span class="badge mdl-badge" id="profile-badge">
+									<i class="material-icons">verified_user</i>
+								</span>
 							<div class="mdl-tooltip" data-mdl-for="profile-badge">
 								Profiled Verified by <%= user.userProfileAuthenticatedBy %>
 							</div>
@@ -648,6 +648,7 @@
                             </div>
                         </div>
 
+						<% if (user.profile && user.profile.qualifications) { %>
                         <div class="row card-block">
                             <div class="col-sm-12 col-md-8 col-md-offset-2">
                                 <div class="mdl-card mdl-shadow--2dp">
@@ -743,6 +744,7 @@
                                 </div>
                             </div>
                         </div>
+						<% } %>
                     </div>
                 </div>
             </div>
@@ -803,7 +805,7 @@
                 </div>
             </section>
 
-				<button id="saveProfile" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+				<button id="saveProfile" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent fixedBottomRight">
 					Save Profile <i class="fa fa-floppy-o"></i>
 				</button>
 

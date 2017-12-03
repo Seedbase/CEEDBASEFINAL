@@ -11,23 +11,35 @@
         <title>CeedBase</title>
 
         <!-- BOOTSTRAP CORE CSS -->
-        <link rel="stylesheet" href="/css/vendor/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/vendor/bootstrap.min.css">
+
+		<!-- Styles for Canvas Template -->
+        <link rel="stylesheet" href="../css/style-updated.css" type="text/css" />
+        <link rel="stylesheet" href="../css/dark.css" type="text/css" />
+        <link rel="stylesheet" href="../css/swiper.css" type="text/css" />
+        <link rel="stylesheet" href="../css/font-icons.css" type="text/css" />
+        <link rel="stylesheet" href="../css/animate.css" type="text/css" />
+        <link rel="stylesheet" href="../css/responsive.css" type="text/css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <!-- PLUGIN STYLES FOR THIS TEMPLATE -->
-        <link rel="stylesheet" href="/css/vendor/magnific-popup.css">
-        <link rel="stylesheet" href="/css/vendor/jquery.mCustomScrollbar.min.css">
-        <link rel="stylesheet" href="/css/font-awesome.min.css">
-        <link rel="stylesheet" href="/plugins/datepicker/css/datepicker.css">
+        <link rel="stylesheet" href="../css/vendor/magnific-popup.css">
+        <link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link href="../plugins/select2/dist/css/select2.min.css" rel="stylesheet"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.theme.min.css">
             <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css">
 
-        <link href="/plugins/fine-uploader/fine-uploader/fine-uploader-gallery.min.css" rel="stylesheet">
-        <link href="/plugins/fine-uploader/fine-uploader/fine-uploader.min.css" rel="stylesheet">
+        <link href="../plugins/fine-uploader/fine-uploader/fine-uploader-gallery.min.css" rel="stylesheet">
+        <link href="../plugins/fine-uploader/fine-uploader/fine-uploader.min.css" rel="stylesheet">
+
+		<!-- Google Material Design Lite CSS -->
+        <link rel="stylesheet" href="../css/mdl/material.min.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
         <!-- MAIN STYLE FOR THIS TEMPLATE -->
-        <link rel="stylesheet" href="/css/main.css">
-        <link rel="stylesheet" href="/css/profile-view.css">
+        <%# <link rel="stylesheet" href="../css/main.css">%>
+        <link rel="stylesheet" href="../css/profile.css">
     </head>
 
 	<body class="stretched">
@@ -56,21 +68,28 @@
         <!-- RESUME SECTION -->
         <div id="wrapper" class="clearfix">
 
-            <section id="intro" class="clearfix section notopborder nomargin">
+			<section id="intro" class="clearfix section notopborder nomargin">
                 <div class="container input-date-group">
-                    <div class="row">
-                        <div id="intro-img" class="col-md-3">
-                            <div class="img-container" style="min-width: 250px; max-width: 250px;">
-                                <img src="<%= user.image %>" class="center-content" alt="Avatar">
+                    <div class="row" style="margin-top: 30px;">
+						<div id="intro-img" class="col-md-3">
+							<%if (user.isUserProfileAuthenticated) { %>
+							<span class="badge mdl-badge" id="profile-badge">
+								<i class="material-icons">verified_user</i>
+							</span>
+							<div class="mdl-tooltip" data-mdl-for="profile-badge">
+								Profiled Verified by <%= user.userProfileAuthenticatedBy %>
+							</div>
+							<% } %>
+                            <div class="img-container">
+                                <img src="<%= user.image %>" class="center" alt="Avatar">
                             </div>
-
                         </div>
                         <div id="intro-profile" class="col-md-9 reduce-padding">
                             <div class="row form-horizontal">
                                 <div class="col-sm-6"><h4 class="custom-heading">Hello, I'm</h4></div>
                                 <div class="col-sm-12">
                                     <div class="mdl-textfield mdl-js-textfield full-width profile-name">
-                                        <input class="mdl-textfield__input" disabled type="text" id="introText1" disabled value="<%= user.displayName %>">
+                                        <input class="mdl-textfield__input" type="text" id="introText1" value="<%= user.displayName %>" readonly>
                                         <label class="mdl-textfield__label" for="introText1">Full Name</label>
                                     </div>
                                 </div>
@@ -80,9 +99,9 @@
                                 <div class="col-sm-5-custom">
                                     <div class="mdl-textfield mdl-js-textfield full-width">
 										<% if (user.profile && user.profile.introText) { %>
-                                        	<input class="mdl-textfield__input" disabled type="text" id="introText2" value="<%=user.profile.introText[2]%>">
+                                        	<input class="mdl-textfield__input" type="text" id="introText2" value="<%=user.profile.introText[1]%>" readonly>
 										<% } else { %>
-											<input class="mdl-textfield__input" disabled type="text" id="introText2" value="">
+											<input class="mdl-textfield__input" type="text" id="introText2" value="" readonly>
 										<% } %>
                                         <label class="mdl-textfield__label" for="introText2">Designer</label>
                                     </div>
@@ -91,9 +110,9 @@
                                 <div class="col-sm-5-custom">
                                     <div class="mdl-textfield mdl-js-textfield full-width">
 										<% if (user.profile && user.profile.introText) { %>
-                                        	<input class="mdl-textfield__input" disabled type="text" id="introText3" value="<%=user.profile.introText[3]%>">
+                                        	<input class="mdl-textfield__input" type="text" id="introText3" value="<%=user.profile.introText[2]%>" readonly>
 										<% } else { %>
-											<input class="mdl-textfield__input" disabled type="text" id="introText3" value="">
+											<input class="mdl-textfield__input" type="text" id="introText3" value="" readonly>
 										<% } %>
                                         <label class="mdl-textfield__label" for="introText3">Designer</label>
                                     </div>
@@ -104,62 +123,54 @@
                                 <div class="col-sm-12">
                                     <label>Opportunities I&#39;m seeking</label>
 									<div class="row">
-                                        <div class="col-lg-3 col-md-6 col-sm-6">
+										<div class="col-lg-3 col-md-6 col-sm-6">
 											<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="unPaidInternship">
-										  		<input type="radio" id="unPaidInternship" class="mdl-radio__button" name="opportunityOption" value="unPaidInternship" required>
+										  		<input type="radio" id="unPaidInternship" class="mdl-radio__button" name="opportunityOption" value="unPaidInternship">
 											  	<span class="mdl-radio__label radio-button-label radio-small">Unpaid Internship</span>
 											</label>
                                         </div>
                                         <div class="col-lg-3 col-md-6 col-sm-6">
 											<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="paidInternship">
-										  		<input type="radio" id="paidInternship" class="mdl-radio__button" name="opportunityOption" value="paidInternship" required>
+										  		<input type="radio" id="paidInternship" class="mdl-radio__button" name="opportunityOption" value="paidInternship">
 											  	<span class="mdl-radio__label radio-button-label radio-small">Paid Internship</span>
 											</label>
                                         </div>
                                         <div class="col-lg-3 col-md-6 col-sm-6">
 											<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="tempContract">
-										  		<input type="radio" id="tempContract" class="mdl-radio__button" name="opportunityOption" value="tempContract" required>
+										  		<input type="radio" id="tempContract" class="mdl-radio__button" name="opportunityOption" value="tempContract">
 											  	<span class="mdl-radio__label radio-button-label radio-small">Temporary Contract</span>
 											</label>
                                         </div>
                                         <div class="col-lg-3 col-md-6 col-sm-6">
 											<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="fullTimeHire">
-										  		<input type="radio" id="fullTimeHire" class="mdl-radio__button" name="opportunityOption" value="fullTimeHire" required>
+										  		<input type="radio" id="fullTimeHire" class="mdl-radio__button" name="opportunityOption" value="fullTimeHire">
 											  	<span class="mdl-radio__label radio-button-label radio-small">Full Time Hire</span>
 											</label>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="row topmargin-sm">
-                                <div class="col-sm-12">
-                                    <label>Video Resume</label>
-                                    <div id="profile-video-show"></div>
-                                </div>
-                            </div>
-
+                            	</div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <div id="content" style="background-color: #F9F9F9;">
+			<div id="content" style="background-color: #F9F9F9;">
                 <div id="content-wrap">
-                    <div class="container clearfix" style="margin: 40px auto; padding: 0 20px;">
+                    <div class="container-fluid clearfix" style="margin: 40px auto; padding: 0 20px;">
 
 						<div class="row card-block">
-                            <div class="col-sm-12">
-                                <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                            <div class="col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+                                <div class="mdl-card mdl-shadow--2dp">
                                     <div class="mdl-card__title">
                                         <h2 class="mdl-card__title-text">About Me</h2>
                                     </div>
                                     <div class="mdl-card__supporting-text input-date-group">
                                         <div class="row">
 											<div class="col-sm-12">
-                                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 90%;">
-                                                    <textarea class="mdl-textfield__input autoresize" disabled type="text" rows="4" id="passion" maxlength="200" style="overflow: hidden; max-width:100%;"><%= user.profile ? user.profile.passion : '' %></textarea>
+												<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 90%;">
+                                                    <textarea class="mdl-textfield__input autoresize" type="text" rows="4" id="passion" maxlength="200" style="overflow: hidden; max-width:100%;" readonly><%= user.profile ? user.profile.passion : '' %></textarea>
                                                     <label class="mdl-textfield__label" for="passion">Describe your passion</label>
+													<span class="mdl-textfield__error">Input must be defined!</span>
                                                 </div>
                                             </div>
 										</div>
@@ -182,7 +193,7 @@
                         </div>
 
                         <div class="row card-block">
-                            <div class="col-sm-12">
+                            <div class="col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
                                 <div class="mdl-card mdl-shadow--2dp">
                                     <div class="mdl-card__title">
                                         <h2 class="mdl-card__title-text">Skills</h2>
@@ -192,34 +203,43 @@
                                         <ul class="skills row nopadding">
 
                                             <!-- Existing skills -->
-                                            <% if (user.profile && user.profile.skills ) { %>
-                                            <% for (var i = 1; i <= user.profile.skills.length; i++) {%>
-                                            <div class="skill-item col-sm-6 hover-component verify-component" id="skill<%=i%>">
-                                                <div class="main-content">
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-															<% if (user.profile.skills[i].verifiedCount > 0) { %>
-																<span id="skill-title" class="mdl-badge skill-title" data-badge="<%=user.profile.skills[i].verifiedCount%>">
-															<% } else { %>
-																<span id="skill-title" class="skill-title" data-badge="">
-															<% } %>
-																	<%=user.profile.skills[i].skill%>
-																</span>
-                                                            <li data-percent="<%=user.profile.skills[i].rating%>">
-                                                                <div class="progress nopadding">
-                                                                    <div class="progress-percent">
-                                                                        <div class="counter counter-inherit">
-                                                                            <span id="skill-range" class="skill-range" data-from="0" data-to="<%=user.profile.skills[i].rating%>" data-refresh-interval="30" data-speed="1100"></span>%
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <% } %>
-                                            <% } %>
+											<% if (user.profile && user.profile.skills ) { %>
+												<% for (var i = 0; i <= user.profile.skills.length; i++) {%>
+													<% if (user.profile.skills[i]) { %>
+														<div class="skill-item col-sm-6 hover-component" id="skill<%=i+1%>">
+															<div class="main-content">
+																<div class="row">
+																	<div class="col-sm-10">
+																		<% if (user.profile.skills[i].verifiedCount > 0) { %>
+																			<span id="skill-title<%=i+1%>" class="mdl-badge verify-badge skill-title" data-badge="<%=user.profile.skills[i].verifiedCount%>">
+																				<%=user.profile.skills[i].skill%>
+																			</span>
+																			<div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="skill-title<%=i+1%>">
+																				Verified by <%=user.profile.skills[i].verifiedCount%> other(s)
+																			</div>
+																		<% } else { %>
+																			<span id="skill-title<%=i+1%>" class="verify-badge skill-title" data-badge="">
+																				<%=user.profile.skills[i].skill%>
+																			</span>
+																			<div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="skill-title<%=i+1%>" style="display: none;">
+																			</div>
+																		<% } %>
+																		<li data-percent="<%=user.profile.skills[i].rating%>">
+																			<div class="progress nopadding">
+																				<div class="progress-percent">
+																					<div class="counter counter-inherit">
+																						<span id="skill-range" class="skill-range" data-from="0" data-to="<%=user.profile.skills[i].rating%>" data-refresh-interval="30" data-speed="1100"></span>%
+																					</div>
+																				</div>
+																			</div>
+																		</li>
+																	</div>
+																</div>
+															</div>
+														</div>
+													<% } %>
+												<% } %>
+											<% } %>
                                         </ul>
                                     </div>
                                 </div>
@@ -227,7 +247,7 @@
                         </div>
 
                         <div class="row card-block">
-                            <div class="col-sm-12">
+                            <div class="col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
                                 <div class="mdl-card mdl-shadow--2dp">
                                     <div class="mdl-card__title">
                                         <h2 class="mdl-card__title-text">Projects</h2>
@@ -235,24 +255,33 @@
                                     <div class="mdl-card__supporting-text">
 										<div class="row">
                                             <div class="col-sm-12 col-md-12 col-lg-12">
-                                                <div id="project-timeline" class="timeline hide-content verify-component">
-                                                    <% if (user.profile && user.profile.experiences) {%>
-                                                    <% for (var i = 1; i <= user.profile.experiences.length; i++) {%>
-                                                    <div class="project-item timeline-item" id="project<%=i%>">
-                                                        <div class="main-content">
-															<% if (user.profile.experiences[i].verifiedCount > 0) { %>
-                                                            <span class="material-icons mdl-badge" data-badge="<%=user.profile.experiences[i].verifiedCount%>">
-															<% } else { %>
-															<span class="material-icons" data-badge="">
+                                                <div id="project-timeline" class="timeline">
+													<% if (user.profile && user.profile.experiences) {%>
+														<% for (var i = 0; i <= user.profile.experiences.length; i++) {%>
+															<% if (user.profile.experiences[i]) { %>
+															<div class="project-item timeline-item hover-component" id="project<%=i+1%>">
+																<div class="main-content">
+																	<% if (user.profile.experiences[i].verifiedCount > 0) { %>
+																	<span id="project-badge<%=i+1%>" class="verify-badge mdl-badge" data-badge="<%=user.profile.experiences[i].verifiedCount%>">
+																		<h4 class="item-title"><%= user.profile.experiences[i].title%></h4>
+																	</span>
+																	<div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="project-badge<%=i+1%>">
+																		Verified by <%=user.profile.experiences[i].verifiedCount%> other(s)
+																	</div>
+																	<% } else { %>
+																	<span id="project-badge<%=i+1%>" class="verify-badge" data-badge="">
+																		<h4 class="item-title"><%= user.profile.experiences[i].title%></h4>
+																	</span>
+																	<div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="project-badge<%=i+1%>" style="display: none;">
+																	</div>
+																	<% } %>
+																	<span class="item-period"><%= user.profile.experiences[i].from %> - <%= user.profile.experiences[i].to %></span>
+																	<p class="item-description"><%= user.profile.experiences[i].description %></p>
+																</div>
+															</div>
 															<% } %>
-																<h4 class="item-title"><%= user.profile.experiences[i].title%></h4>
-															</span>
-                                                            <span class="item-period"><%= user.profile.experiences[i].from %> - <%= user.profile.experiences[i].to %></span>
-                                                            <p class="item-description"><%= user.profile.experiences[i].description %></p>
-                                                        </div>
-                                                    </div>
-                                                    <% } %>
-                                                    <% } %>
+														<% } %>
+													<% } %>
                                                 </div>
                                             </div>
                                         </div>
@@ -261,8 +290,8 @@
                             </div>
                         </div>
 
-                        <div class="row">
-							<div class="col-sm-6 col-md-4 col-md-offset-2">
+						<div class="row">
+							<div class="col-sm-6 col-md-5 col-md-offset-1 col-lg-4 col-lg-offset-2">
 	                            <div class="card-block">
 	                                <div class="mdl-card mdl-shadow--2dp">
 	                                    <div class="mdl-card__title">
@@ -272,28 +301,30 @@
 	                                        <div class="row">
 	                                            <div class="col-sm-12">
 													<div id="learning-timeline" class="timeline">
-														<% if (user.profile && user.profile.externalLinks) {%>
-															<% for (var i = 1; i <= user.profile.externalLinks.length; i++) {%>
-																<div class="project-item timeline-item" id="project<%=i%>">
+														<% if (user.profile && user.profile.externalLinks) { %>
+															<% for (var i = 0; i <= user.profile.externalLinks.length; i++) { %>
+															<% if (user.profile.externalLinks[i]) { %>
+																<div class="project-item timeline-item hover-component" id="learning<%=i+1%>">
 																	<div class="main-content">
 																		<% if (user.profile.externalLinks[i].verifiedCount > 0) { %>
-																		<span class="material-icons mdl-badge" data-badge="<%=user.profile.externalLinks[i].verifiedCount%>">
-																		<% } else { %>
-																		<span class="" data-badge="">
-																		<% } %>
+																		<span id="learning-badge<%=i+1%>" class="verify-badge mdl-badge" data-badge="<%=user.profile.externalLinks[i].verifiedCount%>"
 																			<h4 class="item-title"><%= user.profile.externalLinks[i].title%></h4>
 																		</span>
-																		<div class="item-edit">
-																			<a class="edit-learning-button edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+																		<div class="mdl-tooltip mdl-tooltip-right" data-mdl-for="learning-badge<%=i+1%>">
+																			Verified by <%=user.profile.externalLinks[i].verifiedCount%> other(s)
 																		</div>
-																		<div class="item-edit">
-																			<a><i class="fa fa-pencil" aria-hidden="true"></i></a>
-																			<a><i class="fa fa-remove" aria-hidden="true"></i></a>
+																		<% } else { %>
+																		<span id="learning-badge<%=i+1%>" class="verify-badge" data-badge="">
+																			<h4 class="item-title"><%= user.profile.externalLinks[i].title%></h4>
+																		</span>
+																		<div class="mdl-tooltip mdl-tooltip-right" data-mdl-for="learning-badge<%=i+1%>" style="display: none;">
 																		</div>
+																		<% } %>
 																		<span class="item-period"><%= user.profile.externalLinks[i].from %> - <%= user.profile.externalLinks[i].to %></span>
 																		<p class="item-description"><%= user.profile.externalLinks[i].description %></p>
 																	</div>
 																</div>
+															<% } %>
 															<% } %>
 														<% } %>
 													</div>
@@ -303,10 +334,7 @@
 	                                </div>
 	                            </div>
 							</div>
-                        </div>
-
-						<div class="row">
-							<div class="col-sm-6 col-md-4">
+							<div class="col-sm-6 col-md-5 col-lg-4">
 								<div class="card-block">
 									<div class="mdl-card mdl-shadow--2dp">
 	                                    <div class="mdl-card__title">
@@ -316,28 +344,20 @@
 	                                        <div class="row">
 	                                            <div class="col-sm-12 col-md-12 col-lg-12">
 	                                                <div id="education-timeline" class="timeline">
-	                                                    <% if (user.profile && user.profile.educations) { %>
-	                                                    <% for (var i = 1; i <= user.profile.educations.length; i++) { %>
-	                                                    <div class="education-item timeline-item hover-component" id="edu<%=i%>">
-	                                                        <div class="main-content">
-																<% if (user.profile.educations[i].verifiedCount > 0) { %>
-																<span class="mdl-badge" data-badge="<%=user.profile[i].verifiedCount%>">
-																<% }%>
-																<span class="" data-badge="">
+														<% if (user.profile && user.profile.educations) { %>
+															<% for (var i = 0; i <= user.profile.educations.length; i++) { %>
+																<% if (user.profile.educations[i]) { %>
+																<div class="education-item timeline-item hover-component" id="edu<%=i+1%>">
+																	<div class="main-content">
+																	<h4 class="item-title"><%=user.profile.educations[i].degree%></h4>
+																	<span class="item-institute"><%=user.profile.educations[i].institute%></span>
+																	<span class="item-period"><%=user.profile.educations[i].from%> - <%=user.profile.educations[i].to%></span>
+																	<p class="item-description"><%=user.profile.educations[i].description%></p>
+																	</div>
+																</div>
 																<% } %>
-																<h4 class="item-title"><%=user.profile.educations[i].degree%></h4>
-																</span>
-	                                                            <div class="item-edit">
-	                                                                <a class="edit-content"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-	                                                                <a class="remove-content"><i class="fa fa-remove" aria-hidden="true"></i></a>
-	                                                            </div>
-																<span class="item-institute"><%=user.profile.educations[i].institute%></span>
-	                                                            <span class="item-period"><%=user.profile.educations[i].from%> - <%=user.profile.educations[i].to%></span>
-	                                                            <p class="item-description"><%=user.profile.educations[i].description%></p>
-	                                                        </div>
-	                                                    </div>
-	                                                    <% } %>
-	                                                    <% } %>
+															<% } %>
+														<% } %>
 	                                                </div>
 	                                            </div>
 	                                        </div>
@@ -345,48 +365,53 @@
 	                                </div>
 								</div>
                             </div>
-						</div>
+                        </div>
 
-                        <div class="row card-block">
-                            <div class="col-sm-12">
+						<div class="row card-block">
+                            <div class="col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
                                 <div class="mdl-card mdl-shadow--2dp">
                                     <div class="mdl-card__title">
                                         <h2 class="mdl-card__title-text">Services</h2>
                                     </div>
                                     <div class="mdl-card__supporting-text">
-                                        <div id="services-component" class="row">
-                                            <% if (user.profile && user.profile.services) { %>
-                                                <% for (var i = 1; i <= user.profile.services.length; i++) { %>
-                                                    <div class="service-item hover-component col-sm-4" id="service<%=i%>">
-                                                        <div class="main-content">
-                                                            <div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
-                                                                <div class="service-edit">
-                                                                    <a class="edit-content"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
-                                                                    <a class="remove-content"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
-                                                                </div>
-																<% if (user.profile.services[i].verifiedCount > 0) { %>
-                                                                <div class="service-icon fbox-icon mdl-badge" data-badge="<%=user.profile[i].verifiedCount%>">
-																<% } %>
-																<div class="service-icon fbox-icon" data-badge="">
-																<% } %>
-                                                                    <a href="#"><i class="fa <%=user.profile.services[i].icon%>"></i></a>
-                                                                </div>
-                                                                <h3 class="service-title"><%=user.profile.services[i].service%></h3>
-                                                                <p class="service-desc"><%=user.profile.services[i].description%></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <% }%>
-                                            <% } %>
+										<div id="services-component" class="row">
+										<% if (user.profile && user.profile.services) { %>
+											<% for (var i = 0; i <= user.profile.services.length; i++) { %>
+												<% if (user.profile.services[i]) { %>
+												<div class="service-item col-sm-4 verify-component" id="service<%=i+1%>">
+													<div class="main-content">
+														<div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
+															<% if (user.profile.services[i].verifiedCount > 0) { %>
+															<div class="service-icon fbox-icon mdl-badge mdl-badge--overlap verify-badge" data-badge="<%=user.profile.services[i].verifiedCount%>">
+																<i id="service-icon<%=i+1%>" class="fa <%=user.profile.services[i].icon%>"></i>
+																<div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="service-icon<%=i+1%>">
+																	Verified by <%=user.profile.services[i].verifiedCount%> other(s)
+																</div>
+															</div>
+															<% } else { %>
+															<div class="service-icon fbox-icon verify-badge mdl-badge--overlap" data-badge="">
+																<i id="service-icon<%=i+1%>" class="fa <%=user.profile.services[i].icon%>"></i>
+																<div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="service-icon<%=i+1%>"  style="display: none;">
+																</div>
+															</div>
+															<% } %>
+															<h3 class="service-title"><%=user.profile.services[i].service%></h3>
+															<p class="service-desc"><%=user.profile.services[i].description%></p>
+														</div>
+													</div>
+												</div>
+												<% } %>
+											<% }%>
+										<% } %>
                                         </div>
+									</div>
+								</div>
+							</div>
+						</div>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+						<% if (user.profile && user.profile.qualifications) { %>
                         <div class="row card-block">
-                            <div class="col-sm-12">
+                            <div class="col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
                                 <div class="mdl-card mdl-shadow--2dp">
                                     <div class="mdl-card__title">
                                         <h2 class="mdl-card__title-text">Qualifications</h2>
@@ -397,60 +422,87 @@
                                 </div>
                             </div>
                         </div>
+						<% } %>
+
                     </div>
                 </div>
+				<button id="pokeOrShowInterest" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent fixedBottomRight" type="button">
+					I LIKE THIS CREATIVE
+				</button>
             </div>
 
-            <section id="contact" class="clearfix section notopborder nomargin">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="heading-block">
-                                <h4>Your Details</h4>
-                            </div>
-                            <form action="#" class="contact-form">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <p class="send-status success"><i class="icon icon-check"></i>Your message has been sent successfully.</p>
-                                        <p class="send-status error"><i class="icon icon-close-circle"></i>E-mail must be valid and message must be longer than 1 character.</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-                                            <input class="mdl-textfield__input" type="text" id="authenticatorName">
-                                            <label class="mdl-textfield__label" for="authenticatorName">Name</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-                                            <input class="mdl-textfield__input" type="email" id="authenticatorEmail">
-                                            <label class="mdl-textfield__label" for="authenticatorEmail">Email</label>
-                                            <span class="mdl-textfield__error">Input does not have the correct format!</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-                                            <input class="mdl-textfield__input" type="text" id="authenticationOrganisationName">
-                                            <label class="mdl-textfield__label" for="authenticationOrganisationName">Subject</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <button id="authenticateTheProfile" class="mdl-button mdl-js-button mdl-button--raised" type="submit" name="submit">
-                                            Authenticate
-                                        </button>
-                                    </div>
-                                </div>
+			<%# <div id="show-interest-user-profile" class="modal fade" tabindex="-1" role="dialog">
+	            <div class="modal-dialog" role="document">
+	                <div class="modal-content" style="background-color: #fff">
+	                    <div class="modal-header">
+	                        <div class="col-lg-12">
+	                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                            <h4 class="modal-title" style="color:#555">Verify yourself</h4>
+	                        </div>
+	                    </div>
+	                    <div class="modal-body" style="color: #333">
+	                        <div style="margin-left: 15px">
+	                            <p style="display: none" id="client-not-found"> You are not yet registered with ceedbase. Please click <a href="/client-form"> here </a> to register</p>
+	                            <p style="display: none" id="client-not-verified"> It seems you have not activated your profile. Pleae click on the activtion link sent to your email. If you did not get the mail Click <a href="" id="rsendClientVerificationemail"> here </a> to resend.</p>
+	                            <label class="control-label" style="font-weight: 500;">Email</label>
+	                            <input type="text" id="client-email-id" class="form-control">
+	                            <div id="client-found" style="display: none;">
+	                                 <p> <span style="color: green" >Successfuly verified!</span> Pleae enter your message to the creative!</p>
+	                                <label class="control-label" style="font-weight: 500;">Message to creative</label>
+	                                <br>
+	                                <textarea cols="50" rows="5" id="client-message-to-creative"></textarea>
+	                            </div>
+	                        </div>
 
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </section>
+	                    </div>
+	                    <div class="modal-footer">
+	                        <div class="col-lg-12">
+	                            <a class="btn btn-primary pull-left" id="verify-client-registration" style="padding: 10px">verify</a>
+	                            <a class="btn btn-primary pull-left" style="padding: 10px; display: none" id="poke-button">Poke</a>
+	                            <a id="show-interest-modal-close" data-dismiss="modal" class="btn btn-default btn-sm margin-bottom pull-right" style="padding: 10px">Close</a>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>%>
+
+			<dialog id="show-interest-user-profile" class="mdl-dialog">
+		  		<h4 class="mdl-dialog__title">Verify Yourself</h4>
+				<div class="mdl-dialog__close">
+					<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect close">
+						<i class="material-icons">close</i>
+					</button>
+				</div>
+			  	<div class="mdl-dialog__content">
+					<p style="display: none" id="client-not-found"> You are not yet registered with ceedbase. Please click <a href="/client-form"> here </a> to register</p>
+					<p style="display: none" id="client-not-verified"> It seems you have not activated your profile. Pleae click on the activtion link sent to your email. If you did not get the mail Click <a href="" id="rsendClientVerificationemail"> here </a> to resend.</p>
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
+								<input class="mdl-textfield__input" type="email" id="client-email-id" required>
+								<label class="mdl-textfield__label" for="client-email-id">Your Email</label>
+								<span class="mdl-textfield__error">Input does not have the correct format.</span>
+							</div>
+						</div>
+					</div>
+					<div id="client-found" style="display: none;">
+						 <p> <span style="color: green" >Successfuly verified!</span> Please enter your message to the creative!</p>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width" style="width: 90%;">
+									<textarea class="mdl-textfield__input" type="text" rows="4" id="client-message-to-creative" maxlength="200" style="overflow: hidden; max-width:100%;" required></textarea>
+									<label class="mdl-textfield__label" for="client-message-to-creative">Message to Creative</label>
+									<span class="mdl-textfield__error">Input is required!</span>
+								</div>
+							</div>
+						</div>
+			  		</div>
+				</div>
+			  	<div class="mdl-dialog__actions">
+			    	<button id="poke-button" type="button" class="mdl-button" style="display: none;">Poke</button>
+					<button id="verify-client-registration" type="button" class="mdl-button">Verify</button>
+			  	</div>
+			</dialog>
 
         </div>
         <!-- /END RESUME SECTION -->
@@ -462,24 +514,26 @@
         <!-- /END AUDIO -->
 
         <!-- jQuery -->
-        <script src="js/vendor/jquery-1.11.3.min.js"></script>
+        <script src="../js/vendor/jquery-1.11.3.min.js"></script>
 
         <!-- BOOTSTRAP CORE JAVASCRIPT -->
-        <script src="js/vendor/bootstrap.min.js"></script>
-        <script src="plugins/fine-uploader/fine-uploader/fine-uploader.min.js"></script>
-        <script src="plugins/select2/dist/js/select2.min.js"></script>
+        <script src="../js/vendor/bootstrap.min.js"></script>
+        <script src="../plugins/fine-uploader/fine-uploader/fine-uploader.min.js"></script>
+        <script src="../plugins/select2/dist/js/select2.min.js"></script>
 
         <!-- Scripts for Canvas Template -->
-        <script type="text/javascript" src="js/plugins.js"></script>
-        <script type="text/javascript" src="js/functions.js"></script>
-        <script src="/js/vendor/audio.js"></script>
+        <script type="text/javascript" src="../js/plugins.js"></script>
+        <script type="text/javascript" src="../js/functions.js"></script>
+        <script src="../js/vendor/audio.js"></script>
 
         <!-- Canvas Components JS -->
-        <script type="text/javascript" src="js/canvas-components/datepicker.js"></script>
-        <script type="text/javascript" src="js/canvas-components/moment.js"></script>
+        <script type="text/javascript" src="../js/canvas-components/datepicker.js"></script>
+        <script type="text/javascript" src="../js/canvas-components/moment.js"></script>
 
         <!-- Script for Google Material Design Lite -->
-        <script type="text/javascript" src="js/mdl/material.min.js"></script>
+        <script type="text/javascript" src="../js/mdl/material.min.js"></script>
+
+		<script type="text/javascript" src="../js/view-main.js"></script>
 
         <script type="text/template" id="qq-template">
             <div class="qq-uploader-selector qq-uploader qq-gallery" style="width: 100% !important">
@@ -551,9 +605,36 @@
             </div>
         </script>
         <script>
-            var user = JSON.parse($('#userProfileObject').text());
-            var userId = user._id;
             $(document).ready(function() {
+
+				var user = JSON.parse($('#userProfileObject').text());
+				var userId = user._id;
+
+				//Make all radio buttons,  unclickable
+				$(':radio').click(function(){
+					return false;
+				});
+
+				$('#creativeRegion').select2({
+					data: ['', 'Barrie', 'Bay of Quinte', 'Bow Valley', 'Calgary', 'Charlottetown', 'Comox Valley',
+						'Durham Region', 'Edmonton', 'Fredericton', 'Halifax', 'Hamilton', 'Kamloops', 'Kingston', 'Montreal',
+						'Nanaimo', 'Nelson', 'Niagara Falls', 'Ottawa', 'Ottawa Valley', 'Peel Region', 'Peterborough',
+						'Prince George', 'Revelstoke', 'Sarnia Lambton', 'Saskatoon', 'Sault Ste Marie', 'Smithers', 'Toronto',
+						'Vancouver', 'Waterloo', 'Whitehorse', 'Windsor', 'Winnipeg', 'York Region'],
+					placeholder: function () {
+						$(this).data('placeholder');
+					}
+				}).enable(false);
+
+				if (user.profile.residence) {
+					$('#creativeRegion').val(user.profile.residence);
+					$('#creativeRegion').trigger('change');
+				}
+
+				if (user.profile.opportunitySeeking) {
+					$('#' + user.profile.opportunitySeeking).attr('checked', true);
+				}
+
                 var showVideo = new qq.FineUploader({
                     element: document.getElementById("profile-video-show"),
                     template: 'qq-template',

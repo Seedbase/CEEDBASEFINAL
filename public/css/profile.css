@@ -125,6 +125,11 @@ dialog {
 	border-radius: 50%;
 }
 
+#intro-img .badge i {
+	position: relative;
+	top: calc(50% - 12px);
+}
+
 .profile-name .mdl-textfield__input {
     margin-bottom: 20px;
 }
@@ -200,7 +205,7 @@ h4.custom-heading {
 
 /* --- Save Profile --- */
 
-#saveProfile {
+.fixedBottomRight {
 	position: fixed;
 	bottom: 32px;
 	right: 32px;

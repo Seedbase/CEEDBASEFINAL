@@ -47,41 +47,7 @@ Version: 1.0
         setTimeout(function() {
             $(".loader-wrapper").fadeOut('fast');
             (loader).fadeOut('fast');
-            /*Set time in milisec */
-             $('.intro-image').addClass('intro-image-z-index-show');
         }, 3500);
-
-
-        /** Background Image
-        ----------------------------*/
-        $(".bg-image").each(function() {
-            var $imgPath = $(this).attr('data-image');
-            $(this).css('background-image', 'url(' + $imgPath + ')');
-        });
-
-        /** Portfolio Isotope */
-        $(".gallery").isotope({
-            itemSelector: '.gallery-item',
-                percentPosition: true,
-        });
-
-        // isotope click function
-        $(".gallery-menu ul li button").on('click', function(e) {
-            e.preventDefault();
-            $(".gallery-menu ul li button").removeClass("active");
-            $(this).addClass("active");
-
-            var selector = $(this).attr('data-filter');
-            $(".gallery").isotope({
-                filter: selector,
-                animationOptions: {
-                    duration: 750,
-                    easing: 'linear',
-                    queue: false,
-                }
-            });
-            return false;
-        });
 
     });
 
@@ -91,86 +57,39 @@ Version: 1.0
      */
     $(document).ready(function() {
 
-        /** Typed.js (Text typing effect) */
-        $(".typed").typed({
-            stringsElement: $(".typed-strings"),
-            loop: true,
-            backDelay: 2000
-        });
-        $('body').toggleClass('menu-open');
-        /** Navigation */
-        // disable navigation of resume menu in case of profile.ejs
-        
-        /*$(".nav-toggle, .resume-close").on('click', function(e) {
-            e.preventDefault();
-            $('body').toggleClass('menu-open');
-        });*/
+		//Register all dialogs to polyfill
+		var dialogAll = document.querySelectorAll('dialog');
+		$(dialogAll).each(function() {
+			var dialog = this;
+			if (!dialog.show) {
+				dialogPolyfill.registerDialog(dialog);
+			}
+			dialog.querySelector('.close').addEventListener('click', function() {
+				dialog.close();
+			});
+		});
 
-        /** Custom Scrollbar */
-        $(".section-resume").mCustomScrollbar({
-            theme: 'minimal-dark',
-            axis: 'y'
-        });
+		var pokeOrShowInterestDialog = document.querySelector('dialog#show-interest-user-profile');
+		var pokeOrShowInterestDialogButton = document.querySelector('#pokeOrShowInterest');
+		pokeOrShowInterestDialogButton.addEventListener('click', function() {
+			pokeOrShowInterestDialog.showModal();
+		});
 
-
-        /** Progress Bar */
-        $(".progress-bar").each(function() {
-            var $imgPath = $(this).attr('data-percent');
-            $(this).css('width', $imgPath + '%');
-        });
-
-
-        // magnific popup for portfolio
-        $(".popup-image").magnificPopup({
-            type: 'image',
-        });
-
-        $(".popup-video").magnificPopup({
-            type: 'iframe',
-            iframe: {
-                markup: '<div class="mfp-iframe-scaler">' + '<div class="mfp-close"></div>' + '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>' + '</div>',
-
-                patterns: {
-                    youtube: {
-                        index: 'youtube.com/',
-                        id: 'v=',
-                        src: 'http://www.youtube.com/embed/%id%?autoplay=1'
-                    },
-                    vimeo: {
-                        index: 'vimeo.com/',
-                        id: '/',
-                        src: '//player.vimeo.com/video/%id%?autoplay=1'
-                    },
-                    gmaps: {
-                        index: '//maps.google.',
-                        src: '%id%&output=embed'
-                    }
-                },
-
-                srcAction: 'iframe_src',
-            }
-        });
-            
-
-        $("#pokeOrShowInterest").on('click', function(e) {
-            e.preventDefault();
-            return;
-        });
-
-        var possibleResponses = ["client-not-found", "client-not-virified", "client-found"];
+        var possibleResponses = ["client-not-found", "client-not-verified", "client-found"];
         $('#verify-client-registration').on('click', function (e) {
             if (!$('#client-email-id').val()) {
                 alert('please enter valid email id');
                 return false;
             } else {
-                var possibleResponses = ["client-not-found", "client-not-virified", "client-found"]
+                var possibleResponses = ["client-not-found", "client-not-verified", "client-found"]
                 var clientEmail = $('#client-email-id').val();
                 $.ajax({
                     type: 'GET',
                     url: '/client/verify/registration?clientEmail=' + clientEmail,
                     success: function(response) {
-                        for (var index = 0; index < possibleResponses.length; index ++)
-                            $('#'+possibleResponses[index]).css('display', 'none');
+                        for (var index = 0; index < possibleResponses.length; index ++) {
+							$('#'+possibleResponses[index]).css('display', 'none');
+						}
                         $('#'+response).css('display', 'block');
                         if (response == 'client-found') {
                             $('#verify-client-registration').css('display', 'none');
@@ -197,7 +116,7 @@ Version: 1.0
                 data: requestData,
                 success: function(response) {
                     alert('Your interest is registered and email sent to the creative. We will get back to you soon!');
-                    $('#show-interest-modal-close').click();
+                    pokeOrShowInterestDialog.close();
                     for (var index = 0; index < possibleResponses.length; index ++)
                         $('#'+possibleResponses[index]).css('display', 'none');
                     $('#client-email-id').val('');
@@ -225,32 +144,32 @@ Version: 1.0
                     alert('Something went wrong. Please try again');
                 }
             });
-        })
-        
-        $('#passion-content-display').html($('#passion-content-display').html());
-        $('#freind-reference-content-display').html($('#freind-reference-content-display').html());
-
-        
-        $('#flipToProfile').on('click', function () {
-            if($('#image-section').hasClass('intro-image')) {
-                setTimeout(function() {
-                    $('#image-section').removeClass('intro-image');
-                    $('#image-section').addClass('intro-image-new-margin');
-                    $('#intro-text-new').css('display', 'none');
-                    $('#intro-text-section').css('display', 'block');
-                }, 400);
-                
-            } else {
-                setTimeout(function() {
-                    $('#image-section').addClass('intro-image');
-                    $('#image-section').removeClass('intro-image-new-margin');
-                    $('#intro-text-new').css('display', 'block');
-                    $('#intro-text-section').css('display', 'none');
-                }, 200);
-
-            }
-
         });
+
+        // $('#passion-content-display').html($('#passion-content-display').html());
+        // $('#freind-reference-content-display').html($('#freind-reference-content-display').html());
+        //
+        //
+        // $('#flipToProfile').on('click', function () {
+        //     if($('#image-section').hasClass('intro-image')) {
+        //         setTimeout(function() {
+        //             $('#image-section').removeClass('intro-image');
+        //             $('#image-section').addClass('intro-image-new-margin');
+        //             $('#intro-text-new').css('display', 'none');
+        //             $('#intro-text-section').css('display', 'block');
+        //         }, 400);
+        //
+        //     } else {
+        //         setTimeout(function() {
+        //             $('#image-section').addClass('intro-image');
+        //             $('#image-section').removeClass('intro-image-new-margin');
+        //             $('#intro-text-new').css('display', 'block');
+        //             $('#intro-text-section').css('display', 'none');
+        //         }, 200);
+        //
+        //     }
+        //
+        // });
     });
 
 })(jQuery);

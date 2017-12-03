@@ -104,7 +104,7 @@
 		  		<h4 class="mdl-dialog__title">Authenticate <%=user.displayName%>'s Profile</h4>
 			  	<div class="mdl-dialog__content">
 			    	<p>Select all items that you want to authenticate, scroll down to bottom of the page, fill out the required information. and click on the Authenticate button.</p>
-					<p>To authenticate the whole profile, click <a id="authenticateProfileAnchor" href="#contact">here</a>.</p>
+					<p>To authenticate the whole profile, click <a id="authenticateProfileAnchor" href="#contact" data-href="#contact">here</a>.</p>
 			  	</div>
 			  	<div class="mdl-dialog__actions">
 			    	<button type="button" class="mdl-button ok-close">Ok</button>
@@ -113,12 +113,19 @@
 
             <section id="intro" class="clearfix section notopborder nomargin">
                 <div class="container input-date-group">
-                    <div class="row">
-                        <div id="intro-img" class="col-md-3">
-                            <div class="img-container" style="min-width: 250px; max-width: 250px;">
-                                <img src="<%= user.image %>" class="center-content" alt="Avatar">
+                    <div class="row" style="margin-top: 30px;">
+						<div id="intro-img" class="col-md-3">
+							<%if (user.isUserProfileAuthenticated) { %>
+								<span class="badge mdl-badge" id="profile-badge">
+									<i class="material-icons">verified_user</i>
+								</span>
+							<div class="mdl-tooltip" data-mdl-for="profile-badge">
+								Profiled Verified by <%= user.userProfileAuthenticatedBy %>
+							</div>
+							<% } %>
+                            <div class="img-container">
+                                <img src="<%= user.image %>" class="center" alt="Avatar">
                             </div>
-
                         </div>
                         <div id="intro-profile" class="col-md-9 reduce-padding">
                             <div class="row form-horizontal">
@@ -502,12 +509,12 @@
 								<h4>Provide Your Details</h4>
 							</div>
 							<form action="#" class="contact-form">
-								<div class="row">
+								<%# <div class="row">
 									<div class="col-sm-12">
 										<p class="send-status success"><i class="icon icon-check"></i>Your message has been sent successfully.</p>
 										<p class="send-status error"><i class="icon icon-close-circle"></i>E-mail must be valid and message must be longer than 1 character.</p>
 									</div>
-								</div>
+								</div>%>
 								<div class="row">
 									<div class="col-sm-12">
 										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">

@@ -114,6 +114,10 @@ Version: 1.0
 			checkbox.setAttribute('checked', true);
 			checkbox.parentElement.MaterialCheckbox.check();
 
+			$('html,body').animate({
+		        scrollTop: $("#contact").offset().top},
+		        'slow');
+
 		});
 
         $("#authenticateTheProfile").on('click', function(e) {
@@ -204,6 +208,7 @@ Version: 1.0
 				authenticatorObj;
 
 			if (isChecked) {
+
 				authenticatorObj = {
 	                name: authenticatorName,
 	                email: authenticatorEmail,
