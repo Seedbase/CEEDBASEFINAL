@@ -587,16 +587,6 @@ app.get('/privacy-policy', function(req, res) {
     res.render('privacyPolicy');
 });
 
-/* Temporary - TO BE REMOVED */
-
-app.get('/profile-view-temp', function(req, res) {
-	res.render('profile-view');
-});
-
-app.get('/profile-authentication-temp', function(req, res) {
-	res.render('profile-authentication');
-});
-
 app.listen(3000, function () {
     console.log('App listening on port 3000!')
 });

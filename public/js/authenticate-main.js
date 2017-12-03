@@ -47,120 +47,97 @@ Version: 1.0
         setTimeout(function() {
             $(".loader-wrapper").fadeOut('fast');
             (loader).fadeOut('fast');
-            /*Set time in milisec */
-             $('.intro-image').addClass('intro-image-z-index');
         }, 3500);
 
-
-        /** Background Image
-        ----------------------------*/
-        $(".bg-image").each(function() {
-            var $imgPath = $(this).attr('data-image');
-            $(this).css('background-image', 'url(' + $imgPath + ')');
-        });
-
-        /** Portfolio Isotope */
-        $(".gallery").isotope({
-            itemSelector: '.gallery-item',
-                percentPosition: true,
-        });
-
-        // isotope click function
-        $(".gallery-menu ul li button").on('click', function(e) {
-            e.preventDefault();
-            $(".gallery-menu ul li button").removeClass("active");
-            $(this).addClass("active");
-
-            var selector = $(this).attr('data-filter');
-            $(".gallery").isotope({
-                filter: selector,
-                animationOptions: {
-                    duration: 750,
-                    easing: 'linear',
-                    queue: false,
-                }
-            });
-            return false;
-        });
-
     });
-
 
     /**
      * Document Ready
      */
     $(document).ready(function() {
 
-        /** Typed.js (Text typing effect) */
-        $(".typed").typed({
-            stringsElement: $(".typed-strings"),
-            loop: true,
-            backDelay: 2000
-        });
+		var profile;
+		var userObj = JSON.parse($('#userProfileObject').text());
 
-        /** Navigation */
-        // disable navigation of resume menu in case of profile.ejs
+		//Register all dialogs to polyfill
+		var dialogAll = document.querySelectorAll('dialog');
+		$(dialogAll).each(function() {
+			var dialog = this;
+			if (!dialog.show) {
+				dialogPolyfill.registerDialog(dialog);
+			}
+			dialog.querySelector('.close, .ok-close').addEventListener('click', function() {
+				dialog.close();
+			});
+		});
 
-        $(".nav-toggle, .resume-close").on('click', function(e) {
-            e.preventDefault();
-            $('body').toggleClass('menu-open');
-        });
+		var authenticateWholeProfileDialog = document.querySelector('dialog#authenticate-whole-user-profile');
 
-        /** Custom Scrollbar */
-        $(".section-resume").mCustomScrollbar({
-            theme: 'minimal-dark',
-            axis: 'y'
-        });
+		setTimeout(function() {
+			authenticateWholeProfileDialog.showModal();
+		}, 3800);
 
+		//Make all radio buttons,  unclickable
+		$(':radio').click(function(){
+		    return false;
+		});
 
-        /** Progress Bar */
-        $(".progress-bar").each(function() {
-            var $imgPath = $(this).attr('data-percent');
-            $(this).css('width', $imgPath + '%');
-        });
+		$('#creativeRegion').select2({
+			data: ['', 'Barrie', 'Bay of Quinte', 'Bow Valley', 'Calgary', 'Charlottetown', 'Comox Valley',
+				'Durham Region', 'Edmonton', 'Fredericton', 'Halifax', 'Hamilton', 'Kamloops', 'Kingston', 'Montreal',
+				'Nanaimo', 'Nelson', 'Niagara Falls', 'Ottawa', 'Ottawa Valley', 'Peel Region', 'Peterborough',
+				'Prince George', 'Revelstoke', 'Sarnia Lambton', 'Saskatoon', 'Sault Ste Marie', 'Smithers', 'Toronto',
+				'Vancouver', 'Waterloo', 'Whitehorse', 'Windsor', 'Winnipeg', 'York Region'],
+			placeholder: function () {
+				$(this).data('placeholder');
+			}
+		}).enable(false);
 
+		if (userObj.profile.residence) {
+			$('#creativeRegion').val(userObj.profile.residence);
+			$('#creativeRegion').trigger('change');
+		}
 
-        // magnific popup for portfolio
-        $(".popup-image").magnificPopup({
-            type: 'image',
-        });
+        if (userObj.profile.opportunitySeeking) {
+            $('#' + userObj.profile.opportunitySeeking).attr('checked', true);
+        }
 
-        $(".popup-video").magnificPopup({
-            type: 'iframe',
-            iframe: {
-                markup: '<div class="mfp-iframe-scaler">' + '<div class="mfp-close"></div>' + '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>' + '</div>',
+		//Handle event when user clicks on "here" in dialog -> allow user to authenticate the complete profile
+		$('#authenticateProfileAnchor').on('click', function(e) {
+			e.preventDefault();
 
-                patterns: {
-                    youtube: {
-                        index: 'youtube.com/',
-                        id: 'v=',
-                        src: 'http://www.youtube.com/embed/%id%?autoplay=1'
-                    },
-                    vimeo: {
-                        index: 'vimeo.com/',
-                        id: '/',
-                        src: '//player.vimeo.com/video/%id%?autoplay=1'
-                    },
-                    gmaps: {
-                        index: '//maps.google.',
-                        src: '%id%&output=embed'
-                    }
-                },
+			//Close dialog
+			authenticateWholeProfileDialog.close();
 
-                srcAction: 'iframe_src',
-            }
-        });
+			//Check checkbox
+			var checkbox = document.querySelector('#authenticateProfileCheckbox');
+			checkbox.setAttribute('checked', true);
+			checkbox.parentElement.MaterialCheckbox.check();
 
+			$('html,body').animate({
+		        scrollTop: $("#contact").offset().top},
+		        'slow');
+
+		});
 
         $("#authenticateTheProfile").on('click', function(e) {
-            console.log($('#authenticatorOrganisationName').val());
-            if (!$('#authenticatorName').val() || !$('#authenticatorEmail').val() || !$('#authenticatorOrganisationName').val()) {
+			e.preventDefault();
+
+			var authenticatorOrganisationName = $('#authenticatorOrganisationName').val();
+			var authenticatorName = $('#authenticatorName').val();
+			var authenticatorEmail = $('#authenticatorEmail').val();
+
+            //console.log($('#authenticatorOrganisationName').val());
+            if (!authenticatorName || !authenticatorEmail || !authenticatorOrganisationName) {
                 alert('Please enter all required details');
                 return false;
             }
-            var profile;
-            var userObj = JSON.parse($('#userProfileObject').text());
-            e.preventDefault();
+
+			//Check if checkbox is checked
+			//When checked, update all verifiedCount properties in all items
+			//If not checked, only update verifiedCount property of items that have been verified
+			var isChecked = $('#authenticateProfileCheckbox').prop('checked');
+			var count;
 
 			/*
 			TODO: there may be many authentications - currently only the recent authenticatorOrganisationName is recorded
@@ -170,35 +147,36 @@ Version: 1.0
             if (userObj.profile) {
                 if (userObj.profile.skills) {
                     for (var index = 0; index < userObj.profile.skills.length; index++) {
-                        if ($('#skill'+(index+1)).hasClass('verified'))) {
-						//if ($('#skill'+index).is(":checked")) {
-                             userObj.profile.skills[index].isAuthenticated = true;
-                            userObj.profile.skills[index].authenticatedBy = $('#authenticatorOrganisationName').val();
+						if (isChecked || $('#skill'+(index+1)).hasClass('verified')) {
+                            userObj.profile.skills[index].isAuthenticated = true;
+                            userObj.profile.skills[index].authenticatedBy = authenticatorOrganisationName;
                             userObj.isUserSkillsAuthenticated = true;
-							userObj.profile.skills[index].verifiedCount++;
+							count = parseInt(userObj.profile.skills[index].verifiedCount);
+							userObj.profile.skills[index].verifiedCount = count + 1;
                         }
                     }
                 }
 
                 if (userObj.profile.externalLinks) {
                     for (var index = 0; index < userObj.profile.externalLinks.length; index++) {
-                        if ($('#learning'+(index+1)).is(":checked")) {
+                        if (isChecked || $('#learning'+(index+1)).hasClass('verified')) {
                             userObj.profile.externalLinks[index].isAuthenticated = true;
-                            userObj.profile.externalLinks[index].authenticatedBy = $('#authenticatorOrganisationName').val();
+                            userObj.profile.externalLinks[index].authenticatedBy = authenticatorOrganisationName;
                             userObj.isUserExternalLinksAuthenticated = true;
-							userObj.profile.externalLinks[index].verifiedCount++;
+							count = parseInt(userObj.profile.externalLinks[index].verifiedCount);
+							userObj.profile.externalLinks[index].verifiedCount = count + 1;
                         }
                     }
                 }
 
                 if (userObj.profile.services) {
                     for (var index = 0; index < userObj.profile.services.length; index++) {
-                        if ($('#service'+(index+1)).hasClass('verified')) {
-						//if ($('#service'+index).is(":checked")) {
+                        if (isChecked || $('#service'+(index+1)).hasClass('verified')) {
                             userObj.profile.services[index].isAuthenticated = true;
-                            userObj.profile.services[index].authenticatedBy = $('#authenticatorOrganisationName').val();
+                            userObj.profile.services[index].authenticatedBy = authenticatorOrganisationName;
                             userObj.isUserServicesAuthenticated = true;
-							userObj.profile.services[index].verifiedCount++;
+							count = parseInt(userObj.profile.services[index].verifiedCount);
+							userObj.profile.services[index].verifiedCount = count + 1;
                         }
                     }
                 }
@@ -215,109 +193,129 @@ Version: 1.0
 
                 if (userObj.profile.experiences) {
                     for (var index = 0; index < userObj.profile.experiences.length; index++) {
-                        //if ($('#experience'+index).is(":checked")) {
-						if ($('#project'+(index+1)).hasClass('verified')) {
+						if (isChecked || $('#project'+(index+1)).hasClass('verified')) {
                             userObj.profile.experiences[index].isAuthenticated = true;
-                            userObj.profile.experiences[index].authenticatedBy = $('#authenticatorOrganisationName').val();
+                            userObj.profile.experiences[index].authenticatedBy = authenticatorOrganisationName;
                             userObj.isUserExperiencesAuthenticated = true;
-							userObj.profile.experiences[index].verifiedCount++;
-                        }
-                    }
-                }
-
-				if (userObj.profile.educations) {
-                    for (var index = 0; index < userObj.profile.educations.length; index++) {
-                        //if ($('#experience'+index).is(":checked")) {
-						if ($('#edu'+(index+1)).hasClass('verified')) {
-                            userObj.profile.educations[index].isAuthenticated = true;
-                            userObj.profile.educations[index].authenticatedBy = $('#authenticatorOrganisationName').val();
-                            userObj.isUserEducationsAuthenticated = true;
-							userObj.profile.educations[index].verifiedCount++;
+							count = parseInt(userObj.profile.experiences[index].verifiedCount);
+							userObj.profile.experiences[index].verifiedCount = count + 1;
                         }
                     }
                 }
             }
 
-            var requestData = {
-                user: userObj
-            };
+			var requestData,
+				authenticatorObj;
 
-            $.ajax({
-                type: 'POST',
-                url: '/profile/authenticate/user',
-                data: requestData,
-                success: function() {
-                    alert('Authentication successful.');
-                    window.location = '/';
-                },
-                error: function () {
-                    alert('Something went wrong');
-                }
-            });
+			if (isChecked) {
+
+				authenticatorObj = {
+	                name: authenticatorName,
+	                email: authenticatorEmail,
+	                organisation: authenticatorOrganisationName
+	            };
+
+				requestData = {
+	                user: userObj,
+	                authenticator: authenticatorObj
+	            };
+
+				$.ajax({
+	                type: 'POST',
+	                url: '/profile/authenticate/complete/user',
+	                data: requestData,
+	                success: function() {
+	                    alert('Authentication successful.');
+	                    window.location = '/';
+	                },
+	                error: function () {
+	                    alert('Something went wrong');
+	                }
+	            });
+
+			} else {
+				requestData = {
+	                user: userObj
+	            };
+
+				$.ajax({
+	                type: 'POST',
+	                url: '/profile/authenticate/user',
+	                data: requestData,
+	                success: function() {
+	                    alert('Authentication successful.');
+	                    window.location = '/';
+	                },
+	                error: function () {
+	                    alert('Something went wrong');
+	                }
+	            });
+			}
+
+			console.log(isChecked);
+			console.log(requestData);
 
             return false;
         });
 
-        $('#authenticateWholeProfile').on('click', function (e) {
-            console.log('dsdssdsd');
-            if (!$('#wholeProfileAuthenticatorName').val() || !$('#wholeProfileAuthenticatorEmail').val() || !$('#wholeProfileAuthenticatorOrganisationName')) {
-                alert('Please enter all required details');
-                return false;
-            }
-            var userObj = JSON.parse($('#userProfileObject').text());
-            var authenticatorObj = {
-                name: $('#wholeProfileAuthenticatorName').val(),
-                email: $('#wholeProfileAuthenticatorEmail').val(),
-                organisation: $('#wholeProfileAuthenticatorOrganisationName').val()
-            }
-            var requestData = {
-                user: userObj,
-                authenticator: authenticatorObj
-            };
+        // $('#authenticateWholeProfile').on('click', function (e) {
+        //     console.log('dsdssdsd');
+        //     if (!$('#wholeProfileAuthenticatorName').val() || !$('#wholeProfileAuthenticatorEmail').val() || !$('#wholeProfileAuthenticatorOrganisationName')) {
+        //         alert('Please enter all required details');
+        //         return false;
+        //     }
+        //     var userObj = JSON.parse($('#userProfileObject').text());
+        //     var authenticatorObj = {
+        //         name: $('#wholeProfileAuthenticatorName').val(),
+        //         email: $('#wholeProfileAuthenticatorEmail').val(),
+        //         organisation: $('#wholeProfileAuthenticatorOrganisationName').val()
+        //     }
+        //     var requestData = {
+        //         user: userObj,
+        //         authenticator: authenticatorObj
+        //     };
+        //
+        //     console.log(requestData);
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: '/profile/authenticate/complete/user',
+        //         data: requestData,
+        //         success: function() {
+        //             alert('Authentication successful.');
+        //             window.location = '/';
+        //         },
+        //         error: function () {
+        //             alert('Something went wrong');
+        //         }
+        //     });
+        //     return false;
+        // });
 
-			//TODO: when authenticating profile, must increment each verifiedCount
-
-            console.log(requestData);
-            $.ajax({
-                type: 'POST',
-                url: '/profile/authenticate/complete/user',
-                data: requestData,
-                success: function() {
-                    alert('Authentication successful.');
-                    window.location = '/';
-                },
-                error: function () {
-                    alert('Something went wrong');
-                }
-            });
-            return false;
-        });
-
-        $('#intro-text-new').css('display', 'none');
-        $('#passion-content-display').html($('#passion-content-display').html());
-        $('#freind-reference-content-display').html($('#freind-reference-content-display').html());
-
-
-        $('#flipToProfile').on('click', function () {
-            if($('#image-section').hasClass('intro-image')) {
-                setTimeout(function() {
-                    $('#image-section').removeClass('intro-image');
-                    $('#image-section').addClass('intro-image-new-margin');
-                    $('#intro-text-new').css('display', 'block');
-                    $('#intro-text-section').css('display', 'none');
-                }, 400);
-
-            } else {
-                setTimeout(function() {
-                    $('#image-section').addClass('intro-image');
-                    $('#image-section').removeClass('intro-image-new-margin');
-                    $('#intro-text-new').css('display', 'none');
-                    $('#intro-text-section').css('display', 'block');
-                }, 200);
-
-            }
-
-        });
+        // $('#intro-text-new').css('display', 'none');
+        // $('#passion-content-display').html($('#passion-content-display').html());
+        // $('#freind-reference-content-display').html($('#freind-reference-content-display').html());
+        //
+        //
+        // $('#flipToProfile').on('click', function () {
+        //     if($('#image-section').hasClass('intro-image')) {
+        //         setTimeout(function() {
+        //             $('#image-section').removeClass('intro-image');
+        //             $('#image-section').addClass('intro-image-new-margin');
+        //             $('#intro-text-new').css('display', 'block');
+        //             $('#intro-text-section').css('display', 'none');
+        //         }, 400);
+        //
+        //     } else {
+        //         setTimeout(function() {
+        //             $('#image-section').addClass('intro-image');
+        //             $('#image-section').removeClass('intro-image-new-margin');
+        //             $('#intro-text-new').css('display', 'none');
+        //             $('#intro-text-section').css('display', 'block');
+        //         }, 200);
+        //
+        //     }
+        //
+        // });
     });
 
 })(jQuery);

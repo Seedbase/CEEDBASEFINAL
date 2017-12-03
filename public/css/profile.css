@@ -44,6 +44,29 @@
 	height: 32px;
 }
 
+#side-panel {
+	width: 350px;
+	right: -350px;
+}
+
+#side-panel .side-panel-wrap {
+	width: 350px;
+}
+
+/* If the browser window is smaller than 600px, make the columns stack on top of each other */
+@media only screen and (max-width: 768px) {
+    .is-table-row [class*="col-"] {
+        display: block;
+        width: 100%;
+    }
+}
+
+/* --- Verify Component --- */
+
+.verify-component {
+	cursor: pointer;
+}
+
 /* --- Iconpicker popover --- */
 
 .iconpicker-popover.popover {
@@ -102,6 +125,11 @@ dialog {
 	border-radius: 50%;
 }
 
+#intro-img .badge i {
+	position: relative;
+	top: calc(50% - 12px);
+}
+
 .profile-name .mdl-textfield__input {
     margin-bottom: 20px;
 }
@@ -129,6 +157,7 @@ h4.custom-heading {
 .radio-button-label {
     text-transform: none;
     font-weight: normal;
+	font-size: 13px !important;
 }
 
 .img-container {
@@ -146,6 +175,40 @@ h4.custom-heading {
     height: auto;
 	margin: auto;
 	display: block;
+}
+
+/* For aligning "AND" in introText textfields */
+
+.align-centre-label {
+	height: auto;
+	line-height: normal;
+}
+
+@media (min-width: 768px) {
+	.align-centre-label {
+		height: 79px;
+		line-height: 20px;
+	}
+}
+
+.align-centre-label h6 {
+	vertical-align: middle;
+	text-align: center;
+	font-size: 16px;
+	font-weight: 700;
+	font-family: 'Raleway', sans-serif;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: #555;
+	cursor: pointer;
+}
+
+/* --- Save Profile --- */
+
+.fixedBottomRight {
+	position: fixed;
+	bottom: 32px;
+	right: 32px;
 }
 
 /* --- Skills --- */
@@ -255,7 +318,7 @@ h4.custom-heading {
 }
 
 .timeline-item .item-title {
-    display: block;
+    display: inline-block;
     margin: 0;
     font-size: 16px;
     line-height: 1.2em;
