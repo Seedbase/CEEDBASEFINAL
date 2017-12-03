@@ -75,7 +75,12 @@ Version: 1.0
 
 		setTimeout(function() {
 			authenticateWholeProfileDialog.showModal();
-		}, 3500);
+		}, 3800);
+
+		//Make all radio buttons,  unclickable
+		$(':radio').click(function(){
+		    return false;
+		});
 
 		$('#creativeRegion').select2({
 			data: ['', 'Barrie', 'Bay of Quinte', 'Bow Valley', 'Calgary', 'Charlottetown', 'Comox Valley',
@@ -86,7 +91,7 @@ Version: 1.0
 			placeholder: function () {
 				$(this).data('placeholder');
 			}
-		});
+		}).enable(false);
 
 		if (userObj.profile.residence) {
 			$('#creativeRegion').val(userObj.profile.residence);
@@ -94,17 +99,41 @@ Version: 1.0
 		}
 
         if (userObj.profile.opportunitySeeking) {
-            $('#' + userObj.profile.opportunitySeeking).attr('checked', 'checked');
+            $('#' + userObj.profile.opportunitySeeking).attr('checked', true);
         }
+
+		//Handle event when user clicks on "here" in dialog -> allow user to authenticate the complete profile
+		$('#authenticateProfileAnchor').on('click', function(e) {
+			e.preventDefault();
+
+			//Close dialog
+			authenticateWholeProfileDialog.close();
+
+			//Check checkbox
+			var checkbox = document.querySelector('#authenticateProfileCheckbox');
+			checkbox.setAttribute('checked', true);
+			checkbox.parentElement.MaterialCheckbox.check();
+
+		});
 
         $("#authenticateTheProfile").on('click', function(e) {
 			e.preventDefault();
 
-            console.log($('#authenticatorOrganisationName').val());
-            if (!$('#authenticatorName').val() || !$('#authenticatorEmail').val() || !$('#authenticatorOrganisationName').val()) {
+			var authenticatorOrganisationName = $('#authenticatorOrganisationName').val();
+			var authenticatorName = $('#authenticatorName').val();
+			var authenticatorEmail = $('#authenticatorEmail').val();
+
+            //console.log($('#authenticatorOrganisationName').val());
+            if (!authenticatorName || !authenticatorEmail || !authenticatorOrganisationName) {
                 alert('Please enter all required details');
                 return false;
             }
+
+			//Check if checkbox is checked
+			//When checked, update all verifiedCount properties in all items
+			//If not checked, only update verifiedCount property of items that have been verified
+			var isChecked = $('#authenticateProfileCheckbox').prop('checked');
+			var count;
 
 			/*
 			TODO: there may be many authentications - currently only the recent authenticatorOrganisationName is recorded
@@ -114,35 +143,36 @@ Version: 1.0
             if (userObj.profile) {
                 if (userObj.profile.skills) {
                     for (var index = 0; index < userObj.profile.skills.length; index++) {
-                        if ($('#skill'+(index+1)).hasClass('verified')) {
-						//if ($('#skill'+index).is(":checked")) {
-                             userObj.profile.skills[index].isAuthenticated = true;
-                            userObj.profile.skills[index].authenticatedBy = $('#authenticatorOrganisationName').val();
+						if (isChecked || $('#skill'+(index+1)).hasClass('verified')) {
+                            userObj.profile.skills[index].isAuthenticated = true;
+                            userObj.profile.skills[index].authenticatedBy = authenticatorOrganisationName;
                             userObj.isUserSkillsAuthenticated = true;
-							userObj.profile.skills[index].verifiedCount++;
+							count = parseInt(userObj.profile.skills[index].verifiedCount);
+							userObj.profile.skills[index].verifiedCount = count + 1;
                         }
                     }
                 }
 
                 if (userObj.profile.externalLinks) {
                     for (var index = 0; index < userObj.profile.externalLinks.length; index++) {
-                        if ($('#learning'+(index+1)).is(":checked")) {
+                        if (isChecked || $('#learning'+(index+1)).hasClass('verified')) {
                             userObj.profile.externalLinks[index].isAuthenticated = true;
-                            userObj.profile.externalLinks[index].authenticatedBy = $('#authenticatorOrganisationName').val();
+                            userObj.profile.externalLinks[index].authenticatedBy = authenticatorOrganisationName;
                             userObj.isUserExternalLinksAuthenticated = true;
-							userObj.profile.externalLinks[index].verifiedCount++;
+							count = parseInt(userObj.profile.externalLinks[index].verifiedCount);
+							userObj.profile.externalLinks[index].verifiedCount = count + 1;
                         }
                     }
                 }
 
                 if (userObj.profile.services) {
                     for (var index = 0; index < userObj.profile.services.length; index++) {
-                        if ($('#service'+(index+1)).hasClass('verified')) {
-						//if ($('#service'+index).is(":checked")) {
+                        if (isChecked || $('#service'+(index+1)).hasClass('verified')) {
                             userObj.profile.services[index].isAuthenticated = true;
-                            userObj.profile.services[index].authenticatedBy = $('#authenticatorOrganisationName').val();
+                            userObj.profile.services[index].authenticatedBy = authenticatorOrganisationName;
                             userObj.isUserServicesAuthenticated = true;
-							userObj.profile.services[index].verifiedCount++;
+							count = parseInt(userObj.profile.services[index].verifiedCount);
+							userObj.profile.services[index].verifiedCount = count + 1;
                         }
                     }
                 }
@@ -159,83 +189,102 @@ Version: 1.0
 
                 if (userObj.profile.experiences) {
                     for (var index = 0; index < userObj.profile.experiences.length; index++) {
-                        //if ($('#experience'+index).is(":checked")) {
-						if ($('#project'+(index+1)).hasClass('verified')) {
+						if (isChecked || $('#project'+(index+1)).hasClass('verified')) {
                             userObj.profile.experiences[index].isAuthenticated = true;
-                            userObj.profile.experiences[index].authenticatedBy = $('#authenticatorOrganisationName').val();
+                            userObj.profile.experiences[index].authenticatedBy = authenticatorOrganisationName;
                             userObj.isUserExperiencesAuthenticated = true;
-							userObj.profile.experiences[index].verifiedCount++;
-                        }
-                    }
-                }
-
-				if (userObj.profile.educations) {
-                    for (var index = 0; index < userObj.profile.educations.length; index++) {
-                        //if ($('#experience'+index).is(":checked")) {
-						if ($('#edu'+(index+1)).hasClass('verified')) {
-                            userObj.profile.educations[index].isAuthenticated = true;
-                            userObj.profile.educations[index].authenticatedBy = $('#authenticatorOrganisationName').val();
-                            userObj.isUserEducationsAuthenticated = true;
-							userObj.profile.educations[index].verifiedCount++;
+							count = parseInt(userObj.profile.experiences[index].verifiedCount);
+							userObj.profile.experiences[index].verifiedCount = count + 1;
                         }
                     }
                 }
             }
 
-            var requestData = {
-                user: userObj
-            };
+			var requestData,
+				authenticatorObj;
 
-            $.ajax({
-                type: 'POST',
-                url: '/profile/authenticate/user',
-                data: requestData,
-                success: function() {
-                    alert('Authentication successful.');
-                    window.location = '/';
-                },
-                error: function () {
-                    alert('Something went wrong');
-                }
-            });
+			if (isChecked) {
+				authenticatorObj = {
+	                name: authenticatorName,
+	                email: authenticatorEmail,
+	                organisation: authenticatorOrganisationName
+	            };
+
+				requestData = {
+	                user: userObj,
+	                authenticator: authenticatorObj
+	            };
+
+				$.ajax({
+	                type: 'POST',
+	                url: '/profile/authenticate/complete/user',
+	                data: requestData,
+	                success: function() {
+	                    alert('Authentication successful.');
+	                    window.location = '/';
+	                },
+	                error: function () {
+	                    alert('Something went wrong');
+	                }
+	            });
+
+			} else {
+				requestData = {
+	                user: userObj
+	            };
+
+				$.ajax({
+	                type: 'POST',
+	                url: '/profile/authenticate/user',
+	                data: requestData,
+	                success: function() {
+	                    alert('Authentication successful.');
+	                    window.location = '/';
+	                },
+	                error: function () {
+	                    alert('Something went wrong');
+	                }
+	            });
+			}
+
+			console.log(isChecked);
+			console.log(requestData);
 
             return false;
         });
 
-        $('#authenticateWholeProfile').on('click', function (e) {
-            console.log('dsdssdsd');
-            if (!$('#wholeProfileAuthenticatorName').val() || !$('#wholeProfileAuthenticatorEmail').val() || !$('#wholeProfileAuthenticatorOrganisationName')) {
-                alert('Please enter all required details');
-                return false;
-            }
-            var userObj = JSON.parse($('#userProfileObject').text());
-            var authenticatorObj = {
-                name: $('#wholeProfileAuthenticatorName').val(),
-                email: $('#wholeProfileAuthenticatorEmail').val(),
-                organisation: $('#wholeProfileAuthenticatorOrganisationName').val()
-            }
-            var requestData = {
-                user: userObj,
-                authenticator: authenticatorObj
-            };
-
-			//TODO: when authenticating profile, must increment each verifiedCount
-
-            console.log(requestData);
-            $.ajax({
-                type: 'POST',
-                url: '/profile/authenticate/complete/user',
-                data: requestData,
-                success: function() {
-                    alert('Authentication successful.');
-                    window.location = '/';
-                },
-                error: function () {
-                    alert('Something went wrong');
-                }
-            });
-            return false;
-        });
+        // $('#authenticateWholeProfile').on('click', function (e) {
+        //     console.log('dsdssdsd');
+        //     if (!$('#wholeProfileAuthenticatorName').val() || !$('#wholeProfileAuthenticatorEmail').val() || !$('#wholeProfileAuthenticatorOrganisationName')) {
+        //         alert('Please enter all required details');
+        //         return false;
+        //     }
+        //     var userObj = JSON.parse($('#userProfileObject').text());
+        //     var authenticatorObj = {
+        //         name: $('#wholeProfileAuthenticatorName').val(),
+        //         email: $('#wholeProfileAuthenticatorEmail').val(),
+        //         organisation: $('#wholeProfileAuthenticatorOrganisationName').val()
+        //     }
+        //     var requestData = {
+        //         user: userObj,
+        //         authenticator: authenticatorObj
+        //     };
+        //
+        //     console.log(requestData);
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: '/profile/authenticate/complete/user',
+        //         data: requestData,
+        //         success: function() {
+        //             alert('Authentication successful.');
+        //             window.location = '/';
+        //         },
+        //         error: function () {
+        //             alert('Something went wrong');
+        //         }
+        //     });
+        //     return false;
+        // });
 
         // $('#intro-text-new').css('display', 'none');
         // $('#passion-content-display').html($('#passion-content-display').html());

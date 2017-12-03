@@ -103,11 +103,8 @@
 			<dialog id="authenticate-whole-user-profile" class="mdl-dialog">
 		  		<h4 class="mdl-dialog__title">Authenticate <%=user.displayName%>'s Profile</h4>
 			  	<div class="mdl-dialog__content">
-			    	<p>
-						Select all items that you want to authenticate, scroll down to bottom of the page, fill out the required information. and click on the Authenticate button.</p>
-					<p>
-						To authenticate the whole profile, click <a href="#contact" data-href="#contact">here</a> to authenticate the whole profile.
-					</p>
+			    	<p>Select all items that you want to authenticate, scroll down to bottom of the page, fill out the required information. and click on the Authenticate button.</p>
+					<p>To authenticate the whole profile, click <a id="authenticateProfileAnchor" href="#contact">here</a>.</p>
 			  	</div>
 			  	<div class="mdl-dialog__actions">
 			    	<button type="button" class="mdl-button ok-close">Ok</button>
@@ -128,7 +125,7 @@
                                 <div class="col-sm-6"><h4 class="custom-heading">Hello, I'm</h4></div>
                                 <div class="col-sm-12">
                                     <div class="mdl-textfield mdl-js-textfield full-width profile-name">
-                                        <input class="mdl-textfield__input" type="text" id="introText1" disabled value="<%= user.displayName %>">
+                                        <input class="mdl-textfield__input" type="text" id="introText1" value="<%= user.displayName %>" readonly>
                                         <label class="mdl-textfield__label" for="introText1">Full Name</label>
                                     </div>
                                 </div>
@@ -138,9 +135,9 @@
                                 <div class="col-sm-5-custom">
                                     <div class="mdl-textfield mdl-js-textfield full-width">
 										<% if (user.profile && user.profile.introText) { %>
-                                        	<input class="mdl-textfield__input" type="text" id="introText2" value="<%=user.profile.introText[1]%>">
+                                        	<input class="mdl-textfield__input" type="text" id="introText2" value="<%=user.profile.introText[1]%>" readonly>
 										<% } else { %>
-											<input class="mdl-textfield__input" type="text" id="introText2" value="">
+											<input class="mdl-textfield__input" type="text" id="introText2" value="" readonly>
 										<% } %>
                                         <label class="mdl-textfield__label" for="introText2">Designer</label>
                                     </div>
@@ -149,9 +146,9 @@
                                 <div class="col-sm-5-custom">
                                     <div class="mdl-textfield mdl-js-textfield full-width">
 										<% if (user.profile && user.profile.introText) { %>
-                                        	<input class="mdl-textfield__input" type="text" id="introText3" value="<%=user.profile.introText[2]%>">
+                                        	<input class="mdl-textfield__input" type="text" id="introText3" value="<%=user.profile.introText[2]%>" readonly>
 										<% } else { %>
-											<input class="mdl-textfield__input" type="text" id="introText3" value="">
+											<input class="mdl-textfield__input" type="text" id="introText3" value="" readonly>
 										<% } %>
                                         <label class="mdl-textfield__label" for="introText3">Designer</label>
                                     </div>
@@ -164,25 +161,25 @@
 									<div class="row">
 										<div class="col-lg-3 col-md-6 col-sm-6">
 											<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="unPaidInternship">
-										  		<input type="radio" id="unPaidInternship" class="mdl-radio__button" name="opportunityOption" value="unPaidInternship" required>
+										  		<input type="radio" id="unPaidInternship" class="mdl-radio__button" name="opportunityOption" value="unPaidInternship">
 											  	<span class="mdl-radio__label radio-button-label radio-small">Unpaid Internship</span>
 											</label>
                                         </div>
                                         <div class="col-lg-3 col-md-6 col-sm-6">
 											<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="paidInternship">
-										  		<input type="radio" id="paidInternship" class="mdl-radio__button" name="opportunityOption" value="paidInternship" required>
+										  		<input type="radio" id="paidInternship" class="mdl-radio__button" name="opportunityOption" value="paidInternship">
 											  	<span class="mdl-radio__label radio-button-label radio-small">Paid Internship</span>
 											</label>
                                         </div>
                                         <div class="col-lg-3 col-md-6 col-sm-6">
 											<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="tempContract">
-										  		<input type="radio" id="tempContract" class="mdl-radio__button" name="opportunityOption" value="tempContract" required>
+										  		<input type="radio" id="tempContract" class="mdl-radio__button" name="opportunityOption" value="tempContract">
 											  	<span class="mdl-radio__label radio-button-label radio-small">Temporary Contract</span>
 											</label>
                                         </div>
                                         <div class="col-lg-3 col-md-6 col-sm-6">
 											<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="fullTimeHire">
-										  		<input type="radio" id="fullTimeHire" class="mdl-radio__button" name="opportunityOption" value="fullTimeHire" required>
+										  		<input type="radio" id="fullTimeHire" class="mdl-radio__button" name="opportunityOption" value="fullTimeHire">
 											  	<span class="mdl-radio__label radio-button-label radio-small">Full Time Hire</span>
 											</label>
                                         </div>
@@ -207,7 +204,7 @@
                                         <div class="row">
 											<div class="col-sm-12">
 												<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 90%;">
-                                                    <textarea class="mdl-textfield__input autoresize" type="text" rows="4" id="passion" maxlength="200" pattern="^(?!^$|^\s+$)[^\n\t]+" required style="overflow: hidden; max-width:100%;" ><%= user.profile ? user.profile.passion : '' %></textarea>
+                                                    <textarea class="mdl-textfield__input autoresize" type="text" rows="4" id="passion" maxlength="200" style="overflow: hidden; max-width:100%;" readonly><%= user.profile ? user.profile.passion : '' %></textarea>
                                                     <label class="mdl-textfield__label" for="passion">Describe your passion</label>
 													<span class="mdl-textfield__error">Input must be defined!</span>
                                                 </div>
@@ -514,15 +511,16 @@
 								<div class="row">
 									<div class="col-sm-12">
 										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-											<input class="mdl-textfield__input" type="text" id="authenticatorName">
+											<input class="mdl-textfield__input" type="text" id="authenticatorName" required>
 											<label class="mdl-textfield__label" for="authenticatorName">Name</label>
+											<span class="mdl-textfield__error">Input is required!</span>
 										</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-sm-12">
 										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-											<input class="mdl-textfield__input" type="email" id="authenticatorEmail">
+											<input class="mdl-textfield__input" type="email" id="authenticatorEmail" required>
 											<label class="mdl-textfield__label" for="authenticatorEmail">Email</label>
 											<span class="mdl-textfield__error">Input does not have the correct format!</span>
 										</div>
@@ -531,12 +529,22 @@
 								<div class="row">
 									<div class="col-sm-12">
 										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-width">
-											<input class="mdl-textfield__input" type="text" id="authenticationOrganisationName">
-											<label class="mdl-textfield__label" for="authenticationOrganisationName">Organization Name</label>
+											<input class="mdl-textfield__input" type="text" id="authenticatorOrganisationName" required>
+											<label class="mdl-textfield__label" for="authenticatorOrganisationName">Organization Name</label>
+											<span class="mdl-textfield__error">Input is required!</span>
 										</div>
 									</div>
 								</div>
-								<div class="row">
+
+								<div class="row" style="margin-top: 20px;">
+									<div class="col-sm-12">
+										<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="authenticateProfileCheckbox">
+										  	<input type="checkbox" id="authenticateProfileCheckbox" class="mdl-checkbox__input">
+										  	<span class="mdl-checkbox__label radio-button-label radio-small">Yes, I would like to authenticate the whole profile.</span>
+										</label>
+									</div>
+								</div>
+								<div class="row topmargin-sm">
 									<div class="col-sm-12">
 										<button id="authenticateTheProfile" class="mdl-button mdl-js-button mdl-button--raised" type="submit" name="submit">
 											Authenticate
@@ -647,24 +655,24 @@
 				}
 
 				//Update verifiedCount property
-				var id = $(e).attr('id');
-				var elementCategory = $(e).attr('data-category');
-				var category;
-				var data;
-
-				if (user.profile.hasOwnProperty(elementCategory)) {
-					category = user.profile[elementCategory.toString()];
-					for (var i = 0; i < category.length; i++) {
-						if (category[i].id === id) {
-							data = category[i];
-							break;
-						}
-					}
-
-					// if (data) {
-					// 	data.verifiedCount = verifiedCount;
-					// }
-				}
+				// var id = $(e).attr('id');
+				// var elementCategory = $(e).attr('data-category');
+				// var category;
+				// var data;
+                //
+				// if (user.profile.hasOwnProperty(elementCategory)) {
+				// 	category = user.profile[elementCategory.toString()];
+				// 	for (var i = 0; i < category.length; i++) {
+				// 		if (category[i].id === id) {
+				// 			data = category[i];
+				// 			break;
+				// 		}
+				// 	}
+                //
+				// 	if (data) {
+				// 		data.verifiedCount = verifiedCount;
+				// 	}
+				// }
 			}
         </script>
 
