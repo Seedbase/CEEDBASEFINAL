@@ -145,12 +145,13 @@ Version: 1.0
 			*/
 
             if (userObj.profile) {
+
                 if (userObj.profile.skills) {
                     for (var index = 0; index < userObj.profile.skills.length; index++) {
 						if (isChecked || $('#skill'+(index+1)).hasClass('verified')) {
                             userObj.profile.skills[index].isAuthenticated = true;
                             userObj.profile.skills[index].authenticatedBy = authenticatorOrganisationName;
-                            userObj.isUserSkillsAuthenticated = true;
+							userObj.isUserSkillsAuthenticated = true;
 							count = parseInt(userObj.profile.skills[index].verifiedCount);
 							userObj.profile.skills[index].verifiedCount = count + 1;
                         }
@@ -162,7 +163,7 @@ Version: 1.0
                         if (isChecked || $('#learning'+(index+1)).hasClass('verified')) {
                             userObj.profile.externalLinks[index].isAuthenticated = true;
                             userObj.profile.externalLinks[index].authenticatedBy = authenticatorOrganisationName;
-                            userObj.isUserExternalLinksAuthenticated = true;
+							userObj.isUserExternalLinksAuthenticated = true;
 							count = parseInt(userObj.profile.externalLinks[index].verifiedCount);
 							userObj.profile.externalLinks[index].verifiedCount = count + 1;
                         }
@@ -174,7 +175,7 @@ Version: 1.0
                         if (isChecked || $('#service'+(index+1)).hasClass('verified')) {
                             userObj.profile.services[index].isAuthenticated = true;
                             userObj.profile.services[index].authenticatedBy = authenticatorOrganisationName;
-                            userObj.isUserServicesAuthenticated = true;
+							userObj.isUserServicesAuthenticated = true;
 							count = parseInt(userObj.profile.services[index].verifiedCount);
 							userObj.profile.services[index].verifiedCount = count + 1;
                         }
@@ -196,7 +197,7 @@ Version: 1.0
 						if (isChecked || $('#project'+(index+1)).hasClass('verified')) {
                             userObj.profile.experiences[index].isAuthenticated = true;
                             userObj.profile.experiences[index].authenticatedBy = authenticatorOrganisationName;
-                            userObj.isUserExperiencesAuthenticated = true;
+							userObj.isUserExperiencesAuthenticated = true;
 							count = parseInt(userObj.profile.experiences[index].verifiedCount);
 							userObj.profile.experiences[index].verifiedCount = count + 1;
                         }

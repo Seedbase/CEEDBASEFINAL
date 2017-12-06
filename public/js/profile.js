@@ -63,15 +63,12 @@
             success: function (response) {
                 console.log(JSON.stringify(response));
                 $('.messageCounter').text(response.length);
-                // for (var index = 0; index < response.length; index++) {
-                //     unreadMessages.push(response[index].creative);
-                // }
 				if (response.length > 0) {
-					unreadMessages.push(response);
+					unreadMessages = response;
 				}
             }
         });
-        $('#notificationLink').click(function () {
+        $('#notificationLink').click(function (e) {
             var requestData = {messages: unreadMessages};
             $('.messageCounter').text('0');
 
@@ -84,19 +81,20 @@
 				unreadMessage = $(messageTemplate)
 					.clone()
 					.removeClass('hide-content');
-				$(unreadMessage).find('#messageName').text(unreadMessages[i].client.companyName);
-				$(unreadMessage).find('#messageDesc').text(unreadMessages[i].client.message);
+				$(unreadMessage).find('#messageName').text(unreadMessages[i].client);
+				$(unreadMessage).find('#messageDesc').text(unreadMessages[i].message);
+				$(unreadMessage).find('#messageTime').text(new Date(Date.parse(unreadMessages[i].created)));
 				$(messageUl).append(unreadMessage);
 			}
 
-            $.ajax({
-                type: 'POST',
-                url: '/profile/user/messages/markread',
-                data: requestData,
-                success: function (response) {
-                    console.log(response);
-                }
-            });
+            // $.ajax({
+            //     type: 'POST',
+            //     url: '/profile/user/messages/markread',
+            //     data: requestData,
+            //     success: function (response) {
+            //         console.log(response);
+            //     }
+            // });
         });
 
         //Getting user profile
@@ -121,15 +119,6 @@
 
 		function updateProfile() {
 			var providerId = $('#providerId').val();
-			var message = $("#authenticatorMessage").val();
-			//TODO: allow user to change email
-			var emailData = {
-				fromName: $("#authenticatorName").val(),
-				fromEmail: userObj.email,
-				toEmail: $("#authenticatorEmail").val(),
-				subject: $("#authenticatorSubject").val(),
-				message: $("#authenticatorMessage").val()
-			};
 
 			//Update Counts
 			profile.counts.skillCount = skillCount;
@@ -147,7 +136,7 @@
 			introText.push($('#introText2').val());
 			introText.push($('#introText3').val());
 			profile['introText'] = introText;
-			profile['displayName'] = $('#introText1').val();
+		 	userObj['displayName'] = $('#introText1').val();
 
 			//Video Resume
 			if ($('#videoResume').text()) {
@@ -165,7 +154,6 @@
 
 			//requestData
 			var requestData = {
-				dataString: emailData,
 				userProfile: profile,
 				providerId: providerId
 			};
@@ -186,6 +174,17 @@
 
 			if (validateContactForm && validateIntro) {
 				var requestData = updateProfile();
+
+				var message = $("#authenticatorMessage").val();
+				var emailData = {
+					fromName: $("#authenticatorName").val(),
+					fromEmail: userObj.email,
+					toEmail: $("#authenticatorEmail").val(),
+					subject: $("#authenticatorSubject").val(),
+					message: $("#authenticatorMessage").val()
+				};
+
+				requestData['dataString'] = emailData;
 
 	            $.ajax({
 	                type: 'POST',
@@ -412,22 +411,17 @@
 	                    'id': 'skill-range' + skillsId
 	                });
 
-				$(mainContent).find('.edit-skill-button').on('click', function() {
-					uploadSkill(skillsId);
-					editSkillDialog.showModal();
-				});
+				// $(mainContent).find('.edit-skill-button').on('click', function() {
+				// 	uploadSkill(skillsId);
+				// 	editSkillDialog.showModal();
+				// });
 
 				//Append new skill to container
 	            $(skillsUl).append(materializedSkill);
 
-	            //countTo is not called in SEMICOLON.widget.progress() and need to set value for ionRangeSlider
 	            $(materializedSkill).show(100, function() {
-					$('#skill-range-input' + skillsId).ionRangeSlider({
-	                    from: parseInt(skillRating)
-	                });
-					//Animate progress bar widget
-		            SEMICOLON.widget.progress();
-	                $(this).find('.main-content span.skill-range').countTo();
+	                $(this).find('span.skill-range').countTo({to: parseInt(skillRating)});
+					$(this).find('.progress').css({width: skillRating + "%"});
 	            });
 
 	            //Add skill to db
@@ -449,7 +443,6 @@
 	            //Reset input fields for creating a new skill
 	            $('#skill-rating').data("ionRangeSlider").update({from: 10});
 	            clearFields(addSkillDialog);
-				//removeRequired(addSkillDialog);
 			}
         });
 
@@ -470,6 +463,12 @@
 				.parents('.mdl-textfield').addClass('is-dirty');
 			$('#edit-skill-rating').data('ionRangeSlider').update({from: parseInt(data.rating)});
 		}
+
+		$('.edit-skill-button').on('click', function() {
+			var skillsId = parseInt($(this).parents('.skill-item').attr('id').replace('skill', ''));
+			uploadSkill(skillsId);
+			editSkillDialog.showModal();
+		});
 
         $('#save-skill-button').on('click', function() {
 			var id = $(editSkillDialog).attr('data-dataID');
@@ -507,7 +506,7 @@
 				for (var i = 0; i < profile.skills.length; i++) {
 					if (profile.skills[i].id == 'skill' + id) {
 						profile.skills[i].skill = newSkillName;
-						profile.skills[i].rating = parseInt(newSkillRating);
+						profile.skills[i].rating = newSkillRating;
 						break;
 					}
 				}
@@ -579,10 +578,10 @@
 	            $(mainContent).find('.item-period').text(projectDateFrom + ' - ' + projectDateTo);
 	            $(mainContent).find('.item-description').text(projectDesc);
 
-				$(mainContent).find('.edit-project-button').on('click', function() {
-					uploadProjectData(projectId);
-					editProjectDialog.showModal();
-				});
+				// $(mainContent).find('.edit-project-button').on('click', function() {
+				// 	uploadProjectData(projectId);
+				// 	editProjectDialog.showModal();
+				// });
 
 	            //Add project to DB
 	            var experienceSet = {
@@ -635,6 +634,12 @@
 				.parents('.mdl-textfield').addClass('is-dirty');
 		}
 
+		$('.edit-project-button').on('click', function() {
+			var projectId = parseInt($(this).parents('.project-item').attr('id').replace('project', ''));
+			uploadProjectData(projectId);
+			editProjectDialog.showModal();
+		});
+
         $('#save-project-button').on('click', function() {
 			var id = $(editProjectDialog).attr('data-dataID');
             var mainContent = $("#project" + id);
@@ -659,8 +664,8 @@
 				for (var i = 0; i < profile.experiences.length; i++) {
 					if (profile.experiences[i].id ==  'project' + id) {
 						profile.experiences[i].title = newProjectTitle;
-						profile.experiences[i].from = parseInt(newProjectDateFrom);
-						profile.experiences[i].to = parseInt(newProjectDateTo);
+						profile.experiences[i].from = newProjectDateFrom;
+						profile.experiences[i].to = newProjectDateTo;
 						profile.experiences[i].desc = newProjectDesc;
 						break;
 					}
@@ -729,10 +734,10 @@
 				$(mainContent).find('.item-period').text(learningDateFrom + ' - ' + learningDateTo);
 				$(mainContent).find('.item-description').text(learningDesc);
 
-				$(mainContent).find('.edit-learning-button').on('click', function() {
-					uploadLearningData(learningId);
-					editLearningDialog.showModal();
-				});
+				// $(mainContent).find('.edit-learning-button').on('click', function() {
+				// 	uploadLearningData(learningId);
+				// 	editLearningDialog.showModal();
+				// });
 
 				//Add project to DB
 				var learningSet = {
@@ -785,6 +790,11 @@
 				.parents('.mdl-textfield').addClass('is-dirty');
 		}
 
+		$('.edit-learning-button').on('click', function() {
+			var learningId = parseInt($(this).parents('.learning-item').attr('id').replace('learning', ''));
+			uploadLearningData(learningId);
+			editLearningDialog.showModal();
+		});
 
         $('#save-learning-button').on('click', function() {
 			var id = $(editLearningDialog).attr('data-dataID');
@@ -810,8 +820,8 @@
 				for (var i = 0; i < profile.externalLinks.length; i++) {
 					if (profile.externalLinks[i].id ==  'learning' + id) {
 						profile.externalLinks[i].title = newLearningTitle;
-						profile.externalLinks[i].from = parseInt(newLearningDateFrom);
-						profile.externalLinks[i].to = parseInt(newLearningDateTo);
+						profile.externalLinks[i].from = newLearningDateFrom;
+						profile.externalLinks[i].to = newLearningDateTo;
 						profile.externalLinks[i].desc = newLearningDesc;
 						break;
 					}
@@ -875,10 +885,10 @@
 	            $(materializedEdu).find('.item-description').text(eduDesc);
 	            $(materializedEdu).find('.item-institute').text(eduInstitution);
 
-				$(mainContent).find('.edit-edu-button').on('click', function() {
-					uploadEducation(eduId);
-					editEduDialog.showModal();
-				});
+				// $(mainContent).find('.edit-edu-button').on('click', function() {
+				// 	uploadEducation(eduId);
+				// 	editEduDialog.showModal();
+				// });
 				// $(editEduDialog).find('.close').on('click', function() {
 				// 	clearFields(editEduDialog);
 				// 	editEduDialog.close();
@@ -892,8 +902,7 @@
 	                institute: eduInstitution,
 	                from: eduDateFrom,
 	                to: eduDateTo,
-	                description: eduDesc,
-	                verifiedCount: 0
+	                description: eduDesc
 	            };
 
 	            if (profile.educations) {
@@ -934,6 +943,12 @@
 				.parents('.mdl-textfield').addClass('is-dirty');
 		}
 
+		$('.edit-edu-button').on('click', function() {
+			var eduId = parseInt($(this).parents('.education-item').attr('id').replace('edu', ''));
+			uploadEducation(eduId);
+			editEduDialog.showModal();
+		});
+
         $('#save-edu-button').on('click', function() {
 			var id = $(editEduDialog).attr('data-dataID');
             var mainContent = $('#edu' + id);
@@ -961,8 +976,8 @@
 					if (profile.educations[i].id == 'edu' + id) {
 						profile.educations[i].degree = newEduDegree;
 						profile.educations[i].institute = newEduInstitute;
-						profile.educations[i].from = parseInt(newEdutDateFrom);
-						profile.educations[i].to = parseInt(newEduDateTo);
+						profile.educations[i].from = newEdutDateFrom;
+						profile.educations[i].to = newEduDateTo;
 						profile.educations[i].description = newEduDesc;
 						break;
 					}
@@ -1023,10 +1038,10 @@
 	            $(mainContent).find('.service-title').text(serviceTitle);
 	            $(mainContent).find('.service-desc').text(serviceDesc);
 
-				$(mainContent).find('.edit-service-button').on('click', function() {
-					uploadService(serviceId);
-					editServiceDialog.showModal();
-				});
+				// $(mainContent).find('.edit-service-button').on('click', function() {
+				// 	uploadService(serviceId);
+				// 	editServiceDialog.showModal();
+				// });
 				// $(editServiceDialog).find('.close').on('click', function() {
 				// 	clearFields(editServiceDialog);
 				// 	$('#edit-service-iconpicker').iconpicker('setIcon', 'fa-');
@@ -1079,6 +1094,12 @@
 				.parents('.mdl-textfield').addClass('is-dirty');
 			$('#edit-service-iconpicker').iconpicker('setIcon', data.icon);
 		}
+
+		$('.edit-service-button').on('click', function() {
+			var serviceId = parseInt($(this).parents('.service-item').attr('id').replace('service', ''));
+			uploadService(serviceId);
+			editServiceDialog.showModal();
+		});
 
         $('#save-service-button').on('click', function() {
 			var id = $(editServiceDialog).attr('data-dataID');

@@ -41,6 +41,7 @@
         <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css">
         <link href="../plugins/fine-uploader/fine-uploader/fine-uploader-gallery.min.css" rel="stylesheet">
         <link href="../../plugins/fine-uploader/fine-uploader/fine-uploader.min.css" rel="stylesheet">
+		<link href="css/dialog-polyfill.css" rel="stylesheet" />
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="../css/profile.css" />
@@ -290,7 +291,7 @@
 											<i class="material-icons">verified_user</i>
 										</button>
 										<div class="mdl-tooltip" data-mdl-for="verify-all-skill-button">
-											Verify all learning
+											Verify all skills
 										</div>
 									</div>
                                 </div>
@@ -342,7 +343,7 @@
 											<i class="material-icons">verified_user</i>
 										</button>
 										<div class="mdl-tooltip" data-mdl-for="verify-all-project-button">
-											Verify all learning
+											Verify all projects
 										</div>
 									</div>
                                 </div>
@@ -449,14 +450,14 @@
 													<div class="main-content">
 														<div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
 															<% if (user.profile.services[i].verifiedCount > 0) { %>
-															<div class="service-icon fbox-icon mdl-badge mdl-badge--overlap verify-badge" data-badge="<%=user.profile.services[i].verifiedCount%>">
+															<div class="service-icon fbox-icon mdl-badge service-badge verify-badge" data-badge="<%=user.profile.services[i].verifiedCount%>">
 																<i id="service-icon<%=i+1%>" class="fa <%=user.profile.services[i].icon%>"></i>
 																<div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="service-icon<%=i+1%>">
 																	Verified by <%=user.profile.services[i].verifiedCount%> other(s)
 																</div>
 															</div>
 															<% } else { %>
-															<div class="service-icon fbox-icon verify-badge mdl-badge--overlap" data-badge="">
+															<div class="service-icon fbox-icon verify-badge service-badge" data-badge="">
 																<i id="service-icon<%=i+1%>" class="fa <%=user.profile.services[i].icon%>"></i>
 																<div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="service-icon<%=i+1%>"  style="display: none;">
 																</div>
@@ -484,6 +485,7 @@
 							</div>
 						</div>
 
+						<% if (user.profile && user.profile.qualifications) { %>
                         <div class="row card-block">
                             <div class="col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
                                 <div class="mdl-card mdl-shadow--2dp">
@@ -496,7 +498,7 @@
                                 </div>
                             </div>
                         </div>
-
+						<% } %>
                     </div>
                 </div>
             </div>
@@ -594,6 +596,8 @@
         <!-- Script for Google Material Design Lite -->
         <script type="text/javascript" src="../js/mdl/material.min.js"></script>
 
+		<script type="text/javascript" src="js/dialog-polyfill.js"></script>
+
 		<script src="/js/authenticate-main.js"></script>
 
         <script text="text/javascript">
@@ -617,7 +621,9 @@
 					.siblings('.mdl-card__supporting-text')
 					.find('.verify-component');
 				for (var i = 0; i < verifyComponents.length; i++) {
-					verifyComponent(verifyComponents[i]);
+					if (!$(verifyComponents[i]).hasClass('verified')) {
+						verifyComponent(verifyComponents[i]);
+					}
 				}
 			});
 
@@ -660,27 +666,8 @@
 
 					$(tooltip).css('display', 'block');
 				}
-
-				//Update verifiedCount property
-				// var id = $(e).attr('id');
-				// var elementCategory = $(e).attr('data-category');
-				// var category;
-				// var data;
-                //
-				// if (user.profile.hasOwnProperty(elementCategory)) {
-				// 	category = user.profile[elementCategory.toString()];
-				// 	for (var i = 0; i < category.length; i++) {
-				// 		if (category[i].id === id) {
-				// 			data = category[i];
-				// 			break;
-				// 		}
-				// 	}
-                //
-				// 	if (data) {
-				// 		data.verifiedCount = verifiedCount;
-				// 	}
-				// }
 			}
+
         </script>
 
         <script type="text/template" id="qq-template">
