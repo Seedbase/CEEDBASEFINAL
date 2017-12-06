@@ -215,7 +215,7 @@
 																				<%=user.profile.skills[i].skill%>
 																			</span>
 																			<div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="skill-title<%=i+1%>">
-																				Verified by <%=user.profile.skills[i].verifiedCount%> other(s)
+																				Verified by <%=user.profile.skills[i].verifiedCount%> individual(s)
 																			</div>
 																		<% } else { %>
 																			<span id="skill-title<%=i+1%>" class="verify-badge skill-title" data-badge="">
@@ -266,7 +266,7 @@
 																		<h4 class="item-title"><%= user.profile.experiences[i].title%></h4>
 																	</span>
 																	<div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="project-badge<%=i+1%>">
-																		Verified by <%=user.profile.experiences[i].verifiedCount%> other(s)
+																		Verified by <%=user.profile.experiences[i].verifiedCount%> individual(s)
 																	</div>
 																	<% } else { %>
 																	<span id="project-badge<%=i+1%>" class="verify-badge" data-badge="">
@@ -311,14 +311,13 @@
 																			<h4 class="item-title"><%= user.profile.externalLinks[i].title%></h4>
 																		</span>
 																		<div class="mdl-tooltip mdl-tooltip-right" data-mdl-for="learning-badge<%=i+1%>">
-																			Verified by <%=user.profile.externalLinks[i].verifiedCount%> other(s)
+																			Verified by <%=user.profile.externalLinks[i].verifiedCount%> individual(s)
 																		</div>
 																		<% } else { %>
 																		<span id="learning-badge<%=i+1%>" class="verify-badge" data-badge="">
 																			<h4 class="item-title"><%= user.profile.externalLinks[i].title%></h4>
 																		</span>
-																		<div class="mdl-tooltip mdl-tooltip-right" data-mdl-for="learning-badge<%=i+1%>" style="display: none;">
-																		</div>
+																		<div class="mdl-tooltip mdl-tooltip-right" data-mdl-for="learning-badge<%=i+1%>" style="display: none;"></div>
 																		<% } %>
 																		<span class="item-period"><%= user.profile.externalLinks[i].from %> - <%= user.profile.externalLinks[i].to %></span>
 																		<p class="item-description"><%= user.profile.externalLinks[i].description %></p>
@@ -382,14 +381,14 @@
 													<div class="main-content">
 														<div class="feature-box fbox-center fbox-effect nobottomborder" data-animate="fadeIn">
 															<% if (user.profile.services[i].verifiedCount > 0) { %>
-															<div class="service-icon fbox-icon mdl-badge mdl-badge--overlap verify-badge" data-badge="<%=user.profile.services[i].verifiedCount%>">
+															<div class="service-icon fbox-icon mdl-badge service-badge verify-badge" data-badge="<%=user.profile.services[i].verifiedCount%>">
 																<i id="service-icon<%=i+1%>" class="fa <%=user.profile.services[i].icon%>"></i>
 																<div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="service-icon<%=i+1%>">
-																	Verified by <%=user.profile.services[i].verifiedCount%> other(s)
+																	Verified by <%=user.profile.services[i].verifiedCount%> individual(s)
 																</div>
 															</div>
 															<% } else { %>
-															<div class="service-icon fbox-icon verify-badge mdl-badge--overlap" data-badge="">
+															<div class="service-icon fbox-icon verify-badge service-badge" data-badge="">
 																<i id="service-icon<%=i+1%>" class="fa <%=user.profile.services[i].icon%>"></i>
 																<div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="service-icon<%=i+1%>"  style="display: none;">
 																</div>
@@ -427,7 +426,7 @@
                     </div>
                 </div>
 				<button id="pokeOrShowInterest" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent fixedBottomRight" type="button">
-					I LIKE THIS CREATIVE
+					I LIKE THIS CREATIVE <i class="fa fa-thumbs-o-up fa-lg"></i>
 				</button>
             </div>
 

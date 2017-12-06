@@ -52,7 +52,7 @@ app.use('/client', client);
 
 
 app.get('/', function (req,  res) {
-	User.find({$or: [{'isUserProfileAuthenticated':true}, {'isUserSkillsAuthenticated':true}, {'isUserExternalLinksAuthenticated': true}, {'isUserServicesAuthenticated': true}, {'isUserPortfoliosAuthenticated': true}, {'isUserExperiencesAuthenticated': true}]	}).exec(function (err, users) {
+	User.find({$or: [{'isUserProfileAuthenticated':true}, {'isUserSkillsAuthenticated':true}, {'isUserExternalLinksAuthenticated': true}, {'isUserServicesAuthenticated': true}, {'isUserExperiencesAuthenticated': true}]	}).exec(function (err, users) {
 		if (err) {
 			res.render('index', {users: undefined});
 		}
@@ -245,7 +245,7 @@ app.post('/profile/authenticate/user', function(req, res) {
 		user.isUserSkillsAuthenticated = req.body.user.isUserSkillsAuthenticated;
 		user.isUserExternalLinksAuthenticated = req.body.user.isUserExternalLinksAuthenticated;
 		user.isUserServicesAuthenticated = req.body.user.isUserServicesAuthenticated;
-		user.isUserPortfoliosAuthenticated = req.body.user.isUserPortfoliosAuthenticated;
+		// user.isUserPortfoliosAuthenticated = req.body.user.isUserPortfoliosAuthenticated;
 		user.isUserExperiencesAuthenticated = req.body.user.isUserExperiencesAuthenticated;
 		user.save(function(err) {
 			if (err){
@@ -284,6 +284,7 @@ app.post('/profile/authenticate/complete/user', function(req, res) {
 		console.log(JSON.stringify(req.body.user));
 		user.isUserProfileAuthenticated = true;
 		user.userProfileAuthenticatedBy = req.body.authenticator.organisation;
+		user.profile = req.body.user.profile;
 		user.save(function(err) {
 			if (err){
 				res.render('profile-authentication' , {user:req.body.user});
