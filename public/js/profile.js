@@ -87,14 +87,14 @@
 				$(messageUl).append(unreadMessage);
 			}
 
-            // $.ajax({
-            //     type: 'POST',
-            //     url: '/profile/user/messages/markread',
-            //     data: requestData,
-            //     success: function (response) {
-            //         console.log(response);
-            //     }
-            // });
+            $.ajax({
+                type: 'POST',
+                url: '/profile/user/messages/markread',
+                data: requestData,
+                success: function (response) {
+                    console.log(response);
+                }
+            });
         });
 
         //Getting user profile
