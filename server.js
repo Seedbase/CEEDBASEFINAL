@@ -478,7 +478,7 @@ app.post('/profile/user/messages/markread', function (req, res) {
 app.post('/client/verification/resendemail', function (req, res) {
 	ClientModel.findOne({email: req.body.clientEmail}).exec(function(err, client) {
 		if (err) {
-			res.render('common-error', {error: 'Something went wrong. Pleae try again.'});
+			res.render('common-error', {error: 'Something went wrong. Please try again.'});
 		}
 		ejs.renderFile(path.resolve('./views/clientVerificationRequestTemplate.ejs'), {
 	        name: 'ceedbase',
